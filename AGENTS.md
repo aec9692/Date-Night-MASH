@@ -48,7 +48,7 @@ Main risk: a budget or filter leaves no affordable combination. Keep the preset 
 
 - All costs are USD estimates for two people. Store and compare money as integer cents.
 - Accept a finite numeric budget from $0 to $10,000 with at most two decimal places. Reject missing, negative, oversized, malformed, and unexpected input.
-- Limit JSON bodies (for example, 2 KB); return readable JSON errors for malformed JSON and oversized bodies.
+- Limit JSON bodies to 4 KB; return readable JSON errors for malformed JSON and oversized bodies. This accommodates exclusions from the expanded catalog plus custom ideas and locks.
 - Accept only documented setting values: any, indoor, outdoor, home. A plan's four options must each support the selected setting.
 - Select one option per category, then choose randomly among complete combinations at or below budget. Never rely on an unbounded random retry loop.
 - Distinguish invalid requests (400), oversized bodies (413), no affordable combination (422), and unexpected server failures (500).
@@ -62,7 +62,9 @@ The owner requested an interactive game upgrade and authorized Codex to handle m
 
 Upgrade behavior:
 - Shared validation and combination enumeration live in public/planner.js. The server remains authoritative; browser counts are a preview.
-- Generation may also receive mood, excluded, customOptions, locked, and previous. Validate every field and reject undocumented fields. Keep JSON requests bounded to 2 KB.
+- Generation may also receive mood, spending, excluded, customOptions, locked, and previous. Validate every field and reject undocumented fields. Keep JSON requests bounded to 4 KB.
+- Spending defaults to treat: select estimated totals at 90–100% of budget when available, otherwise at least 95% of the highest attainable total. Flexible allows any affordable total. Apply mood weighting after spending selection. Explain unattainable budgets honestly and never inflate catalog prices.
+- The catalog has 65 illustrative ideas, including 24 activities. Browser search/price browsing changes visibility, not inclusion. Keep counts memory-efficient without retaining every plan in the browser.
 - Mood values are surprise, cozy, adventurous, romantic, and competitive. Mood weights valid combinations; it must not bypass budget, setting, exclusion, or lock constraints.
 - Support at most four custom ideas with names up to 48 characters and integer estimated prices. Saved custom ideas require the same validation as incoming requests.
 - Keep explicit locks during full regeneration. A single-category reroll fixes the other three picks and returns a different complete combination when one exists. Explain unchanged results when no alternative fits.

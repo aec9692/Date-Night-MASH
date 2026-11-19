@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const { once } = require('node:events');
 const app = require('../server');
 const catalog = require('../data/options.json');
+const planner = require('../public/planner');
 let server;
 let base;
 
@@ -33,9 +34,9 @@ test('catalog contains unique IDs, four categories, integer prices, and document
   const response = await fetch(`${base}/api/options`);
   assert.equal(response.status, 200);
   const data = await response.json();
-  assert.equal(data.options.length, 24);
-  assert.equal(new Set(data.options.map(option => option.id)).size, 24);
-  for (const category of data.categories) assert.equal(data.options.filter(option => option.category === category).length, 6);
+  assert.equal(data.options.length, 65);
+  assert.equal(new Set(data.options.map(option => option.id)).size, 65);
+  assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category).length), [16, 24, 12, 13]);
   for (const option of data.options) {
     assert.ok(Number.isSafeInteger(option.costCents) && option.costCents >= 0);
     assert.ok(option.settings.length && option.settings.every(setting => ['indoor', 'outdoor', 'home'].includes(setting)));
@@ -100,7 +101,7 @@ test('rejects missing body, malformed JSON, primitive JSON, and non-finite JSON 
 });
 
 test('rejects oversized JSON with 413', async () => {
-  const response = await generate({ budget: 50, extra: 'x'.repeat(3000) });
+  const response = await generate({ budget: 50, extra: 'x'.repeat(6000) });
   assert.equal(response.status, 413);
   assert.ok((await response.json()).error);
 });
@@ -127,13 +128,15 @@ test('moods remain preferences and possibility counts match the full feasible se
     const plan = await response.json();
     assert.equal(response.status, 200);
     assert.equal(plan.mood, mood);
-    assert.equal(plan.combinationCount, 1296);
+    assert.equal(plan.combinationCount, 16 * 24 * 12 * 13);
     assert.equal(typeof plan.title, 'string');
   }
   const free = await (await generate({ budget: 0 })).json();
-  assert.equal(free.combinationCount, 15);
+  const freeCount = planner.categories.reduce((count, category) => count * catalog.filter(option => option.category === category && option.costCents === 0).length, 1);
+  assert.equal(free.combinationCount, freeCount);
   const home = await (await generate({ budget: 10000, setting: 'home' })).json();
-  assert.equal(home.combinationCount, 36);
+  const homeCount = planner.categories.reduce((count, category) => count * catalog.filter(option => option.category === category && option.settings.includes('home')).length, 1);
+  assert.equal(home.combinationCount, homeCount);
 });
 
 test('locks are preserved and a single-category reroll changes only that category', async () => {
@@ -211,7 +214,95 @@ test('the maximum UI preferences fit within the bounded request body', async () 
   const previous = customOptions.map(option => option.id);
   const body = { budget: 10000, setting: 'any', mood: 'surprise', customOptions, excluded: catalog.map(option => option.id),
     locked: Object.fromEntries(customOptions.map(option => [option.category, option.id])), previous };
-  assert.ok(Buffer.byteLength(JSON.stringify(body)) < 2048);
+  assert.ok(Buffer.byteLength(JSON.stringify(body)) < 4096);
   // Four $10,000 ideas exceed the total budget, but the request itself is valid.
   assert.equal((await generate(body)).status, 422);
+});
+
+test('treat mode uses 90–100% of a $1,000 budget without overspending, across settings and moods', async () => {
+  for (const setting of planner.settings) {
+    for (const mood of planner.moods) {
+      const response = await generate({ budget: 1000, setting, mood });
+      const plan = await response.json();
+      assert.equal(response.status, 200);
+      assert.equal(plan.spending, 'treat');
+      assert.ok(plan.totalCents >= 90000 && plan.totalCents <= 100000, `${setting}/${mood}: ${plan.totalCents}`);
+      assert.ok(plan.picks.every(pick => setting === 'any' || pick.settings.includes(setting)));
+    }
+  }
+});
+
+test('treat mode scales from affordable dates through premium $10,000 occasions', async () => {
+  for (const budget of [25, 50, 100, 250, 500, 1000, 2500, 10000]) {
+    const response = await generate({ budget, spending: 'treat' });
+    const plan = await response.json();
+    assert.equal(response.status, 200);
+    assert.ok(plan.totalCents >= budget * 90 && plan.totalCents <= budget * 100);
+    assert.equal(plan.remainingCents, budget * 100 - plan.totalCents);
+  }
+});
+
+test('flexible mode still includes inexpensive choices and treat mode prefers near-budget choices', () => {
+  const flexible = planner.prepare({ budget: 1000, spending: 'flexible' }, catalog);
+  const treat = planner.prepare({ budget: 1000, spending: 'treat' }, catalog);
+  assert.equal(flexible.combinationCount, treat.combinationCount);
+  assert.ok(flexible.plans.some(picks => picks.reduce((sum, pick) => sum + pick.costCents, 0) === 0));
+  assert.ok(treat.plans.every(picks => picks.reduce((sum, pick) => sum + pick.costCents, 0) >= 90000));
+  assert.ok(flexible.plans.length > treat.plans.length);
+});
+
+test('when constraints cannot spend the budget, treat mode aims near the attainable maximum', async () => {
+  const locked = { dinner: 'dinner-pantry', treat: 'treat-pantry', entertainment: 'entertainment-movie' };
+  const response = await generate({ budget: 1000, setting: 'home', locked });
+  const plan = await response.json();
+  assert.equal(response.status, 200);
+  assert.equal(plan.maximumCents, 50000);
+  assert.ok(plan.totalCents >= 47500 && plan.totalCents <= 50000);
+  assert.ok(plan.totalCents < plan.budgetCents * .9);
+  for (const pick of plan.picks) if (pick.category !== 'activity') assert.equal(pick.id, locked[pick.category]);
+});
+
+test('preview counts match full selection without retaining every combination', () => {
+  for (const body of [{ budget: 0 }, { budget: 1000 }, { budget: 10000, spending: 'flexible' },
+    { budget: 1000, locked: { dinner: 'dinner-pantry' } },
+    { budget: 0, locked: { dinner: 'dinner-pantry', activity: 'activity-games', treat: 'treat-pantry', entertainment: 'entertainment-movie' }, previous: ['dinner-pantry', 'activity-games', 'treat-pantry', 'entertainment-movie'] }]) {
+    const full = planner.prepare(body, catalog);
+    const preview = planner.prepare(body, catalog, false);
+    assert.equal(full.combinationCount, preview.combinationCount);
+    assert.equal(full.maximumCents, preview.maximumCents);
+    assert.deepEqual(preview.plans, []);
+  }
+});
+
+test('unknown, null, and wrongly typed spending modes are rejected', async () => {
+  for (const spending of ['spend-it-all', null, true, []]) assert.equal((await generate({ budget: 1000, spending })).status, 400);
+});
+
+test('near-budget rerolls preserve other picks and return an honest attainable maximum', async () => {
+  const first = await (await generate({ budget: 1000 })).json();
+  const locked = Object.fromEntries(first.picks.filter(pick => pick.category !== 'activity').map(pick => [pick.category, pick.id]));
+  const response = await generate({ budget: 1000, locked, previous: first.picks.map(pick => pick.id) });
+  const second = await response.json();
+  assert.equal(response.status, 200);
+  for (const pick of second.picks) if (pick.category !== 'activity') assert.equal(pick.id, locked[pick.category]);
+  assert.ok(second.totalCents <= 100000);
+  const expectedTarget = second.maximumCents >= 90000 ? 90000 : Math.ceil(second.maximumCents * .95);
+  assert.equal(second.targetCents, expectedTarget);
+  assert.ok(second.totalCents >= expectedTarget);
+  assert.ok(second.picks[1].id !== first.picks[1].id || second.unchanged);
+});
+
+test('an attainable 90% target takes priority over the fallback band near the maximum', () => {
+  const fixture = [
+    { id: 'd', category: 'dinner', costCents: 8800, settings: ['home'] },
+    { id: 'a-free', category: 'activity', costCents: 0, settings: ['home'] },
+    { id: 'a-upgrade', category: 'activity', costCents: 400, settings: ['home'] },
+    { id: 't', category: 'treat', costCents: 0, settings: ['home'] },
+    { id: 'e', category: 'entertainment', costCents: 0, settings: ['home'] }
+  ];
+  const prepared = planner.prepare({ budget: 100 }, fixture);
+  assert.equal(prepared.maximumCents, 9200);
+  assert.equal(prepared.targetCents, 9000);
+  assert.equal(prepared.plans.length, 1);
+  assert.equal(prepared.plans[0].reduce((sum, pick) => sum + pick.costCents, 0), 9200);
 });

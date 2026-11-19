@@ -2,7 +2,7 @@
 window.DateCard = (() => {
   const money = cents => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(cents / 100);
   function text(plan) {
-    return [plan.title || 'DATE NIGHT MASH', `Setting: ${plan.setting} · Mood: ${plan.mood || 'surprise'}`,
+    return [plan.title || 'DATE NIGHT MASH', `Setting: ${plan.setting} · Mood: ${plan.mood || 'surprise'}`, `Spending style: ${plan.spending === 'treat' ? 'Treat us' : 'Flexible'}`,
       `Budget for two: ${money(plan.budgetCents)}`, '',
       ...plan.picks.flatMap(pick => [`${pick.category.toUpperCase()}: ${pick.name} — ${money(pick.costCents)}`, pick.description, pick.tip || '', '']),
       `Estimated total: ${money(plan.totalCents)}`, `Remaining budget: ${money(plan.remainingCents)}`, '', plan.notice].join('\n');
@@ -36,7 +36,7 @@ window.DateCard = (() => {
     }
     label(70, 83, 'DATE NIGHT MASH  /  YOUR NEXT LITTLE ADVENTURE', 18, 700, '#7042d2');
     lines(plan.title || 'A little date night magic', 29).slice(0, 2).forEach((line, index) => label(70, 145 + index * 49, line, 43, 800));
-    label(70, 222, `${plan.setting.toUpperCase()}  ·  ${(plan.mood || 'surprise').toUpperCase()}  ·  FOR TWO`, 18, 700, '#675f72');
+    label(70, 222, `${plan.setting.toUpperCase()}  ·  ${(plan.mood || 'surprise').toUpperCase()}  ·  ${plan.spending === 'treat' ? 'TREAT US' : 'FLEXIBLE'}  ·  FOR TWO`, 18, 700, '#675f72');
     const colors = ['#ffd8bd', '#e8dcff', '#ffd6e6', '#dcebb7'];
     plan.picks.forEach((pick, index) => {
       const y = 252 + index * 150;
@@ -51,7 +51,7 @@ window.DateCard = (() => {
     label(70, 960, money(plan.totalCents), 52, 800);
     label(70, 1002, `${money(plan.remainingCents)} left from your ${money(plan.budgetCents)} budget`, 23, 400);
     label(70, 1073, 'The best part of the plan? Who you share it with.', 24, 700, '#7042d2');
-    label(70, 1126, 'USD estimates for two. Prices vary by location.', 17, 400, '#675f72');
+    label(70, 1126, 'Illustrative estimates for two. Confirm full quotes.', 17, 400, '#675f72');
     label(70, 1155, 'Free ideas use items or access you already have.', 17, 400, '#675f72');
     return new XMLSerializer().serializeToString(root);
   }
