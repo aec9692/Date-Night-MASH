@@ -5,7 +5,7 @@ Group members: Adrainn Coloma, Andrew Russo, Alex Marshall.
 
 ## Current version
 
-An interactive MASH game generates a four-part date within a total budget for two. The default deck contains 18 source-linked New Jersey choices around Paterson: 5 dinner plans, 5 activities, 4 treats, and 4 entertainment ideas across 11 venues. The 96 original ideas remain available, with 24 per category. Choose local, original, or a mixed deck, set a date/mood/budget, and watch the reveal. Lock favorites, reroll one category, exclude ideas, or add personal ideas. Save dates in this browser and download a phone-friendly PDF or plain text. No accounts, database, API keys, or paid services are used.
+An interactive MASH game generates a four-part date within a total budget for two. The default deck contains 50 source-linked New Jersey choices around Paterson: 18 dinner plans, 12 activities, 12 treats, and 8 entertainment ideas across 30 venues. The 96 original ideas remain available, with 24 per category. Choose local, original, or a mixed deck, set a date/mood/budget, and watch the reveal. Lock favorites, reroll one category, exclude ideas, or add personal ideas. Save dates in this browser and download a phone-friendly PDF or plain text. No accounts, database, API keys, or paid services are used.
 
 Local entries cite posted prices checked November 19, 2026; [DATA_SOURCES.md](DATA_SOURCES.md) records the evidence and assumptions. Each result separates the posted subtotal from estimated tax, optional tip/donation allowances, and excluded costs. Original ideas remain illustrative estimates. Neither is a live booking quote. Travel, parking, extra orders, unconfirmed fees, schedules, and availability need checking before a visit.
 
@@ -39,10 +39,10 @@ Search and price-range browsing help explore the larger decks; they only change 
 | Route | Input | Response |
 | --- | --- | --- |
 | GET /api/health | None | Application name and status |
-| GET /api/options | None; query parameters rejected | Categories, settings, moods, spending modes, areas, 114 options, and price basis |
+| GET /api/options | None; query parameters rejected | Categories, settings, moods, spending modes, areas, 146 options, and price basis |
 | POST /api/generate | JSON such as `{"budget":1000,"area":"paterson","date":"2026-11-20","mood":"romantic","spending":"treat"}` | Four picks including local price/source metadata when applicable, title, preferences, integer-cent totals, combinationCount, unchanged, customOptions, and estimate notice |
 
-Budget must be a number from 0 through 10000, with at most two decimal places. Setting is optional (defaults to `any`); accepted values are `any`, `indoor`, `outdoor`, and `home`. Each pick supports the selected setting; indoor choices can include at-home ideas. Unknown fields and query parameters are rejected. Errors are JSON with an `error` message: 400 for invalid input, 413 for a body over 4 KB, 422 for no complete affordable plan (with minimumCents when available), and 500 for an unexpected failure. The 4 KB bound accommodates expanded exclusions plus personal ideas and locks.
+Budget must be a number from 0 through 10000, with at most two decimal places. Setting is optional (defaults to `any`); accepted values are `any`, `indoor`, `outdoor`, and `home`. Each pick supports the selected setting; indoor choices can include at-home ideas. Unknown fields and query parameters are rejected. Errors are JSON with an `error` message: 400 for invalid input, 413 for a body over 8 KB, 422 for no complete affordable plan (with minimumCents when available), and 500 for an unexpected failure. The 8 KB bound accommodates expanded exclusions plus personal ideas and locks.
 
 Additional optional generation fields:
 
@@ -85,3 +85,15 @@ git switch -c andrew/setting-filter origin/main
 After committing your changes, publish your branch with `git push -u origin HEAD`. Open a GitHub pull request into `main` and have a teammate review it before merging. Vercel uses `main` for production.
 
 The owner explicitly authorized Codex to handle the merges for the initial full build. The teammate-review workflow remains the default for later tasks. Do not start a duplicate implementation on another computer: pull the latest main first and agree on the next change.
+
+## Exploring and taking your date out
+
+Browse by town (including Wayne, Montclair and Totowa), category, price, or text. Browsing changes visibility only. Open Details / choose this for source-linked prices and directions; Build around this locks that category for the next roll. A locked option still has to fit the selected date, setting and budget.
+
+Take this date out opens a four-stop companion with directions, a whole-route link from Paterson, completion/undo controls, and conversation prompts. Progress stays only for the current visit and resets for a different plan or date. It is a suggested order, not timed reservations or optimized routing. Whole-route links use at most three waypoints for phone-browser compatibility.
+
+Phone layouts use single-column result cards, larger tap targets, category tabs, safe-area spacing and bottom navigation. The manifest and local icons support adding the website to a phone home screen; Safari instructions follow [Apple’s web-app guide](https://support.apple.com/guide/iphone/turn-a-website-into-an-app-iphea86e5236/ios). Generating plans needs a network connection; no offline service worker is installed. Home-screen use is separate from native App Store publication.
+
+Sound is off until enabled. The reveal uses synthesized slowing ticks, cross-out taps and layered winner notes. Muting, skipping or leaving the page stops scheduled sound. Reduced motion and Skip the suspense bypass the rolling animation.
+
+Server selection counts weighted candidates and draws a winner without retaining the full combination list. The original enumeration remains available to small fixtures; browser previews retain no candidates. No paid APIs or new runtime dependencies were added.

@@ -82,6 +82,7 @@ async function loadCatalog() {
     const data = await response.json();
     if (!Array.isArray(data.options) || !data.options.length) throw new Error('No ideas were returned.');
     catalog = data.options;
+    populateTowns();
     renderCatalog();
     loadFavorites();
     updatePossibilities();
@@ -126,7 +127,9 @@ function renderCatalog() {
     const active = options.filter(option => !excluded.has(option.id) && MashPlanner.eligible(option, area, date) && (setting === 'any' || option.settings.includes(setting))).length;
     const query = $('#idea-search').value.trim().toLowerCase();
     const tier = $('#idea-tier').value;
+    const town = $('#idea-town').value;
     const visible = options.filter(option => `${option.name} ${option.description} ${option.venue?.city || ''}`.toLowerCase().includes(query) &&
+      (town === 'all' || option.venue?.city === town) &&
       (tier === 'all' || tier === 'low' && option.costCents < 5000 || tier === 'mid' && option.costCents >= 5000 && option.costCents <= 20000 || tier === 'high' && option.costCents > 20000)).sort((a, b) => a.costCents - b.costCents);
     head.append(element('h3', label), element('p', `${active} in the mix · ${visible.length} shown`));
     const list = element('ul', undefined, 'option-list');
@@ -155,7 +158,10 @@ function renderCatalog() {
       emoji.setAttribute('aria-hidden', 'true');
       choice.append(emoji, copy);
       item.append(choice);
-      if (option.venue) item.append(element('span', `${option.venue.city}, NJ · source checked ${option.pricing.checkedOn}${eligible ? '' : ' · check setting/date'}`, 'venue-caption'));
+      if (option.venue) {
+        item.append(element('span', `${option.venue.city}, NJ · source checked ${option.pricing.checkedOn}${eligible ? '' : ' · check setting/date'}`, 'venue-caption'));
+        item.append(button('Details / choose this ↗', 'text-button idea-details', event => previewIdea(option, event.currentTarget)));
+      }
       if (option.custom) item.append(button('Remove custom idea', 'text-button remove-custom', () => {
         if (busy) return;
         customOptions = customOptions.filter(custom => custom.id !== option.id);
@@ -175,13 +181,14 @@ function renderCatalog() {
 function setBusy(value) {
   busy = value;
   document.body.classList.toggle('is-busy', value);
-  document.querySelectorAll('#plan-form input, #plan-form select, #plan-form button, #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, .option-choice, .remove-custom, .pick-controls button, #again, #reset-ideas').forEach(node => { node.disabled = value; });
+  document.querySelectorAll('#plan-form input, #plan-form select, #plan-form button, #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, #idea-town, #town-chips button, [data-deck], .idea-details, .option-choice, .remove-custom, .pick-controls button, #again, #reset-ideas, #date-start').forEach(node => { node.disabled = value; });
   if (!value && currentPlan) renderResult();
 }
 
 async function generate(event, rerollCategory = null) {
   event?.preventDefault();
   if (busy || !catalog.length || !$('#plan-form').reportValidity()) return;
+  MashShow.primeSound();
   const known = allOptions();
   if (rerollCategory && currentPlan.picks.some(pick => !known.some(option => option.id === pick.id))) {
     message('This date includes a custom idea you removed. Play MASH for a fresh plan, or add the idea back.', true);
@@ -270,6 +277,9 @@ function renderResult() {
   $('#result-notice').textContent = currentPlan.notice;
   $('#save').textContent = favorites.some(plan => planKey(plan) === planKey(currentPlan)) ? '♡ Date saved' : '♡ Save this date';
   $('#result').hidden = false;
+  $('#phone-date').removeAttribute('aria-disabled');
+  $('#date-start').disabled = busy;
+  DateCompanion.render(currentPlan);
 }
 
 function loadFavorites() {
@@ -371,6 +381,11 @@ document.querySelectorAll('[data-budget]').forEach(node => node.addEventListener
   updatePossibilities();
 }));
 $('#idea-search').addEventListener('input', renderCatalog);
+$('#idea-town').addEventListener('change', () => { syncTownChips(); renderCatalog(); });
+document.querySelectorAll('[data-deck]').forEach(tab => tab.addEventListener('click', () => {
+  $('#catalog').dataset.deck = tab.dataset.deck;
+  document.querySelectorAll('[data-deck]').forEach(other=>other.setAttribute('aria-pressed', String(other===tab)));
+}));
 $('#idea-tier').addEventListener('change', renderCatalog);
 $('#again').addEventListener('click', generate);
 $('#plan-form').addEventListener('input', event => {
@@ -435,3 +450,50 @@ function venueDetails(pick) {
   wrap.append(details);
   return wrap;
 }
+
+function populateTowns() {
+  const local = catalog.filter(option=>option.venue);
+  const towns = [...new Set(local.map(option=>option.venue.city))].sort();
+  $('#idea-town').replaceChildren(element('option','Every town'));
+  $('#idea-town').firstChild.value = 'all';
+  towns.forEach(town=>{ const option=element('option',town); option.value=town; $('#idea-town').append(option); });
+  $('#town-chips').replaceChildren();
+  ['all','Wayne','Montclair','Totowa','Paterson','Fairfield','Ridgewood'].filter(town=>town==='all'||towns.includes(town)).forEach(town=>{
+    const chip=button(town==='all'?'Every town':town,'town-chip',()=>{ $('#idea-town').value=town;syncTownChips();renderCatalog(); });
+    chip.dataset.town=town; $('#town-chips').append(chip);
+  });
+  $('#local-stats').textContent = `${local.length} NJ ideas · ${new Set(local.map(option=>option.venue.id)).size} places · ${towns.length} towns`;
+  syncTownChips();
+}
+function syncTownChips() {
+  $('#town-chips').querySelectorAll('button').forEach(chip=>chip.setAttribute('aria-pressed',String(chip.dataset.town===$('#idea-town').value)));
+}
+let previewTrigger;
+function previewIdea(option, trigger) {
+  if(busy) return;
+  previewTrigger=trigger;
+  const content=$('#preview-content'); content.replaceChildren();
+  const title=element('h2',option.name); title.id='preview-title';
+  content.append(element('p',`${labels[option.category]} · ${option.venue.city}, NJ`,'eyebrow'),title,element('strong',`${money(option.costCents)} estimated for two`),element('p',option.description),venueDetails(option));
+  const choose=button('Build around this ♡','',()=>{
+    if(busy)return;
+    locks[option.category]=option.id;excluded.delete(option.id);
+    if($('#area').value==='general')$('#area').value='paterson';
+    if($('#setting').value!=='any'&&!option.settings.includes($('#setting').value))$('#setting').value='any';
+    closePreview();renderCatalog();updatePossibilities();if(currentPlan)renderResult();
+    message(`${option.name} is kept for your next roll. Check the date and budget, then Play MASH.`);
+    $('#planner').scrollIntoView({block:'start'});$('#play').focus({preventScroll:true});
+  });
+  content.append(choose);
+  const dialog=$('#idea-preview');
+  if(typeof dialog.showModal==='function')dialog.showModal();else dialog.setAttribute('open','');
+  $('#preview-close').focus();
+}
+function closePreview() {
+  const dialog=$('#idea-preview');
+  if(typeof dialog.close==='function')dialog.close();else dialog.removeAttribute('open');
+  if(previewTrigger?.isConnected)previewTrigger.focus({preventScroll:true});
+}
+$('#preview-close').addEventListener('click',closePreview);
+$('#idea-preview').addEventListener('cancel',()=>{ if(previewTrigger?.isConnected)previewTrigger.focus({preventScroll:true}); });
+$('#phone-date').addEventListener('click',event=>{ if(!currentPlan){event.preventDefault();$('#planner').scrollIntoView({block:'start'});} });

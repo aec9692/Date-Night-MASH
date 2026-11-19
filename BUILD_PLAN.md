@@ -114,8 +114,8 @@ TESTING.md
 - The initial implementation was merged in PR #2. The game upgrade is prepared on `adrainn/mash-game-upgrade`: scrapbook-style interface, moods, budget slider, live counts, exclusions, custom ideas, animated/skippable reveals, named itineraries, locks, rerolls, compatible favorites, and SVG/text downloads. The owner authorized Codex to handle merges in this session. The normal staged deployed checks remain pending while Vercel access is unavailable; local implementation and tests do not count as passing those checks.
 - Node.js and npm were not found on the shell PATH; a portable Node.js 24 runtime is kept in ignored `.tools/` for local checks. Teammates should install Node.js 24 LTS to use the documented npm commands.
 - Vercel account connection, project import, deployment, and automatic redeployment remain unverified. Do not treat this plan as a deployed application.
-- The Paterson update adds 18 source-linked local choices across all four categories, an area selector, optional weekday-aware date filtering, detailed price assumptions, and PDF/native-share downloads. The original 96 ideas remain available. Check DATA_SOURCES.md before updating venue prices. Public deployment, actual phone/browser testing, live route/scheduling checks, and any native App Store packaging remain separate unfinished work.
-- The variety/spending update now has 96 total ideas, with 24 in each of the four categories, Treat us/Flexible spending modes, a $1,000 slider with quick presets, searchable/price-browsable decks, and an honest attainable-budget explanation. Expanded requests remain bounded to 4 KB. Local HTTP and DOM checks are recorded in TESTING.md; deployed verification is still pending.
+- The Paterson update now contains 50 source-linked local choices across all four categories and 30 venues, an area selector, optional weekday-aware date filtering, detailed price assumptions, and PDF/native-share downloads. The original 96 ideas remain available. Check DATA_SOURCES.md before updating venue prices. Public deployment, actual phone/browser testing, live route/scheduling checks, and any native App Store packaging remain separate unfinished work.
+- The variety/spending update now has 96 total ideas, with 24 in each of the four categories, Treat us/Flexible spending modes, a $1,000 slider with quick presets, searchable/price-browsable decks, and an honest attainable-budget explanation. Expanded requests remain bounded to 8 KB. Local HTTP and DOM checks are recorded in TESTING.md; deployed verification is still pending.
 
 ## Deployment references
 
@@ -124,3 +124,10 @@ TESTING.md
 - Collaboration and commit-author restrictions: https://vercel.com/docs/deployments/troubleshoot-project-collaboration
 
 Check current Hobby collaboration rules when connecting the three-person repository. Do not alter commit authorship to bypass restrictions or upgrade to a paid plan. Verify the expected deployment behavior for each member's contribution.
+
+## NJ discovery and phone-experience update
+
+- Implemented: 50 NJ options (18 dinner, 12 activity, 12 treat, 8 entertainment), 30 distinct venues, 13 towns. The original 96 ideas remain unchanged. Current official sources and allowances are in DATA_SOURCES.md.
+- Implemented: town/category browsing, source previews, build-around locks, opt-in rolling/reveal sound, date companion with progress/directions/conversation prompts, phone bottom navigation, standalone home-screen manifest and icons.
+- Implemented: constant retained-candidate memory for server generation; 8 KB bounded requests accommodate the expanded exclusions plus Unicode custom ideas.
+- Local API, simulated interaction and PDF checks are recorded in TESTING.md. Real-device sound/rendering and deployed cases remain pending. Git merge evidence does not establish a Vercel deployment. Native App Store packaging/review is separate.

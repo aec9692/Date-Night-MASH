@@ -2,6 +2,8 @@
 window.MashShow = (() => {
   let sound = false;
   let audio;
+  let finishReveal;
+  const voices = new Set();
   const categories = ['dinner', 'activity', 'treat', 'entertainment'];
   const labels = ['Dinner', 'Activity', 'Treat', 'Entertainment'];
   function node(tag, text, className) {
@@ -11,17 +13,35 @@ window.MashShow = (() => {
     return item;
   }
   function reducedMotion() { return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || false; }
-  function ping(index) {
+  function tone(frequency, duration = .09, volume = .025, type = 'sine', delay = 0, end = frequency) {
     if (!sound || !audio || audio.state !== 'running') return;
     const oscillator = audio.createOscillator();
     const gain = audio.createGain();
-    oscillator.type = 'sine';
-    oscillator.frequency.value = [392, 494, 587, 784][index];
-    gain.gain.setValueAtTime(.035, audio.currentTime);
-    gain.gain.exponentialRampToValueAtTime(.001, audio.currentTime + .17);
+    const start = audio.currentTime + delay;
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(frequency, start);
+    oscillator.frequency.exponentialRampToValueAtTime(end, start + duration);
+    gain.gain.setValueAtTime(.0001, start);
+    gain.gain.exponentialRampToValueAtTime(volume, start + .006);
+    gain.gain.exponentialRampToValueAtTime(.0001, start + duration);
     oscillator.connect(gain).connect(audio.destination);
-    oscillator.start();
-    oscillator.stop(audio.currentTime + .18);
+    voices.add(oscillator);
+    oscillator.onended = () => { voices.delete(oscillator); oscillator.disconnect(); gain.disconnect(); };
+    oscillator.start(start);
+    oscillator.stop(start + duration + .01);
+  }
+  function stopSound() {
+    voices.forEach(voice => { try { voice.stop(); } catch {} });
+    voices.clear();
+  }
+  function primeSound() {
+    if (sound && audio && audio.state !== 'running') audio.resume().catch(() => {});
+  }
+  function ping(index) {
+    const note = [392, 494, 587, 784][index];
+    tone(note, .23, .035);
+    tone(note * 1.5, .2, .012, 'sine', .045);
+    if (index === 3) [392, 494, 587].forEach((note, i) => tone(note, .32, .012, 'sine', .07 + i * .04));
   }
   function toggleSound() {
     sound = !sound;
@@ -29,10 +49,14 @@ window.MashShow = (() => {
       const Context = window.AudioContext || window.webkitAudioContext;
       if (!Context) { sound = false; return false; }
       try { audio ||= new Context(); audio.resume().catch(() => {}); } catch { sound = false; }
+      tone(587, .09, .02);
     }
+    else stopSound();
     return sound;
   }
   function reveal(plan, pool, instant) {
+    finishReveal?.();
+    primeSound();
     if (instant || reducedMotion()) return Promise.resolve();
     const stage = document.querySelector('#mash-stage');
     const board = document.querySelector('#reveal-board');
@@ -60,13 +84,24 @@ window.MashShow = (() => {
         if (finished) return;
         finished = true;
         timers.forEach(clearTimeout);
+        stopSound();
         stage.hidden = true;
         skip.onclick = null;
+        finishReveal = null;
         resolve();
       };
+      finishReveal = finish;
       skip.onclick = finish;
+      // Short mechanical ticks slow down as each card settles. All audio is opt-in.
+      for (let i = 0, at = 0; at < 1810; i++, at += 65 + i * 7) {
+        const step = i;
+        timers.push(setTimeout(() => tone(250 + step * 38, .045, .018, 'triangle', 0, 140 + step * 22), at));
+      }
       columns.forEach(({ column, rows, winner }, index) => {
-        rows.forEach((row, rowIndex) => timers.push(setTimeout(() => row.classList.add('crossed'), 180 + index * 240 + rowIndex * 150)));
+        rows.forEach((row, rowIndex) => timers.push(setTimeout(() => {
+          row.classList.add('crossed');
+          tone(800, .035, .009, 'triangle', 0, 320);
+        }, 180 + index * 240 + rowIndex * 150)));
         timers.push(setTimeout(() => {
           rows.forEach(row => row.classList.add('crossed'));
           winner.classList.add('winner');
@@ -91,5 +126,7 @@ window.MashShow = (() => {
     }
     setTimeout(() => holder.replaceChildren(), 2300);
   }
-  return { reveal, celebrate, toggleSound };
+  window.addEventListener('pagehide', () => { finishReveal?.(); stopSound(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { finishReveal?.(); stopSound(); } });
+  return { reveal, celebrate, toggleSound, primeSound };
 })();

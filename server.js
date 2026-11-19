@@ -26,23 +26,20 @@ app.get('/api/options', (req, res) => {
   res.json({ categories, settings, moods, spendingModes, areas, options, currency: 'USD', priceBasis: 'Local entries cite posted prices and planning allowances; original ideas are illustrative estimates.' });
 });
 
-app.use('/api', express.json({ limit: '4kb' }));
+app.use('/api', express.json({ limit: '8kb' }));
 
 app.post('/api/generate', (req, res) => {
   if (!req.is('application/json')) {
     return res.status(400).json({ error: 'Send a JSON request with Content-Type application/json.' });
   }
   if (Object.keys(req.query).length) return res.status(400).json({ error: 'Send preferences in the JSON body, not query parameters.' });
-  const prepared = planner.prepare(req.body, options);
+  const prepared = planner.prepare(req.body, options, false, randomInt);
   if (prepared.error) {
     const { error, minimumCents } = prepared;
     return res.status(prepared.status).json({ error, ...(minimumCents === undefined ? {} : { minimumCents }) });
   }
-  // Apply spending preferences first, then give mood-matching ideas more chances.
-  const weights = prepared.plans.map(picks => prepared.mood === 'surprise' ? 1 : 1 + 3 * picks.filter(pick => pick.moods.includes(prepared.mood)).length);
-  let ticket = randomInt(weights.reduce((sum, weight) => sum + weight, 0));
-  const index = weights.findIndex(weight => (ticket -= weight) < 0);
-  const picks = prepared.plans[index];
+  // Count weighted candidates, draw once, then find the winner without retaining every plan.
+  const picks = prepared.selectedPicks;
   const totalCents = picks.reduce((sum, option) => sum + option.costCents, 0);
   res.json({ picks, setting: prepared.setting, mood: prepared.mood, title: planner.title(prepared.mood, picks),
     budgetCents: prepared.budgetCents, totalCents, remainingCents: prepared.budgetCents - totalCents,
@@ -62,7 +59,7 @@ app.use('/api', (req, res) => {
 app.use((error, req, res, next) => {
   if (res.headersSent) return next(error);
   if (error.type === 'entity.too.large') {
-    return res.status(413).json({ error: 'Request is too large. Keep it under 4 KB.' });
+    return res.status(413).json({ error: 'Request is too large. Keep it under 8 KB.' });
   }
   if (error.type === 'entity.parse.failed') {
     return res.status(400).json({ error: 'Request contains malformed JSON.' });

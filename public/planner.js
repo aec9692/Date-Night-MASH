@@ -26,7 +26,7 @@
     return result;
   }
 
-  function prepare(input, catalog, includePlans = true) {
+  function prepare(input, catalog, includePlans = true, drawTicket = null) {
     if (!object(input) || Object.keys(input).some(key => !fields.includes(key))) return fail('Send a budget and documented date preferences only.');
     const { budget, setting = 'any', mood = 'surprise', spending = 'treat', area = 'all', date = '', excluded = [], customOptions = [], locked = {}, previous = [] } = input;
     if (typeof budget !== 'number' || !Number.isFinite(budget) || budget < 0 || budget > 10000 || budget !== Number(budget.toFixed(2))) {
@@ -63,11 +63,19 @@
     // Enumerate directly with budget pruning. Browser counts need no arrays of every plan.
     let combinationCount = 0, alternativeCount = 0, maximumCents = 0;
     const picks = [];
+    let weightTotal = 0, ticket = null, selectedPicks = null;
     function visit(index, total, collect) {
+      if (selectedPicks) return;
       if (index === groups.length) {
         const alternative = picks.some((option, i) => option.id !== previous[i]);
         if (collect) {
-          if ((!alternativeCount || alternative) && total >= targetCents) plans.push([...picks]);
+          if ((!alternativeCount || alternative) && total >= targetCents) {
+            if (drawTicket) {
+              const weight = mood === 'surprise' ? 1 : 1 + 3 * picks.filter(pick => pick.moods.includes(mood)).length;
+              if (ticket === null) weightTotal += weight;
+              else if ((ticket -= weight) < 0) selectedPicks = [...picks];
+            } else plans.push([...picks]);
+          }
         } else {
           combinationCount++;
           if (alternative) { alternativeCount++; maximumCents = Math.max(maximumCents, total); }
@@ -88,8 +96,9 @@
     const targetCents = spending === 'treat' ? maximumCents >= nearBudgetCents ? nearBudgetCents : Math.ceil(maximumCents * .95) : 0;
     // Only retain the final spending band, rather than materializing every feasible plan first.
     const plans = [];
-    if (includePlans) visit(0, 0, true);
-    return { plans, combinationCount, maximumCents, targetCents,
+    if (includePlans || drawTicket) visit(0, 0, true);
+    if (drawTicket) { ticket = drawTicket(weightTotal); visit(0, 0, true); }
+    return { plans, selectedPicks, combinationCount, maximumCents, targetCents,
       unchanged: previous.length === 4 && !alternativeCount, budgetCents, setting, mood, spending, area, date, customOptions };
   }
 
