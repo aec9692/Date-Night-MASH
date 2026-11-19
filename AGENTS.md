@@ -64,7 +64,7 @@ Upgrade behavior:
 - Shared validation and combination enumeration live in public/planner.js. The server remains authoritative; browser counts are a preview.
 - Generation may also receive mood, spending, excluded, customOptions, locked, and previous. Validate every field and reject undocumented fields. Keep JSON requests bounded to 4 KB.
 - Spending defaults to treat: select estimated totals at 90–100% of budget when available, otherwise at least 95% of the highest attainable total. Flexible allows any affordable total. Apply mood weighting after spending selection. Explain unattainable budgets honestly and never inflate catalog prices.
-- The catalog has 65 illustrative ideas, including 24 activities. Browser search/price browsing changes visibility, not inclusion. Keep counts memory-efficient without retaining every plan in the browser.
+- The catalog has 96 illustrative ideas: 24 each for dinner, activity, treat, and entertainment. Browser search/price browsing changes visibility, not inclusion. Keep counts memory-efficient without retaining every plan in the browser, and build reveal candidates from the selected plan instead of enumerating all plans again.
 - Mood values are surprise, cozy, adventurous, romantic, and competitive. Mood weights valid combinations; it must not bypass budget, setting, exclusion, or lock constraints.
 - Support at most four custom ideas with names up to 48 characters and integer estimated prices. Saved custom ideas require the same validation as incoming requests.
 - Keep explicit locks during full regeneration. A single-category reroll fixes the other three picks and returns a different complete combination when one exists. Explain unchanged results when no alternative fits.
