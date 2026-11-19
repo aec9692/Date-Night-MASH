@@ -123,6 +123,14 @@ select { appearance: none; padding-right: 38px; background-image: url("data:imag
 .play-strip p { margin: 2px 0 0; }
 .play-button { font-size: 1.2rem; min-width: 218px; box-shadow: 4px 4px 0 var(--ink); border-radius: 12px; padding: 14px 24px; }
 .play-button span { display: inline-block; font-size: 1.6rem; margin-right: 7px; vertical-align: middle; }
+.nearby-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.nearby-alternative { display: inline-block; margin-top: 16px; }
+.nearby-section { margin-top: 36px; }
+.nearby-section h2 { margin: 0; }
+.nearby-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px; padding: 0; list-style: none; }
+.nearby-results li { padding: 16px; border: 1px solid var(--line); border-radius: 12px; }
+.nearby-results h3 { margin: 0 0 8px; font-size: 1rem; }
+.nearby-results p { margin: 0 0 8px; }
 .is-busy .play-button span { animation: spin 1.4s linear infinite; }
 #message { font-size: .9rem; margin: 20px 0 0; }
 #message:empty, #storage-message:empty, #custom-message:empty { display: none; }
