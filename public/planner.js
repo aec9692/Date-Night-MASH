@@ -4,7 +4,8 @@
   const settings = ['any', 'indoor', 'outdoor', 'home'];
   const moods = ['surprise', 'cozy', 'adventurous', 'romantic', 'competitive'];
   const spendingModes = ['treat', 'flexible'];
-  const fields = ['budget', 'setting', 'mood', 'spending', 'excluded', 'customOptions', 'locked', 'previous'];
+  const areas = ['all', 'general', 'paterson'];
+  const fields = ['budget', 'setting', 'mood', 'spending', 'area', 'date', 'excluded', 'customOptions', 'locked', 'previous'];
   const object = value => value && typeof value === 'object' && !Array.isArray(value);
   const fail = (error, status = 400, extra = {}) => ({ error, status, ...extra });
 
@@ -27,13 +28,15 @@
 
   function prepare(input, catalog, includePlans = true) {
     if (!object(input) || Object.keys(input).some(key => !fields.includes(key))) return fail('Send a budget and documented date preferences only.');
-    const { budget, setting = 'any', mood = 'surprise', spending = 'treat', excluded = [], customOptions = [], locked = {}, previous = [] } = input;
+    const { budget, setting = 'any', mood = 'surprise', spending = 'treat', area = 'all', date = '', excluded = [], customOptions = [], locked = {}, previous = [] } = input;
     if (typeof budget !== 'number' || !Number.isFinite(budget) || budget < 0 || budget > 10000 || budget !== Number(budget.toFixed(2))) {
       return fail('Enter a budget from $0 to $10,000 with at most two decimal places.');
     }
     if (!settings.includes(setting)) return fail('Choose any, indoor, outdoor, or home.');
     if (!moods.includes(mood)) return fail('Choose a mood from the available choices.');
     if (!spendingModes.includes(spending)) return fail('Choose treat or flexible for your spending style.');
+    if (!areas.includes(area)) return fail('Choose all, general, or paterson for the idea area.');
+    if (!validDate(date)) return fail('Choose a valid calendar date, or leave the date empty.');
     const custom = customCatalog(customOptions);
     if (!custom) return fail('Add up to four custom ideas with a name, category, valid cost, and setting.');
     const options = [...catalog, ...custom];
@@ -49,6 +52,7 @@
       return fail('The previous plan must contain one valid idea per category.');
     }
     const groups = categories.map(category => options.filter(option => option.category === category &&
+      eligible(option, area, date) &&
       !excluded.includes(option.id) && (setting === 'any' || option.settings.includes(setting)) &&
       (!locked[category] || option.id === locked[category])));
     const empty = groups.findIndex(group => !group.length);
@@ -86,7 +90,7 @@
     const plans = [];
     if (includePlans) visit(0, 0, true);
     return { plans, combinationCount, maximumCents, targetCents,
-      unchanged: previous.length === 4 && !alternativeCount, budgetCents, setting, mood, spending, customOptions };
+      unchanged: previous.length === 4 && !alternativeCount, budgetCents, setting, mood, spending, area, date, customOptions };
   }
 
   const names = {
@@ -100,7 +104,14 @@
     const choices = names[mood] || names.surprise;
     return choices[picks.map(pick => pick.id).join('').length % choices.length];
   }
-  const api = { categories, settings, moods, spendingModes, customCatalog, prepare, title };
+  function eligible(option, area, date) {
+    if (!option.custom && (area === 'paterson' && !option.venue || area === 'general' && option.venue)) return false;
+    return !date || !option.venue || option.venue.openDays.includes(new Date(`${date}T12:00:00Z`).getUTCDay());
+  }
+  function validDate(date) {
+    return typeof date === 'string' && (!date || /^\d{4}-\d{2}-\d{2}$/.test(date) && Number.isFinite(Date.parse(`${date}T12:00:00Z`)) && new Date(`${date}T12:00:00Z`).toISOString().slice(0,10) === date);
+  }
+  const api = { categories, settings, moods, spendingModes, areas, customCatalog, prepare, title, eligible, validDate };
   if (typeof module === 'object' && module.exports) module.exports = api;
   else root.MashPlanner = api;
 })(typeof globalThis === 'object' ? globalThis : this);

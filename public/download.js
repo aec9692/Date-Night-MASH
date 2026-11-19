@@ -1,71 +1,100 @@
-/* Vector date cards remain crisp when printed. User text is added with DOM APIs. */
+/* Phone-friendly PDFs with clickable official sources. No upload or server file storage. */
 window.DateCard = (() => {
-  const money = cents => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(cents / 100);
+  const money = cents => new Intl.NumberFormat('en-US', { style:'currency', currency:'USD' }).format(cents / 100);
+  const clean = value => String(value || '').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[–—]/g,'-').replace(/…/g,'...').replace(/[^\x20-\x7e\n]/g,'');
   function text(plan) {
-    return [plan.title || 'DATE NIGHT MASH', `Setting: ${plan.setting} · Mood: ${plan.mood || 'surprise'}`, `Spending style: ${plan.spending === 'treat' ? 'Treat us' : 'Flexible'}`,
-      `Budget for two: ${money(plan.budgetCents)}`, '',
-      ...plan.picks.flatMap(pick => [`${pick.category.toUpperCase()}: ${pick.name} — ${money(pick.costCents)}`, pick.description, pick.tip || '', '']),
+    return [plan.title || 'DATE NIGHT MASH', `Date: ${plan.date || 'Not selected'} | Area: ${plan.area || 'general'}`,
+      `Setting: ${plan.setting} | Mood: ${plan.mood || 'surprise'} | Spending: ${plan.spending || 'flexible'}`,
+      `Budget for two: ${money(plan.budgetCents)}`, '', ...plan.picks.flatMap(pick => [
+        `${pick.category.toUpperCase()}: ${pick.name} - ${money(pick.costCents)}`, pick.description,
+        ...(pick.venue ? [pick.venue.address, pick.venue.hoursNote, pick.pricing.order,
+          `Posted ${money(pick.pricing.baseCents)}; estimated tax ${money(pick.pricing.taxCents)}; optional tip ${money(pick.pricing.tipCents)}; optional donation ${money(pick.pricing.donationCents)}`,
+          pick.pricing.taxNote, pick.pricing.tipNote, pick.pricing.exclusions,
+          `Official source (checked ${pick.pricing.checkedOn}): ${pick.pricing.sourceUrl}`] : []), '']),
       `Estimated total: ${money(plan.totalCents)}`, `Remaining budget: ${money(plan.remainingCents)}`, '', plan.notice].join('\n');
   }
-  function svg(plan) {
-    const namespace = 'http://www.w3.org/2000/svg';
-    function shape(tag, attrs, content) {
-      const item = document.createElementNS(namespace, tag);
-      for (const [key, value] of Object.entries(attrs)) item.setAttribute(key, value);
-      if (content !== undefined) item.textContent = content;
-      return item;
+  function create(plan) {
+    if (!window.jspdf?.jsPDF) throw new Error('PDF library unavailable');
+    const pdf = new window.jspdf.jsPDF({ unit:'pt', format:[432,720], compress:true, putOnlyUsedFonts:true });
+    pdf.setProperties({ title:clean(plan.title || 'Date Night MASH'), subject:'Date itinerary for two', creator:'Date Night MASH' });
+    const colors = [[255,216,189],[232,220,255],[255,214,230],[220,235,183]];
+    function label(value,x,y,size=12,bold=false,color=[41,35,51]) {
+      pdf.setFont('helvetica',bold?'bold':'normal'); pdf.setFontSize(size); pdf.setTextColor(...color);
+      pdf.text(clean(value) || 'Your idea',x,y);
     }
-    const root = shape('svg', { viewBox: '0 0 900 1240', width: 900, height: 1240, role: 'img' });
-    root.append(shape('title', {}, plan.title || 'Your Date Night MASH plan'));
-    root.append(shape('rect', { width: 900, height: 1240, fill: '#eee4ff' }));
-    root.append(shape('rect', { x: 30, y: 30, width: 840, height: 1180, rx: 24, fill: '#fffcf7', stroke: '#292333', 'stroke-width': 3 }));
-    function label(x, y, value, size = 24, weight = 400, fill = '#292333') {
-      root.append(shape('text', { x, y, 'font-family': 'Arial, sans-serif', 'font-size': size, 'font-weight': weight, fill }, value));
+    function paragraph(value,x,y,width,size=11,color=[80,71,92]) {
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(size); pdf.setTextColor(...color);
+      const lines=pdf.splitTextToSize(clean(value),width); pdf.text(lines,x,y,{lineHeightFactor:1.35});
+      return y+lines.length*size*1.35;
     }
-    function lines(value, limit) {
-      const chunks = [];
-      let rest = value;
-      while (rest.length > limit) {
-        let cut = rest.lastIndexOf(' ', limit);
-        if (cut < limit / 2) cut = limit;
-        chunks.push(rest.slice(0, cut));
-        rest = rest.slice(cut).trim();
-      }
-      chunks.push(rest);
-      return chunks;
+    function page(number) {
+      pdf.setFillColor(247,243,255); pdf.rect(0,0,432,720,'F');
+      label('DATE NIGHT MASH',28,34,11,true,[112,66,210]);
+      label(`${number} / 5`,368,34,10,false,[103,95,114]);
+      label('A plan for two. Confirm prices, hours and availability.',28,696,9,false,[103,95,114]);
     }
-    label(70, 83, 'DATE NIGHT MASH  /  YOUR NEXT LITTLE ADVENTURE', 18, 700, '#7042d2');
-    lines(plan.title || 'A little date night magic', 29).slice(0, 2).forEach((line, index) => label(70, 145 + index * 49, line, 43, 800));
-    label(70, 222, `${plan.setting.toUpperCase()}  ·  ${(plan.mood || 'surprise').toUpperCase()}  ·  ${plan.spending === 'treat' ? 'TREAT US' : 'FLEXIBLE'}  ·  FOR TWO`, 18, 700, '#675f72');
-    const colors = ['#ffd8bd', '#e8dcff', '#ffd6e6', '#dcebb7'];
-    plan.picks.forEach((pick, index) => {
-      const y = 252 + index * 150;
-      root.append(shape('rect', { x: 64, y, width: 772, height: 134, rx: 13, fill: colors[index], stroke: '#292333', 'stroke-width': 1.5 }));
-      label(86, y + 29, `${index + 1}  ${pick.category.toUpperCase()}`, 16, 700);
-      lines(pick.name, 34).slice(0, 2).forEach((line, i) => label(86, y + 63 + i * 28, line, 26, 700));
-      label(700, y + 62, money(pick.costCents), 26, 700);
-      const tip = pick.tip || pick.description;
-      label(86, y + 115, tip.length > 74 ? tip.slice(0, 71) + '…' : tip, 15, 400, '#51475c');
+    page(1);
+    let y=paragraph(plan.title || 'Your next little adventure',28,82,376,27,[41,35,51]);
+    y=paragraph(`${plan.date || 'Pick a date'} | ${plan.area === 'paterson' ? 'Near Paterson, NJ' : 'Your selected ideas'}`,28,y+8,376,12);
+    y+=16;
+    label(`Budget ${money(plan.budgetCents)}    Plan ${money(plan.totalCents)}`,28,y,15,true);
+    label(`${money(plan.remainingCents)} remaining | ${plan.spending === 'treat' ? 'Treat us' : 'Flexible'}`,28,y+23,11);
+    y+=44;
+    plan.picks.forEach((pick,index)=>{
+      pdf.setFillColor(...colors[index]); pdf.roundedRect(24,y,384,82,10,10,'F');
+      label(`${index+1}  ${pick.category.toUpperCase()}`,38,y+20,9,true);
+      pdf.setFont('helvetica','bold');pdf.setFontSize(13);pdf.setTextColor(41,35,51);
+      const title=pdf.splitTextToSize(clean(pick.name),268);
+      pdf.text(title.slice(0,2),38,y+42,{lineHeightFactor:1.2});
+      label(money(pick.costCents),324,y+42,13,true);
+      if(pick.venue) label(`${pick.venue.city}, NJ`,38,y+70,10);
+      y+=92;
     });
-    label(70, 904, 'ESTIMATED TOTAL FOR TWO', 17, 700, '#675f72');
-    label(70, 960, money(plan.totalCents), 52, 800);
-    label(70, 1002, `${money(plan.remainingCents)} left from your ${money(plan.budgetCents)} budget`, 23, 400);
-    label(70, 1073, 'The best part of the plan? Who you share it with.', 24, 700, '#7042d2');
-    label(70, 1126, 'Illustrative estimates for two. Confirm full quotes.', 17, 400, '#675f72');
-    label(70, 1155, 'Free ideas use items or access you already have.', 17, 400, '#675f72');
-    return new XMLSerializer().serializeToString(root);
+    paragraph('Suggested stops, not a timed booking. Tap the source and map links on the following pages. Traffic can push a drive beyond an hour. Travel, parking and unconfirmed fees are extra unless listed.',28,y+2,376,10);
+    plan.picks.forEach((pick,index)=>{
+      pdf.addPage([432,720]);page(index+2);
+      pdf.setFillColor(...colors[index]);pdf.roundedRect(24,54,384,30,9,9,'F');
+      label(`${index+1} / ${pick.category.toUpperCase()}`,38,74,11,true);
+      let next=paragraph(pick.name,28,118,376,23,[41,35,51]);
+      next=paragraph(pick.venue ? pick.venue.address : pick.description,28,next+8,376,12);
+      label(`${money(pick.costCents)} estimated for two`,28,next+26,18,true);
+      next+=53;
+      if(pick.venue) {
+        const p=pick.pricing;
+        label('WHAT THIS COVERS',28,next,10,true,[112,66,210]);
+        next=paragraph(p.order,28,next+20,376,12)+13;
+        const rows=[['Posted subtotal',p.baseCents],['Estimated tax / reserve',p.taxCents],['Optional tip allowance',p.tipCents],['Optional donation',p.donationCents]];
+        rows.forEach(([name,value])=>{label(name,28,next,11);label(money(value),340,next,11,true);next+=20;});
+        next=paragraph(`${p.taxNote} ${p.tipNote}`,28,next+2,376,10)+13;
+        label('BEFORE YOU GO',28,next,10,true,[112,66,210]);
+        next=paragraph(`${pick.venue.hoursNote} ${p.exclusions}`,28,next+19,376,11)+16;
+        label(`Source checked ${p.checkedOn} - recheck before booking.`,28,next,10);
+        next+=25;
+        pdf.setFontSize(12);pdf.setTextColor(75,36,153);
+        pdf.textWithLink('Official price / menu',28,next,{url:p.sourceUrl});
+        const route=new URL('https://www.google.com/maps/dir/');
+        route.search=new URLSearchParams({api:'1',origin:'Paterson, NJ',destination:pick.venue.address,travelmode:'driving'});
+        pdf.textWithLink('Check route from Paterson',190,next,{url:route.href});
+        paragraph(p.sourceUrl,28,next+22,376,9);
+      } else {
+        next=paragraph(pick.tip || 'Make this idea your own.',28,next,376,13)+20;
+        paragraph('This is a general idea or a personal estimate, not a verified local booking price. Check availability and full costs before making plans.',28,next,376,12);
+      }
+    });
+    return pdf.output('blob');
   }
-  function download(plan, format = 'svg') {
-    const isText = format === 'txt';
-    const blob = new Blob([isText ? text(plan) : svg(plan)], { type: isText ? 'text/plain;charset=utf-8' : 'image/svg+xml;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `date-night-mash-${isText ? 'plan.txt' : 'date-card.svg'}`;
-    document.body.append(link);
-    link.click();
-    link.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  function download(plan,format='pdf') {
+    const isText=format==='txt';
+    const blob=isText?new Blob([text(plan)],{type:'text/plain;charset=utf-8'}):create(plan);
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement('a');link.href=url;link.download=`date-night-mash-plan.${isText?'txt':'pdf'}`;
+    if(!isText){link.target='_blank';link.rel='noopener';}
+    document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);
   }
-  return { download, text };
+  async function share(plan) {
+    const file=new File([create(plan)],'date-night-mash-plan.pdf',{type:'application/pdf'});
+    if(navigator.canShare?.({files:[file]})) return navigator.share({files:[file],title:plan.title || 'Our date plan'});
+    download(plan);
+  }
+  return {create,download,share,text};
 })();
