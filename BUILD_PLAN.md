@@ -4,21 +4,27 @@ Repository: https://github.com/aec9692/Date-Night-MASH
 
 Target: a publicly deployed, responsive HTML/CSS/JavaScript application backed by Express. No database, accounts, paid services, or external APIs are needed.
 
+Start each task on a branch from the latest `origin/main`. Commit and push to the task branch, open a pull request into `main`, and have a teammate review it before merging. Verify each milestone on the deployed site before starting the next one.
+
 ## Milestone 1: deployment foundation — November 16–20
+
+Proposed lead is Adrainn Coloma. Andrew Russo reviews the pull requests. The repository owner handles the authenticated Vercel import.
 
 1. Confirm the repository is public and all three members are collaborators.
 2. Install Node.js LTS if unavailable; initialize package.json and install Express. Commit the generated lockfile.
 3. Add root server.js, public/index.html, a start script, and .gitignore entries for node_modules, .env files, and .vercel.
 4. Create a minimal landing page and GET /api/health returning a simple success response. Keep this route read-only and input-free.
-5. Push to main. In Vercel, sign in with the repository owner's GitHub account, select the free Hobby plan, and import this repository. Use the repository root and the documented Express configuration; do not add legacy routing configuration unless needed.
+5. Push the foundation task branch, get a teammate's review, and merge the pull request into `main`. In Vercel, sign in with the repository owner's GitHub account, select the free Hobby plan, and import this repository. Use the repository root and the documented Express configuration; do not add legacy routing configuration unless needed.
 6. Confirm the production branch is main and Git deployments are enabled. Record the public URL in README.md.
-7. Push a visible small change and confirm a new deployment appears and the public page updates.
+7. Submit a small visible change on a task branch. After a teammate reviews it, merge the pull request and confirm a new production deployment appears and the public page updates.
 
-Exit check: public page and health response work; a Git push triggers deployment. Verify before adding the application routes.
+Exit check: the public page and health response work, and merging a reviewed pull request into `main` triggers a production deployment. Verify before adding the application routes.
 
 Vercel setup requires the owner's authenticated account and any GitHub authorization presented during import. Never request or commit account tokens. If access is unavailable, leave setup explicitly pending.
 
 ## Milestone 2: server contract and selection — November 21–25
+
+Proposed lead is Andrew Russo. Alex Marshall reviews the pull request.
 
 - Add data/options.json with approximately six entries per category. Each has a stable ID, category, display name, estimated cost in cents, and supported setting tags. Include useful free options and review prices for two people.
 - GET /api/options returns the catalog.
@@ -30,6 +36,8 @@ Vercel setup requires the owner's authenticated account and any GitHub authoriza
 Exit check: use browser developer tools on the deployed site to demonstrate valid and invalid requests and a result that never exceeds budget.
 
 ## Milestone 3: usable minimum application — November 26–December 2
+
+Proposed lead is Alex Marshall. Adrainn Coloma reviews the pull request.
 
 - Build public/styles.css and public/app.js with accessible labels, budget input, catalog grid, generation controls, and results.
 - Fetch options from the server and submit generation requests using fetch.
@@ -72,7 +80,7 @@ Create TESTING.md and execute at least these cases on the deployed site. Add cas
 15. Download current and saved plans and inspect their text.
 16. Every screen works at phone and laptop sizes and with keyboard navigation.
 17. Network failure and repeated clicks produce usable states.
-18. A push to main produces a new production deployment.
+18. Merging a reviewed pull request into `main` produces a new production deployment that serves the merged change.
 
 Optional only after required work passes: a MASH crossing-out animation, with reduced-motion support and an immediate-result alternative.
 
