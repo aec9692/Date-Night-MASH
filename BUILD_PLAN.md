@@ -16,7 +16,7 @@ Proposed lead is Adrainn Coloma. Andrew Russo reviews the pull requests. The rep
 4. Create a minimal landing page and GET /api/health returning a simple success response. Keep this route read-only and input-free.
 5. Push the foundation task branch, get a teammate's review, and merge the pull request into `main`. In Vercel, sign in with the repository owner's GitHub account, select the free Hobby plan, and import this repository. Use the repository root and the documented Express configuration; do not add legacy routing configuration unless needed.
 6. Confirm the production branch is main and Git deployments are enabled. Record the public URL in README.md.
-7. Submit a small visible change on a task branch. After a teammate reviews it, merge the pull request and confirm a new production deployment appears and the public page updates.
+7. Have a teammate other than the Vercel project owner author a small visible change on a task branch. After review and merge, confirm a new production deployment appears and the public page serves the change. Record the pull request, deployment, and observed result in `TESTING.md`. Investigate any deployment failure before starting Milestone 2.
 
 Exit check: the public page and health response work, and merging a reviewed pull request into `main` triggers a production deployment. Verify before adding the application routes.
 
@@ -28,10 +28,46 @@ Proposed lead is Andrew Russo. Alex Marshall reviews the pull request.
 
 - Add data/options.json with approximately six entries per category. Each has a stable ID, category, display name, estimated cost in cents, and supported setting tags. Include useful free options and review prices for two people.
 - GET /api/options returns the catalog.
-- POST /api/generate accepts, for example, {"budget":50,"setting":"any"}. It returns one option per category, totalCents, remainingCents, and an estimate notice.
-- Parse and validate input; restrict body size and allowed fields. Translate dollars to integer cents after validating decimal precision.
+- `POST /api/generate` accepts a JSON object with `budget` in USD and an optional `setting`. Omitted `setting` defaults to `any`. The allowed values are `any`, `indoor`, `outdoor`, and `home`.
+- Accept a finite numeric budget from `0` through `10000` with at most two decimal places. Reject unknown fields, enforce a 2 KB JSON limit, and convert validated dollars to integer cents.
 - Filter by setting, enumerate complete combinations, keep those within budget, and randomly choose one.
-- Return helpful JSON errors for invalid input, malformed JSON, oversized bodies, and impossible budgets. If a filtered category is empty, explain that the selected setting has no complete plan.
+
+Example `200` response to `{"budget":50,"setting":"home"}` using illustrative catalog entries:
+
+```json
+{
+  "selections": [
+    {"id":"pasta-at-home","category":"dinner","name":"Cook pasta together","costCents":1400,"settings":["home"]},
+    {"id":"card-games","category":"activity","name":"Play card games","costCents":0,"settings":["home"]},
+    {"id":"ice-cream","category":"treat","name":"Ice cream sundaes","costCents":800,"settings":["home"]},
+    {"id":"movie-at-home","category":"entertainment","name":"Watch a movie at home","costCents":0,"settings":["home"]}
+  ],
+  "totalCents": 2200,
+  "remainingCents": 2800,
+  "estimateNotice": "Prices are USD estimates for two people."
+}
+```
+
+All errors use an `error` object containing a stable `code` and a readable `message`. A budget-related `422` also includes `minimumBudgetCents` inside `error` when a complete plan exists for the selected setting:
+
+```json
+{
+  "error": {
+    "code": "NO_AFFORDABLE_PLAN",
+    "message": "The cheapest complete plan for this setting costs $22.00.",
+    "minimumBudgetCents": 2200
+  }
+}
+```
+
+| Status | Code | When returned |
+| --- | --- | --- |
+| `400` | `INVALID_REQUEST` | An invalid body, field, budget, or setting |
+| `400` | `MALFORMED_JSON` | The body cannot be parsed as JSON |
+| `413` | `BODY_TOO_LARGE` | The JSON body exceeds 2 KB |
+| `422` | `NO_AFFORDABLE_PLAN` | Complete plans exist, but the budget is too low |
+| `422` | `NO_COMPLETE_PLAN` | The setting leaves a category empty. Explain that no complete plan exists and omit `minimumBudgetCents`. |
+| `500` | `INTERNAL_ERROR` | An unexpected failure. Return a generic message. |
 
 Exit check: use browser developer tools on the deployed site to demonstrate valid and invalid requests and a result that never exceeds budget.
 
@@ -61,12 +97,12 @@ Exit check: each feature is manually demonstrated on the deployed site. Each mem
 
 ## Milestone 5: testing and polish — December 11–16
 
-Create TESTING.md and execute at least these cases on the deployed site. Add cases as needed so every input, route, page, and advanced feature is covered. Record actual results and fixes, then rerun failures.
+Use `TESTING.md` starting with the first deployment in Milestone 1. Record the ID, item, steps, expected result, and actual result for each deployed check. Execute at least 12 cases and cover every input, route, page, and advanced feature. Record fixes and rerun failures.
 
 1. Public landing page and health route load.
 2. Options route returns all four categories and correct price units.
 3. Valid budget returns four picks within the limit.
-4. Exact minimum budget and a $0 budget behave correctly.
+4. A budget equal to the minimum for a setting returns a plan at that exact cost. Run a separate case for a $0 budget. Fill in the settings and concrete budgets in `TESTING.md` once the catalog is finalized.
 5. Empty budget is rejected.
 6. Negative budget is rejected.
 7. Text, wrong types, null, missing fields, and excessive decimal precision are rejected.
