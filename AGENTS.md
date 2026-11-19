@@ -35,7 +35,8 @@ Main risk: a budget or filter leaves no affordable combination. Keep the preset 
 - The server entry point is server.js in the repository root. Static files are in public.
 - The front end uses plain HTML, CSS and JavaScript. No frameworks.
 - Keys and passwords are read from environment variables and are never written in the code. The .env file is never committed.
-- Each task ends with a commit and a push.
+- Start each task on a branch from the latest `origin/main`. Use a name like `andrew/setting-filter` so teammates can see who is working on what.
+- Each task ends with a commit and a push to its task branch. Open a pull request into `main` and ask a teammate to review it before merging. Keep direct pushes off `main`, the Vercel production branch.
 - Use free plans only. Never enter a credit card or add paid APIs or services.
 - No file uploads. Reference images by URL. Do not collect sensitive personal data.
 - No database or user accounts are planned. Favorites stay on the current browser/device.
