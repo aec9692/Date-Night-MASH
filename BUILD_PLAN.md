@@ -111,8 +111,8 @@ TESTING.md
 ## Current setup status
 
 - Existing repository remote: aec9692/Date-Night-MASH, branch main.
-- Initial repository contains only README.md; this task adds planning documents.
-- Node.js, npm, GitHub CLI, and Vercel CLI were not found on the current shell PATH during initial inspection.
+- Deployment foundation is implemented on `adrainn/deployment-foundation`: Express entry point, public landing page, health check, dependency manifest, and deployment instructions. Merge and deployed verification are pending.
+- Node.js and npm were not found on the shell PATH; a portable Node.js 24 runtime is kept in ignored `.tools/` for local checks. Teammates should install Node.js 24 LTS to use the documented npm commands.
 - Vercel account connection, project import, deployment, and automatic redeployment remain unverified. Do not treat this plan as a deployed application.
 
 ## Deployment references

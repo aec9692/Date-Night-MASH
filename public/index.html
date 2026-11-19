@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Date Night MASH helps couples plan dinner, an activity, a treat, and entertainment within their budget.">
+    <title>Date Night MASH</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">A little spontaneity. A budget for two.</p>
+      <h1>Date Night <span>MASH</span></h1>
+      <p class="intro">Dinner, something to do, a sweet treat, and entertainment. One date plan that fits your budget.</p>
+
+      <section aria-labelledby="coming-next">
+        <h2 id="coming-next">Your next date starts here</h2>
+        <p>We're building a simple way to turn a budget into a night together. Date generation is coming next.</p>
+        <ul class="categories" aria-label="Date plan categories">
+          <li>Dinner</li>
+          <li>Activity</li>
+          <li>Treat</li>
+          <li>Entertainment</li>
+        </ul>
+        <p class="note">All future prices will be estimates in USD for two people.</p>
+      </section>
+
+      <section class="connection" aria-labelledby="connection-heading">
+        <h2 id="connection-heading">Server connection</h2>
+        <p id="server-status" role="status">Checking the server…</p>
+        <button id="check-server" type="button" disabled>Checking…</button>
+        <a href="/api/health">View health response</a>
+      </section>
+      <noscript><p>JavaScript is disabled. You can still use the health response link to check the server.</p></noscript>
+      <footer>A project by Adrainn Coloma, Andrew Russo, and Alex Marshall.</footer>
+    </main>
+  </body>
+</html>
