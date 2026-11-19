@@ -3,7 +3,7 @@ const path = require('node:path');
 const { randomInt } = require('node:crypto');
 const options = require('./data/options.json');
 const planner = require('./public/planner');
-const { categories, settings, moods } = planner;
+const { categories, settings, moods, spendingModes } = planner;
 
 const app = express();
 app.disable('x-powered-by');
@@ -23,10 +23,10 @@ app.get('/api/options', (req, res) => {
   if (Object.keys(req.query).length) {
     return res.status(400).json({ error: 'This route does not accept query parameters.' });
   }
-  res.json({ categories, settings, moods, options, currency: 'USD', priceBasis: 'Estimates for two people' });
+  res.json({ categories, settings, moods, spendingModes, options, currency: 'USD', priceBasis: 'Illustrative estimates for two people, not live quotes' });
 });
 
-app.use('/api', express.json({ limit: '2kb' }));
+app.use('/api', express.json({ limit: '4kb' }));
 
 app.post('/api/generate', (req, res) => {
   if (!req.is('application/json')) {
@@ -38,7 +38,7 @@ app.post('/api/generate', (req, res) => {
     const { error, minimumCents } = prepared;
     return res.status(prepared.status).json({ error, ...(minimumCents === undefined ? {} : { minimumCents }) });
   }
-  // Mood is a preference: matching ideas get more chances, but every affordable plan stays possible.
+  // Apply spending preferences first, then give mood-matching ideas more chances.
   const weights = prepared.plans.map(picks => prepared.mood === 'surprise' ? 1 : 1 + 3 * picks.filter(pick => pick.moods.includes(prepared.mood)).length);
   let ticket = randomInt(weights.reduce((sum, weight) => sum + weight, 0));
   const index = weights.findIndex(weight => (ticket -= weight) < 0);
@@ -47,7 +47,8 @@ app.post('/api/generate', (req, res) => {
   res.json({ picks, setting: prepared.setting, mood: prepared.mood, title: planner.title(prepared.mood, picks),
     budgetCents: prepared.budgetCents, totalCents, remainingCents: prepared.budgetCents - totalCents,
     combinationCount: prepared.combinationCount, unchanged: prepared.unchanged, customOptions: prepared.customOptions,
-    notice: 'USD estimates for two people. Prices vary by location. Free ideas use items or access you already have.' });
+    spending: prepared.spending, maximumCents: prepared.maximumCents, targetCents: prepared.targetCents,
+    notice: 'Illustrative USD estimates for two, not live quotes. Check complete prices, fees, and availability before booking. Free ideas use what you already have.' });
 });
 
 // Local development serves the same public files Vercel serves through its CDN.
@@ -60,7 +61,7 @@ app.use('/api', (req, res) => {
 app.use((error, req, res, next) => {
   if (res.headersSent) return next(error);
   if (error.type === 'entity.too.large') {
-    return res.status(413).json({ error: 'Request is too large. Keep it under 2 KB.' });
+    return res.status(413).json({ error: 'Request is too large. Keep it under 4 KB.' });
   }
   if (error.type === 'entity.parse.failed') {
     return res.status(400).json({ error: 'Request contains malformed JSON.' });

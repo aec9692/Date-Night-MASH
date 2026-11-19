@@ -33,13 +33,14 @@ function planKey(plan) { return plan.picks.map(pick => pick.id).join('|'); }
 function mood() { return $('input[name=mood]:checked').value; }
 function preferences(locked = locks) {
   return { budget: $('#budget').value === '' ? null : Number($('#budget').value), setting: $('#setting').value,
-    mood: mood(), excluded: [...excluded], customOptions, locked };
+    mood: mood(), spending: $('#spending').value, excluded: [...excluded], customOptions, locked };
 }
 
 // Saved plans can contain custom ideas. Validate their snapshot as strictly as a request.
 function validPlan(plan) {
   if (!plan || !Array.isArray(plan.picks) || plan.picks.length !== 4 || !Object.hasOwn(settingLabels, plan.setting)) return false;
   if (plan.mood !== undefined && !MashPlanner.moods.includes(plan.mood)) return false;
+  if (plan.spending !== undefined && !MashPlanner.spendingModes.includes(plan.spending)) return false;
   if (![plan.budgetCents, plan.totalCents, plan.remainingCents].every(Number.isSafeInteger)) return false;
   if (plan.budgetCents < 0 || plan.budgetCents > 1000000 || plan.totalCents < 0 || plan.remainingCents < 0) return false;
   const custom = MashPlanner.customCatalog(plan.customOptions || []);
@@ -58,7 +59,7 @@ function hydrate(plan) {
   const known = [...catalog, ...MashPlanner.customCatalog(plan.customOptions || [])];
   const picks = plan.picks.map(pick => known.find(option => option.id === pick.id));
   const chosenMood = plan.mood || 'surprise';
-  return { ...plan, picks, mood: chosenMood, title: MashPlanner.title(chosenMood, picks), customOptions: plan.customOptions || [] };
+  return { ...plan, picks, mood: chosenMood, spending: plan.spending || 'flexible', title: MashPlanner.title(chosenMood, picks), customOptions: plan.customOptions || [] };
 }
 
 async function loadCatalog() {
@@ -84,15 +85,21 @@ async function loadCatalog() {
 }
 
 function updatePossibilities() {
-  const analysis = MashPlanner.prepare(preferences(), catalog);
+  const analysis = MashPlanner.prepare(preferences(), catalog, false);
   const count = analysis.combinationCount || 0;
-  $('#possibility-count').textContent = `${count.toLocaleString()} possible ${count === 1 ? 'date' : 'dates'}`;
+  $('#possibility-count').textContent = `${count.toLocaleString()} affordable ${count === 1 ? 'date' : 'dates'}`;
   const lockedCount = Object.keys(locks).length;
-  $('#possibility-note').textContent = analysis.error || `${lockedCount ? `${lockedCount} ${lockedCount === 1 ? 'pick' : 'picks'} locked. ` : ''}Mood adds a little extra luck, not a limit.`;
+  const spendingNote = $('#spending').value === 'treat' ? 'Treat us picks near-budget dates from this mix.' : 'Any affordable total can be picked.';
+  $('#possibility-note').textContent = analysis.error || `${lockedCount ? `${lockedCount} ${lockedCount === 1 ? 'pick' : 'picks'} locked. ` : ''}${spendingNote}`;
   $('#possibility-note').classList.toggle('error', Boolean(analysis.error));
   const budget = Number($('#budget').value);
-  $('#budget-caption').textContent = budget === 0 ? 'The best things can be free.' : budget <= 25 ? 'Small budget. Big possibilities.' : budget <= 75 ? 'A lovely little night out.' : 'Make a whole occasion of it.';
-  $('#budget-slider').value = Math.min(200, Math.max(0, budget));
+  $('#budget-caption').textContent = budget === 0 ? 'The best things can be free.' : budget <= 25 ? 'Small budget. Big possibilities.' : budget <= 100 ? 'A lovely little night out.' : budget <= 300 ? 'Make a whole occasion of it.' : 'Time to really treat each other.';
+  $('#budget-slider').value = Math.min(1000, Math.max(0, budget));
+  document.querySelectorAll('[data-budget]').forEach(node => {
+    const selected = $('#budget').value !== '' && Number(node.dataset.budget) === budget;
+    node.classList.toggle('is-selected', selected);
+    node.setAttribute('aria-pressed', String(selected));
+  });
 }
 
 function renderCatalog() {
@@ -103,9 +110,16 @@ function renderCatalog() {
     const head = element('div', undefined, 'category-head');
     const options = allOptions().filter(option => option.category === category);
     const active = options.filter(option => !excluded.has(option.id) && (setting === 'any' || option.settings.includes(setting))).length;
-    head.append(element('h3', label), element('p', `${active} in the mix`));
+    const query = $('#idea-search').value.trim().toLowerCase();
+    const tier = $('#idea-tier').value;
+    const visible = options.filter(option => `${option.name} ${option.description}`.toLowerCase().includes(query) &&
+      (tier === 'all' || tier === 'low' && option.costCents < 5000 || tier === 'mid' && option.costCents >= 5000 && option.costCents <= 20000 || tier === 'high' && option.costCents > 20000)).sort((a, b) => a.costCents - b.costCents);
+    head.append(element('h3', label), element('p', `${active} in the mix · ${visible.length} shown`));
     const list = element('ul', undefined, 'option-list');
-    for (const option of options) {
+    list.tabIndex = 0;
+    list.setAttribute('aria-label', `${label} ideas. Scroll to explore.`);
+    if (!visible.length) list.append(element('li', 'No matches to browse. Try another search or price range.', 'empty-category'));
+    for (const option of visible) {
       const eligible = setting === 'any' || option.settings.includes(setting);
       const item = element('li');
       const choice = button('', `option-choice${eligible ? '' : ' unavailable'}`, () => {
@@ -128,6 +142,7 @@ function renderCatalog() {
       choice.append(emoji, copy);
       item.append(choice);
       if (option.custom) item.append(button('Remove custom idea', 'text-button remove-custom', () => {
+        if (busy) return;
         customOptions = customOptions.filter(custom => custom.id !== option.id);
         excluded.delete(option.id);
         if (locks[category] === option.id) delete locks[category];
@@ -145,7 +160,7 @@ function renderCatalog() {
 function setBusy(value) {
   busy = value;
   document.body.classList.toggle('is-busy', value);
-  document.querySelectorAll('#plan-form input, #plan-form select, #plan-form button, #custom-form input, #custom-form select, #custom-form button, .option-choice, .remove-custom, .pick-controls button, #again, #reset-ideas').forEach(node => { node.disabled = value; });
+  document.querySelectorAll('#plan-form input, #plan-form select, #plan-form button, #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, .option-choice, .remove-custom, .pick-controls button, #again, #reset-ideas').forEach(node => { node.disabled = value; });
   if (!value && currentPlan) renderResult();
 }
 
@@ -226,6 +241,10 @@ function renderResult() {
   $('#result-setting').textContent = `${moodLabels[currentPlan.mood]} · ${settingLabels[currentPlan.setting]}`;
   $('#result-total').textContent = money(currentPlan.totalCents);
   $('#remaining').textContent = `${money(currentPlan.remainingCents)} left for little extras`;
+  const max = currentPlan.maximumCents;
+  $('#spend-explanation').textContent = currentPlan.spending === 'flexible' ? 'Flexible mode: your budget is a ceiling, and any affordable combination can win.' :
+    Number.isSafeInteger(max) && max < currentPlan.budgetCents * .9 ? `Treat us: these choices top out at ${money(max)}. We aimed near that amount. Change the setting, unlock picks, or add an idea to go bigger.` :
+    'Treat us: this plan aims to use 90–100% of your budget while staying within your limit.';
   $('#budget-used').style.width = `${currentPlan.budgetCents ? Math.min(100, currentPlan.totalCents / currentPlan.budgetCents * 100) : 0}%`;
   $('#result-notice').textContent = currentPlan.notice;
   $('#save').textContent = favorites.some(plan => planKey(plan) === planKey(currentPlan)) ? '♡ Date saved' : '♡ Save this date';
@@ -285,6 +304,7 @@ function renderFavorites() {
       locks = {};
       $('#budget').value = plan.budgetCents / 100;
       $('#setting').value = plan.setting;
+      $('#spending').value = plan.spending;
       $(`input[name=mood][value="${plan.mood}"]`).checked = true;
       currentPlan = plan;
       renderResult();
@@ -321,6 +341,12 @@ function addCustom(event) {
 }
 
 $('#plan-form').addEventListener('submit', generate);
+document.querySelectorAll('[data-budget]').forEach(node => node.addEventListener('click', () => {
+  $('#budget').value = node.dataset.budget;
+  updatePossibilities();
+}));
+$('#idea-search').addEventListener('input', renderCatalog);
+$('#idea-tier').addEventListener('change', renderCatalog);
 $('#again').addEventListener('click', generate);
 $('#plan-form').addEventListener('input', event => {
   if (event.target.id === 'budget-slider') $('#budget').value = event.target.value;

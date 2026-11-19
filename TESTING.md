@@ -18,6 +18,12 @@ The updated jsdom simulation passed slider synchronization, mood selection, excl
 
 Real-browser visual checks and manual deployed tests remain pending. Browser control returned a native-pipe-unavailable error; no phone/laptop screenshots or manual rendering results are claimed.
 
+## Variety and spending local checks — November 19, 2026
+
+`npm test` passed all 51 HTTP tests after expanding to 65 ideas. New checks exercise $1,000 budgets across all settings/moods, near-budget plans from $25 through $10,000, flexible mode retaining cheap/free choices, constrained attainable maxima, memory-efficient preview counts, invalid spending modes, and budget-aware single-category rerolls. A boundary regression verifies that a $100 budget with a $92 attainable total must not fall back to an $88 plan: the 90% target takes priority whenever it is reachable. The request limit is now 4 KB to accommodate expanded exclusions plus custom ideas and locks; an oversized 6 KB payload is rejected and the maximum UI preferences fit under the new bound.
+
+The DOM simulation covers the larger catalog, search, premium-price browsing, the $1,000 quick preset and slider, a generated $900–$1,000 total, flexible-mode feedback, and a constrained $800 maximum under a $1,000 budget. It also retains the existing lock/reroll, favorites, export, network/storage, and reveal checks. These are simulated interactions; real-browser visual checks and all deployed acceptance cases remain pending.
+
 ## Deployment foundation checks
 
 Record the URL, date, actual outcome, and any fixes after running these manually on the deployed site. Local checks do not count as deployed results.
@@ -46,8 +52,8 @@ All actual results below remain pending a public deployment and manual verificat
 | A04 | Filters | Generate with every setting. | Every pick supports the selected setting; catalog eligibility updates. | Pending deployment |
 | A05 | Server input validation | In developer tools send missing budget, string budget, unknown field, and unsupported setting to POST /api/generate. | Each returns JSON error with HTTP 400. | Pending deployment |
 | A06 | Malformed request | POST malformed JSON with application/json content type. | Readable JSON error, HTTP 400. | Pending deployment |
-| A07 | Oversized request | POST a JSON body over 2 KB. | Readable JSON error, HTTP 413. | Pending deployment |
-| A08 | Options validation | GET /api/options, then /api/options?unexpected=true. | Valid catalog with 24 options; query rejected with HTTP 400. | Pending deployment |
+| A07 | Oversized request | POST a JSON body over 4 KB. | Readable JSON error, HTTP 413. | Pending deployment |
+| A08 | Options validation | GET /api/options, then /api/options?unexpected=true. | Valid catalog with 65 options; query rejected with HTTP 400. | Pending deployment |
 | A09 | Unsupported methods | POST /api/health and GET /api/generate. | JSON error, HTTP 404. | Pending deployment |
 | A10 | Favorites | Save a result twice; reload; remove it. | One entry persists after reload; removal persists. | Pending deployment |
 | A11 | Storage failure | Set favorites key to invalid JSON; reload. Block browser storage; generate and attempt save. | Helpful messages; generation and downloading still work. | Pending deployment |
@@ -62,7 +68,7 @@ Add the remaining application, input-validation, and advanced-feature cases as t
 
 | ID | Item | Steps | Expected result | Actual result |
 | --- | --- | --- | --- | --- |
-| G01 | Mood and budget | Choose each mood; move slider; type $250 and $35.25 directly. | Mood selects visibly; number and slider stay synchronized within the slider's stated $200 range; valid typed budgets are respected. | Pending deployment |
+| G01 | Mood and budget | Choose each mood; move slider; type $2,500 and $35.25 directly. | Mood selects visibly; number and slider stay synchronized within the slider's stated $1,000 range; valid typed budgets are respected. | Pending deployment |
 | G02 | Possibility count | Change budget and setting; exclude/restore ideas; lock picks. | Live count matches the current feasible set; empty categories and insufficient budgets explain the issue. | Pending deployment |
 | G03 | Reveal | Play, watch all four categories, then play and skip midway. | Nonwinners cross out, winners reveal; skip resolves immediately with the server-selected result; no duplicate request. | Pending deployment |
 | G04 | Reduced motion and sound | Enable system reduced motion and play; test Skip the suspense; opt in/out of sound. | Reduced motion bypasses reveal/confetti; sound is off by default and follows the toggle where supported. | Pending deployment |
@@ -72,3 +78,9 @@ Add the remaining application, input-validation, and advanced-feature cases as t
 | G08 | Personal ideas | Add four custom ideas with valid names/costs/settings; attempt fifth and invalid prices. | Four supported; extra/invalid ideas rejected; custom ideas can be excluded and removed. | Pending deployment |
 | G09 | Custom favorites | Generate a custom pick, save, reload, revisit, and reroll. | Saved custom snapshot survives; revisit restores personal ideas; validated rerolls work. | Pending deployment |
 | G10 | Date-card export | Download current and saved SVG cards with long/custom text; open in browser and print preview. Also download text. | Well-formed readable cards with correct names, estimates, total, and budget; text version remains available. | Pending deployment |
+| V01 | Larger activity catalog | Browse Activity and use search for pottery, kayak, and spa. | 24 varied activity choices; matching search results; no unintended exclusions. | Pending deployment |
+| V02 | Premium browsing | Choose Over $200, browse each category, then restore All price ranges. | Premium ideas are easy to find; generation eligibility stays unchanged. | Pending deployment |
+| V03 | Treat us | Choose $1,000 and Treat us; generate across moods/settings. | Estimated totals stay at $900–$1,000 when choices allow, never above budget. | Pending deployment |
+| V04 | Flexible mode | Switch to Flexible, generate, save, reload, and revisit. | Any affordable total can win; spending style persists; prior saved dates remain compatible. | Pending deployment |
+| V05 | Limited spending potential | Lock three free picks, set $1,000, and generate. | Near the highest attainable remaining pick; explanation identifies the maximum without inflated prices. | Pending deployment |
+| V06 | Quick budget controls | Use $25/$50/$100/$250/$500/$1,000 buttons, slider, and a typed $2,500. | Values and selected state stay synchronized; slider cap is clearly stated. | Pending deployment |

@@ -3,7 +3,8 @@
   const categories = ['dinner', 'activity', 'treat', 'entertainment'];
   const settings = ['any', 'indoor', 'outdoor', 'home'];
   const moods = ['surprise', 'cozy', 'adventurous', 'romantic', 'competitive'];
-  const fields = ['budget', 'setting', 'mood', 'excluded', 'customOptions', 'locked', 'previous'];
+  const spendingModes = ['treat', 'flexible'];
+  const fields = ['budget', 'setting', 'mood', 'spending', 'excluded', 'customOptions', 'locked', 'previous'];
   const object = value => value && typeof value === 'object' && !Array.isArray(value);
   const fail = (error, status = 400, extra = {}) => ({ error, status, ...extra });
 
@@ -24,14 +25,15 @@
     return result;
   }
 
-  function prepare(input, catalog) {
+  function prepare(input, catalog, includePlans = true) {
     if (!object(input) || Object.keys(input).some(key => !fields.includes(key))) return fail('Send a budget and documented date preferences only.');
-    const { budget, setting = 'any', mood = 'surprise', excluded = [], customOptions = [], locked = {}, previous = [] } = input;
+    const { budget, setting = 'any', mood = 'surprise', spending = 'treat', excluded = [], customOptions = [], locked = {}, previous = [] } = input;
     if (typeof budget !== 'number' || !Number.isFinite(budget) || budget < 0 || budget > 10000 || budget !== Number(budget.toFixed(2))) {
       return fail('Enter a budget from $0 to $10,000 with at most two decimal places.');
     }
     if (!settings.includes(setting)) return fail('Choose any, indoor, outdoor, or home.');
     if (!moods.includes(mood)) return fail('Choose a mood from the available choices.');
+    if (!spendingModes.includes(spending)) return fail('Choose treat or flexible for your spending style.');
     const custom = customCatalog(customOptions);
     if (!custom) return fail('Add up to four custom ideas with a name, category, valid cost, and setting.');
     const options = [...catalog, ...custom];
@@ -54,12 +56,29 @@
     const budgetCents = Math.round(budget * 100);
     const minimumCents = groups.reduce((sum, group) => sum + Math.min(...group.map(option => option.costCents)), 0);
     if (budgetCents < minimumCents) return fail(`These choices need at least $${(minimumCents / 100).toFixed(2)}. Raise the budget, unlock a pick, or change your choices.`, 422, { minimumCents });
-    let plans = [[]];
-    for (const group of groups) plans = plans.flatMap(picks => group.map(option => [...picks, option]));
-    plans = plans.filter(picks => picks.reduce((sum, option) => sum + option.costCents, 0) <= budgetCents);
-    const alternatives = plans.filter(picks => picks.some((option, index) => option.id !== previous[index]));
-    return { plans: alternatives.length ? alternatives : plans, combinationCount: plans.length,
-      unchanged: previous.length === 4 && !alternatives.length, budgetCents, setting, mood, customOptions };
+    // Enumerate directly with budget pruning. Browser counts need no arrays of every plan.
+    let combinationCount = 0, alternativeCount = 0, maximumCents = 0;
+    const candidates = [];
+    function visit(index, picks, total) {
+      if (index === groups.length) {
+        combinationCount++;
+        const alternative = picks.some((option, i) => option.id !== previous[i]);
+        if (alternative) { alternativeCount++; maximumCents = Math.max(maximumCents, total); }
+        if (includePlans) candidates.push({ picks: [...picks], total, alternative });
+        return;
+      }
+      for (const option of groups[index]) {
+        if (total + option.costCents <= budgetCents) visit(index + 1, [...picks, option], total + option.costCents);
+      }
+    }
+    visit(0, [], 0);
+    if (!alternativeCount) maximumCents = groups.reduce((sum, group) => sum + group.find(option => previous.includes(option.id)).costCents, 0);
+    // Aim at 90% of the budget when possible; otherwise stay near the best attainable total.
+    const nearBudgetCents = Math.ceil(budgetCents * .9);
+    const targetCents = spending === 'treat' ? maximumCents >= nearBudgetCents ? nearBudgetCents : Math.ceil(maximumCents * .95) : 0;
+    const plans = includePlans ? candidates.filter(candidate => (!alternativeCount || candidate.alternative) && candidate.total >= targetCents).map(candidate => candidate.picks) : [];
+    return { plans, combinationCount, maximumCents, targetCents,
+      unchanged: previous.length === 4 && !alternativeCount, budgetCents, setting, mood, spending, customOptions };
   }
 
   const names = {
@@ -73,7 +92,7 @@
     const choices = names[mood] || names.surprise;
     return choices[picks.map(pick => pick.id).join('').length % choices.length];
   }
-  const api = { categories, settings, moods, customCatalog, prepare, title };
+  const api = { categories, settings, moods, spendingModes, customCatalog, prepare, title };
   if (typeof module === 'object' && module.exports) module.exports = api;
   else root.MashPlanner = api;
 })(typeof globalThis === 'object' ? globalThis : this);

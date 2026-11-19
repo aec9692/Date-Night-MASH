@@ -5,7 +5,7 @@ Group members: Adrainn Coloma, Andrew Russo, Alex Marshall.
 
 ## Current version
 
-An interactive MASH game generates a four-part date within a total budget for two. Set the mood, adjust the budget, choose a setting, and watch ideas get crossed out before your named date is revealed. Lock the picks you love, reroll one category, exclude ideas, or add up to four personal ideas. Save dates in this browser and download an illustrated SVG date card or a plain-text itinerary. All costs are USD estimates; free ideas rely on items or access you already have. No accounts, database, API keys, or paid services are used.
+An interactive MASH game generates a four-part date within a total budget for two. Browse 65 ideas (16 dinners, 24 activities, 12 treats, and 13 entertainment options), spanning free outings through premium experiences. Set the mood, budget, setting, and spending style; watch ideas get crossed out before your named date is revealed. Lock the picks you love, reroll one category, exclude ideas, or add up to four personal ideas. Save dates in this browser and download an illustrated SVG date card or a plain-text itinerary. Costs are illustrative USD estimates, not real venue quotes or booking offers. Confirm full prices, taxes, fees, and availability. No accounts, database, API keys, or paid services are used.
 
 Deployed application URL: pending Vercel import and verification.
 
@@ -26,21 +26,24 @@ Open http://localhost:3000, enter a budget, choose a setting, and click Play MAS
 
 `public/planner.js` shares validation and enumeration rules between the client (for live possibility counts) and server (for authoritative selection). `public/show.js` handles the short elimination reveal, optional sound, and confetti. The server chooses the result before the animation begins. Reduced-motion preferences and Skip reveal bypass the suspense. `public/download.js` creates text itineraries and self-contained vector date cards using safe DOM APIs.
 
-The slider covers $0–$200; direct typing supports up to $10,000. Moods are weighted preferences, not hard filters: matching ideas get more chances while every feasible combination stays possible. Changes to the setting clear existing locks. A single-category reroll fixes the other three picks and checks the entire budget again. When there is no different valid plan, the server returns the same result with `unchanged: true`, and the interface explains how to open up more choices.
+The slider covers $0–$1,000, with quick budget buttons; direct typing supports up to $10,000. Treat us is the default spending style: it chooses totals at 90–100% of budget when available. If the current constraints cannot get that high, it chooses within the top 5% of the highest attainable total and explains the limit. Flexible keeps every affordable total in the mix. Mood weights candidates within the chosen spending style; it never overrides budget or other constraints. Changes to the setting clear existing locks. A single-category reroll fixes the other three picks and checks the entire budget again. When there is no different valid plan, the server returns the same result with `unchanged: true`, and the interface explains how to open up more choices. Previous plans are excluded before computing the attainable maximum when a different plan is available.
+
+Search and price-range browsing help explore the larger decks; they only change what is visible. Inclusion/exclusion remains an explicit idea toggle. The displayed affordable count includes all feasible totals, while Treat us selects from the near-budget subset. Preview counts enumerate with budget pruning without keeping an array of every plan.
 
 | Route | Input | Response |
 | --- | --- | --- |
 | GET /api/health | None | Application name and status |
-| GET /api/options | None; query parameters rejected | Categories, setting values, 24 options, and price basis |
-| POST /api/generate | JSON such as `{"budget":50,"setting":"outdoor","mood":"romantic"}` | Four picks, title, mood, setting, budgetCents, totalCents, remainingCents, combinationCount, unchanged, customOptions, and estimate notice |
+| GET /api/options | None; query parameters rejected | Categories, settings, moods, spending modes, 65 options, and price basis |
+| POST /api/generate | JSON such as `{"budget":1000,"setting":"outdoor","mood":"romantic","spending":"treat"}` | Four picks, title, mood, setting, spending, budgetCents, totalCents, remainingCents, maximumCents, targetCents, combinationCount, unchanged, customOptions, and estimate notice |
 
-Budget must be a number from 0 through 10000, with at most two decimal places. Setting is optional (defaults to `any`); accepted values are `any`, `indoor`, `outdoor`, and `home`. Each pick supports the selected setting; indoor choices can include at-home ideas. Unknown fields and query parameters are rejected. Errors are JSON with an `error` message: 400 for invalid input, 413 for a body over 2 KB, 422 for no complete affordable plan (with minimumCents when available), and 500 for an unexpected failure.
+Budget must be a number from 0 through 10000, with at most two decimal places. Setting is optional (defaults to `any`); accepted values are `any`, `indoor`, `outdoor`, and `home`. Each pick supports the selected setting; indoor choices can include at-home ideas. Unknown fields and query parameters are rejected. Errors are JSON with an `error` message: 400 for invalid input, 413 for a body over 4 KB, 422 for no complete affordable plan (with minimumCents when available), and 500 for an unexpected failure. The 4 KB bound accommodates expanded exclusions plus personal ideas and locks.
 
 Additional optional generation fields:
 
 | Field | Format |
 | --- | --- |
 | mood | `surprise` (default), `cozy`, `adventurous`, `romantic`, or `competitive` |
+| spending | `treat` (default) or `flexible`; recorded in saved dates and exports. Older saved dates restore as flexible. |
 | excluded | Unique IDs to omit from the current preset/custom catalog |
 | locked | Category-to-ID object, e.g. `{"dinner":"dinner-pasta"}` |
 | previous | Previous four IDs in dinner/activity/treat/entertainment order; avoids a repeat when alternatives fit |

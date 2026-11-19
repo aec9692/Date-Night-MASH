@@ -393,5 +393,674 @@
       "cozy"
     ],
     "tip": "Add a round of questions about each other."
+  },
+  {
+    "id": "dinner-sushi",
+    "category": "dinner",
+    "name": "Sushi date",
+    "description": "Share a sushi selection at a local restaurant.",
+    "costCents": 9000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍣",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Each choose a roll for the other."
+  },
+  {
+    "id": "dinner-steakhouse",
+    "category": "dinner",
+    "name": "Steakhouse evening",
+    "description": "Dress up for a steakhouse dinner for two.",
+    "costCents": 18000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🥩",
+    "moods": [
+      "romantic"
+    ],
+    "tip": "Make a little occasion of getting ready together."
+  },
+  {
+    "id": "dinner-tasting",
+    "category": "dinner",
+    "name": "Chef’s tasting menu",
+    "description": "Explore a multi-course restaurant tasting menu.",
+    "costCents": 30000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Guess the ingredients before reading the menu."
+  },
+  {
+    "id": "dinner-private-chef",
+    "category": "dinner",
+    "name": "Private chef at home",
+    "description": "Arrange a chef-prepared dinner in your own space.",
+    "costCents": 45000,
+    "settings": [
+      "home",
+      "indoor"
+    ],
+    "emoji": "🧑‍🍳",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Set a table worthy of the occasion."
+  },
+  {
+    "id": "dinner-rooftop",
+    "category": "dinner",
+    "name": "Rooftop dinner",
+    "description": "Enjoy a restaurant dinner with an outdoor city view.",
+    "costCents": 22000,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🌆",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Book around sunset and check the weather."
+  },
+  {
+    "id": "dinner-omakase",
+    "category": "dinner",
+    "name": "Omakase celebration",
+    "description": "Plan a premium chef-led omakase experience.",
+    "costCents": 90000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍱",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask about the story behind a favorite course."
+  },
+  {
+    "id": "dinner-chef-celebration",
+    "category": "dinner",
+    "name": "Private chef celebration menu",
+    "description": "Plan a bespoke multi-course chef experience for a major occasion.",
+    "costCents": 450000,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🥂",
+    "moods": [
+      "romantic"
+    ],
+    "tip": "Discuss the full menu and all charges before booking."
+  },
+  {
+    "id": "dinner-beach-picnic",
+    "category": "dinner",
+    "name": "Styled sunset picnic",
+    "description": "Arrange a special picnic with a catered meal and cozy seating.",
+    "costCents": 16000,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🧺",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Bring a handwritten note to open at sunset."
+  },
+  {
+    "id": "dinner-garden-chef",
+    "category": "dinner",
+    "name": "Garden chef’s table",
+    "description": "Plan a private outdoor dining experience.",
+    "costCents": 60000,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🌿",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check access, weather, and a backup indoor plan."
+  },
+  {
+    "id": "dinner-home-omakase",
+    "category": "dinner",
+    "name": "At-home chef’s tasting",
+    "description": "Bring a premium tasting-menu experience home.",
+    "costCents": 90000,
+    "settings": [
+      "home",
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Choose a theme that means something to both of you."
+  },
+  {
+    "id": "activity-bowling",
+    "category": "activity",
+    "name": "Bowling showdown",
+    "description": "Play a few friendly games at a bowling alley.",
+    "costCents": 4000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎳",
+    "moods": [
+      "competitive",
+      "cozy"
+    ],
+    "tip": "Invent a victory dance for every strike."
+  },
+  {
+    "id": "activity-escape",
+    "category": "activity",
+    "name": "Escape room duo",
+    "description": "Work together through a puzzle-filled escape room.",
+    "costCents": 10000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🔐",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Teamwork counts more than who solves the last clue."
+  },
+  {
+    "id": "activity-pottery",
+    "category": "activity",
+    "name": "Pottery workshop",
+    "description": "Try a pottery session and make something to keep.",
+    "costCents": 12000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🏺",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "Make a little gift for each other."
+  },
+  {
+    "id": "activity-dance",
+    "category": "activity",
+    "name": "Dance lesson for two",
+    "description": "Learn a few steps in a beginner-friendly dance class.",
+    "costCents": 10000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "💃",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Pick a song you would love to dance to someday."
+  },
+  {
+    "id": "activity-climbing",
+    "category": "activity",
+    "name": "Indoor climbing session",
+    "description": "Try an introductory climbing session together.",
+    "costCents": 8000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🧗",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Check instruction, equipment, and access requirements."
+  },
+  {
+    "id": "activity-kayak",
+    "category": "activity",
+    "name": "Kayak adventure",
+    "description": "Rent kayaks for a relaxed paddle with suitable conditions.",
+    "costCents": 9000,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🛶",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Choose a beginner-friendly route and follow local guidance."
+  },
+  {
+    "id": "activity-bikes",
+    "category": "activity",
+    "name": "Bike trail cruise",
+    "description": "Rent bikes and explore an easy scenic route.",
+    "costCents": 6000,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🚲",
+    "moods": [
+      "adventurous"
+    ],
+    "tip": "Let each person choose a stop."
+  },
+  {
+    "id": "activity-skating",
+    "category": "activity",
+    "name": "Skating date",
+    "description": "Spend a session at an ice or roller rink.",
+    "costCents": 5000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "⛸️",
+    "moods": [
+      "romantic",
+      "competitive"
+    ],
+    "tip": "Celebrate staying upright as much as fancy moves."
+  },
+  {
+    "id": "activity-hike",
+    "category": "activity",
+    "name": "Scenic trail adventure",
+    "description": "Walk a public trail suited to your experience and the conditions.",
+    "costCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🥾",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Bring water and turn around with time to spare."
+  },
+  {
+    "id": "activity-gardens",
+    "category": "activity",
+    "name": "Botanical garden wander",
+    "description": "Explore a botanical garden together.",
+    "costCents": 5000,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🌷",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Find the plant that best matches each other’s personality."
+  },
+  {
+    "id": "activity-spa",
+    "category": "activity",
+    "name": "Couples spa afternoon",
+    "description": "Plan a relaxing spa visit for two.",
+    "costCents": 35000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🧖",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "Check what treatments and gratuities are included."
+  },
+  {
+    "id": "activity-balloon",
+    "category": "activity",
+    "name": "Hot-air balloon outing",
+    "description": "Plan a balloon experience with a local operator.",
+    "costCents": 60000,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🎈",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Confirm availability, weather policies, and the full price."
+  },
+  {
+    "id": "activity-horseback",
+    "category": "activity",
+    "name": "Guided horseback ride",
+    "description": "Book a guided trail ride matched to your experience.",
+    "costCents": 20000,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🐎",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Ask about the route and beginner options."
+  },
+  {
+    "id": "activity-sailing",
+    "category": "activity",
+    "name": "Private sailing afternoon",
+    "description": "Arrange a private sailing outing with a skipper.",
+    "costCents": 80000,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "⛵",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Choose a route with a favorite view."
+  },
+  {
+    "id": "activity-helicopter",
+    "category": "activity",
+    "name": "Scenic helicopter experience",
+    "description": "Plan a premium scenic flight with a local operator.",
+    "costCents": 180000,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🚁",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Confirm the route, duration, restrictions, and complete quote."
+  },
+  {
+    "id": "activity-private-art",
+    "category": "activity",
+    "name": "Private art workshop",
+    "description": "Arrange a private guided art session for two.",
+    "costCents": 50000,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🖌️",
+    "moods": [
+      "romantic",
+      "competitive"
+    ],
+    "tip": "Create something inspired by your favorite memory."
+  },
+  {
+    "id": "activity-home-spa",
+    "category": "activity",
+    "name": "DIY spa retreat",
+    "description": "Set up a relaxed evening with simple spa supplies and music.",
+    "costCents": 7000,
+    "settings": [
+      "home",
+      "indoor"
+    ],
+    "emoji": "🕯️",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "Put both phones on quiet for an hour."
+  },
+  {
+    "id": "activity-cooking",
+    "category": "activity",
+    "name": "Cooking class from home",
+    "description": "Try a guided cooking class with ingredients for two.",
+    "costCents": 15000,
+    "settings": [
+      "home",
+      "indoor"
+    ],
+    "emoji": "🥟",
+    "moods": [
+      "cozy",
+      "adventurous"
+    ],
+    "tip": "Choose a cuisine neither of you has made before."
+  },
+  {
+    "id": "treat-dessert-flight",
+    "category": "treat",
+    "name": "Dessert flight for two",
+    "description": "Share a small selection of desserts.",
+    "costCents": 3500,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍰",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Rank your favorites without telling each other first."
+  },
+  {
+    "id": "treat-patisserie",
+    "category": "treat",
+    "name": "Patisserie tasting",
+    "description": "Pick a selection of specialty pastries to share.",
+    "costCents": 6000,
+    "settings": [
+      "indoor",
+      "outdoor"
+    ],
+    "emoji": "🥐",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "Find a favorite you would come back for."
+  },
+  {
+    "id": "treat-chocolates",
+    "category": "treat",
+    "name": "Artisan chocolate selection",
+    "description": "Share a box of specialty chocolates.",
+    "costCents": 4500,
+    "settings": [
+      "indoor",
+      "home",
+      "outdoor"
+    ],
+    "emoji": "🍬",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Guess the fillings before checking the guide."
+  },
+  {
+    "id": "treat-chef-dessert",
+    "category": "treat",
+    "name": "Chef-made dessert experience",
+    "description": "Arrange a special plated-dessert experience.",
+    "costCents": 18000,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🍮",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Choose a flavor connected to a shared memory."
+  },
+  {
+    "id": "treat-pastry-class",
+    "category": "treat",
+    "name": "Private pastry tasting",
+    "description": "Arrange a private tasting of a pastry chef’s creations.",
+    "costCents": 30000,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🧁",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Ask for a surprise flavor alongside your favorites."
+  },
+  {
+    "id": "treat-celebration",
+    "category": "treat",
+    "name": "Bespoke celebration dessert",
+    "description": "Commission a special dessert presentation for your occasion.",
+    "costCents": 65000,
+    "settings": [
+      "indoor",
+      "home",
+      "outdoor"
+    ],
+    "emoji": "🎂",
+    "moods": [
+      "romantic"
+    ],
+    "tip": "Agree on the design, portions, delivery, and full quote."
+  },
+  {
+    "id": "entertainment-comedy",
+    "category": "entertainment",
+    "name": "Comedy club night",
+    "description": "See a live comedy show together.",
+    "costCents": 8000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎤",
+    "moods": [
+      "cozy",
+      "adventurous"
+    ],
+    "tip": "Check ticket charges and any minimum order."
+  },
+  {
+    "id": "entertainment-jazz",
+    "category": "entertainment",
+    "name": "Live jazz evening",
+    "description": "Enjoy a seated live jazz performance.",
+    "costCents": 15000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎷",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Listen for a song you would add to your playlist."
+  },
+  {
+    "id": "entertainment-theater",
+    "category": "entertainment",
+    "name": "Theater night",
+    "description": "Choose a live stage production for two.",
+    "costCents": 25000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎭",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Compare your favorite moments afterward."
+  },
+  {
+    "id": "entertainment-vip-concert",
+    "category": "entertainment",
+    "name": "Premium concert tickets",
+    "description": "Plan a concert evening with premium seating for two.",
+    "costCents": 75000,
+    "settings": [
+      "indoor",
+      "outdoor"
+    ],
+    "emoji": "🎸",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Confirm the actual seat view and all ticket fees."
+  },
+  {
+    "id": "entertainment-private-cinema",
+    "category": "entertainment",
+    "name": "Private cinema screening",
+    "description": "Arrange a private screening where available.",
+    "costCents": 45000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎞️",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "Pick the movie that started an inside joke."
+  },
+  {
+    "id": "entertainment-private-music",
+    "category": "entertainment",
+    "name": "Private live-music evening",
+    "description": "Arrange a private live performance for a special occasion.",
+    "costCents": 180000,
+    "settings": [
+      "indoor",
+      "home",
+      "outdoor"
+    ],
+    "emoji": "🎻",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Request a song that belongs to the two of you."
+  },
+  {
+    "id": "entertainment-box",
+    "category": "entertainment",
+    "name": "Special-occasion box seats",
+    "description": "Explore premium box seating for a live performance or event.",
+    "costCents": 300000,
+    "settings": [
+      "indoor",
+      "outdoor"
+    ],
+    "emoji": "🎟️",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Confirm what the package actually includes for two people."
   }
 ]
