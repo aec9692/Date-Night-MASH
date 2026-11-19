@@ -1,0 +1,19 @@
+{
+  "name": "date-night-mash",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Affordable date plans for two, built with Express and plain JavaScript.",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}

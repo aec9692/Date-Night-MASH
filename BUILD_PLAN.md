@@ -111,8 +111,8 @@ TESTING.md
 ## Current setup status
 
 - Existing repository remote: aec9692/Date-Night-MASH, branch main.
-- Initial repository contains only README.md; this task adds planning documents.
-- Node.js, npm, GitHub CLI, and Vercel CLI were not found on the current shell PATH during initial inspection.
+- Full initial implementation is prepared on `adrainn/deployment-foundation`: server validation and date generation, 24 preset ideas, responsive form and results, setting filters, favorites, and text downloads. The owner requested the complete build and authorized Codex to handle its merges. The normal staged deployed checks remain pending while Vercel access is unavailable; implementation does not count as passing those checks.
+- Node.js and npm were not found on the shell PATH; a portable Node.js 24 runtime is kept in ignored `.tools/` for local checks. Teammates should install Node.js 24 LTS to use the documented npm commands.
 - Vercel account connection, project import, deployment, and automatic redeployment remain unverified. Do not treat this plan as a deployed application.
 
 ## Deployment references
