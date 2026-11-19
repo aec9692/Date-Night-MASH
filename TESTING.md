@@ -10,19 +10,27 @@ Full application: `npm test` passed 23 automated HTTP tests, covering catalog in
 
 Failure and fix: the first DOM simulation showed a raw network exception message instead of the intended connection guidance when an exception crossed JavaScript realms. The client now recognizes network exceptions by their error name. The complete DOM simulation passed after that change.
 
+## Game upgrade local checks — November 19, 2026
+
+`npm test` passed all 43 HTTP tests. Added checks cover mood preferences, possibility counts, locked picks, changing exactly one category, explicit unchanged results, exclusion failures, custom-idea snapshots, tampered custom data, and the maximum UI request fitting under 2 KB.
+
+The updated jsdom simulation passed slider synchronization, mood selection, exclusions, custom ideas, safe rendering of special characters, locks, rerolls preserving three picks, existing and custom favorites, both download formats, network/storage failures, full reveal completion, skip reveal, reduced-motion bypass, and duplicate-submission prevention. The generated SVG was parsed as XML and checked for escaped user text and absence of scripts. A duplicate SVG namespace caused the first parse to fail; letting XMLSerializer declare the namespace fixed it, and the full simulation passed on rerun.
+
+Real-browser visual checks and manual deployed tests remain pending. Browser control returned a native-pipe-unavailable error; no phone/laptop screenshots or manual rendering results are claimed.
+
 ## Deployment foundation checks
 
 Record the URL, date, actual outcome, and any fixes after running these manually on the deployed site. Local checks do not count as deployed results.
 
 | ID | Item | Steps | Expected result | Actual result |
 | --- | --- | --- | --- | --- |
-| D01 | Landing page | Open the production URL on a laptop. | Title, categories, and connection check appear. | Pending deployment |
+| D01 | Landing page | Open the production URL on a laptop. | Hero, mood/budget controls, playable idea decks, and saved dates appear. | Pending deployment |
 | D02 | Health route | Open `/api/health`. | HTTP 200; JSON status is ok and app is Date Night MASH. | Pending deployment |
 | D03 | Browser request | Enter $50, submit Play MASH, and inspect Network. | POST /api/generate returns 200; four picks and total appear. | Pending deployment |
 | D04 | Generate again | Generate, then click Generate again. | Submission buttons disable while loading; a valid plan appears and controls re-enable. | Pending deployment |
 | D05 | Network failure | Go offline after loading; generate; restore network and retry. | Readable failure message, preserved inputs, then successful recovery. | Pending deployment |
 | D06 | Phone layout | Open `/` at 375px viewport width. | Readable content, no horizontal overflow, usable controls. | Pending deployment |
-| D07 | Keyboard | Tab through controls and activate the check button. | Visible focus and keyboard-operable controls. | Pending deployment |
+| D07 | Keyboard | Tab through mood choices, budget, setting, play, skip, lock/reroll, and download controls. | Visible focus and keyboard-operable controls. | Pending deployment |
 | D08 | Unknown API | Open `/api/not-a-route`. | HTTP 404 with a JSON error. | Pending deployment |
 | D09 | Automatic deployment | Merge a reviewed visible change into main. | New production deployment serves that change. | Pending deployment |
 
@@ -49,3 +57,18 @@ All actual results below remain pending a public deployment and manual verificat
 | A15 | Initial load failure | Block /api/options and reload; unblock and click Retry loading ideas. | Helpful error followed by recovery; no broken generation controls. | Pending deployment |
 
 Add the remaining application, input-validation, and advanced-feature cases as those milestones are implemented. The final record must contain at least 12 executed deployed-site cases with actual results; see BUILD_PLAN.md.
+
+## Game upgrade manual acceptance checks
+
+| ID | Item | Steps | Expected result | Actual result |
+| --- | --- | --- | --- | --- |
+| G01 | Mood and budget | Choose each mood; move slider; type $250 and $35.25 directly. | Mood selects visibly; number and slider stay synchronized within the slider's stated $200 range; valid typed budgets are respected. | Pending deployment |
+| G02 | Possibility count | Change budget and setting; exclude/restore ideas; lock picks. | Live count matches the current feasible set; empty categories and insufficient budgets explain the issue. | Pending deployment |
+| G03 | Reveal | Play, watch all four categories, then play and skip midway. | Nonwinners cross out, winners reveal; skip resolves immediately with the server-selected result; no duplicate request. | Pending deployment |
+| G04 | Reduced motion and sound | Enable system reduced motion and play; test Skip the suspense; opt in/out of sound. | Reduced motion bypasses reveal/confetti; sound is off by default and follows the toggle where supported. | Pending deployment |
+| G05 | Locks | Lock dinner, regenerate, then unlock. Lock all four and regenerate. | Locked dinner persists; all-four-locked case explicitly explains unchanged result. | Pending deployment |
+| G06 | Single-category reroll | Reroll a category with an alternative; constrain the budget to remove alternatives and try again. | Other three picks stay identical and budget holds; unavailable alternative is explained honestly. | Pending deployment |
+| G07 | Exclusions | Exclude every dinner; play; restore one or reset. | Helpful no-dinner error; restoring ideas recovers; reset clears locks and exclusions. | Pending deployment |
+| G08 | Personal ideas | Add four custom ideas with valid names/costs/settings; attempt fifth and invalid prices. | Four supported; extra/invalid ideas rejected; custom ideas can be excluded and removed. | Pending deployment |
+| G09 | Custom favorites | Generate a custom pick, save, reload, revisit, and reroll. | Saved custom snapshot survives; revisit restores personal ideas; validated rerolls work. | Pending deployment |
+| G10 | Date-card export | Download current and saved SVG cards with long/custom text; open in browser and print preview. Also download text. | Well-formed readable cards with correct names, estimates, total, and budget; text version remains available. | Pending deployment |

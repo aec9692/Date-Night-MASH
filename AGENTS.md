@@ -58,6 +58,17 @@ Main risk: a budget or filter leaves no affordable combination. Keep the preset 
 
 ## Delivery and verification
 
+The owner requested an interactive game upgrade and authorized Codex to handle merges in this session. Preserve the default task-branch/PR workflow for collaboration.
+
+Upgrade behavior:
+- Shared validation and combination enumeration live in public/planner.js. The server remains authoritative; browser counts are a preview.
+- Generation may also receive mood, excluded, customOptions, locked, and previous. Validate every field and reject undocumented fields. Keep JSON requests bounded to 2 KB.
+- Mood values are surprise, cozy, adventurous, romantic, and competitive. Mood weights valid combinations; it must not bypass budget, setting, exclusion, or lock constraints.
+- Support at most four custom ideas with names up to 48 characters and integer estimated prices. Saved custom ideas require the same validation as incoming requests.
+- Keep explicit locks during full regeneration. A single-category reroll fixes the other three picks and returns a different complete combination when one exists. Explain unchanged results when no alternative fits.
+- Select the result before animating. Reveals must be skippable, respect reduced motion, and prevent overlapping submissions. Sound is opt-in.
+- Support both a self-contained SVG date card and plain-text download. Add user text through DOM APIs, including SVG text. Preserve compatibility with existing favorites.
+
 - See BUILD_PLAN.md for milestones, acceptance criteria, and setup steps.
 - Use the connected GitHub repository and Vercel Git integration. Production branch: main. Do not claim a push or deployment succeeded without evidence.
 - Verify all behavior manually on the deployed site at phone and laptop sizes. If direct access is unavailable, ask for browser console errors, Vercel logs, and observed results; leave verification pending.

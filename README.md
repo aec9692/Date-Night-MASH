@@ -5,7 +5,7 @@ Group members: Adrainn Coloma, Andrew Russo, Alex Marshall.
 
 ## Current version
 
-The application generates a four-part date within a total budget for two. It includes 24 curated ideas, setting filters, favorites saved in this browser, and downloadable text plans. All costs are USD estimates; free ideas rely on items or access you already have. No accounts, database, API keys, or paid services are used.
+An interactive MASH game generates a four-part date within a total budget for two. Set the mood, adjust the budget, choose a setting, and watch ideas get crossed out before your named date is revealed. Lock the picks you love, reroll one category, exclude ideas, or add up to four personal ideas. Save dates in this browser and download an illustrated SVG date card or a plain-text itinerary. All costs are USD estimates; free ideas rely on items or access you already have. No accounts, database, API keys, or paid services are used.
 
 Deployed application URL: pending Vercel import and verification.
 
@@ -24,15 +24,31 @@ Open http://localhost:3000, enter a budget, choose a setting, and click Play MAS
 
 `public/app.js` loads the preset catalog from the Express server and sends the budget and setting to `POST /api/generate` in `server.js`. The server validates the JSON, filters options in `data/options.json`, enumerates affordable combinations, and randomly returns one. The browser displays the picks and totals. Prices are stored and compared as integer cents.
 
+`public/planner.js` shares validation and enumeration rules between the client (for live possibility counts) and server (for authoritative selection). `public/show.js` handles the short elimination reveal, optional sound, and confetti. The server chooses the result before the animation begins. Reduced-motion preferences and Skip reveal bypass the suspense. `public/download.js` creates text itineraries and self-contained vector date cards using safe DOM APIs.
+
+The slider covers $0–$200; direct typing supports up to $10,000. Moods are weighted preferences, not hard filters: matching ideas get more chances while every feasible combination stays possible. Changes to the setting clear existing locks. A single-category reroll fixes the other three picks and checks the entire budget again. When there is no different valid plan, the server returns the same result with `unchanged: true`, and the interface explains how to open up more choices.
+
 | Route | Input | Response |
 | --- | --- | --- |
 | GET /api/health | None | Application name and status |
 | GET /api/options | None; query parameters rejected | Categories, setting values, 24 options, and price basis |
-| POST /api/generate | JSON such as `{"budget":50,"setting":"outdoor"}` | Four picks, setting, budgetCents, totalCents, remainingCents, and estimate notice |
+| POST /api/generate | JSON such as `{"budget":50,"setting":"outdoor","mood":"romantic"}` | Four picks, title, mood, setting, budgetCents, totalCents, remainingCents, combinationCount, unchanged, customOptions, and estimate notice |
 
 Budget must be a number from 0 through 10000, with at most two decimal places. Setting is optional (defaults to `any`); accepted values are `any`, `indoor`, `outdoor`, and `home`. Each pick supports the selected setting; indoor choices can include at-home ideas. Unknown fields and query parameters are rejected. Errors are JSON with an `error` message: 400 for invalid input, 413 for a body over 2 KB, 422 for no complete affordable plan (with minimumCents when available), and 500 for an unexpected failure.
 
-Favorites use the `date-night-mash-favorites-v1` localStorage key on this device and browser. They do not sync across devices or preview/production domains, and clearing site data removes them. Up to 50 distinct combinations can be saved. Corrupt or outdated entries are ignored with a message. Downloads are generated in the browser as plain text; no files are uploaded or stored on the server.
+Additional optional generation fields:
+
+| Field | Format |
+| --- | --- |
+| mood | `surprise` (default), `cozy`, `adventurous`, `romantic`, or `competitive` |
+| excluded | Unique IDs to omit from the current preset/custom catalog |
+| locked | Category-to-ID object, e.g. `{"dinner":"dinner-pasta"}` |
+| previous | Previous four IDs in dinner/activity/treat/entertainment order; avoids a repeat when alternatives fit |
+| customOptions | Up to four objects with id, category, name, costCents, and settings. IDs use `custom-` plus 1–20 lowercase letters/digits/hyphens; names have 1–48 characters; costs are integer cents from 0 to 1000000. Settings are a nonempty unique subset of indoor/outdoor/home. |
+
+Custom ideas are kept for the current visit; saved dates retain a validated copy. Revisit a saved date to restore its custom ideas and remix it. Exclusions and locks reset when revisiting. Reset ideas & locks clears exclusions and locks without deleting custom ideas.
+
+Favorites use the `date-night-mash-favorites-v1` localStorage key on this device and browser. They do not sync across devices or preview/production domains, and clearing site data removes them. Up to 50 distinct combinations can be saved. Original saved plans remain compatible. Corrupt or outdated entries are ignored with a message. Downloads are generated in the browser as SVG cards or plain text; no files are uploaded or stored on the server.
 
 ## Deploy on Vercel
 

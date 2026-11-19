@@ -1,26 +1,397 @@
 [
-  {"id":"dinner-picnic","category":"dinner","name":"Pack a picnic","description":"Bring sandwiches and a blanket to your favorite park.","costCents":1200,"settings":["outdoor"]},
-  {"id":"dinner-pasta","category":"dinner","name":"Pasta night for two","description":"Cook a simple pasta dinner together.","costCents":1000,"settings":["indoor","home"]},
-  {"id":"dinner-tacos","category":"dinner","name":"Taco stop","description":"Share a casual meal at a local taco spot.","costCents":2000,"settings":["indoor","outdoor"]},
-  {"id":"dinner-pizza","category":"dinner","name":"Split a pizza","description":"Pick a neighborhood pizza place and share a pie.","costCents":1800,"settings":["indoor"]},
-  {"id":"dinner-pantry","category":"dinner","name":"Pantry challenge","description":"Make dinner using ingredients you already have.","costCents":0,"settings":["indoor","home"]},
-  {"id":"dinner-grill","category":"dinner","name":"Backyard cookout","description":"Grill a simple dinner outside.","costCents":1600,"settings":["outdoor"]},
-  {"id":"activity-walk","category":"activity","name":"Golden-hour walk","description":"Explore a park or a new neighborhood together.","costCents":0,"settings":["outdoor"]},
-  {"id":"activity-games","category":"activity","name":"Board game showdown","description":"Choose a game you already own and keep score.","costCents":0,"settings":["indoor","home"]},
-  {"id":"activity-museum","category":"activity","name":"Museum afternoon","description":"Visit a small museum; check admission before heading out.","costCents":2000,"settings":["indoor"]},
-  {"id":"activity-paint","category":"activity","name":"Paint each other's portrait","description":"Use basic art supplies and reveal your masterpieces.","costCents":800,"settings":["indoor","home"]},
-  {"id":"activity-mini-golf","category":"activity","name":"Mini golf match","description":"Play a friendly round of outdoor mini golf.","costCents":2400,"settings":["outdoor"]},
-  {"id":"activity-photos","category":"activity","name":"Photo scavenger hunt","description":"Make a list of things to photograph on a walk.","costCents":0,"settings":["outdoor"]},
-  {"id":"treat-ice-cream","category":"treat","name":"Ice cream stroll","description":"Grab a scoop each and enjoy it outside.","costCents":1000,"settings":["outdoor"]},
-  {"id":"treat-brownies","category":"treat","name":"Bake brownies","description":"Bake a small batch and share the first warm piece.","costCents":600,"settings":["indoor","home"]},
-  {"id":"treat-pantry","category":"treat","name":"Something sweet from home","description":"Share a snack you already have in the pantry.","costCents":0,"settings":["indoor","home"]},
-  {"id":"treat-cafe","category":"treat","name":"Coffee and a pastry","description":"Order two coffees and a pastry to split.","costCents":1400,"settings":["indoor"]},
-  {"id":"treat-fruit","category":"treat","name":"Fresh fruit break","description":"Pack a small fruit bowl to share outside.","costCents":500,"settings":["outdoor"]},
-  {"id":"treat-cocoa","category":"treat","name":"Hot chocolate for two","description":"Make two mugs and settle in together.","costCents":400,"settings":["indoor","home"]},
-  {"id":"entertainment-stars","category":"entertainment","name":"Stargazing","description":"Find a safe spot away from bright lights and look up.","costCents":0,"settings":["outdoor"]},
-  {"id":"entertainment-movie","category":"entertainment","name":"Movie night at home","description":"Choose a film from a service or collection you already have.","costCents":0,"settings":["indoor","home"]},
-  {"id":"entertainment-cinema","category":"entertainment","name":"Catch a matinee","description":"Pick an early cinema showing and check local ticket prices.","costCents":2400,"settings":["indoor"]},
-  {"id":"entertainment-playlist","category":"entertainment","name":"Trade favorite songs","description":"Take turns playing songs and sharing the stories behind them.","costCents":0,"settings":["indoor","home"]},
-  {"id":"entertainment-sunset","category":"entertainment","name":"Sunset watch","description":"Find a scenic public spot and enjoy the evening light.","costCents":0,"settings":["outdoor"]},
-  {"id":"entertainment-trivia","category":"entertainment","name":"Make-your-own trivia","description":"Write questions for each other and host a mini quiz.","costCents":0,"settings":["indoor","home"]}
+  {
+    "id": "dinner-picnic",
+    "category": "dinner",
+    "name": "Pack a picnic",
+    "description": "Bring sandwiches and a blanket to your favorite park.",
+    "costCents": 1200,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🥪",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Leave your phones in your bag for the first ten minutes."
+  },
+  {
+    "id": "dinner-pasta",
+    "category": "dinner",
+    "name": "Pasta night for two",
+    "description": "Cook a simple pasta dinner together.",
+    "costCents": 1000,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🍝",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "One person cooks, the other picks the playlist."
+  },
+  {
+    "id": "dinner-tacos",
+    "category": "dinner",
+    "name": "Taco stop",
+    "description": "Share a casual meal at a local taco spot.",
+    "costCents": 2000,
+    "settings": [
+      "indoor",
+      "outdoor"
+    ],
+    "emoji": "🌮",
+    "moods": [
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Each pick a taco for the other to try."
+  },
+  {
+    "id": "dinner-pizza",
+    "category": "dinner",
+    "name": "Split a pizza",
+    "description": "Pick a neighborhood pizza place and share a pie.",
+    "costCents": 1800,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍕",
+    "moods": [
+      "cozy",
+      "competitive"
+    ],
+    "tip": "Debate your most controversial pizza topping."
+  },
+  {
+    "id": "dinner-pantry",
+    "category": "dinner",
+    "name": "Pantry challenge",
+    "description": "Make dinner using ingredients you already have.",
+    "costCents": 0,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🍳",
+    "moods": [
+      "cozy",
+      "competitive"
+    ],
+    "tip": "Each pick one ingredient. Make something together."
+  },
+  {
+    "id": "dinner-grill",
+    "category": "dinner",
+    "name": "Backyard cookout",
+    "description": "Grill a simple dinner outside.",
+    "costCents": 1600,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🍔",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Set the table outside, even if it is just a blanket."
+  },
+  {
+    "id": "activity-walk",
+    "category": "activity",
+    "name": "Golden-hour walk",
+    "description": "Explore a park or a new neighborhood together.",
+    "costCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🌅",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Take a turn down a street you have never explored."
+  },
+  {
+    "id": "activity-games",
+    "category": "activity",
+    "name": "Board game showdown",
+    "description": "Choose a game you already own and keep score.",
+    "costCents": 0,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🎲",
+    "moods": [
+      "competitive",
+      "cozy"
+    ],
+    "tip": "Winner gets to choose the final entertainment."
+  },
+  {
+    "id": "activity-museum",
+    "category": "activity",
+    "name": "Museum afternoon",
+    "description": "Visit a small museum; check admission before heading out.",
+    "costCents": 2000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🏛️",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Find one piece that reminds you of each other."
+  },
+  {
+    "id": "activity-paint",
+    "category": "activity",
+    "name": "Paint each other's portrait",
+    "description": "Use basic art supplies and reveal your masterpieces.",
+    "costCents": 800,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🎨",
+    "moods": [
+      "romantic",
+      "competitive"
+    ],
+    "tip": "No peeking until the big portrait reveal."
+  },
+  {
+    "id": "activity-mini-golf",
+    "category": "activity",
+    "name": "Mini golf match",
+    "description": "Play a friendly round of outdoor mini golf.",
+    "costCents": 2400,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "⛳",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Invent a ridiculous victory celebration."
+  },
+  {
+    "id": "activity-photos",
+    "category": "activity",
+    "name": "Photo scavenger hunt",
+    "description": "Make a list of things to photograph on a walk.",
+    "costCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "📸",
+    "moods": [
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Find something heart-shaped, something tiny, and something yellow."
+  },
+  {
+    "id": "treat-ice-cream",
+    "category": "treat",
+    "name": "Ice cream stroll",
+    "description": "Grab a scoop each and enjoy it outside.",
+    "costCents": 1000,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🍦",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Choose a flavor for each other."
+  },
+  {
+    "id": "treat-brownies",
+    "category": "treat",
+    "name": "Bake brownies",
+    "description": "Bake a small batch and share the first warm piece.",
+    "costCents": 600,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🍫",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "Save the corner piece for your favorite person."
+  },
+  {
+    "id": "treat-pantry",
+    "category": "treat",
+    "name": "Something sweet from home",
+    "description": "Share a snack you already have in the pantry.",
+    "costCents": 0,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🍪",
+    "moods": [
+      "cozy",
+      "competitive"
+    ],
+    "tip": "Make your best snack plate from what you have."
+  },
+  {
+    "id": "treat-cafe",
+    "category": "treat",
+    "name": "Coffee and a pastry",
+    "description": "Order two coffees and a pastry to split.",
+    "costCents": 1400,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "☕",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "Ask each other one question you have never asked."
+  },
+  {
+    "id": "treat-fruit",
+    "category": "treat",
+    "name": "Fresh fruit break",
+    "description": "Pack a small fruit bowl to share outside.",
+    "costCents": 500,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🍓",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Bring a tiny picnic, even if you only have fifteen minutes."
+  },
+  {
+    "id": "treat-cocoa",
+    "category": "treat",
+    "name": "Hot chocolate for two",
+    "description": "Make two mugs and settle in together.",
+    "costCents": 400,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "☕",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "Build the best blanket nest in the house."
+  },
+  {
+    "id": "entertainment-stars",
+    "category": "entertainment",
+    "name": "Stargazing",
+    "description": "Find a safe spot away from bright lights and look up.",
+    "costCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🌙",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Invent a constellation and the story behind it."
+  },
+  {
+    "id": "entertainment-movie",
+    "category": "entertainment",
+    "name": "Movie night at home",
+    "description": "Choose a film from a service or collection you already have.",
+    "costCents": 0,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🎬",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "Each nominate a film, then flip a coin."
+  },
+  {
+    "id": "entertainment-cinema",
+    "category": "entertainment",
+    "name": "Catch a matinee",
+    "description": "Pick an early cinema showing and check local ticket prices.",
+    "costCents": 2400,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍿",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Choose a film neither of you has seen a trailer for."
+  },
+  {
+    "id": "entertainment-playlist",
+    "category": "entertainment",
+    "name": "Trade favorite songs",
+    "description": "Take turns playing songs and sharing the stories behind them.",
+    "costCents": 0,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🎵",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "Play the song that reminds you of your first date."
+  },
+  {
+    "id": "entertainment-sunset",
+    "category": "entertainment",
+    "name": "Sunset watch",
+    "description": "Find a scenic public spot and enjoy the evening light.",
+    "costCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🌇",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Take one photo, then put your phones away."
+  },
+  {
+    "id": "entertainment-trivia",
+    "category": "entertainment",
+    "name": "Make-your-own trivia",
+    "description": "Write questions for each other and host a mini quiz.",
+    "costCents": 0,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🏆",
+    "moods": [
+      "competitive",
+      "cozy"
+    ],
+    "tip": "Add a round of questions about each other."
+  }
 ]
