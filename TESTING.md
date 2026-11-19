@@ -30,6 +30,18 @@ Expanded to 96 ideas, exactly 24 in each category. All 51 HTTP tests passed with
 
 The maximum-budget preview counted 331,776 possible combinations while retaining zero plans, measured once at 35 ms in the local Node runtime. This is local diagnostic evidence, not a browser performance guarantee. Server enumeration now retains only the final spending subset; the client no longer builds every plan again for the reveal. Real-browser visual and deployed-site checks remain pending.
 
+## Paterson places and PDF local checks — November 19, 2026
+
+A clean `npm ci` succeeded, ran the asset-copy postinstall, and reported zero vulnerabilities. All 58 automated HTTP tests passed. New checks cover the 18 source-linked NJ choices, price-component arithmetic, known opening weekdays, calendar/area validation, real local $1,000 estimates, original-deck compatibility, Unicode custom payload bounds, and local PDF-library delivery.
+
+Both original-game and local-place DOM simulations passed. Local checks included default NJ decks, venue/source details, date-specific closures, PDF download MIME/header, native-file-share simulation and download fallback, saved area/date restoration, canonical replacement of tampered source links, and switching original/mixed decks. Native iPhone/Android operation has not been tested.
+
+Phone compatibility uses AbortController-based timeouts instead of requiring AbortSignal.timeout, a custom-ID fallback when crypto.randomUUID is absent, and a classic own-property check. DOM checks exercise missing newer APIs; PDF links open a new context when a browser ignores the download attribute. These checks do not substitute for real iOS/Android testing.
+
+The PDF sample was parsed and rendered to five PNG pages with PDF.js/canvas. All pages were visually inspected; the updated premium-order overview/detail pages were inspected after the final data change. The final file was 9,762 bytes, had five phone-width pages, eight HTTPS source/map links, complete price breakdowns, and no text outside page bounds. A cleanup mismatch in the QA helper was corrected to destroy the loading task; it did not affect the application PDF. Standard-font loading was corrected to use a native filesystem path before final rendering.
+
+The web-browser inspection tool failed with `Module not found: @oai/cua/tinyskyAlt`; real browser rendering, manual deployed cases, and actual phone Files/share flows remain pending. No App Store or public Vercel deployment is claimed.
+
 ## Deployment foundation checks
 
 Record the URL, date, actual outcome, and any fixes after running these manually on the deployed site. Local checks do not count as deployed results.
@@ -59,7 +71,7 @@ All actual results below remain pending a public deployment and manual verificat
 | A05 | Server input validation | In developer tools send missing budget, string budget, unknown field, and unsupported setting to POST /api/generate. | Each returns JSON error with HTTP 400. | Pending deployment |
 | A06 | Malformed request | POST malformed JSON with application/json content type. | Readable JSON error, HTTP 400. | Pending deployment |
 | A07 | Oversized request | POST a JSON body over 4 KB. | Readable JSON error, HTTP 413. | Pending deployment |
-| A08 | Options validation | GET /api/options, then /api/options?unexpected=true. | Valid catalog with 96 options, 24 per category; query rejected with HTTP 400. | Pending deployment |
+| A08 | Options validation | GET /api/options, then /api/options?unexpected=true. | Combined catalog has 114 ideas: 96 original and 18 local; query rejected with HTTP 400. | Pending deployment |
 | A09 | Unsupported methods | POST /api/health and GET /api/generate. | JSON error, HTTP 404. | Pending deployment |
 | A10 | Favorites | Save a result twice; reload; remove it. | One entry persists after reload; removal persists. | Pending deployment |
 | A11 | Storage failure | Set favorites key to invalid JSON; reload. Block browser storage; generate and attempt save. | Helpful messages; generation and downloading still work. | Pending deployment |
@@ -83,10 +95,14 @@ Add the remaining application, input-validation, and advanced-feature cases as t
 | G07 | Exclusions | Exclude every dinner; play; restore one or reset. | Helpful no-dinner error; restoring ideas recovers; reset clears locks and exclusions. | Pending deployment |
 | G08 | Personal ideas | Add four custom ideas with valid names/costs/settings; attempt fifth and invalid prices. | Four supported; extra/invalid ideas rejected; custom ideas can be excluded and removed. | Pending deployment |
 | G09 | Custom favorites | Generate a custom pick, save, reload, revisit, and reroll. | Saved custom snapshot survives; revisit restores personal ideas; validated rerolls work. | Pending deployment |
-| G10 | Date-card export | Download current and saved SVG cards with long/custom text; open in browser and print preview. Also download text. | Well-formed readable cards with correct names, estimates, total, and budget; text version remains available. | Pending deployment |
+| G10 | PDF export | Download current and saved PDFs with long/custom text; open in phone Files/PDF viewer. Also download text. | Readable itinerary, correct estimates/budget, clickable local source/map links; text remains available. | Pending deployment |
 | V01 | Larger activity catalog | Browse Activity and use search for pottery, kayak, and spa. | 24 varied activity choices; matching search results; no unintended exclusions. | Pending deployment |
 | V02 | Premium browsing | Choose Over $200, browse each category, then restore All price ranges. | Premium ideas are easy to find; generation eligibility stays unchanged. | Pending deployment |
 | V03 | Treat us | Choose $1,000 and Treat us; generate across moods/settings. | Estimated totals stay at $900–$1,000 when choices allow, never above budget. | Pending deployment |
 | V04 | Flexible mode | Switch to Flexible, generate, save, reload, and revisit. | Any affordable total can win; spending style persists; prior saved dates remain compatible. | Pending deployment |
 | V05 | Limited spending potential | Lock three free picks, set $1,000, and generate. | Near the highest attainable remaining pick; explanation identifies the maximum without inflated prices. | Pending deployment |
 | V06 | Quick budget controls | Use $25/$50/$100/$250/$500/$1,000 buttons, slider, and a typed $2,500. | Values and selected state stay synchronized; slider cap is clearly stated. | Pending deployment |
+| NJ01 | Local choices | Load the default Paterson deck and inspect all four categories. | 18 NJ ideas, official sources, checked dates, addresses, and explicit price components; original/mixed decks remain available. | Pending deployment |
+| NJ02 | Known closed days | Select a Monday or Saturday and try locked venues closed on that day. | Known closed options are not generated; errors explain the constraint; holidays/showtimes still require checking. | Pending deployment |
+| NJ03 | Phone sharing | On deployed HTTPS, generate and share/download PDFs on iPhone and Android; test native-share cancellation and unsupported sharing. | PDF opens in a normal viewer, can be saved/shared, cancellation is harmless, and unsupported file sharing downloads instead. | Pending deployment |
+| NJ04 | Route/price verification | Open each source and map link for a generated NJ plan before a visit. | Correct public venue addresses and source basis; confirm live traffic, fees, hours, and actual availability separately. | Pending deployment |

@@ -1,9 +1,9 @@
 const express = require('express');
 const path = require('node:path');
 const { randomInt } = require('node:crypto');
-const options = require('./data/options.json');
+const options = [...require('./data/options.json'), ...require('./data/local-options.json')];
 const planner = require('./public/planner');
-const { categories, settings, moods, spendingModes } = planner;
+const { categories, settings, moods, spendingModes, areas } = planner;
 
 const app = express();
 app.disable('x-powered-by');
@@ -23,7 +23,7 @@ app.get('/api/options', (req, res) => {
   if (Object.keys(req.query).length) {
     return res.status(400).json({ error: 'This route does not accept query parameters.' });
   }
-  res.json({ categories, settings, moods, spendingModes, options, currency: 'USD', priceBasis: 'Illustrative estimates for two people, not live quotes' });
+  res.json({ categories, settings, moods, spendingModes, areas, options, currency: 'USD', priceBasis: 'Local entries cite posted prices and planning allowances; original ideas are illustrative estimates.' });
 });
 
 app.use('/api', express.json({ limit: '4kb' }));
@@ -48,7 +48,8 @@ app.post('/api/generate', (req, res) => {
     budgetCents: prepared.budgetCents, totalCents, remainingCents: prepared.budgetCents - totalCents,
     combinationCount: prepared.combinationCount, unchanged: prepared.unchanged, customOptions: prepared.customOptions,
     spending: prepared.spending, maximumCents: prepared.maximumCents, targetCents: prepared.targetCents,
-    notice: 'Illustrative USD estimates for two, not live quotes. Check complete prices, fees, and availability before booking. Free ideas use what you already have.' });
+    area: prepared.area, date: prepared.date,
+    notice: 'Estimates for two, not booking quotes. Local sources list what is covered, estimated tax and tip allowances. Travel, parking, and unconfirmed fees are extra. Date filtering checks weekdays only, not live availability or holiday closures.' });
 });
 
 // Local development serves the same public files Vercel serves through its CDN.

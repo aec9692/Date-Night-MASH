@@ -2,6 +2,7 @@ const $ = selector => document.querySelector(selector);
 const labels = { dinner: 'Dinner', activity: 'Activity', treat: 'Treat', entertainment: 'Entertainment' };
 const settingLabels = { any: 'Any setting', indoor: 'Indoors', outdoor: 'Outdoors', home: 'At home' };
 const moodLabels = { surprise: 'A little of everything', cozy: 'Cozy', adventurous: 'Adventurous', romantic: 'Romantic', competitive: 'Competitive' };
+const areaLabels = { paterson: 'Near Paterson, NJ', general: 'Original ideas', all: 'Local & original ideas' };
 const storageKey = 'date-night-mash-favorites-v1';
 const money = cents => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(cents / 100);
 let catalog = [];
@@ -31,16 +32,24 @@ function message(text, error = false) {
 function allOptions() { return [...catalog, ...(MashPlanner.customCatalog(customOptions) || [])]; }
 function planKey(plan) { return plan.picks.map(pick => pick.id).join('|'); }
 function mood() { return $('input[name=mood]:checked').value; }
+async function request(url, options = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+  try { return await fetch(url, { ...options, signal: controller.signal }); }
+  finally { clearTimeout(timeout); }
+}
 function preferences(locked = locks) {
   return { budget: $('#budget').value === '' ? null : Number($('#budget').value), setting: $('#setting').value,
-    mood: mood(), spending: $('#spending').value, excluded: [...excluded], customOptions, locked };
+    mood: mood(), spending: $('#spending').value, area: $('#area').value, date: $('#visit-date').value, excluded: [...excluded], customOptions, locked };
 }
 
 // Saved plans can contain custom ideas. Validate their snapshot as strictly as a request.
 function validPlan(plan) {
-  if (!plan || !Array.isArray(plan.picks) || plan.picks.length !== 4 || !Object.hasOwn(settingLabels, plan.setting)) return false;
+  if (!plan || !Array.isArray(plan.picks) || plan.picks.length !== 4 || !Object.prototype.hasOwnProperty.call(settingLabels, plan.setting)) return false;
   if (plan.mood !== undefined && !MashPlanner.moods.includes(plan.mood)) return false;
   if (plan.spending !== undefined && !MashPlanner.spendingModes.includes(plan.spending)) return false;
+  if (plan.area !== undefined && !MashPlanner.areas.includes(plan.area)) return false;
+  if (plan.date !== undefined && !MashPlanner.validDate(plan.date)) return false;
   if (![plan.budgetCents, plan.totalCents, plan.remainingCents].every(Number.isSafeInteger)) return false;
   if (plan.budgetCents < 0 || plan.budgetCents > 1000000 || plan.totalCents < 0 || plan.remainingCents < 0) return false;
   const custom = MashPlanner.customCatalog(plan.customOptions || []);
@@ -50,7 +59,8 @@ function validPlan(plan) {
     if (!pick || pick.category !== MashPlanner.categories[index]) return false;
     const known = knownOptions.find(option => option.id === pick.id);
     return known && known.category === pick.category && known.name === pick.name && known.description === pick.description &&
-      known.costCents === pick.costCents && (plan.setting === 'any' || known.settings.includes(plan.setting));
+      known.costCents === pick.costCents && (plan.setting === 'any' || known.settings.includes(plan.setting)) &&
+      MashPlanner.eligible(known, plan.area || 'all', plan.date || '');
   });
   return matching && plan.totalCents === plan.picks.reduce((sum, pick) => sum + pick.costCents, 0) &&
     plan.budgetCents - plan.totalCents === plan.remainingCents && typeof plan.notice === 'string' && plan.notice.length <= 300;
@@ -59,7 +69,7 @@ function hydrate(plan) {
   const known = [...catalog, ...MashPlanner.customCatalog(plan.customOptions || [])];
   const picks = plan.picks.map(pick => known.find(option => option.id === pick.id));
   const chosenMood = plan.mood || 'surprise';
-  return { ...plan, picks, mood: chosenMood, spending: plan.spending || 'flexible', title: MashPlanner.title(chosenMood, picks), customOptions: plan.customOptions || [] };
+  return { ...plan, picks, mood: chosenMood, spending: plan.spending || 'flexible', area: plan.area || 'general', date: plan.date || '', title: MashPlanner.title(chosenMood, picks), customOptions: plan.customOptions || [] };
 }
 
 async function loadCatalog() {
@@ -67,12 +77,11 @@ async function loadCatalog() {
   $('#play').disabled = true;
   message('Loading the good ideas…');
   try {
-    const response = await fetch('/api/options', { signal: AbortSignal.timeout(10000) });
+    const response = await request('/api/options');
     if (!response.ok) throw new Error('Could not load ideas.');
     const data = await response.json();
     if (!Array.isArray(data.options) || !data.options.length) throw new Error('No ideas were returned.');
     catalog = data.options;
-    $('#catalog-size').textContent = `${catalog.length} ideas across dinner, activities, treats, and entertainment.`;
     renderCatalog();
     loadFavorites();
     updatePossibilities();
@@ -105,15 +114,19 @@ function updatePossibilities() {
 
 function renderCatalog() {
   const setting = $('#setting').value;
+  const area = $('#area').value;
+  const date = $('#visit-date').value;
+  const inArea = allOptions().filter(option => option.custom || area === 'all' || (area === 'paterson' ? Boolean(option.venue) : !option.venue));
+  $('#catalog-size').textContent = `${inArea.length} ideas in ${areaLabels[area].toLowerCase()}.`;
   $('#catalog').replaceChildren();
   for (const [category, label] of Object.entries(labels)) {
     const section = element('section', undefined, `category ${category}`);
     const head = element('div', undefined, 'category-head');
-    const options = allOptions().filter(option => option.category === category);
-    const active = options.filter(option => !excluded.has(option.id) && (setting === 'any' || option.settings.includes(setting))).length;
+    const options = inArea.filter(option => option.category === category);
+    const active = options.filter(option => !excluded.has(option.id) && MashPlanner.eligible(option, area, date) && (setting === 'any' || option.settings.includes(setting))).length;
     const query = $('#idea-search').value.trim().toLowerCase();
     const tier = $('#idea-tier').value;
-    const visible = options.filter(option => `${option.name} ${option.description}`.toLowerCase().includes(query) &&
+    const visible = options.filter(option => `${option.name} ${option.description} ${option.venue?.city || ''}`.toLowerCase().includes(query) &&
       (tier === 'all' || tier === 'low' && option.costCents < 5000 || tier === 'mid' && option.costCents >= 5000 && option.costCents <= 20000 || tier === 'high' && option.costCents > 20000)).sort((a, b) => a.costCents - b.costCents);
     head.append(element('h3', label), element('p', `${active} in the mix · ${visible.length} shown`));
     const list = element('ul', undefined, 'option-list');
@@ -121,7 +134,7 @@ function renderCatalog() {
     list.setAttribute('aria-label', `${label} ideas. Scroll to explore.`);
     if (!visible.length) list.append(element('li', 'No matches to browse. Try another search or price range.', 'empty-category'));
     for (const option of visible) {
-      const eligible = setting === 'any' || option.settings.includes(setting);
+      const eligible = (setting === 'any' || option.settings.includes(setting)) && MashPlanner.eligible(option, area, date);
       const item = element('li');
       const choice = button('', `option-choice${eligible ? '' : ' unavailable'}`, () => {
         if (busy) return;
@@ -142,6 +155,7 @@ function renderCatalog() {
       emoji.setAttribute('aria-hidden', 'true');
       choice.append(emoji, copy);
       item.append(choice);
+      if (option.venue) item.append(element('span', `${option.venue.city}, NJ · source checked ${option.pricing.checkedOn}${eligible ? '' : ' · check setting/date'}`, 'venue-caption'));
       if (option.custom) item.append(button('Remove custom idea', 'text-button remove-custom', () => {
         if (busy) return;
         customOptions = customOptions.filter(custom => custom.id !== option.id);
@@ -179,8 +193,8 @@ async function generate(event, rerollCategory = null) {
   setBusy(true);
   message(rerollCategory ? `Giving ${labels[rerollCategory].toLowerCase()} a little plot twist…` : 'Finding the magic in your mix…');
   try {
-    const response = await fetch('/api/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload), signal: AbortSignal.timeout(10000) });
+    const response = await request('/api/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload) });
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || 'Could not generate a plan. Try again.');
     if (!validPlan(data)) throw new Error('The server returned an incomplete plan. Please try again.');
@@ -188,6 +202,7 @@ async function generate(event, rerollCategory = null) {
       // Reveal only ideas that can replace their category in the chosen plan without overspending.
       // This avoids enumerating hundreds of thousands of plans again in the browser.
       const pool = allOptions().filter(option => !payload.excluded.includes(option.id) &&
+        MashPlanner.eligible(option, payload.area, payload.date) &&
         (payload.setting === 'any' || option.settings.includes(payload.setting)) &&
         (!payload.locked[option.category] || payload.locked[option.category] === option.id) &&
         option.costCents + data.picks.filter(pick => pick.category !== option.category).reduce((sum, pick) => sum + pick.costCents, 0) <= data.budgetCents);
@@ -200,7 +215,7 @@ async function generate(event, rerollCategory = null) {
     $('#result').scrollIntoView({ block: 'nearest' });
     if (!data.unchanged && !rerollCategory) MashShow.celebrate();
   } catch (error) {
-    message(['TimeoutError', 'TypeError'].includes(error.name) ? 'Could not reach the server. Check your connection and try again.' : error.message, true);
+    message(['TimeoutError', 'AbortError', 'TypeError'].includes(error.name) ? 'Could not reach the server. Check your connection and try again.' : error.message, true);
   } finally { setBusy(false); }
 }
 
@@ -216,6 +231,7 @@ function renderResult() {
     art.append(element('span', `0${index + 1} / ${labels[pick.category].toUpperCase()}`, 'step-label'), emoji);
     const copy = element('div', undefined, 'pick-body');
     copy.append(element('h3', pick.name), element('p', pick.description, 'pick-description'), element('p', pick.tip || 'Make this one your own.', 'pick-tip'), element('span', money(pick.costCents), 'pick-price'));
+    if (pick.venue) copy.append(venueDetails(pick));
     const controls = element('div', undefined, 'pick-controls');
     const lock = button(locked ? '🔒 Locked in' : '♡ Keep this', 'lock-button', () => {
       if (busy) return;
@@ -243,7 +259,7 @@ function renderResult() {
     $('#result-picks').append(card);
   });
   $('#result-title').textContent = currentPlan.title;
-  $('#result-setting').textContent = `${moodLabels[currentPlan.mood]} · ${settingLabels[currentPlan.setting]}`;
+  $('#result-setting').textContent = `${moodLabels[currentPlan.mood]} · ${settingLabels[currentPlan.setting]} · ${areaLabels[currentPlan.area]}${currentPlan.date ? ` · ${currentPlan.date}` : ''}`;
   $('#result-total').textContent = money(currentPlan.totalCents);
   $('#remaining').textContent = `${money(currentPlan.remainingCents)} left for little extras`;
   const max = currentPlan.maximumCents;
@@ -302,7 +318,7 @@ function renderFavorites() {
     const list = element('ul');
     for (const pick of plan.picks) list.append(element('li', `${pick.name} · ${money(pick.costCents)}`));
     const actions = element('div', undefined, 'actions');
-    actions.append(button('Date card', 'secondary saved-download', () => DateCard.download(plan)), button('Revisit', 'secondary', () => {
+    actions.append(button('PDF', 'secondary saved-download', () => downloadPlan(plan)), button('Revisit', 'secondary', () => {
       if (busy) return;
       customOptions = plan.customOptions || [];
       excluded = new Set();
@@ -310,6 +326,8 @@ function renderFavorites() {
       $('#budget').value = plan.budgetCents / 100;
       $('#setting').value = plan.setting;
       $('#spending').value = plan.spending;
+      $('#area').value = plan.area;
+      $('#visit-date').value = plan.date;
       $(`input[name=mood][value="${plan.mood}"]`).checked = true;
       currentPlan = plan;
       renderResult();
@@ -334,7 +352,9 @@ function addCustom(event) {
   if (busy || !$('#custom-form').reportValidity()) return;
   if (customOptions.length >= 4) { $('#custom-message').textContent = 'Four personal favorites are in the mix. Remove one to add another.'; return; }
   const setting = $('#custom-setting').value;
-  const option = { id: `custom-${crypto.randomUUID().slice(0, 8)}`, category: $('#custom-category').value,
+  const suffix = typeof crypto.randomUUID === 'function' ? crypto.randomUUID().slice(0, 8) :
+    Array.from(crypto.getRandomValues(new Uint8Array(4)), byte => byte.toString(16).padStart(2, '0')).join('');
+  const option = { id: `custom-${suffix}`, category: $('#custom-category').value,
     name: $('#custom-name').value.trim(), costCents: Math.round(Number($('#custom-cost').value) * 100),
     settings: setting === 'any' ? ['indoor', 'outdoor', 'home'] : setting === 'home' ? ['indoor', 'home'] : [setting] };
   if (!MashPlanner.customCatalog([option])) { $('#custom-message').textContent = 'Add a name, a setting, and a valid cost.'; return; }
@@ -355,14 +375,21 @@ $('#idea-tier').addEventListener('change', renderCatalog);
 $('#again').addEventListener('click', generate);
 $('#plan-form').addEventListener('input', event => {
   if (event.target.id === 'budget-slider') $('#budget').value = event.target.value;
-  if (event.target.id === 'setting') {
+  if (['setting', 'area', 'visit-date'].includes(event.target.id)) {
     locks = {};
     renderCatalog();
   }
   updatePossibilities();
 });
 $('#save').addEventListener('click', saveCurrent);
-$('#download').addEventListener('click', () => { if (currentPlan) DateCard.download(currentPlan); });
+$('#download').addEventListener('click', () => { if (currentPlan) downloadPlan(currentPlan); });
+$('#share-pdf').hidden = !(typeof navigator.share === 'function' && typeof navigator.canShare === 'function');
+$('#share-pdf').addEventListener('click', async () => {
+  if (!currentPlan) return;
+  try { await DateCard.share(currentPlan); } catch (error) {
+    if (error.name !== 'AbortError') message('Could not share this PDF. Use Download PDF or Text version instead.', true);
+  }
+});
 $('#download-text').addEventListener('click', () => { if (currentPlan) DateCard.download(currentPlan, 'txt'); });
 $('#custom-form').addEventListener('submit', addCustom);
 $('#reset-ideas').addEventListener('click', () => {
@@ -379,3 +406,32 @@ $('#sound').addEventListener('click', () => {
 $('#retry').addEventListener('click', loadCatalog);
 window.addEventListener('storage', event => { if (event.key === storageKey || event.key === null) loadFavorites(); });
 loadCatalog();
+
+function downloadPlan(plan) {
+  try { DateCard.download(plan); } catch { message('Could not create the PDF. Try the Text version or reload the page.', true); }
+}
+function externalLink(label, href) {
+  const link = element('a', label);
+  const url = new URL(href);
+  if (url.protocol !== 'https:') throw new Error('Unsupported venue link');
+  link.href = url.href;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  return link;
+}
+function venueDetails(pick) {
+  const wrap = element('div', undefined, 'venue-details');
+  wrap.append(element('p', pick.venue.address, 'venue-address'));
+  const links = element('div', undefined, 'venue-links');
+  const route = new URL('https://www.google.com/maps/dir/');
+  route.search = new URLSearchParams({ api:'1', origin:'Paterson, NJ', destination:pick.venue.address, travelmode:'driving' });
+  links.append(externalLink('Official price', pick.pricing.sourceUrl), externalLink('Check drive', route.href));
+  wrap.append(links);
+  const details = element('details', undefined, 'price-proof');
+  const p = pick.pricing;
+  details.append(element('summary', 'What the estimate covers'), element('p', p.order),
+    element('p', `Posted subtotal ${money(p.baseCents)} · tax reserve ${money(p.taxCents)} · optional tip ${money(p.tipCents)}${p.donationCents ? ` · optional donation ${money(p.donationCents)}` : ''}`),
+    element('p', p.taxNote), element('p', p.tipNote), element('p', pick.venue.hoursNote), element('p', p.exclusions), element('p', `Source checked ${p.checkedOn}. Prices can change.`));
+  wrap.append(details);
+  return wrap;
+}

@@ -7,6 +7,7 @@
   <meta name="description" content="Two people. Four little adventures. Play MASH to make a date that fits your budget, then keep your favorites and remix the rest.">
   <title>Date Night MASH — Make a little magic</title>
   <link rel="stylesheet" href="/styles.css">
+  <script src="/vendor/jspdf.umd.min.js" defer></script>
   <script src="/planner.js" defer></script>
   <script src="/show.js" defer></script>
   <script src="/download.js" defer></script>
@@ -41,6 +42,7 @@
     <section id="planner" class="planner" aria-labelledby="planner-title">
       <div class="section-heading"><div><p class="eyebrow">YOUR NIGHT. YOUR RULES.</p><h2 id="planner-title">Set the scene.</h2></div><span class="pill">A plan for two · USD estimates</span></div>
       <form id="plan-form">
+        <div class="form-grid location-grid"><div><label for="area">Which possibilities?</label><select id="area"><option value="paterson">Real NJ places near Paterson</option><option value="all">Mix local places & original ideas</option><option value="general">Original anywhere / at-home ideas</option></select><p class="helper">NJ-only shortlist around Paterson. Traffic may push a trip over an hour; check the route before leaving.</p></div><div><label for="visit-date">When are you going? (optional)</label><input id="visit-date" type="date"><p class="helper">Filters known opening weekdays. Confirm holidays, times, reservations, and the full route separately.</p></div></div>
         <fieldset class="mood-fieldset"><legend>What's the vibe?</legend><div class="mood-chips">
           <label><input type="radio" name="mood" value="surprise" checked><span>✳ Surprise us</span></label>
           <label><input type="radio" name="mood" value="cozy"><span>☕ Cozy</span></label>
@@ -62,12 +64,12 @@
 
     <section id="result" class="result" aria-labelledby="result-title" hidden>
       <div class="result-topline"><span class="eyebrow">IT'S A DATE!</span><span id="result-setting" class="pill"></span></div>
-      <div class="itinerary-heading"><div><h2 id="result-title" tabindex="-1">Your next little adventure.</h2><p id="result-subtitle">Dinner to the last goodnight. Here's your game plan.</p></div><span class="date-stamp" aria-hidden="true">OFFICIALLY<br>A DATE<br>♡</span></div>
+      <div class="itinerary-heading"><div><h2 id="result-title" tabindex="-1">Your next little adventure.</h2><p id="result-subtitle">Four ideas to make your own. Check hours and arrange your stops before heading out.</p></div><span class="date-stamp" aria-hidden="true">LET'S CALL<br>IT A DATE<br>♡</span></div>
       <div id="result-picks" class="picks-grid"></div>
       <div class="total-row"><div><span class="helper">Estimated total for two</span><p id="result-total" class="total"></p></div><div class="budget-meter"><p id="remaining"></p><div class="meter-track"><span id="budget-used"></span></div></div></div>
       <p id="spend-explanation" class="spend-explanation"></p>
       <p class="remix-help">Love a pick? Lock it. Reroll a category to change just that part of your night.</p>
-      <div class="actions"><button id="save" type="button">♡ Save this date</button><button id="download" type="button" class="secondary">Download date card</button><button id="download-text" type="button" class="text-button">Text version</button><button id="again" type="button" class="text-button">✳ Surprise us again</button></div>
+      <div class="actions"><button id="save" type="button">♡ Save this date</button><button id="download" type="button" class="secondary">Download PDF</button><button id="share-pdf" type="button" class="secondary" hidden>Share PDF</button><button id="download-text" type="button" class="text-button">Text version</button><button id="again" type="button" class="text-button">✳ Surprise us again</button></div><p class="helper">PDF works in phone viewers and Files apps. On supported browsers, Share PDF opens your phone's share sheet.</p>
       <p id="result-notice" class="helper"></p>
     </section>
 

@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const { once } = require('node:events');
 const app = require('../server');
 const catalog = require('../data/options.json');
+const localCatalog = require('../data/local-options.json');
 const planner = require('../public/planner');
 let server;
 let base;
@@ -15,6 +16,7 @@ before(async () => {
 after(() => new Promise(resolve => server.close(resolve)));
 
 async function generate(body, raw = false) {
+  if (!raw && body && typeof body === 'object' && !Array.isArray(body)) body = { area:'general', ...body };
   return fetch(`${base}/api/generate`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: raw ? body : JSON.stringify(body) });
 }
 
@@ -34,9 +36,10 @@ test('catalog contains unique IDs, four categories, integer prices, and document
   const response = await fetch(`${base}/api/options`);
   assert.equal(response.status, 200);
   const data = await response.json();
-  assert.equal(data.options.length, 96);
-  assert.equal(new Set(data.options.map(option => option.id)).size, 96);
-  assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category).length), [24, 24, 24, 24]);
+  assert.equal(data.options.length, 114);
+  assert.equal(new Set(data.options.map(option => option.id)).size, 114);
+  assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category && !option.venue).length), [24,24,24,24]);
+  assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category && option.venue).length), [5,5,4,4]);
   for (const option of data.options) {
     assert.ok(Number.isSafeInteger(option.costCents) && option.costCents >= 0);
     assert.ok(option.settings.length && option.settings.every(setting => ['indoor', 'outdoor', 'home'].includes(setting)));
@@ -305,4 +308,77 @@ test('an attainable 90% target takes priority over the fallback band near the ma
   assert.equal(prepared.targetCents, 9000);
   assert.equal(prepared.plans.length, 1);
   assert.equal(prepared.plans[0].reduce((sum, pick) => sum + pick.costCents, 0), 9200);
+});
+
+test('local catalog has official price provenance and transparent arithmetic for every NJ stop', () => {
+  assert.equal(localCatalog.length,18);
+  for (const option of localCatalog) {
+    const {pricing:p,venue:v}=option;
+    assert.equal(v.state,'NJ');
+    assert.equal(v.area,'paterson');
+    assert.ok(v.address.includes('NJ'));
+    assert.ok(p.sourceUrl.startsWith('https://'));
+    assert.equal(p.checkedOn,'2026-11-19');
+    assert.equal(option.costCents,p.baseCents+p.taxCents+p.tipCents+p.donationCents);
+    assert.ok(p.order.length && p.exclusions.length && v.hoursNote.length);
+    assert.ok(v.openDays.every(day=>Number.isInteger(day)&&day>=0&&day<=6));
+  }
+  assert.equal(localCatalog.find(option=>option.id==='nj-neo-panini').costCents,3799);
+  assert.equal(localCatalog.find(option=>option.id==='nj-sook-sandwich').pricing.baseCents,2400);
+  assert.equal(localCatalog.find(option=>option.id==='nj-sook-chocolate').pricing.baseCents,870);
+  assert.equal(localCatalog.find(option=>option.id==='nj-saddle-splurge').pricing.baseCents,11800*2+33000+4500*2);
+});
+
+test('local generation uses only NJ venues and respects regular opening weekdays', async () => {
+  for (const date of ['2026-11-19','2026-11-20','2026-11-21']) {
+    const response=await generate({budget:200,area:'paterson',date});
+    const plan=await response.json();
+    assert.equal(response.status,200);
+    assert.equal(plan.area,'paterson');
+    assert.equal(plan.date,date);
+    assert.ok(plan.picks.every(pick=>pick.venue?.state==='NJ' && pick.venue.openDays.includes(new Date(`${date}T12:00:00Z`).getUTCDay())));
+    assert.ok(plan.totalCents<=20000);
+  }
+});
+
+test('local $1,000 treat-us dates use sourced menu items without inflating their prices', async () => {
+  for (const date of ['2026-11-19','2026-11-20','2026-11-21']) {
+    const response=await generate({budget:1000,area:'paterson',date,setting:'indoor'});
+    const plan=await response.json();
+    assert.equal(response.status,200);
+    assert.ok(plan.totalCents>=90000 && plan.totalCents<=100000);
+    for (const pick of plan.picks) assert.equal(pick.costCents,localCatalog.find(option=>option.id===pick.id).costCents);
+  }
+});
+
+test('known closed days and unavailable local home plans are rejected honestly', async () => {
+  assert.equal((await generate({budget:100,area:'paterson',date:'2026-11-19',locked:{activity:'nj-mam'}})).status,422);
+  assert.equal((await generate({budget:100,area:'paterson',date:'2026-11-21',locked:{entertainment:'nj-paterson-museum'}})).status,422);
+  assert.equal((await generate({budget:1000,area:'paterson',date:'2026-11-23',locked:{dinner:'nj-saddle-splurge'}})).status,422);
+  assert.equal((await generate({budget:100,area:'paterson',setting:'home'})).status,422);
+  const response=await generate({budget:100,area:'general',setting:'home'});
+  assert.equal(response.status,200);
+  assert.ok((await response.json()).picks.every(pick=>!pick.venue));
+});
+
+test('wrong area types and malformed calendar dates are rejected', async () => {
+  for (const area of ['NYC',null,[]]) assert.equal((await generate({budget:100,area})).status,400);
+  for (const date of [null,42,'tomorrow','2026-02-30','2026-13-01','2026-1-1']) assert.equal((await generate({budget:100,date})).status,400);
+  assert.equal((await generate({budget:100,date:'2028-02-29'})).status,200);
+});
+
+test('all catalog exclusions and custom Unicode names fit within the bounded body', async () => {
+  const customOptions=planner.categories.map((category,index)=>({id:`custom-1234567${index}`,category,name:'語'.repeat(48),costCents:0,settings:['indoor','home','outdoor']}));
+  const body={budget:0,area:'paterson',date:'2026-11-20',customOptions,excluded:[...catalog,...localCatalog].map(option=>option.id),
+    locked:Object.fromEntries(customOptions.map(option=>[option.category,option.id])),previous:customOptions.map(option=>option.id)};
+  assert.ok(Buffer.byteLength(JSON.stringify(body))<4096);
+  const response=await generate(body);
+  assert.equal(response.status,200);
+  assert.equal((await response.json()).totalCents,0);
+});
+
+test('the locally served PDF library is available without a third-party CDN', async () => {
+  const response=await fetch(`${base}/vendor/jspdf.umd.min.js`);
+  assert.equal(response.status,200);
+  assert.ok((await response.text()).includes('jsPDF'));
 });

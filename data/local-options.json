@@ -1,0 +1,868 @@
+[
+  {
+    "id": "nj-neo-panini",
+    "category": "dinner",
+    "name": "Kafe Neo: panini for two",
+    "description": "Two Grilled Chicken Avocado Club panini at $15 each; menu says a side is included.",
+    "costCents": 3799,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🥪",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "neo",
+      "name": "Kafe Neo",
+      "city": "Totowa",
+      "state": "NJ",
+      "address": "650 Union Blvd Suite 8, Totowa, NJ 07512",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Check the venue’s current hours and availability.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://thekafeneo.com/menu/",
+      "order": "Two Grilled Chicken Avocado Club panini at $15 each; menu says a side is included.",
+      "baseCents": 3000,
+      "taxCents": 199,
+      "tipCents": 600,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax added to the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory venue charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-sook-sandwich",
+    "category": "dinner",
+    "name": "Sook Pastry: sandwich stop",
+    "description": "Two Turkey & Swiss pre-made sandwiches at $12 each from the location-specific ordering menu.",
+    "costCents": 2559,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🥖",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "sook",
+      "name": "Sook Pastry",
+      "city": "Ridgewood",
+      "state": "NJ",
+      "address": "24 S Broad St, Ridgewood, NJ 07450",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Check sandwich availability; items are pre-made and may sell out.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.sookpastry.com/menu/sandwiches-soup?location_id=3617",
+      "order": "Two Turkey & Swiss pre-made sandwiches at $12 each from the location-specific ordering menu.",
+      "baseCents": 2400,
+      "taxCents": 159,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax added to the posted subtotal.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-saddle-filet",
+    "category": "dinner",
+    "name": "Saddle River Inn: filet dinner",
+    "description": "Two Maribar filet-mignon entrées at $72 each. Drinks and additional courses are extra.",
+    "costCents": 18234,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "saddle",
+      "name": "Saddle River Inn",
+      "city": "Saddle River",
+      "state": "NJ",
+      "address": "2 Barnstable Court, Saddle River, NJ 07458",
+      "area": "paterson",
+      "openDays": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Reservations Tue–Thu 5–9pm, Fri/Sat 5–9:30pm, Sun 4–8:15pm. Closed Mondays. Confirm seating and dress code.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.saddleriverinn.com/menus/",
+      "order": "Two Maribar filet-mignon entrées at $72 each. Drinks and additional courses are extra.",
+      "baseCents": 14400,
+      "taxCents": 954,
+      "tipCents": 2880,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax added to the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory venue charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-saddle-porterhouse",
+    "category": "dinner",
+    "name": "Saddle River Inn: shared porterhouse",
+    "description": "One 32 oz porterhouse listed for two at $182; menu lists vegetables, garlic mash, and one sauce with steaks.",
+    "costCents": 23046,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "saddle",
+      "name": "Saddle River Inn",
+      "city": "Saddle River",
+      "state": "NJ",
+      "address": "2 Barnstable Court, Saddle River, NJ 07458",
+      "area": "paterson",
+      "openDays": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Reservations Tue–Thu 5–9pm, Fri/Sat 5–9:30pm, Sun 4–8:15pm. Closed Mondays. Confirm seating and dress code.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.saddleriverinn.com/menus/",
+      "order": "One 32 oz porterhouse listed for two at $182; menu lists vegetables, garlic mash, and one sauce with steaks.",
+      "baseCents": 18200,
+      "taxCents": 1206,
+      "tipCents": 3640,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax added to the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory venue charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-saddle-splurge",
+    "category": "dinner",
+    "name": "Saddle River Inn: special-occasion splurge",
+    "description": "An optional splurge assembled from individually posted menu items, with tax and a tip allowance.",
+    "costCents": 83066,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "saddle",
+      "name": "Saddle River Inn",
+      "city": "Saddle River",
+      "state": "NJ",
+      "address": "2 Barnstable Court, Saddle River, NJ 07458",
+      "area": "paterson",
+      "openDays": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Reservations Tue–Thu 5–9pm, Fri/Sat 5–9:30pm, Sun 4–8:15pm. Closed Mondays. Confirm seating and dress code.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.saddleriverinn.com/menus/",
+      "order": "Planned order, not a package: two A4 ribeyes ($118 each), 3 oz Royal Ossetra ($330), and two Wagyu Beef Tataki starters ($45 each).",
+      "baseCents": 65600,
+      "taxCents": 4346,
+      "tipCents": 13120,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax added to the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory venue charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-great-falls",
+    "category": "activity",
+    "name": "Paterson Great Falls walk",
+    "description": "Park entrance for two is free. Municipal parking may cost extra.",
+    "costCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🌊",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "falls",
+      "name": "Paterson Great Falls",
+      "city": "Paterson",
+      "state": "NJ",
+      "address": "72 McBride Avenue Extension, Paterson, NJ 07501",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Outdoor visit; use daylight, check park alerts and access closures.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.nps.gov/pagr/planyourvisit/fees.htm",
+      "order": "Park entrance for two is free. Municipal parking may cost extra.",
+      "baseCents": 0,
+      "taxCents": 0,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Posted admission only; additional tax or fees, if any, are not confirmed.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-mam",
+    "category": "activity",
+    "name": "Montclair Art Museum galleries",
+    "description": "Two regular adult admissions at $17 each; onsite visitor parking is listed as free.",
+    "costCents": 3400,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🖼️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "mam",
+      "name": "Montclair Art Museum",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "3 South Mountain Avenue, Montclair, NJ 07042",
+      "area": "paterson",
+      "openDays": [
+        0,
+        5,
+        6
+      ],
+      "hoursNote": "Galleries: Fri/Sat 10am–6pm; Sun 11am–5pm. Last booking one hour before closing.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.montclairartmuseum.org/visit-mam/plan-your-visit",
+      "order": "Two regular adult admissions at $17 each; onsite visitor parking is listed as free.",
+      "baseCents": 3400,
+      "taxCents": 0,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Posted admission only; additional tax or fees, if any, are not confirmed.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Special programs, purchases, and any unconfirmed online fees are extra.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-bowling-weekday",
+    "category": "activity",
+    "name": "Parkway Lanes: weekday bowling",
+    "description": "Mon–Thu after 5pm: one lane for one hour at $40, plus two $4 shoe rentals.",
+    "costCents": 5118,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎳",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "parkway",
+      "name": "Parkway Lanes",
+      "city": "Elmwood Park",
+      "state": "NJ",
+      "address": "200 US-46, Elmwood Park, NJ 07407",
+      "area": "paterson",
+      "openDays": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "hoursNote": "This rate is for Monday–Thursday after 5pm. Reserve a lane; extras cost more.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://parkwaylanesnj.com/bowling/",
+      "order": "Mon–Thu after 5pm: one lane for one hour at $40, plus two $4 shoe rentals.",
+      "baseCents": 4800,
+      "taxCents": 318,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve; the venue does not state tax treatment on this page.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-bowling-weekend",
+    "category": "activity",
+    "name": "Parkway Lanes: weekend bowling",
+    "description": "Fri–Sun after 5pm: one lane for one hour at $60, plus two $4 shoe rentals.",
+    "costCents": 7251,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎳",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "parkway",
+      "name": "Parkway Lanes",
+      "city": "Elmwood Park",
+      "state": "NJ",
+      "address": "200 US-46, Elmwood Park, NJ 07407",
+      "area": "paterson",
+      "openDays": [
+        0,
+        5,
+        6
+      ],
+      "hoursNote": "This rate is for Friday–Sunday after 5pm. Reserve a lane; extras cost more.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://parkwaylanesnj.com/bowling/",
+      "order": "Fri–Sun after 5pm: one lane for one hour at $60, plus two $4 shoe rentals.",
+      "baseCents": 6800,
+      "taxCents": 451,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve; the venue does not state tax treatment on this page.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-njbg",
+    "category": "activity",
+    "name": "NJ Botanical Garden stroll",
+    "description": "General garden admission is free; parking and special events are separate.",
+    "costCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🌷",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "garden",
+      "name": "New Jersey Botanical Garden",
+      "city": "Ringwood",
+      "state": "NJ",
+      "address": "5 Morris Road, Ringwood, NJ 07456",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Grounds 8am–6pm EST / 8pm EDT. Summer weekends/holidays: parking $5 NJ plates, $7 other plates, extra. Confirm access.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://njbg.org/hours-admission/",
+      "order": "General garden admission is free; parking and special events are separate.",
+      "baseCents": 0,
+      "taxCents": 0,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Posted admission only; additional tax or fees, if any, are not confirmed.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-neo-crepe",
+    "category": "treat",
+    "name": "Kafe Neo: share a dessert crêpe",
+    "description": "One Neo Nutella dessert crêpe at $16, shared between two people.",
+    "costCents": 2026,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍫",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "neo",
+      "name": "Kafe Neo",
+      "city": "Totowa",
+      "state": "NJ",
+      "address": "650 Union Blvd Suite 8, Totowa, NJ 07512",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Check the venue’s current hours and availability.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://thekafeneo.com/menu/",
+      "order": "One Neo Nutella dessert crêpe at $16, shared between two people.",
+      "baseCents": 1600,
+      "taxCents": 106,
+      "tipCents": 320,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax added to the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory venue charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-sook-chocolate",
+    "category": "treat",
+    "name": "Sook Pastry: chocolate croissants",
+    "description": "Two Chocolate Croissants at $4.35 each from the location-specific ordering menu.",
+    "costCents": 928,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🥐",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "sook",
+      "name": "Sook Pastry",
+      "city": "Ridgewood",
+      "state": "NJ",
+      "address": "24 S Broad St, Ridgewood, NJ 07450",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Check bakery hours and stock; pickup-menu pricing.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.sookpastry.com/menu/pastries?location_id=3617",
+      "order": "Two Chocolate Croissants at $4.35 each from the location-specific ordering menu.",
+      "baseCents": 870,
+      "taxCents": 58,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax added to the posted subtotal.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-sook-almond",
+    "category": "treat",
+    "name": "Sook Pastry: almond croissants",
+    "description": "Two Almond Croissants at $4.85 each from the location-specific ordering menu.",
+    "costCents": 1034,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🥐",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "sook",
+      "name": "Sook Pastry",
+      "city": "Ridgewood",
+      "state": "NJ",
+      "address": "24 S Broad St, Ridgewood, NJ 07450",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Check bakery hours and stock; pickup-menu pricing.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.sookpastry.com/menu/pastries?location_id=3617",
+      "order": "Two Almond Croissants at $4.85 each from the location-specific ordering menu.",
+      "baseCents": 970,
+      "taxCents": 64,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax added to the posted subtotal.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-saddle-sundae",
+    "category": "treat",
+    "name": "Saddle River Inn: sundae for two",
+    "description": "One Banana’s Foster Sundae, explicitly listed for two or more, at $25.",
+    "costCents": 3166,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍨",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "saddle",
+      "name": "Saddle River Inn",
+      "city": "Saddle River",
+      "state": "NJ",
+      "address": "2 Barnstable Court, Saddle River, NJ 07458",
+      "area": "paterson",
+      "openDays": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Confirm reservations and whether dessert-only seating is available.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.saddleriverinn.com/menu/dessert/",
+      "order": "One Banana’s Foster Sundae, explicitly listed for two or more, at $25.",
+      "baseCents": 2500,
+      "taxCents": 166,
+      "tipCents": 500,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax added to the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory venue charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-hawthorne-movie",
+    "category": "entertainment",
+    "name": "Movie at Hawthorne Theaters",
+    "description": "Two regular adult movie tickets at the posted $14 rate. Premium formats and online fees are not confirmed.",
+    "costCents": 2800,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍿",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "hawthorne",
+      "name": "Hawthorne Theaters",
+      "city": "Hawthorne",
+      "state": "NJ",
+      "address": "300 Lafayette Avenue, Hawthorne, NJ 07506",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Choose an actual available showtime. Discounts and matinee prices may be lower.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.hawthornetheatres.com/theater-info/",
+      "order": "Two regular adult movie tickets at the posted $14 rate. Premium formats and online fees are not confirmed.",
+      "baseCents": 2800,
+      "taxCents": 0,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Posted admission only; additional tax or fees, if any, are not confirmed.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-yogi-museum",
+    "category": "entertainment",
+    "name": "Yogi Berra Museum visit",
+    "description": "Two regular adult admissions at $15 each. Ask the front desk for the visitor parking pass.",
+    "costCents": 3000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "⚾",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "yogi",
+      "name": "Yogi Berra Museum",
+      "city": "Little Falls",
+      "state": "NJ",
+      "address": "8 Yogi Berra Dr, Little Falls, NJ 07424",
+      "area": "paterson",
+      "openDays": [
+        0,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Wed–Sun noon–5pm. Closed to the public Mondays and Tuesdays.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://yogiberramuseum.org/visit/",
+      "order": "Two regular adult admissions at $15 each. Ask the front desk for the visitor parking pass.",
+      "baseCents": 3000,
+      "taxCents": 0,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Posted admission only; additional tax or fees, if any, are not confirmed.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and unconfirmed booking/card fees are not included.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-paterson-museum",
+    "category": "entertainment",
+    "name": "Paterson Museum discovery",
+    "description": "Admission is free; this plan reserves the suggested $2 adult donation for each person.",
+    "costCents": 400,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🚂",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "paterson",
+      "name": "The Paterson Museum",
+      "city": "Paterson",
+      "state": "NJ",
+      "address": "2 Market Street, Paterson, NJ 07501",
+      "area": "paterson",
+      "openDays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "hoursNote": "Mon–Fri 9:30am–4:30pm; closed weekends and listed holidays.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://patersonmuseum.com/",
+      "order": "Admission is free; this plan reserves the suggested $2 adult donation for each person.",
+      "baseCents": 0,
+      "taxCents": 0,
+      "tipCents": 0,
+      "donationCents": 400,
+      "taxNote": "Posted admission only; additional tax or fees, if any, are not confirmed.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Includes a voluntary $4 donation allowance; travel and parking are separate.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-game-vault",
+    "category": "entertainment",
+    "name": "Morristown Game Vault: one hour",
+    "description": "Two one-hour arcade visits at $17 per person; prices on the official page were updated March 2026.",
+    "costCents": 3625,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🕹️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official page and opening hours before heading out.",
+    "venue": {
+      "id": "vault",
+      "name": "Morristown Game Vault",
+      "city": "Morristown",
+      "state": "NJ",
+      "address": "22 South Street, Morristown, NJ 07960",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Check regular hours and private-event closures. Longer play costs more.",
+      "routeNote": "North Jersey shortlist around Paterson; no live drive-time guarantee. Check traffic and the full route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.morristowngamevault.com/pricing/",
+      "order": "Two one-hour arcade visits at $17 per person; prices on the official page were updated March 2026.",
+      "baseCents": 3400,
+      "taxCents": 225,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax added to the posted subtotal.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Uses the venue’s posted card-payment tax policy; parking and longer play are extra.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  }
+]

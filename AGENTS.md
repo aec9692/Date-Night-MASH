@@ -54,7 +54,7 @@ Main risk: a budget or filter leaves no affordable combination. Keep the preset 
 - Distinguish invalid requests (400), oversized bodies (413), no affordable combination (422), and unexpected server failures (500).
 - Preserve form values on errors. Show loading, success, empty, and failure states; prevent duplicate submissions.
 - Render data using safe DOM APIs. Validate stored favorites when loading and handle unavailable browser storage gracefully.
-- Download client-generated text; do not introduce server file storage.
+- Generate PDF and text downloads in the browser; do not introduce uploads or server file storage. Copy the pinned jsPDF asset and license with scripts/prepare-assets.js during npm installation.
 
 ## Delivery and verification
 
@@ -62,14 +62,16 @@ The owner requested an interactive game upgrade and authorized Codex to handle m
 
 Upgrade behavior:
 - Shared validation and combination enumeration live in public/planner.js. The server remains authoritative; browser counts are a preview.
-- Generation may also receive mood, spending, excluded, customOptions, locked, and previous. Validate every field and reject undocumented fields. Keep JSON requests bounded to 4 KB.
+- Generation may also receive mood, spending, area, date, excluded, customOptions, locked, and previous. Validate every field and reject undocumented fields. Keep JSON requests bounded to 4 KB.
 - Spending defaults to treat: select estimated totals at 90–100% of budget when available, otherwise at least 95% of the highest attainable total. Flexible allows any affordable total. Apply mood weighting after spending selection. Explain unattainable budgets honestly and never inflate catalog prices.
-- The catalog has 96 illustrative ideas: 24 each for dinner, activity, treat, and entertainment. Browser search/price browsing changes visibility, not inclusion. Keep counts memory-efficient without retaining every plan in the browser, and build reveal candidates from the selected plan instead of enumerating all plans again.
+- Preserve the 96 original ideas and the separately maintained source-linked NJ catalog in data/local-options.json. The UI defaults to the Paterson-area deck; all/general/paterson are valid area values. A valid optional calendar date filters known regular weekdays, not live availability or holidays. Do not promise a timed itinerary or a measured one-hour driving radius.
+- Each local price needs an official source URL, checked date, explicit order/admission basis for two, and separate base/tax/tip/donation components. See DATA_SOURCES.md. Never invent a local price or copy a third-party estimate as a verified menu quote. Unknown fees and travel/parking exclusions must remain visible. Review sources periodically; checked dates are not automatic live updates.
+- Browser search/price browsing changes visibility, not inclusion. Keep counts memory-efficient without retaining every plan in the browser, and build reveal candidates from the selected plan instead of enumerating all plans again.
 - Mood values are surprise, cozy, adventurous, romantic, and competitive. Mood weights valid combinations; it must not bypass budget, setting, exclusion, or lock constraints.
 - Support at most four custom ideas with names up to 48 characters and integer estimated prices. Saved custom ideas require the same validation as incoming requests.
 - Keep explicit locks during full regeneration. A single-category reroll fixes the other three picks and returns a different complete combination when one exists. Explain unchanged results when no alternative fits.
 - Select the result before animating. Reveals must be skippable, respect reduced motion, and prevent overlapping submissions. Sound is opt-in.
-- Support both a self-contained SVG date card and plain-text download. Add user text through DOM APIs, including SVG text. Preserve compatibility with existing favorites.
+- Support phone-readable PDF and plain-text downloads, with source/map links for local stops. Use native PDF file sharing where supported and download otherwise. Preserve existing favorites; validate and replace saved venue/source metadata with canonical data before export. This remains a web app; do not claim App Store publishing or real-device verification without evidence.
 
 - See BUILD_PLAN.md for milestones, acceptance criteria, and setup steps.
 - Use the connected GitHub repository and Vercel Git integration. Production branch: main. Do not claim a push or deployment succeeded without evidence.
