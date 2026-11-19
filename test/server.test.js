@@ -25,7 +25,7 @@ test('health and static assets are available', async () => {
   assert.equal(health.status, 200);
   assert.deepEqual(await health.json(), { status: 'ok', app: 'Date Night MASH' });
   assert.equal(health.headers.get('cache-control'), 'no-store');
-  for (const [path, type] of [['/', 'text/html'], ['/styles.css', 'text/css'], ['/app.js', 'javascript']]) {
+  for (const [path, type] of [['/', 'text/html'], ['/styles.css', 'text/css'], ['/app.js', 'javascript'], ['/companion.js','javascript'], ['/manifest.webmanifest','manifest+json'], ['/icons/icon-192.png','image/png']]) {
     const response = await fetch(base + path);
     assert.equal(response.status, 200);
     assert.ok(response.headers.get('content-type').includes(type));
@@ -36,10 +36,10 @@ test('catalog contains unique IDs, four categories, integer prices, and document
   const response = await fetch(`${base}/api/options`);
   assert.equal(response.status, 200);
   const data = await response.json();
-  assert.equal(data.options.length, 114);
-  assert.equal(new Set(data.options.map(option => option.id)).size, 114);
+  assert.equal(data.options.length, 146);
+  assert.equal(new Set(data.options.map(option => option.id)).size, 146);
   assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category && !option.venue).length), [24,24,24,24]);
-  assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category && option.venue).length), [5,5,4,4]);
+  assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category && option.venue).length), [18,12,12,8]);
   for (const option of data.options) {
     assert.ok(Number.isSafeInteger(option.costCents) && option.costCents >= 0);
     assert.ok(option.settings.length && option.settings.every(setting => ['indoor', 'outdoor', 'home'].includes(setting)));
@@ -104,7 +104,7 @@ test('rejects missing body, malformed JSON, primitive JSON, and non-finite JSON 
 });
 
 test('rejects oversized JSON with 413', async () => {
-  const response = await generate({ budget: 50, extra: 'x'.repeat(6000) });
+  const response = await generate({ budget: 50, extra: 'x'.repeat(10000) });
   assert.equal(response.status, 413);
   assert.ok((await response.json()).error);
 });
@@ -311,7 +311,8 @@ test('an attainable 90% target takes priority over the fallback band near the ma
 });
 
 test('local catalog has official price provenance and transparent arithmetic for every NJ stop', () => {
-  assert.equal(localCatalog.length,18);
+  assert.equal(localCatalog.length,50);
+  assert.equal(new Set(localCatalog.map(option=>option.venue.id)).size,30);
   for (const option of localCatalog) {
     const {pricing:p,venue:v}=option;
     assert.equal(v.state,'NJ');
@@ -371,7 +372,7 @@ test('all catalog exclusions and custom Unicode names fit within the bounded bod
   const customOptions=planner.categories.map((category,index)=>({id:`custom-1234567${index}`,category,name:'語'.repeat(48),costCents:0,settings:['indoor','home','outdoor']}));
   const body={budget:0,area:'paterson',date:'2026-11-20',customOptions,excluded:[...catalog,...localCatalog].map(option=>option.id),
     locked:Object.fromEntries(customOptions.map(option=>[option.category,option.id])),previous:customOptions.map(option=>option.id)};
-  assert.ok(Buffer.byteLength(JSON.stringify(body))<4096);
+  assert.ok(Buffer.byteLength(JSON.stringify(body))<8192);
   const response=await generate(body);
   assert.equal(response.status,200);
   assert.equal((await response.json()).totalCents,0);

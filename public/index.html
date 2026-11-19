@@ -2,16 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f7f3ff">
   <meta name="description" content="Two people. Four little adventures. Play MASH to make a date that fits your budget, then keep your favorites and remix the rest.">
   <title>Date Night MASH — Make a little magic</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/styles.css">
   <script src="/vendor/jspdf.umd.min.js" defer></script>
   <script src="/planner.js" defer></script>
   <script src="/show.js" defer></script>
   <script src="/download.js" defer></script>
+  <script src="/companion.js" defer></script>
   <script src="/app.js" defer></script>
+  <script src="/nearby.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#planner">Skip to the game</a>
@@ -25,8 +32,12 @@
         <p class="eyebrow"><span class="small-star" aria-hidden="true">✦</span> GOOD DATES SHOULDN'T BE HOMEWORK.</p>
         <h1 id="hero-title">A little chance.<br>A lot of <span class="highlight">chemistry.</span></h1>
         <p class="intro">Skip the “I don't know, what do you want to do?”<br>Pick a vibe. Set a budget. Let fate plan the date.</p>
-        <a href="#planner" class="button hero-button">Let's make a night of it <span aria-hidden="true">✳</span></a>
+        <div class="nearby-actions">
+          <a href="#planner" class="button hero-button">Play MASH <span aria-hidden="true">✳</span></a>
+          <a href="#nearby" class="button secondary">Find Nearby</a>
+        </div>
         <p class="hero-footnote">Two people. Four picks. Endless “remember when”s.</p>
+        <div id="local-stats" class="local-stats" aria-label="Local idea collection">Your neighborhood. A whole new night.</div>
       </div>
       <div class="hero-collage" aria-label="Dinner, activity, treat, and entertainment make a date">
         <span class="collage-note">your next plot twist…</span>
@@ -55,9 +66,24 @@
           <div class="setting-control"><label for="setting">Where are we headed?</label><select id="setting" name="setting"><option value="any">Anywhere · let fate decide</option><option value="indoor">Stay indoors</option><option value="outdoor">Get outside</option><option value="home">A night at home</option></select><p class="helper">Every pick will fit your setting.</p><label for="spending">How should we use your budget?</label><select id="spending"><option value="treat">Treat us · aim near our budget</option><option value="flexible">Keep it flexible · any affordable plan</option></select><p class="helper">Treat us aims for 90–100% of your budget when possible. Estimated totals stay within your limit.</p><label class="instant-label"><input id="instant" type="checkbox"> Skip the suspense</label></div>
         </div>
         <div class="play-strip"><div><strong id="possibility-count">Finding the possibilities…</strong><p id="possibility-note" class="helper">Four categories. One very good night.</p></div><button id="play" type="submit" class="play-button" disabled><span aria-hidden="true">✳</span> Play MASH</button></div>
+        <a href="#nearby" class="nearby-alternative">Browse nearby date ideas</a>
       </form>
       <p id="message" role="status" aria-live="polite">Loading the good ideas…</p><button id="retry" type="button" class="secondary" hidden>Retry loading ideas</button>
       <noscript><p>Enable JavaScript to play MASH and save your date plans.</p></noscript>
+    </section>
+
+    <section id="nearby" class="planner nearby-section" aria-labelledby="nearby-title">
+      <h2 id="nearby-title">Where should we look for date ideas?</h2>
+      <form id="nearby-form" aria-describedby="nearby-help">
+        <div class="form-grid">
+          <div><label for="nearby-town">Starting town in North Jersey</label><select id="nearby-town" required><option value="">Choose a town</option></select></div>
+          <div><label for="nearby-radius">How far would you like to go?</label><select id="nearby-radius"><option value="5">5 miles</option><option value="10" selected>10 miles</option><option value="25">25 miles</option><option value="50">50 miles</option></select></div>
+        </div>
+        <p id="nearby-help" class="helper">The radius uses approximate straight-line distances between town centers. Open directions to check the drive to a venue.</p>
+        <button id="nearby-search" type="submit">Find Nearby Ideas</button>
+      </form>
+      <p id="nearby-status" role="status"></p>
+      <ul id="nearby-results" class="nearby-results" hidden></ul>
     </section>
 
     <section id="mash-stage" class="mash-stage" aria-labelledby="reveal-title" hidden><div class="section-heading"><div><p class="eyebrow">A LITTLE SUSPENSE…</p><h2 id="reveal-title">Let fate do its thing.</h2></div><button id="skip-reveal" type="button" class="secondary">Skip reveal</button></div><div id="reveal-board" class="reveal-board"></div><div class="reveal-progress"><span></span></div><p class="helper">Crossing out the maybes. Keeping the magic.</p></section>
@@ -69,23 +95,39 @@
       <div class="total-row"><div><span class="helper">Estimated total for two</span><p id="result-total" class="total"></p></div><div class="budget-meter"><p id="remaining"></p><div class="meter-track"><span id="budget-used"></span></div></div></div>
       <p id="spend-explanation" class="spend-explanation"></p>
       <p class="remix-help">Love a pick? Lock it. Reroll a category to change just that part of your night.</p>
-      <div class="actions"><button id="save" type="button">♡ Save this date</button><button id="download" type="button" class="secondary">Download PDF</button><button id="share-pdf" type="button" class="secondary" hidden>Share PDF</button><button id="download-text" type="button" class="text-button">Text version</button><button id="again" type="button" class="text-button">✳ Surprise us again</button></div><p class="helper">PDF works in phone viewers and Files apps. On supported browsers, Share PDF opens your phone's share sheet.</p>
+      <div class="actions"><button id="date-start" type="button" disabled>Take this date out ↗</button><button id="save" type="button">♡ Save this date</button><button id="download" type="button" class="secondary">Download PDF</button><button id="share-pdf" type="button" class="secondary" hidden>Share PDF</button><button id="download-text" type="button" class="text-button">Text version</button><button id="again" type="button" class="text-button">✳ Surprise us again</button></div><p class="helper">PDF works in phone viewers and Files apps. On supported browsers, Share PDF opens your phone's share sheet.</p>
       <p id="result-notice" class="helper"></p>
     </section>
 
-    <section class="catalog-section" aria-labelledby="ideas-title">
+    <section id="date-mode" class="date-mode" aria-labelledby="date-mode-title" hidden>
+      <div class="section-heading"><div><p class="eyebrow">LESS PHONE. MORE US.</p><h2 id="date-mode-title" tabindex="-1">Out making memories.</h2></div><button id="date-close" type="button" class="secondary">Back to the plan</button></div>
+      <p id="date-summary" role="status" aria-live="polite"></p><progress id="date-progress" max="4" value="0" aria-label="Date stops enjoyed"></progress>
+      <div id="stop-tabs" class="stop-tabs" role="group" aria-label="Choose a date stop"></div>
+      <article id="current-stop" tabindex="-1"></article>
+      <p id="date-complete" class="date-complete" role="status" hidden>Four little adventures. One very good memory. ♡</p>
+      <div id="full-route"></div><p class="helper">Suggested order only. Arrange stops around opening hours and bookings. Routes start from Paterson; check travel costs and traffic. Progress lasts for this visit.</p>
+      <div class="spark-card"><span class="eyebrow">A LITTLE CONVERSATION SPARK</span><p id="spark-question" aria-live="polite"></p><button id="next-spark" type="button" class="secondary">Give us another spark ✳</button></div>
+    </section>
+
+    <section id="explore" class="catalog-section" aria-labelledby="ideas-title">
       <div class="section-heading"><div><p class="eyebrow">STACK THE DECK IN YOUR FAVOR</p><h2 id="ideas-title">Make it your kind of night.</h2></div><button id="reset-ideas" type="button" class="text-button">Reset ideas & locks</button></div>
       <p class="section-intro"><strong id="catalog-size">Four decks. Every kind of date.</strong> Tap an idea to take it out of the mix, or add a personal favorite. The best dates have a little bit of you in them.</p>
-      <div class="browse-controls"><div><label for="idea-search">Find your kind of adventure</label><input id="idea-search" type="search" maxlength="80" placeholder="Try pottery, sailing, chef, live music…"></div><div><label for="idea-tier">Browse by estimated price for two</label><select id="idea-tier"><option value="all">All price ranges</option><option value="low">Under $50</option><option value="mid">$50–$200</option><option value="high">Over $200 · special occasions</option></select></div></div><p class="helper">Browsing changes what you see. Tap an idea to include or exclude it from generation.</p>
+      <div class="browse-controls"><div><label for="idea-search">Find your kind of adventure</label><input id="idea-search" type="search" maxlength="80" placeholder="Try sushi, skating, gardens, Wayne…"></div><div><label for="idea-tier">Browse by estimated price for two</label><select id="idea-tier"><option value="all">All price ranges</option><option value="low">Under $50</option><option value="mid">$50–$200</option><option value="high">Over $200 · special occasions</option></select></div></div>
+      <div class="town-browser"><div><label for="idea-town">Explore a town</label><select id="idea-town"><option value="all">Every town</option></select></div><div id="town-chips" class="town-chips" role="group" aria-label="Quick town browsing"></div></div>
+      <p class="helper">Search, town, price, and category tabs only change browsing. Include/exclude changes the mix; “Build around this” keeps a specific pick.</p>
+      <div class="deck-tabs" role="group" aria-label="Browse a category"><button type="button" data-deck="all" aria-pressed="true">All four</button><button type="button" data-deck="dinner" aria-pressed="false">🍽 Dinner</button><button type="button" data-deck="activity" aria-pressed="false">🎯 Activity</button><button type="button" data-deck="treat" aria-pressed="false">🍰 Treat</button><button type="button" data-deck="entertainment" aria-pressed="false">🎟 Entertainment</button></div>
       <div id="catalog" class="catalog-grid"></div>
       <details class="custom-details"><summary>＋ Add your own little adventure <span>Up to four custom ideas</span></summary><form id="custom-form"><div class="custom-form-grid"><div><label for="custom-name">Your idea</label><input id="custom-name" maxlength="48" required placeholder="Our favorite noodle spot"></div><div><label for="custom-category">Category</label><select id="custom-category"><option value="dinner">Dinner</option><option value="activity">Activity</option><option value="treat">Treat</option><option value="entertainment">Entertainment</option></select></div><div><label for="custom-cost">Estimate for two ($)</label><input id="custom-cost" type="number" min="0" max="10000" step="0.01" required placeholder="20"></div><div><label for="custom-setting">Setting</label><select id="custom-setting"><option value="any">Any setting</option><option value="indoor">Indoors</option><option value="outdoor">Outdoors</option><option value="home">At home</option></select></div></div><button type="submit" class="secondary">Add to the mix</button><p class="helper">Custom ideas stay for this visit. Saved dates keep a copy. All prices are your estimates.</p><p id="custom-message" role="status"></p></form></details>
       <p class="helper estimates-note">Illustrative estimates for two, not live quotes or booking offers. Confirm complete prices, taxes, fees, availability, hours, and weather before making plans. Free ideas use items or access you already have.</p>
     </section>
 
     <section id="saved" class="saved-section" aria-labelledby="saved-title"><div class="section-heading"><div><p class="eyebrow">SAVE THE SPARK</p><h2 id="saved-title" tabindex="-1">For another night.</h2></div><span class="pill">On this device, just for you</span></div><p id="storage-message" role="status"></p><div id="saved-plans" class="saved-grid"></div></section>
+    <details class="install-details"><summary>Keep MASH on your phone ♡</summary><p>On iPhone, open this site in Safari, tap Share, then Add to Home Screen and turn on Open as Web App if offered. On other phones, use your browser’s install or home-screen option when available.</p><p class="helper">This is the web app, with favorites on this device. Generating dates needs an internet connection. An App Store release is a separate step.</p></details>
     <section class="closing-note"><span aria-hidden="true">✳</span><p>The best part of the plan?<br><strong>Who you're sharing it with.</strong></p></section>
   </main>
   <footer><a class="brand" href="#">date night <strong>MASH</strong></a><p>Dreamed up by Adrainn Coloma, Andrew Russo & Alex Marshall.<br>Big memories. Small budgets. All prices are estimates for two.</p></footer>
   <div id="confetti" aria-hidden="true"></div>
+  <nav class="phone-nav" aria-label="Phone shortcuts"><a href="#planner"><span aria-hidden="true">✳</span>Plan</a><a href="#explore"><span aria-hidden="true">⌕</span>Explore</a><a id="phone-date" href="#result" aria-disabled="true"><span aria-hidden="true">♡</span>Our date</a><a href="#saved"><span aria-hidden="true">▱</span>Saved</a></nav>
+  <dialog id="idea-preview" aria-labelledby="preview-title"><button id="preview-close" type="button" class="secondary">Close details</button><div id="preview-content"></div></dialog>
 </body>
 </html>

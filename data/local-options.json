@@ -864,5 +864,1566 @@
       "exclusions": "Uses the venue’s posted card-payment tax policy; parking and longer play are extra.",
       "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
     }
+  },
+  {
+    "id": "nj-viaggio-pasta",
+    "category": "dinner",
+    "name": "Viaggio: Italian pasta night",
+    "description": "Two Fusilli alla Norma entrées at $32 each from the posted seasonal menu.",
+    "costCents": 8104,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "viaggio",
+      "name": "Viaggio Ristorante",
+      "city": "Wayne",
+      "state": "NJ",
+      "address": "1055 Hamburg Turnpike, Wayne, NJ 07470",
+      "area": "paterson",
+      "openDays": [
+        0,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Dinner Wed–Sun. Seasonal menu: confirm current dishes. Cash-price basis; credit cards add 3%.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.viaggioristorante.com/menus/",
+      "order": "Two Fusilli alla Norma entrées at $32 each from the posted seasonal menu.",
+      "baseCents": 6400,
+      "taxCents": 424,
+      "tipCents": 1280,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-viaggio-steak",
+    "category": "dinner",
+    "name": "Viaggio: steak for two",
+    "description": "One Sicilian Tagliata explicitly listed for two at $99, with the menu’s listed accompaniments.",
+    "costCents": 12536,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "viaggio",
+      "name": "Viaggio Ristorante",
+      "city": "Wayne",
+      "state": "NJ",
+      "address": "1055 Hamburg Turnpike, Wayne, NJ 07470",
+      "area": "paterson",
+      "openDays": [
+        0,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Dinner Wed–Sun. Seasonal menu: confirm current dishes. Cash-price basis; credit cards add 3%.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.viaggioristorante.com/menus/",
+      "order": "One Sicilian Tagliata explicitly listed for two at $99, with the menu’s listed accompaniments.",
+      "baseCents": 9900,
+      "taxCents": 656,
+      "tipCents": 1980,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-zeugma-chicken",
+    "category": "dinner",
+    "name": "Zeugma: Mediterranean chicken shish",
+    "description": "Two Organic Chicken Shish entrées at $31 each from the dinner menu.",
+    "costCents": 7851,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "zeugma",
+      "name": "Zeugma",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "44 S Park St, Montclair, NJ 07042",
+      "area": "paterson",
+      "openDays": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Dinner menu Tue–Sun 3–11pm. Confirm seating and whether dessert-only service is available.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://zeugmagrill.com/menu",
+      "order": "Two Organic Chicken Shish entrées at $31 each from the dinner menu.",
+      "baseCents": 6200,
+      "taxCents": 411,
+      "tipCents": 1240,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-zeugma-manti",
+    "category": "dinner",
+    "name": "Zeugma: mushroom dumpling date",
+    "description": "Two Mushroom Manti entrées at $31 each from the dinner menu.",
+    "costCents": 7851,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "zeugma",
+      "name": "Zeugma",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "44 S Park St, Montclair, NJ 07042",
+      "area": "paterson",
+      "openDays": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Dinner menu Tue–Sun 3–11pm. Confirm seating and whether dessert-only service is available.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://zeugmagrill.com/menu",
+      "order": "Two Mushroom Manti entrées at $31 each from the dinner menu.",
+      "baseCents": 6200,
+      "taxCents": 411,
+      "tipCents": 1240,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-zeugma-burger",
+    "category": "dinner",
+    "name": "Zeugma: pistachio burger night",
+    "description": "Two Pistachio Steak Burgers at $24 each; menu lists fries with each.",
+    "costCents": 6078,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "zeugma",
+      "name": "Zeugma",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "44 S Park St, Montclair, NJ 07042",
+      "area": "paterson",
+      "openDays": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Dinner menu Tue–Sun 3–11pm. Confirm seating and whether dessert-only service is available.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://zeugmagrill.com/menu",
+      "order": "Two Pistachio Steak Burgers at $24 each; menu lists fries with each.",
+      "baseCents": 4800,
+      "taxCents": 318,
+      "tipCents": 960,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-nicola-pasta",
+    "category": "dinner",
+    "name": "Nicola’s: cacio e pepe for two",
+    "description": "Two Bucatini Cacio e Pepe entrées at $29 each.",
+    "costCents": 7344,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "nicola",
+      "name": "Nicola’s Ristorante",
+      "city": "Totowa",
+      "state": "NJ",
+      "address": "650 Union Blvd, Totowa, NJ 07512",
+      "area": "paterson",
+      "openDays": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Closed Monday. Dinner Tue–Sun; reserve and confirm kitchen hours.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.nicolasristorantenj.com/dinner/",
+      "order": "Two Bucatini Cacio e Pepe entrées at $29 each.",
+      "baseCents": 5800,
+      "taxCents": 384,
+      "tipCents": 1160,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-nicola-lobster",
+    "category": "dinner",
+    "name": "Nicola’s: lobster fettuccine",
+    "description": "Two Fettuccine Lobster entrées at $40 each.",
+    "costCents": 10130,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "nicola",
+      "name": "Nicola’s Ristorante",
+      "city": "Totowa",
+      "state": "NJ",
+      "address": "650 Union Blvd, Totowa, NJ 07512",
+      "area": "paterson",
+      "openDays": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Closed Monday. Dinner Tue–Sun; reserve and confirm kitchen hours.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.nicolasristorantenj.com/dinner/",
+      "order": "Two Fettuccine Lobster entrées at $40 each.",
+      "baseCents": 8000,
+      "taxCents": 530,
+      "tipCents": 1600,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-totowa-grandma",
+    "category": "dinner",
+    "name": "Totowa Pizza: share a Grandma pie",
+    "description": "One regular-menu Grandma Pizza at $24 shared by two; extra sides and toppings cost more.",
+    "costCents": 2559,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "pizza",
+      "name": "Totowa Pizza",
+      "city": "Totowa",
+      "state": "NJ",
+      "address": "333 Totowa Rd, Totowa, NJ 07512",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Posted regular menu; daily 10am–9pm, Sunday noon–8pm. Pickup basis.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://totowapizza.com/",
+      "order": "One regular-menu Grandma Pizza at $24 shared by two; extra sides and toppings cost more.",
+      "baseCents": 2400,
+      "taxCents": 159,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-totowa-calzones",
+    "category": "dinner",
+    "name": "Totowa Pizza: calzones for two",
+    "description": "Two regular Calzones at $10.95 each, pickup-menu basis.",
+    "costCents": 2335,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "pizza",
+      "name": "Totowa Pizza",
+      "city": "Totowa",
+      "state": "NJ",
+      "address": "333 Totowa Rd, Totowa, NJ 07512",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Posted regular menu; daily 10am–9pm, Sunday noon–8pm. Pickup basis.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://totowapizza.com/",
+      "order": "Two regular Calzones at $10.95 each, pickup-menu basis.",
+      "baseCents": 2190,
+      "taxCents": 145,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-fusion-thursday",
+    "category": "dinner",
+    "name": "Fusion 27: Thursday date-night deal",
+    "description": "Thursday-only published $75-per-couple offer: one appetizer plus two regular-menu dinners. Specials excluded.",
+    "costCents": 9497,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "fusion",
+      "name": "Fusion 27",
+      "city": "Totowa",
+      "state": "NJ",
+      "address": "545 Union Blvd, Totowa, NJ 07512",
+      "area": "paterson",
+      "openDays": [
+        4
+      ],
+      "hoursNote": "Thursday-only date-night offer; one appetizer and two dinners from regular menu, specials excluded. Confirm offer and reserve.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.fusion27.com/",
+      "order": "Thursday-only published $75-per-couple offer: one appetizer plus two regular-menu dinners. Specials excluded.",
+      "baseCents": 7500,
+      "taxCents": 497,
+      "tipCents": 1500,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-nori-sushi",
+    "category": "dinner",
+    "name": "Nori Sushi: sushi for two",
+    "description": "One Sushi for 2 order at $53: 18 sushi pieces plus the listed two rolls. Online takeout-menu basis.",
+    "costCents": 5651,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "nori",
+      "name": "Nori Sushi",
+      "city": "Wayne",
+      "state": "NJ",
+      "address": "87 Berdan Ave, Wayne, NJ 07470",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Check the restaurant’s current opening hours and availability. Online takeout-menu price basis.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.waynenorisushi.com/menu",
+      "order": "One Sushi for 2 order at $53: 18 sushi pieces plus the listed two rolls. Online takeout-menu basis.",
+      "baseCents": 5300,
+      "taxCents": 351,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-luciano-vodka",
+    "category": "dinner",
+    "name": "Luciano’s: penne vodka date",
+    "description": "Two Penne Vodka entrées at $25.95 each from the in-house menu.",
+    "costCents": 6572,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "luciano",
+      "name": "Luciano’s Ristorante",
+      "city": "Totowa",
+      "state": "NJ",
+      "address": "331 Union Blvd, Totowa, NJ 07512",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Regular dinner menu. Cash-price basis; credit/debit cards add 3.75%. Confirm reservations.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://lucianostotowa.com/wp-content/uploads/2026/11/LUCIANO-INHOUSE-MENU-copy.pdf",
+      "order": "Two Penne Vodka entrées at $25.95 each from the in-house menu.",
+      "baseCents": 5190,
+      "taxCents": 344,
+      "tipCents": 1038,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-luciano-salmon",
+    "category": "dinner",
+    "name": "Luciano’s: grilled salmon dinner",
+    "description": "Two Grilled Salmon entrées at $36.95 each from the in-house menu.",
+    "costCents": 9358,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍽️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "luciano",
+      "name": "Luciano’s Ristorante",
+      "city": "Totowa",
+      "state": "NJ",
+      "address": "331 Union Blvd, Totowa, NJ 07512",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Regular dinner menu. Cash-price basis; credit/debit cards add 3.75%. Confirm reservations.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://lucianostotowa.com/wp-content/uploads/2026/11/LUCIANO-INHOUSE-MENU-copy.pdf",
+      "order": "Two Grilled Salmon entrées at $36.95 each from the in-house menu.",
+      "baseCents": 7390,
+      "taxCents": 490,
+      "tipCents": 1478,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-laurelwood",
+    "category": "activity",
+    "name": "Laurelwood: garden & sculpture stroll",
+    "description": "Two visitors: admission is free. Special programs and purchases are separate.",
+    "costCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🎯",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Make this a daylight stop; check weather before leaving.",
+    "venue": {
+      "id": "laurel",
+      "name": "Laurelwood Arboretum",
+      "city": "Wayne",
+      "state": "NJ",
+      "address": "725 Pines Lake Drive West, Wayne, NJ 07470",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Daily 8am–dusk except emergency closures. Outdoor walking; check weather and trails.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://laurelwoodarboretum.org/visit/directions/",
+      "order": "Two visitors: admission is free. Special programs and purchases are separate.",
+      "baseCents": 0,
+      "taxCents": 0,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Posted admission only; any additional taxes or checkout fees are unconfirmed.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-van-vleck",
+    "category": "activity",
+    "name": "Van Vleck: a quiet garden escape",
+    "description": "Two visitors: garden admission is free. Public garden visit only; no house tour.",
+    "costCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🎯",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Make this a daylight stop; check weather before leaving.",
+    "venue": {
+      "id": "vanvleck",
+      "name": "Van Vleck House & Gardens",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "21 Van Vleck Street, Montclair, NJ 07042",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Gardens dawn–dusk daily unless posted otherwise. House is not open for public tours.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://montclairfoundation.org/plan-your-visit/",
+      "order": "Two visitors: garden admission is free. Public garden visit only; no house tour.",
+      "baseCents": 0,
+      "taxCents": 0,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Posted admission only; any additional taxes or checkout fees are unconfirmed.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-ice-vault",
+    "category": "activity",
+    "name": "Ice Vault: skating for two",
+    "description": "Two public-skating admissions at $25 per session each, with skate rental included.",
+    "costCents": 5331,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎯",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "icevault",
+      "name": "Ice Vault Arena",
+      "city": "Wayne",
+      "state": "NJ",
+      "address": "10 Nevins Rd, Wayne, NJ 07470",
+      "area": "paterson",
+      "openDays": [
+        0,
+        5,
+        6
+      ],
+      "hoursNote": "Public skate is session-specific and not offered every day. Check and book an actual session; Fri–Sun dates still need confirmation. Rentals included; bring your own helmet.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.icevault.com/public-skating.php",
+      "order": "Two public-skating admissions at $25 per session each, with skate rental included.",
+      "baseCents": 5000,
+      "taxCents": 331,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve; confirm actual checkout tax and fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-monster-golf",
+    "category": "activity",
+    "name": "Monster Mini Golf: glow-in-the-dark rivalry",
+    "description": "Two regular Big Monster mini-golf admissions at $16 each.",
+    "costCents": 3412,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎯",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "monster",
+      "name": "Monster Mini Golf",
+      "city": "Fairfield",
+      "state": "NJ",
+      "address": "194 U.S. 46, Fairfield, NJ 07004",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Mon–Thu 2–9pm, Fri 2–10pm, Sat noon–10pm, Sun noon–8pm. Regular pricing, no expired promotion assumed.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://monsterminigolf.com/locations/us/nj/fairfield/",
+      "order": "Two regular Big Monster mini-golf admissions at $16 each.",
+      "baseCents": 3200,
+      "taxCents": 212,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve; confirm actual checkout tax and fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-monster-trio",
+    "category": "activity",
+    "name": "Monster Mini Golf: golf, arcade & VR",
+    "description": "Two Terrific Trio combinations at $25 each: mini golf, a $10 arcade card and one VR game per person.",
+    "costCents": 5331,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎯",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "monster",
+      "name": "Monster Mini Golf",
+      "city": "Fairfield",
+      "state": "NJ",
+      "address": "194 U.S. 46, Fairfield, NJ 07004",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Mon–Thu 2–9pm, Fri 2–10pm, Sat noon–10pm, Sun noon–8pm. Regular pricing, no expired promotion assumed.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://monsterminigolf.com/locations/us/nj/fairfield/",
+      "order": "Two Terrific Trio combinations at $25 each: mini golf, a $10 arcade card and one VR game per person.",
+      "baseCents": 5000,
+      "taxCents": 331,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve; confirm actual checkout tax and fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-gravity-boulder",
+    "category": "activity",
+    "name": "Gravity Vault: bouldering date",
+    "description": "Two adult day passes ($28 each), two shoe rentals ($6 each) and two chalk-bag rentals ($3 each). Independent climbing; no lesson included.",
+    "costCents": 7890,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎯",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "gravity",
+      "name": "The Gravity Vault",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "8 Seymour Plaza, Montclair, NJ 07042",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Bouldering day-pass basis. Complete waiver/orientation; day passes are for independent climbers. Instruction is extra; ask staff if new.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://gravityvault.com/locations/montclair-nj/pricing",
+      "order": "Two adult day passes ($28 each), two shoe rentals ($6 each) and two chalk-bag rentals ($3 each). Independent climbing; no lesson included.",
+      "baseCents": 7400,
+      "taxCents": 490,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve; confirm actual checkout tax and fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-nj-rock-gym",
+    "category": "activity",
+    "name": "NJ Rock Gym: climbing & gear",
+    "description": "Two adult day passes ($24 each) plus two full rental sets ($10 each). Staff orientation and applicable safety checks required.",
+    "costCents": 7251,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎯",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "njrock",
+      "name": "NJ Rock Gym",
+      "city": "Fairfield",
+      "state": "NJ",
+      "address": "373D Route 46 West, Fairfield, NJ 07004",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "First visit requires staff orientation and applicable safety checks. Full gear included in this estimate; instruction is extra.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://njrockgym.com/rates/",
+      "order": "Two adult day passes ($24 each) plus two full rental sets ($10 each). Staff orientation and applicable safety checks required.",
+      "baseCents": 6800,
+      "taxCents": 451,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve; confirm actual checkout tax and fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-sweet-cake",
+    "category": "treat",
+    "name": "Sweet Kitchen: coffee-cake break",
+    "description": "Two Coffee Cakes at the posted $4.65 each; bakery items only, drinks extra.",
+    "costCents": 992,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍰",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "sweet",
+      "name": "Sweet Kitchen",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "533 Bloomfield Ave, Montclair, NJ 07042",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Check opening hours and bakery stock. Counter/pickup basis; no tip allowance.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.sweetkitchenmontclair.com/our-bakery",
+      "order": "Two Coffee Cakes at the posted $4.65 each; bakery items only, drinks extra.",
+      "baseCents": 930,
+      "taxCents": 62,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-sweet-macarons",
+    "category": "treat",
+    "name": "Sweet Kitchen: a macaron tasting",
+    "description": "Four Macarons at $2.80 each, two per person; bakery pickup basis.",
+    "costCents": 1194,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍰",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "sweet",
+      "name": "Sweet Kitchen",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "533 Bloomfield Ave, Montclair, NJ 07042",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Check opening hours and bakery stock. Counter/pickup basis; no tip allowance.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.sweetkitchenmontclair.com/our-bakery",
+      "order": "Four Macarons at $2.80 each, two per person; bakery pickup basis.",
+      "baseCents": 1120,
+      "taxCents": 74,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-sweet-lattes",
+    "category": "treat",
+    "name": "Sweet Kitchen: slow down over lattes",
+    "description": "Two 12 oz regular-milk hot Lattes at $4.50 each. Flavors and milk substitutions cost extra.",
+    "costCents": 960,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍰",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "sweet",
+      "name": "Sweet Kitchen",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "533 Bloomfield Ave, Montclair, NJ 07042",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Check opening hours and bakery stock. Counter/pickup basis; no tip allowance.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.sweetkitchenmontclair.com/menu?menu=sweet-kitchen",
+      "order": "Two 12 oz regular-milk hot Lattes at $4.50 each. Flavors and milk substitutions cost extra.",
+      "baseCents": 900,
+      "taxCents": 60,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-zeugma-baklava",
+    "category": "treat",
+    "name": "Zeugma: pistachio baklava",
+    "description": "Two Baklava dessert orders at $11 each. Confirm dessert-only seating.",
+    "costCents": 2786,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍰",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "zeugma",
+      "name": "Zeugma",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "44 S Park St, Montclair, NJ 07042",
+      "area": "paterson",
+      "openDays": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Dinner menu Tue–Sun 3–11pm. Confirm seating and whether dessert-only service is available.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://zeugmagrill.com/menu",
+      "order": "Two Baklava dessert orders at $11 each. Confirm dessert-only seating.",
+      "baseCents": 2200,
+      "taxCents": 146,
+      "tipCents": 440,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-zeugma-cheesecake",
+    "category": "treat",
+    "name": "Zeugma: apricot cheesecake",
+    "description": "Two Apricot Cheesecake dessert orders at $16 each. Confirm dessert-only seating.",
+    "costCents": 4052,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍰",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "zeugma",
+      "name": "Zeugma",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "44 S Park St, Montclair, NJ 07042",
+      "area": "paterson",
+      "openDays": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Dinner menu Tue–Sun 3–11pm. Confirm seating and whether dessert-only service is available.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://zeugmagrill.com/menu",
+      "order": "Two Apricot Cheesecake dessert orders at $16 each. Confirm dessert-only seating.",
+      "baseCents": 3200,
+      "taxCents": 212,
+      "tipCents": 640,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-applegate-cups",
+    "category": "treat",
+    "name": "Applegate Farm: ice-cream cups",
+    "description": "Two Small Cone/Cups at $8.67 each on the officially linked pickup menu; toppings extra.",
+    "costCents": 1849,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍰",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "applegate",
+      "name": "Applegate Farm",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "616 Grove Street, Montclair, NJ 07043",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Officially linked online pickup-menu prices; counter prices may differ. Confirm stock, pickup fees and hours.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://direct.chownow.com/order/4792/locations/6216",
+      "order": "Two Small Cone/Cups at $8.67 each on the officially linked pickup menu; toppings extra.",
+      "baseCents": 1734,
+      "taxCents": 115,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-applegate-shakes",
+    "category": "treat",
+    "name": "Applegate Farm: milkshake stop",
+    "description": "Two Small Milk Shakes at $8.77 each on the officially linked pickup menu.",
+    "costCents": 1870,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍰",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "applegate",
+      "name": "Applegate Farm",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "616 Grove Street, Montclair, NJ 07043",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Officially linked online pickup-menu prices; counter prices may differ. Confirm stock, pickup fees and hours.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://direct.chownow.com/order/4792/locations/6216",
+      "order": "Two Small Milk Shakes at $8.77 each on the officially linked pickup menu.",
+      "baseCents": 1754,
+      "taxCents": 116,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-viaggio-cannoli",
+    "category": "treat",
+    "name": "Viaggio: cannoli for two",
+    "description": "Two Cannoli dessert orders at $8 each on the posted dolci menu. Confirm dessert-only seating.",
+    "costCents": 2026,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍰",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "viaggio",
+      "name": "Viaggio Ristorante",
+      "city": "Wayne",
+      "state": "NJ",
+      "address": "1055 Hamburg Turnpike, Wayne, NJ 07470",
+      "area": "paterson",
+      "openDays": [
+        0,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Dinner Wed–Sun. Seasonal menu: confirm current dishes. Cash-price basis; credit cards add 3%.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.viaggioristorante.com/menus/",
+      "order": "Two Cannoli dessert orders at $8 each on the posted dolci menu. Confirm dessert-only seating.",
+      "baseCents": 1600,
+      "taxCents": 106,
+      "tipCents": 320,
+      "donationCents": 0,
+      "taxNote": "Estimated 6.625% NJ sales tax on the posted subtotal.",
+      "tipNote": "Includes an optional 20% pre-tax tip allowance, not a mandatory charge.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-clairidge",
+    "category": "entertainment",
+    "name": "The Clairidge: an indie-film night",
+    "description": "Two regular non-member tickets at $17 each. Special events and online booking fees are extra.",
+    "costCents": 3400,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎟️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "clairidge",
+      "name": "The Clairidge",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "486 Bloomfield Avenue, Montclair, NJ 07042",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Choose an actual regular screening/showtime. Festival and special-event pricing can differ.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.montclairfilm.org/cinemas/overview/",
+      "order": "Two regular non-member tickets at $17 each. Special events and online booking fees are extra.",
+      "baseCents": 3400,
+      "taxCents": 0,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Posted admission only; any additional taxes or checkout fees are unconfirmed.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-bellevue",
+    "category": "entertainment",
+    "name": "The Bellevue: a movie in Upper Montclair",
+    "description": "Two regular non-member tickets at $17 each. Special events and online booking fees are extra.",
+    "costCents": 3400,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎟️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "bellevue",
+      "name": "The Bellevue",
+      "city": "Montclair",
+      "state": "NJ",
+      "address": "260 Bellevue Avenue, Montclair, NJ 07043",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Choose an actual regular screening/showtime. Festival and special-event pricing can differ.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.montclairfilm.org/cinemas/overview/",
+      "order": "Two regular non-member tickets at $17 each. Special events and online booking fees are extra.",
+      "baseCents": 3400,
+      "taxCents": 0,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Posted admission only; any additional taxes or checkout fees are unconfirmed.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-dey-mansion",
+    "category": "entertainment",
+    "name": "Dey Mansion: step into local history",
+    "description": "Two regular adult admissions at $5 each. Confirm a guided tour time.",
+    "costCents": 1000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎟️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "dey",
+      "name": "Dey Mansion Washington’s Headquarters",
+      "city": "Wayne",
+      "state": "NJ",
+      "address": "199 Totowa Road, Wayne, NJ 07470",
+      "area": "paterson",
+      "openDays": [
+        0,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Guided mansion tours Wed–Sun, about 45–60 minutes. Check tour times and holiday closures.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://seepassaiccounty.org/dey-mansion-plan-your-visit/",
+      "order": "Two regular adult admissions at $5 each. Confirm a guided tour time.",
+      "baseCents": 1000,
+      "taxCents": 0,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Posted admission only; any additional taxes or checkout fees are unconfirmed.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
+  },
+  {
+    "id": "nj-yestercades",
+    "category": "entertainment",
+    "name": "YESTERcades Westfield: retro arcade hour",
+    "description": "Two one-hour admissions at $11.95 each; time beyond one hour costs more.",
+    "costCents": 2548,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎟️",
+    "moods": [
+      "romantic",
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Open the official page before booking or heading out.",
+    "venue": {
+      "id": "yester",
+      "name": "YESTERcades",
+      "city": "Westfield",
+      "state": "NJ",
+      "address": "151 East Broad Street, Westfield, NJ 07090",
+      "area": "paterson",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Hourly arcade play; confirm rate and hours. This is a farther town: check traffic from Paterson before choosing.",
+      "routeNote": "Curated near Paterson, not a live one-hour drive guarantee. Check traffic and the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://yestercades.com/pricing/",
+      "order": "Two one-hour admissions at $11.95 each; time beyond one hour costs more.",
+      "baseCents": 2390,
+      "taxCents": 158,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve; confirm actual checkout tax and fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Extra orders, drinks, travel, parking, and booking fees are separate. Card surcharges, when noted above, are extra; cash-price basis.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    }
   }
 ]

@@ -70,8 +70,8 @@ All actual results below remain pending a public deployment and manual verificat
 | A04 | Filters | Generate with every setting. | Every pick supports the selected setting; catalog eligibility updates. | Pending deployment |
 | A05 | Server input validation | In developer tools send missing budget, string budget, unknown field, and unsupported setting to POST /api/generate. | Each returns JSON error with HTTP 400. | Pending deployment |
 | A06 | Malformed request | POST malformed JSON with application/json content type. | Readable JSON error, HTTP 400. | Pending deployment |
-| A07 | Oversized request | POST a JSON body over 4 KB. | Readable JSON error, HTTP 413. | Pending deployment |
-| A08 | Options validation | GET /api/options, then /api/options?unexpected=true. | Combined catalog has 114 ideas: 96 original and 18 local; query rejected with HTTP 400. | Pending deployment |
+| A07 | Oversized request | POST a JSON body over 8 KB. | Readable JSON error, HTTP 413. | Pending deployment |
+| A08 | Options validation | GET /api/options, then /api/options?unexpected=true. | Combined catalog has 146 ideas: 96 original and 50 local; query rejected with HTTP 400. | Pending deployment |
 | A09 | Unsupported methods | POST /api/health and GET /api/generate. | JSON error, HTTP 404. | Pending deployment |
 | A10 | Favorites | Save a result twice; reload; remove it. | One entry persists after reload; removal persists. | Pending deployment |
 | A11 | Storage failure | Set favorites key to invalid JSON; reload. Block browser storage; generate and attempt save. | Helpful messages; generation and downloading still work. | Pending deployment |
@@ -106,3 +106,24 @@ Add the remaining application, input-validation, and advanced-feature cases as t
 | NJ02 | Known closed days | Select a Monday or Saturday and try locked venues closed on that day. | Known closed options are not generated; errors explain the constraint; holidays/showtimes still require checking. | Pending deployment |
 | NJ03 | Phone sharing | On deployed HTTPS, generate and share/download PDFs on iPhone and Android; test native-share cancellation and unsupported sharing. | PDF opens in a normal viewer, can be saved/shared, cancellation is harmless, and unsupported file sharing downloads instead. | Pending deployment |
 | NJ04 | Route/price verification | Open each source and map link for a generated NJ plan before a visit. | Correct public venue addresses and source basis; confirm live traffic, fees, hours, and actual availability separately. | Pending deployment |
+
+## NJ discovery and phone companion — November 19, 2026
+
+Local checks (not deployed acceptance): the 65-test Node suite passed, including weighted streaming selection, large mixed-deck selection without retained candidate arrays, local quantity/closure restrictions, home-screen assets, opt-in rolling notes, mute/skip/page-leave cancellation, and existing route/input/favorite behavior. One parallel run had a transient ECONNRESET in a local HTTP request; the full rerun passed. New static asset assertions also cover the companion script, manifest and PNG icon.
+
+Three jsdom suites passed: original game, local places/PDF/native-share fallback, and the new mobile interactions. The new suite checked town chips, category tabs, official-price previews, build-around locks, an honest minimum-budget message before raising the budget, generated locked picks, date navigation, three-waypoint map links, conversation prompts, four-stop completion/undo, per-visit progress, and favorites. These do not prove mobile rendering or audible playback. Two initial QA assertions had incorrect expectations (Wayne contains seven choices; a locked dinner above the default budget should show the minimum needed); the checks were corrected to match the catalog and expected behavior.
+
+All 50 local PDF detail pages were parsed and checked for text within page bounds. The representative Ice Vault, Gravity Vault, and Luciano pages were rendered and visually inspected without clipping or overlap. The existing five-page premium sample still renders successfully. Home-screen icon was inspected.
+
+Actual iPhone/Android rendering, audible playback, Safari home-screen installation, native PDF share/Files behavior and manual public-site cases remain pending. Browser control still fails with Module not found: @oai/cua/tinyskyAlt. No public Vercel or App Store deployment is claimed.
+
+Additional deployed cases to execute:
+
+| ID | Item | Steps | Expected result | Actual result |
+| --- | --- | --- | --- | --- |
+| A20 | Town/category browsing | On a phone choose Wayne, then Activity, then Every town. | Relevant visible choices and pressed states; generation mix unchanged. | Pending deployment |
+| A21 | Build around a venue | Open Nicola’s details, keep it, raise budget to $200 and generate. | Source visible; selected dinner preserved; total fits. | Pending deployment |
+| A22 | Rolling sound | Enable sound, generate, mute during roll; repeat and skip. | Rolling ticks and reveal notes only when enabled; mute/skip stops sound promptly. | Pending deployment |
+| A23 | Date companion | Generate; Take this date out; complete/undo four stops; switch a stop and prompt. | Accessible stop navigation, correct progress, route and conversation text. | Pending deployment |
+| A24 | Phone safe areas | At 320/390/430px and landscape, open result, preview and keyboard. | Readable single-column cards; no clipped controls or bottom-nav overlap; keyboard usable. | Pending deployment |
+| A25 | Home-screen launch | Add from Safari/phone browser and launch icon. | Correct icon and standalone website; live generation requires connection. | Pending deployment |
