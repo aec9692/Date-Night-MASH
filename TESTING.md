@@ -24,6 +24,12 @@ Real-browser visual checks and manual deployed tests remain pending. Browser con
 
 The DOM simulation covers the larger catalog, search, premium-price browsing, the $1,000 quick preset and slider, a generated $900–$1,000 total, flexible-mode feedback, and a constrained $800 maximum under a $1,000 budget. It also retains the existing lock/reroll, favorites, export, network/storage, and reveal checks. These are simulated interactions; real-browser visual checks and all deployed acceptance cases remain pending.
 
+## All-category expansion local checks — November 19, 2026
+
+Expanded to 96 ideas, exactly 24 in each category. All 51 HTTP tests passed with the updated catalog, including maximum request size, $1,000 budget targets, locks/rerolls, custom ideas, and spending modes. The full DOM simulation passed after verifying 24 rendered options in every deck, searching, premium-price browsing, the 97th custom idea, saved dates, exports, reveals, and error handling.
+
+The maximum-budget preview counted 331,776 possible combinations while retaining zero plans, measured once at 35 ms in the local Node runtime. This is local diagnostic evidence, not a browser performance guarantee. Server enumeration now retains only the final spending subset; the client no longer builds every plan again for the reveal. Real-browser visual and deployed-site checks remain pending.
+
 ## Deployment foundation checks
 
 Record the URL, date, actual outcome, and any fixes after running these manually on the deployed site. Local checks do not count as deployed results.
@@ -53,7 +59,7 @@ All actual results below remain pending a public deployment and manual verificat
 | A05 | Server input validation | In developer tools send missing budget, string budget, unknown field, and unsupported setting to POST /api/generate. | Each returns JSON error with HTTP 400. | Pending deployment |
 | A06 | Malformed request | POST malformed JSON with application/json content type. | Readable JSON error, HTTP 400. | Pending deployment |
 | A07 | Oversized request | POST a JSON body over 4 KB. | Readable JSON error, HTTP 413. | Pending deployment |
-| A08 | Options validation | GET /api/options, then /api/options?unexpected=true. | Valid catalog with 65 options; query rejected with HTTP 400. | Pending deployment |
+| A08 | Options validation | GET /api/options, then /api/options?unexpected=true. | Valid catalog with 96 options, 24 per category; query rejected with HTTP 400. | Pending deployment |
 | A09 | Unsupported methods | POST /api/health and GET /api/generate. | JSON error, HTTP 404. | Pending deployment |
 | A10 | Favorites | Save a result twice; reload; remove it. | One entry persists after reload; removal persists. | Pending deployment |
 | A11 | Storage failure | Set favorites key to invalid JSON; reload. Block browser storage; generate and attempt save. | Helpful messages; generation and downloading still work. | Pending deployment |

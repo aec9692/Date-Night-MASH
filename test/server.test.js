@@ -34,9 +34,9 @@ test('catalog contains unique IDs, four categories, integer prices, and document
   const response = await fetch(`${base}/api/options`);
   assert.equal(response.status, 200);
   const data = await response.json();
-  assert.equal(data.options.length, 65);
-  assert.equal(new Set(data.options.map(option => option.id)).size, 65);
-  assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category).length), [16, 24, 12, 13]);
+  assert.equal(data.options.length, 96);
+  assert.equal(new Set(data.options.map(option => option.id)).size, 96);
+  assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category).length), [24, 24, 24, 24]);
   for (const option of data.options) {
     assert.ok(Number.isSafeInteger(option.costCents) && option.costCents >= 0);
     assert.ok(option.settings.length && option.settings.every(setting => ['indoor', 'outdoor', 'home'].includes(setting)));
@@ -128,7 +128,7 @@ test('moods remain preferences and possibility counts match the full feasible se
     const plan = await response.json();
     assert.equal(response.status, 200);
     assert.equal(plan.mood, mood);
-    assert.equal(plan.combinationCount, 16 * 24 * 12 * 13);
+    assert.equal(plan.combinationCount, 24 ** 4);
     assert.equal(typeof plan.title, 'string');
   }
   const free = await (await generate({ budget: 0 })).json();

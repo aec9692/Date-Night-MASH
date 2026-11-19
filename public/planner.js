@@ -58,25 +58,33 @@
     if (budgetCents < minimumCents) return fail(`These choices need at least $${(minimumCents / 100).toFixed(2)}. Raise the budget, unlock a pick, or change your choices.`, 422, { minimumCents });
     // Enumerate directly with budget pruning. Browser counts need no arrays of every plan.
     let combinationCount = 0, alternativeCount = 0, maximumCents = 0;
-    const candidates = [];
-    function visit(index, picks, total) {
+    const picks = [];
+    function visit(index, total, collect) {
       if (index === groups.length) {
-        combinationCount++;
         const alternative = picks.some((option, i) => option.id !== previous[i]);
-        if (alternative) { alternativeCount++; maximumCents = Math.max(maximumCents, total); }
-        if (includePlans) candidates.push({ picks: [...picks], total, alternative });
+        if (collect) {
+          if ((!alternativeCount || alternative) && total >= targetCents) plans.push([...picks]);
+        } else {
+          combinationCount++;
+          if (alternative) { alternativeCount++; maximumCents = Math.max(maximumCents, total); }
+        }
         return;
       }
       for (const option of groups[index]) {
-        if (total + option.costCents <= budgetCents) visit(index + 1, [...picks, option], total + option.costCents);
+        if (total + option.costCents > budgetCents) continue;
+        picks.push(option);
+        visit(index + 1, total + option.costCents, collect);
+        picks.pop();
       }
     }
-    visit(0, [], 0);
+    visit(0, 0, false);
     if (!alternativeCount) maximumCents = groups.reduce((sum, group) => sum + group.find(option => previous.includes(option.id)).costCents, 0);
     // Aim at 90% of the budget when possible; otherwise stay near the best attainable total.
     const nearBudgetCents = Math.ceil(budgetCents * .9);
     const targetCents = spending === 'treat' ? maximumCents >= nearBudgetCents ? nearBudgetCents : Math.ceil(maximumCents * .95) : 0;
-    const plans = includePlans ? candidates.filter(candidate => (!alternativeCount || candidate.alternative) && candidate.total >= targetCents).map(candidate => candidate.picks) : [];
+    // Only retain the final spending band, rather than materializing every feasible plan first.
+    const plans = [];
+    if (includePlans) visit(0, 0, true);
     return { plans, combinationCount, maximumCents, targetCents,
       unchanged: previous.length === 4 && !alternativeCount, budgetCents, setting, mood, spending, customOptions };
   }

@@ -1062,5 +1062,515 @@
       "romantic"
     ],
     "tip": "Confirm what the package actually includes for two people."
+  },
+  {
+    "id": "dinner-ramen",
+    "category": "dinner",
+    "name": "Ramen shop date",
+    "description": "Share a relaxed meal over two bowls of ramen.",
+    "costCents": 4500,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍜",
+    "moods": [
+      "cozy",
+      "adventurous"
+    ],
+    "tip": "Each choose a topping for the other to try."
+  },
+  {
+    "id": "dinner-dim-sum",
+    "category": "dinner",
+    "name": "Dim sum spread",
+    "description": "Order a selection of small dishes to share.",
+    "costCents": 6000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🥟",
+    "moods": [
+      "adventurous",
+      "cozy"
+    ],
+    "tip": "Pick one familiar dish and one new discovery."
+  },
+  {
+    "id": "dinner-mezze",
+    "category": "dinner",
+    "name": "Mediterranean mezze table",
+    "description": "Share dips, bread, and small plates at a casual restaurant.",
+    "costCents": 6500,
+    "settings": [
+      "indoor",
+      "outdoor"
+    ],
+    "emoji": "🫓",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Build the perfect bite for each other."
+  },
+  {
+    "id": "dinner-korean-bbq",
+    "category": "dinner",
+    "name": "Korean barbecue evening",
+    "description": "Enjoy a tabletop barbecue restaurant meal for two.",
+    "costCents": 10000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🥢",
+    "moods": [
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Take turns being in charge of the grill."
+  },
+  {
+    "id": "dinner-indian",
+    "category": "dinner",
+    "name": "Indian food feast",
+    "description": "Share a few dishes, rice, and bread at an Indian restaurant.",
+    "costCents": 5500,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍛",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Choose dishes together so everyone enjoys the spice level."
+  },
+  {
+    "id": "dinner-dumplings",
+    "category": "dinner",
+    "name": "Make dumplings together",
+    "description": "Fold and cook a batch of dumplings at home.",
+    "costCents": 1800,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🥟",
+    "moods": [
+      "cozy",
+      "competitive"
+    ],
+    "tip": "Give your most creative dumpling a name."
+  },
+  {
+    "id": "dinner-market",
+    "category": "dinner",
+    "name": "Farmers market cook-off",
+    "description": "Choose seasonal ingredients, then cook a dinner at home.",
+    "costCents": 3500,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🥕",
+    "moods": [
+      "cozy",
+      "adventurous"
+    ],
+    "tip": "Let one colorful ingredient inspire the whole meal."
+  },
+  {
+    "id": "dinner-camp",
+    "category": "dinner",
+    "name": "Camp-style outdoor supper",
+    "description": "Pack a simple prepared meal to enjoy at an outdoor picnic spot.",
+    "costCents": 2500,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🏕️",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Pick a scenic spot and leave it cleaner than you found it."
+  },
+  {
+    "id": "treat-gelato",
+    "category": "treat",
+    "name": "Gelato tasting",
+    "description": "Try a few gelato flavors between the two of you.",
+    "costCents": 1400,
+    "settings": [
+      "indoor",
+      "outdoor"
+    ],
+    "emoji": "🍨",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Trade a taste of your most unexpected flavor."
+  },
+  {
+    "id": "treat-bubble-tea",
+    "category": "treat",
+    "name": "Bubble tea break",
+    "description": "Choose two bubble teas and compare your combinations.",
+    "costCents": 1600,
+    "settings": [
+      "indoor",
+      "outdoor"
+    ],
+    "emoji": "🧋",
+    "moods": [
+      "cozy",
+      "adventurous"
+    ],
+    "tip": "Try each other’s favorite topping."
+  },
+  {
+    "id": "treat-crepes",
+    "category": "treat",
+    "name": "Sweet crêpes for two",
+    "description": "Share a pair of sweet filled crêpes.",
+    "costCents": 2200,
+    "settings": [
+      "indoor",
+      "outdoor"
+    ],
+    "emoji": "🥞",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Invent your dream filling combination."
+  },
+  {
+    "id": "treat-bakery-crawl",
+    "category": "treat",
+    "name": "Neighborhood bakery crawl",
+    "description": "Visit a couple of bakeries and split a pastry at each.",
+    "costCents": 3500,
+    "settings": [
+      "indoor",
+      "outdoor"
+    ],
+    "emoji": "🥖",
+    "moods": [
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Give out your own tiny best-pastry award."
+  },
+  {
+    "id": "treat-smores",
+    "category": "treat",
+    "name": "Kitchen s’mores",
+    "description": "Make a small tray of oven-baked s’mores together.",
+    "costCents": 1200,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🍫",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "Try one creative topping alongside the classic."
+  },
+  {
+    "id": "treat-parfaits",
+    "category": "treat",
+    "name": "Build-your-own parfaits",
+    "description": "Layer fruit, yogurt, and crunchy toppings at home.",
+    "costCents": 1000,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🍓",
+    "moods": [
+      "cozy",
+      "competitive"
+    ],
+    "tip": "Style each other’s dessert like it belongs on a menu."
+  },
+  {
+    "id": "treat-cheesecake",
+    "category": "treat",
+    "name": "Cheesecake sampler",
+    "description": "Split a few small cheesecake slices at a dessert spot.",
+    "costCents": 2400,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🍰",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Rank the flavors, then reveal your winner."
+  },
+  {
+    "id": "treat-shaved-ice",
+    "category": "treat",
+    "name": "Shaved ice stop",
+    "description": "Cool down with shaved ice and a few favorite toppings.",
+    "costCents": 1200,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🍧",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Choose a color combination that matches the evening."
+  },
+  {
+    "id": "treat-mochi",
+    "category": "treat",
+    "name": "Mochi dessert night",
+    "description": "Share a selection of mochi desserts at home.",
+    "costCents": 2000,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🍡",
+    "moods": [
+      "cozy",
+      "adventurous"
+    ],
+    "tip": "Guess the flavor before checking the label."
+  },
+  {
+    "id": "treat-afternoon-tea",
+    "category": "treat",
+    "name": "Dessert afternoon tea",
+    "description": "Enjoy tea, pastries, and small sweets at a tea room.",
+    "costCents": 10000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🫖",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Make a toast to something small you appreciate."
+  },
+  {
+    "id": "treat-dessert-workshop",
+    "category": "treat",
+    "name": "Plated dessert workshop",
+    "description": "Arrange a guided session creating a special plated dessert.",
+    "costCents": 20000,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🍮",
+    "moods": [
+      "competitive",
+      "romantic"
+    ],
+    "tip": "Present your finished plates to each other."
+  },
+  {
+    "id": "treat-dessert-picnic",
+    "category": "treat",
+    "name": "Patisserie picnic hamper",
+    "description": "Pack a specialty pastry and dessert selection for an outdoor stop.",
+    "costCents": 9500,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🧺",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Bring real napkins and make a little occasion of it."
+  },
+  {
+    "id": "entertainment-drive-in",
+    "category": "entertainment",
+    "name": "Drive-in movie",
+    "description": "Find an available drive-in screening and watch from your car.",
+    "costCents": 3500,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🚗",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Bring blankets and check the venue’s food policy."
+  },
+  {
+    "id": "entertainment-planetarium",
+    "category": "entertainment",
+    "name": "Planetarium show",
+    "description": "Watch a star or space presentation at a planetarium.",
+    "costCents": 4000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🪐",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Pick a planet you would explore together."
+  },
+  {
+    "id": "entertainment-open-mic",
+    "category": "entertainment",
+    "name": "Local open-mic night",
+    "description": "Catch a small local open-mic performance.",
+    "costCents": 1500,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎙️",
+    "moods": [
+      "adventurous",
+      "cozy"
+    ],
+    "tip": "Choose a favorite new performer together."
+  },
+  {
+    "id": "entertainment-park-film",
+    "category": "entertainment",
+    "name": "Free film in the park",
+    "description": "Look for a free public outdoor film screening.",
+    "costCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "📽️",
+    "moods": [
+      "romantic",
+      "cozy"
+    ],
+    "tip": "Check the event schedule and bring your own seating."
+  },
+  {
+    "id": "entertainment-karaoke",
+    "category": "entertainment",
+    "name": "Karaoke room duet",
+    "description": "Share a private karaoke session.",
+    "costCents": 6000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎤",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Each pick one duet and one surprise song."
+  },
+  {
+    "id": "entertainment-vinyl",
+    "category": "entertainment",
+    "name": "Full-album listening night",
+    "description": "Listen to an album using music access you already have.",
+    "costCents": 0,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "💿",
+    "moods": [
+      "cozy",
+      "romantic"
+    ],
+    "tip": "Tell each other what your favorite track reminds you of."
+  },
+  {
+    "id": "entertainment-puzzle",
+    "category": "entertainment",
+    "name": "Puzzle and playlist night",
+    "description": "Work on a puzzle you already own with a favorite playlist.",
+    "costCents": 0,
+    "settings": [
+      "indoor",
+      "home"
+    ],
+    "emoji": "🧩",
+    "moods": [
+      "cozy",
+      "competitive"
+    ],
+    "tip": "Trade a story every time you finish a section."
+  },
+  {
+    "id": "entertainment-improv",
+    "category": "entertainment",
+    "name": "Improv theater show",
+    "description": "Watch a local improvisational performance.",
+    "costCents": 7000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎭",
+    "moods": [
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Think of a great audience suggestion before the show."
+  },
+  {
+    "id": "entertainment-sports",
+    "category": "entertainment",
+    "name": "Live sports date",
+    "description": "Choose a live sporting event and seats for two.",
+    "costCents": 14000,
+    "settings": [
+      "indoor",
+      "outdoor"
+    ],
+    "emoji": "🏟️",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Pick a team ritual and join in together."
+  },
+  {
+    "id": "entertainment-premiere",
+    "category": "entertainment",
+    "name": "Special film screening",
+    "description": "Explore a premium screening or film-event package.",
+    "costCents": 45000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎬",
+    "moods": [
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm what the tickets include before booking."
+  },
+  {
+    "id": "entertainment-immersive",
+    "category": "entertainment",
+    "name": "Immersive theater experience",
+    "description": "Try an interactive live theater experience for two.",
+    "costCents": 30000,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎪",
+    "moods": [
+      "adventurous",
+      "romantic"
+    ],
+    "tip": "Compare the moments each of you noticed afterward."
   }
 ]

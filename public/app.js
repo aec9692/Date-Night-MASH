@@ -72,6 +72,7 @@ async function loadCatalog() {
     const data = await response.json();
     if (!Array.isArray(data.options) || !data.options.length) throw new Error('No ideas were returned.');
     catalog = data.options;
+    $('#catalog-size').textContent = `${catalog.length} ideas across dinner, activities, treats, and entertainment.`;
     renderCatalog();
     loadFavorites();
     updatePossibilities();
@@ -184,8 +185,12 @@ async function generate(event, rerollCategory = null) {
     if (!response.ok) throw new Error(data.error || 'Could not generate a plan. Try again.');
     if (!validPlan(data)) throw new Error('The server returned an incomplete plan. Please try again.');
     if (!data.unchanged) {
-      const prepared = MashPlanner.prepare(payload, catalog);
-      const pool = [...new Map(prepared.plans.flat().map(option => [option.id, option])).values()];
+      // Reveal only ideas that can replace their category in the chosen plan without overspending.
+      // This avoids enumerating hundreds of thousands of plans again in the browser.
+      const pool = allOptions().filter(option => !payload.excluded.includes(option.id) &&
+        (payload.setting === 'any' || option.settings.includes(payload.setting)) &&
+        (!payload.locked[option.category] || payload.locked[option.category] === option.id) &&
+        option.costCents + data.picks.filter(pick => pick.category !== option.category).reduce((sum, pick) => sum + pick.costCents, 0) <= data.budgetCents);
       await MashShow.reveal(data, pool, $('#instant').checked || Boolean(rerollCategory));
     }
     currentPlan = hydrate(data);
