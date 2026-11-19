@@ -12,6 +12,7 @@
   <script src="/show.js" defer></script>
   <script src="/download.js" defer></script>
   <script src="/app.js" defer></script>
+  <script src="/nearby.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#planner">Skip to the game</a>
@@ -25,7 +26,10 @@
         <p class="eyebrow"><span class="small-star" aria-hidden="true">✦</span> GOOD DATES SHOULDN'T BE HOMEWORK.</p>
         <h1 id="hero-title">A little chance.<br>A lot of <span class="highlight">chemistry.</span></h1>
         <p class="intro">Skip the “I don't know, what do you want to do?”<br>Pick a vibe. Set a budget. Let fate plan the date.</p>
-        <a href="#planner" class="button hero-button">Let's make a night of it <span aria-hidden="true">✳</span></a>
+        <div class="nearby-actions">
+          <a href="#planner" class="button hero-button">Play MASH <span aria-hidden="true">✳</span></a>
+          <a href="#nearby" class="button secondary">Find Nearby</a>
+        </div>
         <p class="hero-footnote">Two people. Four picks. Endless “remember when”s.</p>
       </div>
       <div class="hero-collage" aria-label="Dinner, activity, treat, and entertainment make a date">
@@ -55,9 +59,24 @@
           <div class="setting-control"><label for="setting">Where are we headed?</label><select id="setting" name="setting"><option value="any">Anywhere · let fate decide</option><option value="indoor">Stay indoors</option><option value="outdoor">Get outside</option><option value="home">A night at home</option></select><p class="helper">Every pick will fit your setting.</p><label for="spending">How should we use your budget?</label><select id="spending"><option value="treat">Treat us · aim near our budget</option><option value="flexible">Keep it flexible · any affordable plan</option></select><p class="helper">Treat us aims for 90–100% of your budget when possible. Estimated totals stay within your limit.</p><label class="instant-label"><input id="instant" type="checkbox"> Skip the suspense</label></div>
         </div>
         <div class="play-strip"><div><strong id="possibility-count">Finding the possibilities…</strong><p id="possibility-note" class="helper">Four categories. One very good night.</p></div><button id="play" type="submit" class="play-button" disabled><span aria-hidden="true">✳</span> Play MASH</button></div>
+        <a href="#nearby" class="nearby-alternative">Browse nearby date ideas</a>
       </form>
       <p id="message" role="status" aria-live="polite">Loading the good ideas…</p><button id="retry" type="button" class="secondary" hidden>Retry loading ideas</button>
       <noscript><p>Enable JavaScript to play MASH and save your date plans.</p></noscript>
+    </section>
+
+    <section id="nearby" class="planner nearby-section" aria-labelledby="nearby-title">
+      <h2 id="nearby-title">Where should we look for date ideas?</h2>
+      <form id="nearby-form" aria-describedby="nearby-help">
+        <div class="form-grid">
+          <div><label for="nearby-town">Starting town in North Jersey</label><select id="nearby-town" required><option value="">Choose a town</option></select></div>
+          <div><label for="nearby-radius">How far would you like to go?</label><select id="nearby-radius"><option value="5">5 miles</option><option value="10" selected>10 miles</option><option value="25">25 miles</option><option value="50">50 miles</option></select></div>
+        </div>
+        <p id="nearby-help" class="helper">The radius uses approximate straight-line distances between town centers. Open directions to check the drive to a venue.</p>
+        <button id="nearby-search" type="submit">Find Nearby Ideas</button>
+      </form>
+      <p id="nearby-status" role="status"></p>
+      <ul id="nearby-results" class="nearby-results" hidden></ul>
     </section>
 
     <section id="mash-stage" class="mash-stage" aria-labelledby="reveal-title" hidden><div class="section-heading"><div><p class="eyebrow">A LITTLE SUSPENSE…</p><h2 id="reveal-title">Let fate do its thing.</h2></div><button id="skip-reveal" type="button" class="secondary">Skip reveal</button></div><div id="reveal-board" class="reveal-board"></div><div class="reveal-progress"><span></span></div><p class="helper">Crossing out the maybes. Keeping the magic.</p></section>
