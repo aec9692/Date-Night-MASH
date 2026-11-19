@@ -120,3 +120,98 @@ test('unknown routes and unsupported methods return JSON 404', async () => {
     assert.ok((await response.json()).error);
   }
 });
+
+test('moods remain preferences and possibility counts match the full feasible set', async () => {
+  for (const mood of ['surprise', 'cozy', 'adventurous', 'romantic', 'competitive']) {
+    const response = await generate({ budget: 10000, mood });
+    const plan = await response.json();
+    assert.equal(response.status, 200);
+    assert.equal(plan.mood, mood);
+    assert.equal(plan.combinationCount, 1296);
+    assert.equal(typeof plan.title, 'string');
+  }
+  const free = await (await generate({ budget: 0 })).json();
+  assert.equal(free.combinationCount, 15);
+  const home = await (await generate({ budget: 10000, setting: 'home' })).json();
+  assert.equal(home.combinationCount, 36);
+});
+
+test('locks are preserved and a single-category reroll changes only that category', async () => {
+  const locked = { dinner: 'dinner-pantry', treat: 'treat-pantry', entertainment: 'entertainment-movie' };
+  const previous = ['dinner-pantry', 'activity-games', 'treat-pantry', 'entertainment-movie'];
+  const response = await generate({ budget: 50, locked, previous });
+  const plan = await response.json();
+  assert.equal(response.status, 200);
+  for (const pick of plan.picks) if (pick.category !== 'activity') assert.equal(pick.id, locked[pick.category]);
+  assert.notEqual(plan.picks[1].id, 'activity-games');
+  assert.ok(plan.totalCents <= 5000);
+  assert.equal(plan.unchanged, false);
+});
+
+test('an exhausted reroll reports unchanged instead of pretending to change the result', async () => {
+  const previous = ['dinner-pantry', 'activity-games', 'treat-pantry', 'entertainment-movie'];
+  const locked = Object.fromEntries(['dinner', 'activity', 'treat', 'entertainment'].map((category, index) => [category, previous[index]]));
+  const response = await generate({ budget: 0, locked, previous });
+  const plan = await response.json();
+  assert.equal(response.status, 200);
+  assert.deepEqual(plan.picks.map(pick => pick.id), previous);
+  assert.equal(plan.unchanged, true);
+  assert.equal(plan.combinationCount, 1);
+});
+
+test('excluding an entire category and incompatible locks produce useful errors', async () => {
+  const excluded = catalog.filter(option => option.category === 'dinner').map(option => option.id);
+  const response = await generate({ budget: 50, excluded });
+  assert.equal(response.status, 422);
+  assert.match((await response.json()).error, /dinner/);
+  assert.equal((await generate({ budget: 50, setting: 'outdoor', locked: { dinner: 'dinner-pasta' } })).status, 422);
+  assert.equal((await generate({ budget: 0, locked: { dinner: 'dinner-pasta' } })).status, 422);
+});
+
+test('custom ideas are validated, included, costed, and kept as a saved-plan snapshot', async () => {
+  const categories = ['dinner', 'activity', 'treat', 'entertainment'];
+  const customOptions = categories.map((category, index) => ({ id: `custom-${index}`, category, name: `Our ${category}`, costCents: 500, settings: ['home'] }));
+  const response = await generate({ budget: 20, setting: 'home', customOptions, excluded: catalog.map(option => option.id) });
+  const plan = await response.json();
+  assert.equal(response.status, 200);
+  assert.deepEqual(plan.picks.map(pick => pick.id), customOptions.map(option => option.id));
+  assert.equal(plan.totalCents, 2000);
+  assert.deepEqual(plan.customOptions, customOptions);
+  assert.equal(plan.combinationCount, 1);
+});
+
+for (const [name, extra] of [
+  ['unknown mood', { mood: 'chaotic' }], ['null mood', { mood: null }],
+  ['unknown excluded ID', { excluded: ['missing'] }], ['duplicate exclusions', { excluded: ['dinner-pasta', 'dinner-pasta'] }],
+  ['wrong exclusion shape', { excluded: {} }], ['unknown lock category', { locked: { other: 'dinner-pasta' } }],
+  ['wrong lock category', { locked: { dinner: 'activity-games' } }], ['array locks', { locked: [] }],
+  ['invalid previous plan', { previous: ['dinner-pasta'] }], ['wrong previous categories', { previous: ['activity-games', 'dinner-pasta', 'treat-pantry', 'entertainment-movie'] }],
+  ['custom not array', { customOptions: {} }], ['malformed custom idea', { customOptions: [{}] }],
+  ['too many custom ideas', { customOptions: [{}, {}, {}, {}, {}] }]
+]) {
+  test(`rejects ${name}`, async () => {
+    const response = await generate({ budget: 50, ...extra });
+    assert.equal(response.status, 400);
+    assert.equal(typeof (await response.json()).error, 'string');
+  });
+}
+
+test('rejects tampered custom prices, IDs, settings, names, fields, and duplicates', async () => {
+  const valid = { id: 'custom-test', category: 'dinner', name: 'Our favorite spot', costCents: 1000, settings: ['indoor'] };
+  for (const change of [{ costCents: -1 }, { costCents: 1.5 }, { costCents: 1000001 }, { id: 'dinner-pasta' },
+    { settings: ['any'] }, { settings: [] }, { name: ' ' }, { name: 'x'.repeat(49) }, { extra: true }]) {
+    const response = await generate({ budget: 50, customOptions: [{ ...valid, ...change }] });
+    assert.equal(response.status, 400);
+  }
+  assert.equal((await generate({ budget: 50, customOptions: [valid, valid] })).status, 400);
+});
+
+test('the maximum UI preferences fit within the bounded request body', async () => {
+  const customOptions = ['dinner', 'activity', 'treat', 'entertainment'].map((category, index) => ({ id: `custom-1234567${index}`, category, name: 'x'.repeat(48), costCents: 1000000, settings: ['indoor', 'outdoor', 'home'] }));
+  const previous = customOptions.map(option => option.id);
+  const body = { budget: 10000, setting: 'any', mood: 'surprise', customOptions, excluded: catalog.map(option => option.id),
+    locked: Object.fromEntries(customOptions.map(option => [option.category, option.id])), previous };
+  assert.ok(Buffer.byteLength(JSON.stringify(body)) < 2048);
+  // Four $10,000 ideas exceed the total budget, but the request itself is valid.
+  assert.equal((await generate(body)).status, 422);
+});

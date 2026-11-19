@@ -111,7 +111,7 @@ TESTING.md
 ## Current setup status
 
 - Existing repository remote: aec9692/Date-Night-MASH, branch main.
-- Full initial implementation is prepared on `adrainn/deployment-foundation`: server validation and date generation, 24 preset ideas, responsive form and results, setting filters, favorites, and text downloads. The owner requested the complete build and authorized Codex to handle its merges. The normal staged deployed checks remain pending while Vercel access is unavailable; implementation does not count as passing those checks.
+- The initial implementation was merged in PR #2. The game upgrade is prepared on `adrainn/mash-game-upgrade`: scrapbook-style interface, moods, budget slider, live counts, exclusions, custom ideas, animated/skippable reveals, named itineraries, locks, rerolls, compatible favorites, and SVG/text downloads. The owner authorized Codex to handle merges in this session. The normal staged deployed checks remain pending while Vercel access is unavailable; local implementation and tests do not count as passing those checks.
 - Node.js and npm were not found on the shell PATH; a portable Node.js 24 runtime is kept in ignored `.tools/` for local checks. Teammates should install Node.js 24 LTS to use the documented npm commands.
 - Vercel account connection, project import, deployment, and automatic redeployment remain unverified. Do not treat this plan as a deployed application.
 

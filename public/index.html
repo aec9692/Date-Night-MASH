@@ -3,64 +3,85 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A spontaneous date for two, within your budget. Pick dinner, an activity, a treat, and entertainment with Date Night MASH.">
-  <title>Date Night MASH</title>
+  <meta name="theme-color" content="#f7f3ff">
+  <meta name="description" content="Two people. Four little adventures. Play MASH to make a date that fits your budget, then keep your favorites and remix the rest.">
+  <title>Date Night MASH — Make a little magic</title>
   <link rel="stylesheet" href="/styles.css">
+  <script src="/planner.js" defer></script>
+  <script src="/show.js" defer></script>
+  <script src="/download.js" defer></script>
   <script src="/app.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#planner">Skip to planner</a>
+  <a class="skip-link" href="#planner">Skip to the game</a>
   <header class="topbar">
-    <a class="brand" href="/" aria-label="Date Night MASH home">date night <strong>MASH</strong><span aria-hidden="true"> ✳</span></a>
-    <a href="#saved">Saved plans <span id="saved-count">0</span></a>
+    <a class="brand" href="/" aria-label="Date Night MASH home"><span class="brand-mark" aria-hidden="true">✳</span> date night <strong>MASH</strong></a>
+    <nav aria-label="Main"><button id="sound" type="button" class="quiet-button" aria-pressed="false">Sound off</button><a class="saved-link" href="#saved">Saved dates <span id="saved-count">0</span></a></nav>
   </header>
   <main>
     <section class="hero" aria-labelledby="hero-title">
-      <div>
-        <p class="eyebrow">LESS PLANNING. MORE TOGETHER.</p>
-        <h1 id="hero-title">Leave a little<br>room for <em>surprise.</em></h1>
-        <p class="intro">One budget. Four little adventures. Let MASH pick a date for two, from the first bite to the last goodnight.</p>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="small-star" aria-hidden="true">✦</span> GOOD DATES SHOULDN'T BE HOMEWORK.</p>
+        <h1 id="hero-title">A little chance.<br>A lot of <span class="highlight">chemistry.</span></h1>
+        <p class="intro">Skip the “I don't know, what do you want to do?”<br>Pick a vibe. Set a budget. Let fate plan the date.</p>
+        <a href="#planner" class="button hero-button">Let's make a night of it <span aria-hidden="true">✳</span></a>
+        <p class="hero-footnote">Two people. Four picks. Endless “remember when”s.</p>
       </div>
-      <div class="paper" aria-label="Your date recipe">
-        <p class="paper-title">a good night needs…</p>
-        <p><span>01</span> something delicious</p>
-        <p><span>02</span> something to do</p>
-        <p><span>03</span> something sweet</p>
-        <p><span>04</span> a little entertainment</p>
-        <p class="paper-note">just add the two of you ♡</p>
+      <div class="hero-collage" aria-label="Dinner, activity, treat, and entertainment make a date">
+        <span class="collage-note">your next plot twist…</span>
+        <div class="mini-card dinner"><span class="mini-label">DINNER</span><span class="mini-art" aria-hidden="true">🍝</span><strong>Something delicious.</strong></div>
+        <div class="mini-card activity"><span class="mini-label">ACTIVITY</span><span class="mini-art" aria-hidden="true">🎲</span><strong>A little friendly rivalry.</strong></div>
+        <div class="mini-card treat"><span class="mini-label">TREAT</span><span class="mini-art" aria-hidden="true">🍦</span><strong>Always room for this.</strong></div>
+        <div class="mini-card entertainment"><span class="mini-label">ENTERTAINMENT</span><span class="mini-art" aria-hidden="true">🌙</span><strong>One more memory.</strong></div>
+        <span class="sticker" aria-hidden="true">made for<br>the two<br>of you ♡</span>
       </div>
     </section>
-    <section class="planner panel" id="planner" aria-labelledby="planner-title">
-      <div class="section-heading"><div><p class="eyebrow">MAKE A NIGHT OF IT</p><h2 id="planner-title">What's the plan?</h2></div><span class="estimate-label">Estimates for two · USD</span></div>
+    <div class="ribbon" aria-hidden="true"><span>✳ LESS SCROLLING</span><span>♡ MORE TOGETHER</span><span>✳ SMALL BUDGET, BIG MEMORIES</span><span>♡ LET'S CALL IT A DATE</span></div>
+
+    <section id="planner" class="planner" aria-labelledby="planner-title">
+      <div class="section-heading"><div><p class="eyebrow">YOUR NIGHT. YOUR RULES.</p><h2 id="planner-title">Set the scene.</h2></div><span class="pill">A plan for two · USD estimates</span></div>
       <form id="plan-form">
+        <fieldset class="mood-fieldset"><legend>What's the vibe?</legend><div class="mood-chips">
+          <label><input type="radio" name="mood" value="surprise" checked><span>✳ Surprise us</span></label>
+          <label><input type="radio" name="mood" value="cozy"><span>☕ Cozy</span></label>
+          <label><input type="radio" name="mood" value="adventurous"><span>☀ Adventurous</span></label>
+          <label><input type="radio" name="mood" value="romantic"><span>♡ Romantic</span></label>
+          <label><input type="radio" name="mood" value="competitive"><span>⚑ Competitive</span></label>
+        </div><p class="helper">Your vibe gives matching ideas a little extra luck.</p></fieldset>
         <div class="form-grid">
-          <div><label for="budget">Your total budget for two</label><div class="money-input"><span aria-hidden="true">$</span><input id="budget" name="budget" type="number" min="0" max="10000" step="0.01" placeholder="50" required aria-describedby="budget-help"></div><p id="budget-help" class="helper">From $0 to $10,000. A little can go a long way.</p></div>
-          <div><label for="setting">Where's your kind of night?</label><select id="setting" name="setting"><option value="any">Surprise us · any setting</option><option value="indoor">Stay indoors · indoor</option><option value="outdoor">Fresh air · outdoors</option><option value="home">Cozy night · at home</option></select><p class="helper">Every pick will match your chosen setting.</p></div>
+          <div class="budget-control"><label for="budget">The budget for both of you</label><div class="budget-line"><div class="money-input"><span aria-hidden="true">$</span><input id="budget" name="budget" type="number" min="0" max="10000" step="0.01" value="50" required aria-describedby="budget-help"></div><span id="budget-caption">A lovely little night out.</span></div><input id="budget-slider" type="range" min="0" max="200" step="1" value="50" aria-label="Budget slider, from zero to two hundred dollars"><div class="range-labels"><span>$0</span><span>$100</span><span>$200</span></div><p id="budget-help" class="helper">Slide up to $200, or type any amount up to $10,000.</p></div>
+          <div class="setting-control"><label for="setting">Where are we headed?</label><select id="setting" name="setting"><option value="any">Anywhere · let fate decide</option><option value="indoor">Stay indoors</option><option value="outdoor">Get outside</option><option value="home">A night at home</option></select><p class="helper">Every pick will fit your setting.</p><label class="instant-label"><input id="instant" type="checkbox"> Skip the suspense</label></div>
         </div>
-        <div class="form-footer"><p>Four picks. One affordable plan.</p><button id="play" type="submit" disabled>Loading ideas…</button></div>
+        <div class="play-strip"><div><strong id="possibility-count">Finding the possibilities…</strong><p id="possibility-note" class="helper">Four categories. One very good night.</p></div><button id="play" type="submit" class="play-button" disabled><span aria-hidden="true">✳</span> Play MASH</button></div>
       </form>
-      <p id="message" role="status" aria-live="polite">Loading date ideas…</p>
-      <button id="retry" type="button" class="secondary" hidden>Retry loading ideas</button>
-      <noscript><p>Enable JavaScript to generate and save date plans.</p></noscript>
+      <p id="message" role="status" aria-live="polite">Loading the good ideas…</p><button id="retry" type="button" class="secondary" hidden>Retry loading ideas</button>
+      <noscript><p>Enable JavaScript to play MASH and save your date plans.</p></noscript>
     </section>
-    <section id="result" class="result panel" aria-labelledby="result-title" hidden>
-      <div class="section-heading"><div><p class="eyebrow">LET'S CALL IT A DATE</p><h2 id="result-title" tabindex="-1">Your night, sorted.</h2></div><span id="result-setting" class="estimate-label"></span></div>
+
+    <section id="mash-stage" class="mash-stage" aria-labelledby="reveal-title" hidden><div class="section-heading"><div><p class="eyebrow">A LITTLE SUSPENSE…</p><h2 id="reveal-title">Let fate do its thing.</h2></div><button id="skip-reveal" type="button" class="secondary">Skip reveal</button></div><div id="reveal-board" class="reveal-board"></div><div class="reveal-progress"><span></span></div><p class="helper">Crossing out the maybes. Keeping the magic.</p></section>
+
+    <section id="result" class="result" aria-labelledby="result-title" hidden>
+      <div class="result-topline"><span class="eyebrow">IT'S A DATE!</span><span id="result-setting" class="pill"></span></div>
+      <div class="itinerary-heading"><div><h2 id="result-title" tabindex="-1">Your next little adventure.</h2><p id="result-subtitle">Dinner to the last goodnight. Here's your game plan.</p></div><span class="date-stamp" aria-hidden="true">OFFICIALLY<br>A DATE<br>♡</span></div>
       <div id="result-picks" class="picks-grid"></div>
-      <div class="total-row"><div><span class="helper">Estimated total for two</span><p id="result-total" class="total"></p></div><p id="remaining"></p></div>
-      <div class="actions"><button id="save" type="button">Save this plan</button><button id="download" type="button" class="secondary">Download plan</button><button id="again" type="button" class="text-button">Generate again</button></div>
+      <div class="total-row"><div><span class="helper">Estimated total for two</span><p id="result-total" class="total"></p></div><div class="budget-meter"><p id="remaining"></p><div class="meter-track"><span id="budget-used"></span></div></div></div>
+      <p class="remix-help">Love a pick? Lock it. Reroll a category to change just that part of your night.</p>
+      <div class="actions"><button id="save" type="button">♡ Save this date</button><button id="download" type="button" class="secondary">Download date card</button><button id="download-text" type="button" class="text-button">Text version</button><button id="again" type="button" class="text-button">✳ Surprise us again</button></div>
       <p id="result-notice" class="helper"></p>
     </section>
+
     <section class="catalog-section" aria-labelledby="ideas-title">
-      <div class="section-heading"><div><p class="eyebrow">THE POSSIBILITIES</p><h2 id="ideas-title">A little inspiration.</h2></div><p class="helper">These are the ideas in the mix.</p></div>
+      <div class="section-heading"><div><p class="eyebrow">STACK THE DECK IN YOUR FAVOR</p><h2 id="ideas-title">Make it your kind of night.</h2></div><button id="reset-ideas" type="button" class="text-button">Reset ideas & locks</button></div>
+      <p class="section-intro">Tap an idea to take it out of the mix. Add a personal favorite. The best dates have a little bit of you in them.</p>
       <div id="catalog" class="catalog-grid"></div>
-      <p class="helper">Prices vary by location and aren't live quotes. Free ideas use food, supplies, or access you already have. Check opening hours, weather, and local prices before heading out.</p>
+      <details class="custom-details"><summary>＋ Add your own little adventure <span>Up to four custom ideas</span></summary><form id="custom-form"><div class="custom-form-grid"><div><label for="custom-name">Your idea</label><input id="custom-name" maxlength="48" required placeholder="Our favorite noodle spot"></div><div><label for="custom-category">Category</label><select id="custom-category"><option value="dinner">Dinner</option><option value="activity">Activity</option><option value="treat">Treat</option><option value="entertainment">Entertainment</option></select></div><div><label for="custom-cost">Estimate for two ($)</label><input id="custom-cost" type="number" min="0" max="10000" step="0.01" required placeholder="20"></div><div><label for="custom-setting">Setting</label><select id="custom-setting"><option value="any">Any setting</option><option value="indoor">Indoors</option><option value="outdoor">Outdoors</option><option value="home">At home</option></select></div></div><button type="submit" class="secondary">Add to the mix</button><p class="helper">Custom ideas stay for this visit. Saved dates keep a copy. All prices are your estimates.</p><p id="custom-message" role="status"></p></form></details>
+      <p class="helper estimates-note">Estimates, not live quotes. Free ideas use items or access you already have. Check local prices, hours, and weather before you go.</p>
     </section>
-    <section id="saved" class="saved-section" aria-labelledby="saved-title">
-      <div class="section-heading"><div><p class="eyebrow">FOR ANOTHER NIGHT</p><h2 id="saved-title" tabindex="-1">Your saved plans.</h2></div><span class="estimate-label">Saved on this device</span></div>
-      <p id="storage-message" role="status"></p>
-      <div id="saved-plans" class="saved-grid"></div>
-    </section>
+
+    <section id="saved" class="saved-section" aria-labelledby="saved-title"><div class="section-heading"><div><p class="eyebrow">SAVE THE SPARK</p><h2 id="saved-title" tabindex="-1">For another night.</h2></div><span class="pill">On this device, just for you</span></div><p id="storage-message" role="status"></p><div id="saved-plans" class="saved-grid"></div></section>
+    <section class="closing-note"><span aria-hidden="true">✳</span><p>The best part of the plan?<br><strong>Who you're sharing it with.</strong></p></section>
   </main>
-  <footer><span class="brand">date night <strong>MASH</strong></span><p>Made for time together. All costs are estimates for two.</p><p>Adrainn Coloma · Andrew Russo · Alex Marshall</p></footer>
+  <footer><a class="brand" href="#">date night <strong>MASH</strong></a><p>Dreamed up by Adrainn Coloma, Andrew Russo & Alex Marshall.<br>Big memories. Small budgets. All prices are estimates for two.</p></footer>
+  <div id="confetti" aria-hidden="true"></div>
 </body>
 </html>
