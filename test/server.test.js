@@ -25,7 +25,7 @@ test('health and static assets are available', async () => {
   assert.equal(health.status, 200);
   assert.deepEqual(await health.json(), { status: 'ok', app: 'Date Night MASH' });
   assert.equal(health.headers.get('cache-control'), 'no-store');
-  for (const [path, type] of [['/', 'text/html'], ['/styles.css', 'text/css'], ['/app.js', 'javascript'], ['/companion.js','javascript'], ['/manifest.webmanifest','manifest+json'], ['/icons/icon-192.png','image/png']]) {
+  for (const [path, type] of [['/', 'text/html'], ['/styles.css', 'text/css'], ['/app.js', 'javascript'], ['/nearby.js','javascript'], ['/companion.js','javascript'], ['/manifest.webmanifest','manifest+json'], ['/icons/icon-192.png','image/png']]) {
     const response = await fetch(base + path);
     assert.equal(response.status, 200);
     assert.ok(response.headers.get('content-type').includes(type));

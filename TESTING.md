@@ -182,3 +182,16 @@ The widest $10,000 mixed full-day search counted 17,966,394 valid combinations. 
 | S18 | PDF readability | Export every local detail plus timed 3/4/5-page samples. | Text within bounds; readable inspected pages. | 200 detail pages and 12 timed pages passed; six timed pages inspected. |
 
 Public Vercel deployment, real iPhone/Android rendering, native calendar/share behavior, audible playback and installed offline behavior remain pending. Browser preview control failed with Module not found: @oai/cua/tinyskyAlt. No public deployment or App Store approval is claimed.
+## Nearby town dropdown fix — November 19, 2026
+
+The page referenced /nearby.js, but that file was absent from the committed app. The older shared-folder draft also listed only nineteen towns. Added a tracked script that loads all forty-three towns and their coordinates from the existing /api/options catalog, sorts the dropdown alphabetically, and searches every supported town. The old shared-folder draft was left untouched in the other checkout.
+
+Controls show loading/disabled state until the data is ready, and failed loads expose Retry loading towns. The implementation uses AbortController with a timer rather than relying on AbortSignal.timeout. The offline cache now includes /nearby.js and is versioned v2.
+
+Executed locally: all 86 Node tests passed. New regression cases cover all 43 selections and local results, failed-load retry, and missing-coordinate recovery. The existing HTTP asset check now requires /nearby.js to return 200; the offline simulation requires that script to be cached. A jsdom check used the real served HTML/script/API, confirmed 44 select options including the placeholder, checked every requested town, and found Parsippany results with correct map origins. These are local/scripted checks; public-site and real-phone verification remain pending.
+
+| ID | Item | Steps | Expected | Actual |
+| --- | --- | --- | --- | --- |
+| N01 | Supported towns | Load nearby picker; inspect options; search from each supported town. | 43 unique alphabetized towns, with local results. | Passed local regression tests. |
+| N02 | Retry loading | Simulate failed catalog request, then retry successfully. | Disabled empty picker with visible recovery; full list after retry. | Passed local regression test. |
+| N03 | Served integration | Open actual HTML in jsdom, load /nearby.js over local HTTP, select Parsippany. | Script 200, 43 towns, results and correct directions. | Passed local DOM/API check. |
