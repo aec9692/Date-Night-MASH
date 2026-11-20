@@ -1,6 +1,6 @@
 const $ = selector => document.querySelector(selector);
 const labels = { dinner: 'Dinner', activity: 'Activity', treat: 'Treat', entertainment: 'Entertainment' };
-const settingLabels = { any: 'Any setting', indoor: 'Indoors', outdoor: 'Outdoors', home: 'At home' };
+const settingLabels = { any: 'Surprise me', indoor: 'Indoors', outdoor: 'Outdoors', home: 'At home', mixed:'Indoor & outdoor' };
 const moodLabels = { surprise: 'A little of everything', cozy: 'Cozy', adventurous: 'Adventurous', romantic: 'Romantic', competitive: 'Competitive' };
 const areaLabels = { paterson: 'Near Paterson, NJ', general: 'Original ideas', all: 'Local & original ideas' };
 const storageKey = 'date-night-mash-favorites-v1';
@@ -43,11 +43,13 @@ async function request(url, options = {}) {
 function preferences(locked = locks) {
   return { budget: $('#budget').value === '' ? null : Number($('#budget').value), setting: $('#setting').value,
     mood: mood(), spending: $('#spending').value, area: $('#area').value, date: $('#visit-date').value, excluded: [...excluded], customOptions, locked,
-    ...(SmartDate.preferences() ? {journey:SmartDate.preferences()} : {}) };
+    pantry:DateExtras.pantry(),
+    ...(SmartDate.preferences()&&!['home','mixed'].includes($('#setting').value) ? {journey:SmartDate.preferences()} : {}) };
 }
 function mashPreferences(locked=locks) {
   return {budget:$('#mash-budget').value===''?null:Number($('#mash-budget').value),area:$('#mash-area').value,
     setting:$('#mash-setting').value,mood:'surprise',spending:$('#mash-spending').value,date:'',excluded:[...excluded],customOptions,locked,
+    pantry:DateExtras.pantry(),recent:DateExtras.recentDates(allOptions()),...(DateExtras.location()?{location:DateExtras.location()}:{}),
     mash:{age:$('#mash-age').value,origin:$('#mash-town').value,radius:Number($('#mash-radius').value)}};
 }
 function activePreferences(){return planningMode==='mash'?mashPreferences():preferences();}
@@ -74,29 +76,34 @@ function validPlan(plan) {
   if (plan.spending !== undefined && !MashPlanner.spendingModes.includes(plan.spending)) return false;
   if (plan.area !== undefined && !MashPlanner.areas.includes(plan.area)) return false;
   if (plan.date !== undefined && !MashPlanner.validDate(plan.date)) return false;
+  if(plan.location&&(typeof plan.location.lat!=='number'||!Number.isFinite(plan.location.lat)||Math.abs(plan.location.lat)>90||typeof plan.location.lon!=='number'||!Number.isFinite(plan.location.lon)||Math.abs(plan.location.lon)>180||typeof plan.location.label!=='string'||plan.location.label.length>160))return false;
   if (![plan.budgetCents, plan.totalCents, plan.remainingCents].every(Number.isSafeInteger)) return false;
   if (plan.budgetCents < 0 || plan.budgetCents > 1000000 || plan.totalCents < 0 || plan.remainingCents < 0) return false;
   const custom = MashPlanner.customCatalog(plan.customOptions || []);
-  if (!custom) return false;
+  if (!custom || !DateCosts.validPantry(plan.pantry||[])) return false;
   const knownOptions = [...catalog, ...custom];
+  const canonical = plan.picks.map(pick=>knownOptions.find(option=>option.id===pick?.id));
+  if(canonical.some(pick=>!pick))return false;
+  const priced=DateCosts.resolve(canonical,plan.pantry||[]).picks;
   const matching = plan.picks.every((pick, index) => {
     if (!pick || pick.category !== categories[index]) return false;
     const known = knownOptions.find(option => option.id === pick.id);
     return known && known.category === pick.category && known.name === pick.name && known.description === pick.description &&
-      known.costCents === pick.costCents && (plan.setting === 'any' || known.settings.includes(plan.setting)) &&
-      MashPlanner.eligible(known, plan.area || 'all', plan.date || '');
+      priced[index].costCents === pick.costCents && (plan.setting === 'any' || plan.setting==='mixed'&&!known.settings.includes('home') || known.settings.includes(plan.setting)) &&
+      (plan.pantry===undefined||DateCosts.available(known,plan.pantry)) && MashPlanner.eligible(known,plan.setting==='home'?'general':plan.area||'all',plan.date||'');
   });
   if(journey&&(!matching||!plan.picks.every(pick=>MashJourney.matches(knownOptions.find(o=>o.id===pick.id),journey))||!MashJourney.schedule(plan.picks.map(pick=>knownOptions.find(o=>o.id===pick.id)),journey)))return false;
-  if(mash&&(!matching||!plan.picks.every(pick=>MashJourney.matchesMash(knownOptions.find(o=>o.id===pick.id),mash))))return false;
+  if(mash&&(!matching||!plan.picks.every(pick=>MashJourney.matchesMash(knownOptions.find(o=>o.id===pick.id),mash,plan.location))))return false;
   return matching && plan.totalCents === plan.picks.reduce((sum, pick) => sum + pick.costCents, 0) &&
     plan.budgetCents - plan.totalCents === plan.remainingCents && typeof plan.notice === 'string' && plan.notice.length <= 300;
 }
 function hydrate(plan) {
   const known = [...catalog, ...MashPlanner.customCatalog(plan.customOptions || [])];
-  const picks = plan.picks.map(pick => known.find(option => option.id === pick.id));
+  const picks = DateCosts.resolve(plan.picks.map(pick => known.find(option => option.id === pick.id)),plan.pantry||[]).picks;
   const chosenMood = plan.mood || 'surprise';
+  const legacyOwnership=plan.pantry===undefined&&picks.some(pick=>pick.home?.requiresOwned.length);
   const journey=plan.journey&&MashJourney.normalize(plan.journey);
-  return { ...plan, picks, ...(journey?{journey,schedule:MashJourney.schedule(picks,journey)}:{}), mood: chosenMood, spending: plan.spending || 'flexible', area: plan.area || 'general', date: plan.date || '', title: MashPlanner.title(chosenMood, picks), customOptions: plan.customOptions || [] };
+  return { ...plan, picks, legacyOwnership, ...(journey?{journey,schedule:MashJourney.schedule(picks,journey)}:{}), mood: chosenMood, spending: plan.spending || 'flexible', area: plan.area || 'general', date: plan.date || '', title: MashPlanner.title(chosenMood, picks), customOptions: plan.customOptions || [] };
 }
 
 async function loadCatalog() {
@@ -111,6 +118,7 @@ async function loadCatalog() {
     if (!Array.isArray(data.options) || !data.options.length) throw new Error('No ideas were returned.');
     catalog = data.options;
     SmartDate.setup(data);
+    DateExtras.setup(data);
     populateTowns();
     renderCatalog();
     loadFavorites();
@@ -169,7 +177,10 @@ function updatePossibilities() {
 
 function renderCatalog() {
   const active=activePreferences();
-  DatePlaceUI.render({options:allOptions(),area:active.area,setting:active.setting,date:active.date,
+  const home=active.setting==='home';
+  const options=allOptions().filter(option=>DateCosts.available(option,active.pantry||[])&&(!home||option.home||option.custom&&option.settings.includes('home')))
+    .map(option=>DateCosts.resolve([option],active.pantry||[]).picks[0]);
+  DatePlaceUI.render({options,area:home?'general':active.area,setting:active.setting,date:active.date,
     deck:$('#catalog').dataset.deck||'all',query:$('#idea-search').value,town:$('#idea-town').value,tier:$('#idea-tier').value,kind:$('#idea-cost').value,
     excluded,busy,
     onToggle(group){
@@ -182,13 +193,14 @@ function renderCatalog() {
       const example=group.options.filter(o=>!excluded.has(o.id)&&MashPlanner.eligible(o,active.area,active.date)).sort((a,b)=>a.costCents-b.costCents)[0]||group.options[0];
       previewIdea(example,trigger);
     },
-    onRemove(option){customOptions=customOptions.filter(o=>o.id!==option.id);excluded.delete(option.id);if(locks[option.category]===option.id)delete locks[option.category];renderCatalog();updatePossibilities();}
+    onRemove(option){customOptions=customOptions.filter(o=>o.id!==option.id);excluded.delete(option.id);if(locks[option.category]===option.id)delete locks[option.category];renderCatalog();updatePossibilities();},
+    onLock(option){if(busy)return;locks[option.category]=option.id;excluded.delete(option.id);message(`${option.name} is locked for ${labels[option.category].toLowerCase()}. Your total must still fit the budget.`);updatePossibilities();}
   });
 }
 function setBusy(value) {
   busy = value;
   document.body.classList.toggle('is-busy', value);
-  document.querySelectorAll('#plan-form input, #plan-form select, #plan-form button, #mash-form input, #mash-form select, #mash-form button, [data-mode], #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, #idea-cost, #idea-town, #town-chips button, [data-deck], .idea-details, .option-choice, .remove-custom, .pick-controls button, .replace-choice, .order-controls button, #again, #reset-ideas, #date-start, #add-calendar, #share-invite, #mark-tried, #clear-tried').forEach(node => { node.disabled = value; });
+  document.querySelectorAll('#owned-items input, .saved-card button, .place-card button, #plan-form input, #plan-form select, #plan-form button, #mash-form input, #mash-form select, #mash-form button, [data-mode], #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, #idea-cost, #idea-town, #town-chips button, [data-deck], .idea-details, .option-choice, .remove-custom, .pick-controls button, .replace-choice, .order-controls button, #again, #reset-ideas, #date-start, #add-calendar, #share-invite, #mark-tried, #clear-tried').forEach(node => { node.disabled = value; });
   if (!value && currentPlan) renderResult();
 }
 
@@ -218,13 +230,15 @@ async function generate(event, rerollCategory = null, requestedMode = null) {
       // Reveal only ideas that can replace their category in the chosen plan without overspending.
       // This avoids enumerating hundreds of thousands of plans again in the browser.
       const pool = allOptions().filter(option => !payload.excluded.includes(option.id) &&
-        MashPlanner.eligible(option, payload.area, payload.date) &&
-        (payload.setting === 'any' || option.settings.includes(payload.setting)) &&
+        MashPlanner.eligible(option,payload.setting==='home'?'general':payload.area,payload.date) &&
+        DateCosts.available(option,payload.pantry||[]) && DateCosts.settingMatches(option,payload.setting) &&
         (!payload.locked[option.category] || payload.locked[option.category] === option.id) &&
-        option.costCents + data.picks.filter(pick => pick.category !== option.category).reduce((sum, pick) => sum + pick.costCents, 0) <= data.budgetCents);
+        DateCosts.compatible(data.picks.map(pick=>pick.category===option.category?option:pick)) &&
+        DateCosts.resolve(data.picks.map(pick=>pick.category===option.category?option:pick),payload.pantry||[]).totalCents<=data.budgetCents);
       await MashShow.reveal(data, pool, $(mode==='mash'?'#mash-instant':'#instant').checked || Boolean(rerollCategory));
     }
     currentPlan = hydrate(data);
+    DateExtras.remember(currentPlan);
     planningMode=mode;
     renderResult();
     message(data.unchanged ? 'This is the only combination that fits these choices. Unlock a pick, include more ideas, or adjust your plan.' : rerollCategory ? `${labels[rerollCategory]} remixed. Your other picks stayed put, and the total still fits.` : 'It’s a date! Keep the picks you love, remix the rest.');
@@ -253,7 +267,12 @@ function renderResult() {
       element('span',group?`${DatePlaces.range(group)} · sample range for two`:money(pick.costCents),'pick-price'));
     if(food)copy.append(element('p',`Budgeted example: ${money(pick.costCents)}. Actual dishes and final bill are your choice.`,'helper'));
     else copy.append(element('p',pick.tip||'Make this one your own.','pick-tip'));
-    if (pick.venue) copy.append(venueDetails(pick,currentPlan.mash?.origin||currentPlan.journey?.origin||'Paterson'));
+    if (pick.venue) copy.append(venueDetails(pick,currentPlan.mash?.origin||currentPlan.journey?.origin||'Paterson',currentPlan.location));
+    if(pick.place){
+      copy.append(element('p',pick.place.address||'Street address not recorded; use the map pin.','helper'),element('p','Your personal price estimate. Community map details need confirmation.','helper'));
+      const link=element('a','Get directions');link.href=DateDirections.to(`${pick.place.lat},${pick.place.lon}`,{town:currentPlan.mash?.origin,location:currentPlan.location});link.target='_blank';link.rel='noopener noreferrer';copy.append(link);
+    }
+    if(pick.home||pick.instructions?.length)copy.append(DateExtras.homeDetails(pick));
     SmartDate.decorate(pick,art,copy,currentPlan);
     const controls = element('div', undefined, 'pick-controls');
     const lock = button(locked ? '🔒 Locked in' : '♡ Keep this', 'lock-button', () => {
@@ -293,7 +312,7 @@ function renderResult() {
   });
   $('#result-title').textContent = currentPlan.title;
   $('#result-subtitle').textContent=currentPlan.mash?'Your MASH draw: one pick from each of the four categories. Confirm opening times and arrange your stops.':'Your custom plan. Check bookings and opening times before heading out.';
-  $('#result-setting').textContent = `${moodLabels[currentPlan.mood]} · ${settingLabels[currentPlan.setting]} · ${areaLabels[currentPlan.area]}${currentPlan.date ? ` · ${currentPlan.date}` : ''}`;
+  $('#result-setting').textContent = `${DateCosts.settingLabel(currentPlan.picks,currentPlan.setting)} · ${moodLabels[currentPlan.mood]}${currentPlan.location?' · '+currentPlan.location.label:currentPlan.setting==='home'?' · Your place':' · '+areaLabels[currentPlan.area]}${currentPlan.date ? ` · ${currentPlan.date}` : ''}`;
   $('#result-total').textContent = money(currentPlan.totalCents);
   $('#remaining').textContent = `${money(currentPlan.remainingCents)} left for little extras`;
   const max = currentPlan.maximumCents;
@@ -301,12 +320,13 @@ function renderResult() {
     Number.isSafeInteger(max) && max < currentPlan.budgetCents * .9 ? `Treat us: these choices top out at ${money(max)}. We aimed near that amount. Change the setting, unlock picks, or add an idea to go bigger.` :
     'Treat us: this plan aims to use 90–100% of your budget while staying within your limit.';
   $('#budget-used').style.width = `${currentPlan.budgetCents ? Math.min(100, currentPlan.totalCents / currentPlan.budgetCents * 100) : 0}%`;
-  $('#result-notice').textContent = currentPlan.notice;
+  $('#result-notice').textContent = currentPlan.legacyOwnership?'Older saved date: confirm already-owned food, games or streaming before treating its $0 picks as free. '+currentPlan.notice:currentPlan.notice;
   $('#save').textContent = favorites.some(plan => planKey(plan) === planKey(currentPlan)) ? '♡ Date saved' : '♡ Save this date';
   $('#result').hidden = false;
   $('#phone-date').removeAttribute('aria-disabled');
   $('#date-start').disabled = busy;
   DateCompanion.render(currentPlan);
+  DateExtras.shopping(currentPlan);
   SmartDate.render(currentPlan,next=>{currentPlan=next;renderResult();},()=>generate());
 }
 
@@ -359,6 +379,7 @@ function renderFavorites() {
     actions.append(button('PDF', 'secondary saved-download', () => downloadPlan(plan)), button('Revisit', 'secondary', () => {
       if (busy) return;
       customOptions = plan.customOptions || [];
+      DateExtras.restore(plan);
       excluded = new Set();
       locks = {};
       if(plan.mash){
@@ -397,9 +418,11 @@ function addCustom(event) {
     Array.from(crypto.getRandomValues(new Uint8Array(4)), byte => byte.toString(16).padStart(2, '0')).join('');
   const option = { id: `custom-${suffix}`, category: $('#custom-category').value,
     name: $('#custom-name').value.trim(), costCents: Math.round(Number($('#custom-cost').value) * 100),
-    settings: setting === 'any' ? ['indoor', 'outdoor', 'home'] : setting === 'home' ? ['indoor', 'home'] : [setting] };
+    settings: setting === 'any' ? ['indoor', 'outdoor', 'home'] : setting === 'home' ? ['indoor', 'home'] : [setting],
+    ...(DateExtras.placeMetadata()?{place:DateExtras.placeMetadata()}:{} ) };
   if (!MashPlanner.customCatalog([option])) { $('#custom-message').textContent = 'Add a name, a setting, and a valid cost.'; return; }
   customOptions.push(option);
+  DateExtras.clearPending();
   $('#custom-form').reset();
   $('#custom-message').textContent = `${option.name} is in the mix.`;
   renderCatalog();
@@ -409,6 +432,7 @@ function addCustom(event) {
 $('#plan-form').addEventListener('submit',event=>generate(event,null,'scene'));
 $('#mash-form').addEventListener('submit',event=>generate(event,null,'mash'));
 $('#mash-form').addEventListener('input',event=>{
+  if(event.target.closest('.location-search'))return;
   if(updateBudget(event,'mash'))return;
   if(event.target.id==='mash-setting'){locks={};if(currentPlan)renderResult();}
   updatePossibilities();renderCatalog();
@@ -477,11 +501,11 @@ function externalLink(label, href) {
   link.rel = 'noopener noreferrer';
   return link;
 }
-function venueDetails(pick, origin = activePreferences().mash?.origin||activePreferences().journey?.origin||'Paterson') {
+function venueDetails(pick, origin = activePreferences().mash?.origin||activePreferences().journey?.origin||'Paterson', location=activePreferences().location) {
   const wrap = element('div', undefined, 'venue-details');
   wrap.append(element('p', pick.venue.address, 'venue-address'));
   const links = element('div', undefined, 'venue-links');
-  links.append(externalLink('Official menu / tickets', pick.pricing.sourceUrl), externalLink('Check drive', DateDirections.to(pick.venue.address,{town:origin})));
+    links.append(externalLink('Official menu / tickets', pick.pricing.sourceUrl), externalLink('Check drive', DateDirections.to(pick.venue.address,{town:origin,location})));
   wrap.append(links);
   const details = element('details', undefined, 'price-proof');
   const p = pick.pricing;
@@ -503,7 +527,7 @@ function populateTowns() {
     const chip=button(town==='all'?'Every town':town,'town-chip',()=>{ $('#idea-town').value=town;syncTownChips();renderCatalog(); });
     chip.dataset.town=town; $('#town-chips').append(chip);
   });
-  $('#local-stats').textContent = `${local.length} NJ ideas · ${new Set(local.map(option=>option.venue.id)).size} places · ${towns.length} towns`;
+  $('#local-stats').textContent = `${catalog.length} ideas · ${local.length} NJ examples · ${new Set(local.map(option=>option.venue.id)).size} places · ${towns.length} towns`;
   syncTownChips();
 }
 function syncTownChips() {

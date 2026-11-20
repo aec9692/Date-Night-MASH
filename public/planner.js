@@ -1,11 +1,11 @@
 /* Shared selection rules keep the browser's possibility count in sync with the server. */
 (function (root) {
   const categories = ['dinner', 'activity', 'treat', 'entertainment'];
-  const settings = ['any', 'indoor', 'outdoor', 'home'];
+  const settings = ['any', 'indoor', 'outdoor', 'home', 'mixed'];
   const moods = ['surprise', 'cozy', 'adventurous', 'romantic', 'competitive'];
   const spendingModes = ['treat', 'flexible'];
   const areas = ['all', 'general', 'paterson'];
-  const fields = ['budget', 'setting', 'mood', 'spending', 'area', 'date', 'excluded', 'customOptions', 'locked', 'previous', 'journey', 'mash'];
+  const fields = ['budget', 'setting', 'mood', 'spending', 'area', 'date', 'excluded', 'customOptions', 'locked', 'previous', 'journey', 'mash', 'pantry', 'recent', 'location'];
   const object = value => value && typeof value === 'object' && !Array.isArray(value);
   const fail = (error, status = 400, extra = {}) => ({ error, status, ...extra });
 
@@ -13,13 +13,16 @@
     if (!Array.isArray(input) || input.length > 4) return null;
     const result = [];
     for (const option of input) {
-      if (!object(option) || Object.keys(option).some(key => !['id', 'category', 'name', 'costCents', 'settings'].includes(key)) ||
+      if (!object(option) || Object.keys(option).some(key => !['id', 'category', 'name', 'costCents', 'settings', 'place'].includes(key)) ||
           typeof option.id !== 'string' || !/^custom-[a-z0-9-]{1,20}$/.test(option.id) ||
           result.some(item => item.id === option.id) || !categories.includes(option.category) ||
           typeof option.name !== 'string' || !option.name.trim() || option.name.length > 48 || /[\x00-\x1f\x7f]/.test(option.name) ||
           !Number.isSafeInteger(option.costCents) || option.costCents < 0 || option.costCents > 1000000 ||
           !Array.isArray(option.settings) || !option.settings.length || option.settings.length > 3 ||
-          new Set(option.settings).size !== option.settings.length || option.settings.some(setting => !settings.slice(1).includes(setting))) return null;
+          new Set(option.settings).size !== option.settings.length || option.settings.some(setting => !['indoor','outdoor','home'].includes(setting))) return null;
+      if(option.place){const place=option.place;
+        if(!object(place)||Object.keys(place).some(key=>!['name','address','lat','lon','sourceUrl'].includes(key))||typeof place.name!=='string'||!place.name.trim()||place.name.length>180||!(place.address===null||typeof place.address==='string'&&place.address.length<=240)||typeof place.lat!=='number'||!Number.isFinite(place.lat)||Math.abs(place.lat)>90||typeof place.lon!=='number'||!Number.isFinite(place.lon)||Math.abs(place.lon)>180||typeof place.sourceUrl!=='string'||!/^https:\/\/www\.openstreetmap\.org\/(node|way|relation)\/[1-9]\d*$/.test(place.sourceUrl))return null;
+      }
       result.push({ ...option, name: option.name.trim(), description: 'Your own little adventure. Make it a date.', emoji: '✨',
         moods: moods.slice(1), tip: 'Put your own spin on this one.', custom: true });
     }
@@ -31,16 +34,24 @@
     if(input.journey!==undefined&&input.mash!==undefined)return fail('Choose MASH or the custom planner for this request.');
     if (input.journey !== undefined) {
       const journey = typeof module === 'object' && module.exports ? require('./journey') : root.MashJourney;
+      if(['home','mixed'].includes(input.setting)){
+        if(!journey.normalize(input.journey))return fail('Choose valid date length, time, town, distance and preferences.');
+        const {journey:unused,...fourCategory}=input;
+        return prepare(fourCategory,catalog,includePlans,drawTicket);
+      }
       return journey.prepare(input,catalog,includePlans,drawTicket,api);
     }
-    const { budget, setting = 'any', mood = 'surprise', spending = 'treat', area = 'all', date = '', excluded = [], customOptions = [], locked = {}, previous = [] } = input;
+    const { budget, setting = 'any', mood = 'surprise', spending = 'treat', area = 'all', date = '', excluded = [], customOptions = [], locked = {}, previous = [], pantry = [], recent = [], location = null } = input;
+    const costs=typeof module==='object'&&module.exports?require('./date-costs'):root.DateCosts;
+    if(!costs.validPantry(pantry))return fail('Choose only the documented already-owned supplies.');
+    if(location!==null&&(!object(location)||Object.keys(location).some(key=>!['lat','lon','label'].includes(key))||typeof location.lat!=='number'||!Number.isFinite(location.lat)||location.lat < -90||location.lat > 90||typeof location.lon!=='number'||!Number.isFinite(location.lon)||location.lon < -180||location.lon > 180||typeof location.label!=='string'||!location.label.trim()||location.label.length>160||/[\x00-\x1f\x7f]/.test(location.label)))return fail('Choose a city or ZIP search result with valid coordinates.');
     const journeyRules=typeof module==='object'&&module.exports?require('./journey'):root.MashJourney;
     const mash=input.mash===undefined?null:journeyRules.normalizeMash(input.mash);
     if(input.mash!==undefined&&!mash)return fail('Choose a supported MASH town, radius and audience.');
     if (typeof budget !== 'number' || !Number.isFinite(budget) || budget < 0 || budget > 10000 || budget !== Number(budget.toFixed(2))) {
       return fail('Enter a budget from $0 to $10,000 with at most two decimal places.');
     }
-    if (!settings.includes(setting)) return fail('Choose any, indoor, outdoor, or home.');
+    if (!settings.includes(setting)) return fail('Choose any, indoor, outdoor, home, or mixed.');
     if (!moods.includes(mood)) return fail('Choose a mood from the available choices.');
     if (!spendingModes.includes(spending)) return fail('Choose treat or flexible for your spending style.');
     if (!areas.includes(area)) return fail('Choose all, general, or paterson for the idea area.');
@@ -59,13 +70,20 @@
     if (!Array.isArray(previous) || (previous.length !== 0 && (previous.length !== 4 || previous.some((id, index) => !known(id) || options.find(option => option.id === id).category !== categories[index])))) {
       return fail('The previous plan must contain one valid idea per category.');
     }
+    if(!Array.isArray(recent)||recent.length>8||recent.some(ids=>!Array.isArray(ids)||ids.length!==4||ids.some((id,index)=>!known(id)||options.find(option=>option.id===id).category!==categories[index])))return fail('Recent dates must contain up to eight valid four-category combinations.');
+    const modernHome=catalog.some(option=>option.home);
     const groups = categories.map(category => options.filter(option => option.category === category &&
-      eligible(option, area, date) && (!mash||journeyRules.matchesMash(option,mash)) &&
-      !excluded.includes(option.id) && (setting === 'any' || option.settings.includes(setting)) &&
+      eligible(option, setting==='home'?'general':area, date) && (!mash||journeyRules.matchesMash(option,mash,location)) &&
+      costs.available(option,pantry) && !(modernHome&&option.settings.includes('home')&&!option.home&&!option.custom) &&
+      !excluded.includes(option.id) && (mash||modernHome?costs.settingMatches(option,setting):setting==='any'||option.settings.includes(setting)) &&
       (!locked[category] || option.id === locked[category])));
     const empty = groups.findIndex(group => !group.length);
     if (empty !== -1) return fail(`No ${categories[empty]} ideas match. Include an idea, unlock the pick, or change the setting.`, 422);
     const budgetCents = Math.round(budget * 100);
+    if(modernHome||pantry.length||recent.length||setting==='mixed'||mash){
+      const combinations=typeof module==='object'&&module.exports?require('./date-combinations'):root.DateCombinations;
+      return combinations.prepare(groups,{budgetCents,setting,mood,spending,area,date,customOptions,pantry,recent,previous,...(mash?{mash}:{}),...(location?{location}:{})},includePlans,drawTicket);
+    }
     const minimumCents = groups.reduce((sum, group) => sum + Math.min(...group.map(option => option.costCents)), 0);
     if (budgetCents < minimumCents) return fail(`These choices need at least $${(minimumCents / 100).toFixed(2)}. Raise the budget, unlock a pick, or change your choices.`, 422, { minimumCents });
     // Pair dinner/activity and treat/entertainment. Sorted pair costs let us count
@@ -151,6 +169,7 @@
   }
   function eligible(option, area, date) {
     if (!option.custom && (area === 'paterson' && !option.venue || area === 'general' && option.venue)) return false;
+    if(date&&option.seasons&&!option.seasons.includes(Number(date.slice(5,7))))return false;
     if (!date || !option.venue) return true;
     const venue = option.venue;
     return venue.openDays.includes(new Date(`${date}T12:00:00Z`).getUTCDay()) &&

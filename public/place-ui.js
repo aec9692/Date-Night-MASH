@@ -2,7 +2,7 @@
 window.DatePlaceUI=(()=>{
  const node=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
  const button=(text,cls,action)=>{const b=node('button',text,cls);b.type='button';b.addEventListener('click',action);return b;};
- function render({options,area,setting,date,deck,query,town,tier,kind,excluded,busy,onToggle,onPreview,onRemove}){
+ function render({options,area,setting,date,deck,query,town,tier,kind,excluded,busy,onToggle,onPreview,onRemove,onLock}){
   const container=document.querySelector('#catalog');container.replaceChildren();
   const inArea=options.filter(o=>o.custom||area==='all'||(area==='paterson'?Boolean(o.venue):!o.venue));
   const allGroups=DatePlaces.group(inArea);
@@ -16,18 +16,21 @@ window.DatePlaceUI=(()=>{
    if(!visible.length)list.append(node('li','No places match these filters. Try another town or price range.','empty-category'));
    for(const group of visible){
     const item=node('li',undefined,'place-card');item.dataset.venueId=group.venue?.id||group.options[0].id;
-    const eligible=group.options.some(o=>MashPlanner.eligible(o,area,date)&&(setting==='any'||o.settings.includes(setting)));
+    const eligible=group.options.some(o=>MashPlanner.eligible(o,area,date)&&DateCosts.settingMatches(o,setting));
     const included=group.options.filter(o=>!excluded.has(o.id)).length;
     item.append(node('h4',group.venue?.name||group.options[0].name,'place-name'),node('p',DatePlaces.range(group)+(group.venue?' · sample total for two':' · estimated for two'),'place-range'));
     if(group.venue){
      item.append(node('p',group.venue.city+', NJ','place-town'),node('p',group.venue.address,'place-address'),node('p',group.venue.hoursNote,'place-hours'));
      item.append(button('Location & price details','secondary idea-details',event=>onPreview(group,event.currentTarget)));
-    }else item.append(node('p',group.options[0].description,'place-address'));
+    }else {
+     const option=group.options[0];item.append(node('p',option.description,'place-address'));
+     if(option.home||option.instructions?.length)item.append(DateExtras.homeDetails(option));
+    }
     if(!eligible)item.append(node('p','Check your selected date or setting.','helper'));
     const toggle=button(included===group.options.length?'✓ Included in the mix':included?'Some examples included':'Include this place','option-choice place-toggle',()=>onToggle(group));
     toggle.dataset.id=group.options[0].id;toggle.setAttribute('aria-pressed',included===group.options.length?'true':included?'mixed':'false');toggle.disabled=busy;
     item.append(toggle);
-    if(group.options[0].custom)item.append(button('Remove personal idea','text-button remove-custom',()=>onRemove(group.options[0])));
+    if(group.options[0].custom){item.append(button('Keep this personal idea','secondary',()=>onLock?.(group.options[0])));item.append(button('Remove personal idea','text-button remove-custom',()=>onRemove(group.options[0])));}
     list.append(item);
    }
    section.append(head,list);container.append(section);

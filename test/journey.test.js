@@ -96,11 +96,11 @@ test('both partners receive mood weight and either cuisine preference can win',(
  const solo={...body,journey:{...body.journey,partner:null}};let soloWeight=0;planner.prepare(solo,options,false,total=>{soloWeight=total;return 0;});assert.ok(weightCount>soloWeight);
 });
 
-test('largest documented journey request still fits the 8 KB parser with exclusions and Unicode custom ideas',async()=>{
+test('home requests retain four categories and fit the bounded parser with exclusions and Unicode custom ideas',async()=>{
  const all=[...original,...local],customOptions=planner.categories.map((category,i)=>({id:'custom-'+i,category,name:'💛'.repeat(24),costCents:0,settings:['home']}));
  const body={budget:10,area:'general',setting:'home',excluded:all.map(o=>o.id),customOptions,journey:{format:'quick',seen:all.slice(0,40).map(o=>o.id),partner:{mood:'romantic',cuisine:'any'}}};
  assert.ok(Buffer.byteLength(JSON.stringify(body))<8192);
- const r=await post(body);assert.equal(r.status,200);assert.equal((await r.json()).picks.length,2);
+ const r=await post(body);assert.equal(r.status,200);assert.equal((await r.json()).picks.length,4);
 });
 
 test('numeric search matches independent itinerary enumeration across order, timing, distance and reroll constraints',()=>{

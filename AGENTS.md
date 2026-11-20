@@ -48,8 +48,8 @@ Main risk: a budget or filter leaves no affordable combination. Keep the preset 
 
 - All costs are USD estimates for two people. Store and compare money as integer cents.
 - Accept a finite numeric budget from $0 to $10,000 with at most two decimal places. Reject missing, negative, oversized, malformed, and unexpected input.
-- Limit JSON bodies to 8 KB; return readable JSON errors for malformed JSON and oversized bodies. This accommodates exclusions from the expanded catalog plus custom ideas and locks.
-- Accept only documented setting values: any, indoor, outdoor, home. Every selected option must support the selected setting. Timed formats may select two, three or four categories; legacy requests still select all four.
+- Limit JSON bodies to 32 KB; return readable JSON errors for malformed JSON and oversized bodies. This accommodates exclusions from the expanded catalog plus custom ideas and locks.
+- Accept only documented setting values: any, indoor, outdoor, home, mixed. Every selected option must support the selected setting. Timed formats may select two, three or four categories; legacy requests still select all four.
 - Select one option per category, then choose randomly among complete combinations at or below budget. Never rely on an unbounded random retry loop.
 - Distinguish invalid requests (400), oversized bodies (413), no affordable combination (422), and unexpected server failures (500).
 - Preserve form values on errors. Show loading, success, empty, and failure states; prevent duplicate submissions.
@@ -62,9 +62,9 @@ The owner requested an interactive game upgrade and authorized Codex to handle m
 
 Upgrade behavior:
 - Shared validation and combination enumeration live in public/planner.js. The server remains authoritative; browser counts are a preview.
-- Generation may also receive mood, spending, area, date, excluded, customOptions, locked, previous, a strictly validated journey object, or a mutually exclusive mash object. Validate every field and reject undocumented fields. Keep JSON requests bounded to 8 KB.
+- Generation may also receive mood, spending, area, date, excluded, customOptions, locked, previous, a strictly validated journey object, or a mutually exclusive mash object. Validate every field and reject undocumented fields. Keep JSON requests bounded to 32 KB.
 - Spending defaults to treat: select estimated totals at 90–100% of budget when available, otherwise at least 95% of the highest attainable total. Flexible allows any affordable total. Apply mood weighting after spending selection. Explain unattainable budgets honestly and never inflate catalog prices.
-- Preserve the 96 original ideas and the separately maintained source-linked NJ catalog in data/local-options.json. The UI defaults to the Paterson-area deck; all/general/paterson are valid area values. A valid optional calendar date filters known regular weekdays and recorded closedDates/closedDateRanges, not live availability or unrecorded holidays. Do not promise a timed itinerary or a measured one-hour driving radius.
+- Preserve the 96 original ideas and the separately maintained source-linked NJ catalog in data/local-options.json. MASH defaults to local plus general ideas; Scene defaults to the Paterson-area deck; all/general/paterson are valid area values. A valid optional calendar date filters known regular weekdays and recorded closedDates/closedDateRanges, not live availability or unrecorded holidays. Do not promise a timed itinerary or a measured one-hour driving radius.
 - Each local price needs an official source URL, checked date, explicit order/admission basis for two, and separate base/tax/tip/donation components. See DATA_SOURCES.md. Never invent a local price or copy a third-party estimate as a verified menu quote. Unknown fees and travel/parking exclusions must remain visible. Review sources periodically; checked dates are not automatic live updates.
 - Browser search/town/price/category browsing changes visibility, not inclusion. Details previews can lock a specific choice for generation. Keep counts memory-efficient without retaining every plan in the browser, and build reveal candidates from the selected plan instead of enumerating all plans again.
 - Mood values are surprise, cozy, adventurous, romantic, and competitive. Mood weights valid combinations; it must not bypass budget, setting, exclusion, or lock constraints.
@@ -86,7 +86,7 @@ Upgrade behavior:
 
 ## Student and couple planning upgrade
 
-- Preserve the legacy four-category API when journey is absent. With journey, quick uses dinner/treat (150 minutes), evening dinner/activity/treat (300), full all four (540). Validate nested fields and keep requests bounded to 8 KB.
+- Preserve the legacy four-category API when journey is absent. With journey, quick uses dinner/treat (150 minutes), evening dinner/activity/treat (300), full all four (540). Validate nested fields and keep requests bounded to 32 KB.
 - public/journey.js owns shared numeric time/distance/preference rules; public/count-worker.js keeps counts off the main thread. Preserve equality with independent itinerary enumeration and never retain all complete dates in production.
 - Default to the separate $50 four-category MASH game; Set the scene retains timed quick/evening/full formats. Teen means the broad high-school 13–17 profile; ideas requiring an adult companion or an older participant must be excluded unless the selected profile guarantees eligibility. Age groups are preferences, not identity verification; never collect DOB. Timed teen plans finish by 21:00, exclude adult-only activities, and still require venue/guardian checks. Both-18+ does not qualify for 21+ experiences.
 - Census representative points are approximate municipality locations, not venue geocodes or live travel estimates. All local stops must fit the radius; later legs must fit the leg limit. Unknown locations must remain explicit. Return travel is excluded.
@@ -104,3 +104,15 @@ Upgrade behavior:
 - Present venues/ranges/locations in discovery, not a list of dishes. Price ranges must be labeled as checked sample totals for two, never all-menu bounds. Keep the actual sample basis in expandable details and exports. Preserve canonical IDs/prices/favorites.
 - Prefer paid outings first in discovery while retaining free choices and explicit paid/free admission filters. Browsing does not silently exclude ideas from generation.
 - Map URLs default to Maps resolving device location; allow planning-town fallback. Do not request/store/transmit GPS coordinates. Keep card, nearby, companion and PDF routes consistent. Offline shell v3 includes places.js, place-ui.js and directions.js.
+
+
+## Expanded home and location planning
+
+- Keep all 96 original IDs and prices plus 209 source-priced NJ entries; enrich legacy home ideas with explicit owned-access requirements. data/home-options.json adds 246 home ideas and data/outing-options.json adds 138 general allowances. Do not turn illustrative allowances into verified store quotes.
+- At home always draws all four categories, bypassing NJ-only area and travel filters. Home and mixed requests bypass timed itinerary constraints after validating their journey input. Indoor and outdoor MASH mean outings; mixed requires indoor and outdoor picks.
+- Accept pantry (up to eight documented ownership keys), recent (up to eight four-ID combinations), and location (public city/ZIP label plus finite coordinates). Never collect a home address or device GPS. Radius values are 5, 10, 15, 25 and 50 straight-line miles.
+- date-costs.js and date-combinations.js share integer-cent prices, ownership, shared-basket deduplication and exact pair counting across server/worker. No repeated theme or venue in a four-pick date. Deduct owned items explicitly; charge shared oil, seasonings, baking basics, bread, pasta and rice once. Rerolls recalculate the entire basket and preserve other IDs.
+- Default UI spending is flexible; Treat us remains available. A free food plan requires sufficient already-owned groceries. Explain a real minimum rather than silently assigning free ingredients. Never require spending exactly the budget.
+- Preserve old favorites with an ownership confirmation note where necessary; canonicalize all new home costs and metadata on restore/export. The per-visit recent list avoids eight recent dates when alternatives exist.
+- Live locations use explicit-submit free city geocoding and community map discovery; see LOCATION_SEARCH.md. Unknown prices stay null, not zero. Only personal estimates may add a live listing to the mix, clearly labeled. Official thrift addresses without prices remain discovery-only.
+- Keep slider updates immediate; never rebuild the catalog or count combinations in its input handler. Count after input settles and use the existing worker when supported. Keep offline cache v7 synchronized with the new shared modules.

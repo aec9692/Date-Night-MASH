@@ -1,0 +1,3468 @@
+[
+  {
+    "id": "outing-dinner-bagel-stop",
+    "name": "Bagels and a park bench",
+    "category": "dinner",
+    "costCents": 1000,
+    "minCostCents": 1000,
+    "maxCostCents": 1000,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Pick up two simple bagels and water, then find a public bench. The $10 allowance covers food for two; verify the menu.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Keep toppings simple to stay within the allowance.",
+    "theme": "bagel-meal"
+  },
+  {
+    "id": "outing-dinner-pizza-slices",
+    "name": "A few pizza slices together",
+    "category": "dinner",
+    "costCents": 1400,
+    "minCostCents": 1400,
+    "maxCostCents": 1400,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose a modest slice order for two with water using a $14 estimated all-in allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Compare the slice menu before ordering.",
+    "theme": "pizza-meal"
+  },
+  {
+    "id": "outing-dinner-small-pizza",
+    "name": "Split a small pizza",
+    "category": "dinner",
+    "costCents": 1800,
+    "minCostCents": 1800,
+    "maxCostCents": 1800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Share one small pie at a casual pizza shop; $18 is a planning allowance for the combined order.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask whether toppings and tax fit before ordering.",
+    "theme": "pizza-meal"
+  },
+  {
+    "id": "outing-dinner-fast-food",
+    "name": "Fast-food value-menu challenge",
+    "category": "dinner",
+    "costCents": 1800,
+    "minCostCents": 1800,
+    "maxCostCents": 1800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Build a casual meal for two from a value menu with an $18 combined spending cap.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Each choose one item for the other; use water instead of upsizing.",
+    "theme": "fast-food-meal"
+  },
+  {
+    "id": "outing-dinner-chinese-takeout",
+    "name": "Share Chinese takeout",
+    "category": "dinner",
+    "costCents": 2400,
+    "minCostCents": 2400,
+    "maxCostCents": 2400,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Split an entree and rice at a counter-service spot where indoor seating is available. Allow $24 for two.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm portion size and the total before ordering.",
+    "theme": "chinese-meal"
+  },
+  {
+    "id": "outing-dinner-taco-counter",
+    "name": "Taco-shop dinner",
+    "category": "dinner",
+    "costCents": 2400,
+    "minCostCents": 2400,
+    "maxCostCents": 2400,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose a modest taco order for two at a casual counter; the $24 amount is an estimated all-in allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Make one taco a surprise pick for each other.",
+    "theme": "taco-meal"
+  },
+  {
+    "id": "outing-dinner-burrito-counter",
+    "name": "Burritos on a budget",
+    "category": "dinner",
+    "costCents": 2800,
+    "minCostCents": 2800,
+    "maxCostCents": 2800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Order two simple burritos at a counter-service place using a $28 combined planning allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Skip paid extras if they would push the total over budget.",
+    "theme": "burrito-meal"
+  },
+  {
+    "id": "outing-dinner-burgers",
+    "name": "Casual burger stop",
+    "category": "dinner",
+    "costCents": 2800,
+    "minCostCents": 2800,
+    "maxCostCents": 2800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Find a casual burger counter for two burgers and a shared side within a $28 estimated allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Read the menu first; drinks and premium toppings can add up.",
+    "theme": "burger-meal"
+  },
+  {
+    "id": "outing-dinner-sandwiches",
+    "name": "Sandwich-shop favorites",
+    "category": "dinner",
+    "costCents": 2200,
+    "minCostCents": 2200,
+    "maxCostCents": 2200,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose two simple sandwiches with tap water where available; plan $22 for two.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Swap a bite and decide who picked better.",
+    "theme": "sandwich-meal"
+  },
+  {
+    "id": "outing-dinner-local-deli",
+    "name": "Local deli lunch date",
+    "category": "dinner",
+    "costCents": 2000,
+    "minCostCents": 2000,
+    "maxCostCents": 2000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Build a modest deli order for two using a $20 combined allowance, not a quoted menu price.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Look for simple sandwiches rather than large combo meals.",
+    "theme": "deli-meal"
+  },
+  {
+    "id": "outing-dinner-food-court",
+    "name": "Food-court choose-for-each-other",
+    "category": "dinner",
+    "costCents": 2600,
+    "minCostCents": 2600,
+    "maxCostCents": 2600,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Each pick a different counter meal, with a combined estimated allowance of $26.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check both prices before either person orders.",
+    "theme": "food-court-meal"
+  },
+  {
+    "id": "outing-dinner-chicken-counter",
+    "name": "Chicken and a shared side",
+    "category": "dinner",
+    "costCents": 2600,
+    "minCostCents": 2600,
+    "maxCostCents": 2600,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Try a casual chicken counter with a $26 combined estimated allowance for the meal.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Choose one shared side and confirm the order total.",
+    "theme": "chicken-meal"
+  },
+  {
+    "id": "outing-dinner-breakfast-counter",
+    "name": "Breakfast-for-dinner diner stop",
+    "category": "dinner",
+    "costCents": 3400,
+    "minCostCents": 3400,
+    "maxCostCents": 3400,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Find a diner serving simple egg or pancake plates; allow $34 combined including an estimated tax and tip reserve.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask whether the breakfast menu is available at your visit time.",
+    "theme": "breakfast-meal"
+  },
+  {
+    "id": "outing-dinner-ramen-counter",
+    "name": "Ramen-bowl dinner",
+    "category": "dinner",
+    "costCents": 3800,
+    "minCostCents": 3800,
+    "maxCostCents": 3800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Look for two basic ramen bowls using a $38 combined planning allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check add-on prices and whether tax or service is extra.",
+    "theme": "ramen-meal"
+  },
+  {
+    "id": "outing-dinner-sushi-simple",
+    "name": "Simple sushi-roll dinner",
+    "category": "dinner",
+    "costCents": 3800,
+    "minCostCents": 3800,
+    "maxCostCents": 3800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose a modest roll order for two, using a $38 combined estimate rather than unlimited dining.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Review portions, allergens and the final bill first.",
+    "theme": "sushi-meal"
+  },
+  {
+    "id": "outing-dinner-mediterranean",
+    "name": "Mediterranean bowls",
+    "category": "dinner",
+    "costCents": 3200,
+    "minCostCents": 3200,
+    "maxCostCents": 3200,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Pick two counter-service bowls or wraps with a $32 combined estimated allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Make a shared topping ranking.",
+    "theme": "mediterranean-meal"
+  },
+  {
+    "id": "outing-dinner-food-truck",
+    "name": "Food-truck picnic",
+    "category": "dinner",
+    "costCents": 3000,
+    "minCostCents": 3000,
+    "maxCostCents": 3000,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Choose an operating food truck with public outdoor seating nearby; allow $30 for two meals.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm the truck location and menu on the day.",
+    "theme": "food-truck-meal"
+  },
+  {
+    "id": "outing-dinner-italian-casual",
+    "name": "Casual Italian dinner",
+    "category": "dinner",
+    "costCents": 5500,
+    "minCostCents": 5500,
+    "maxCostCents": 5500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Look for two basic entrees at a casual Italian restaurant; $55 is a combined planning allowance including a reserve for tax and tip.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Choose water and check the menu before committing.",
+    "theme": "italian-meal"
+  },
+  {
+    "id": "outing-dinner-family-restaurant",
+    "name": "A family-owned restaurant discovery",
+    "category": "dinner",
+    "costCents": 4800,
+    "minCostCents": 4800,
+    "maxCostCents": 4800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Explore a local family-owned restaurant with a $48 combined estimated spending allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Look up an actual menu; this idea does not guarantee a nearby venue.",
+    "theme": "restaurant-meal"
+  },
+  {
+    "id": "outing-dinner-barbecue",
+    "name": "Share a barbecue platter",
+    "category": "dinner",
+    "costCents": 5500,
+    "minCostCents": 5500,
+    "maxCostCents": 5500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Find a barbecue menu with a platter suitable for two; allow $55 combined as an estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask about sides and serving sizes.",
+    "theme": "barbecue-meal"
+  },
+  {
+    "id": "outing-dinner-upscale-diner",
+    "name": "Dress-up diner night",
+    "category": "dinner",
+    "costCents": 6500,
+    "minCostCents": 6500,
+    "maxCostCents": 6500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Make a nicer diner outing with two meals and a $65 combined allowance including tax and tip reserve.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Pick a booth and trade your favorite diner memories.",
+    "theme": "diner-meal"
+  },
+  {
+    "id": "outing-dinner-hibachi",
+    "name": "Hibachi dinner together",
+    "category": "dinner",
+    "costCents": 10000,
+    "minCostCents": 10000,
+    "maxCostCents": 10000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan a two-person hibachi dinner with a $100 combined allowance. Confirm the actual menu, fees and seating format.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check whether the show-style grill requires reservations.",
+    "theme": "hibachi-meal"
+  },
+  {
+    "id": "outing-dinner-hot-pot",
+    "name": "Build-your-own hot pot",
+    "category": "dinner",
+    "costCents": 9500,
+    "minCostCents": 9500,
+    "maxCostCents": 9500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose a hot-pot restaurant after checking its menu; $95 is an illustrative total allowance for two.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Agree on spice levels and shared broth choices first.",
+    "theme": "hot-pot-meal"
+  },
+  {
+    "id": "outing-dinner-korean-bbq",
+    "name": "Korean barbecue dinner",
+    "category": "dinner",
+    "costCents": 11500,
+    "minCostCents": 11500,
+    "maxCostCents": 11500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan two admissions or a shared grill order with a $115 combined estimate. Menus, service charges and minimums vary.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check time limits and tax, tip and service charges.",
+    "theme": "korean-bbq-meal"
+  },
+  {
+    "id": "outing-dinner-seafood",
+    "name": "Seafood restaurant date",
+    "category": "dinner",
+    "costCents": 13000,
+    "minCostCents": 13000,
+    "maxCostCents": 13000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose two seafood meals within an illustrative $130 combined spending allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Avoid market-price items until the server confirms the total.",
+    "theme": "seafood-meal"
+  },
+  {
+    "id": "outing-dinner-steakhouse",
+    "name": "Steakhouse treat night",
+    "category": "dinner",
+    "costCents": 18000,
+    "minCostCents": 18000,
+    "maxCostCents": 18000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Set aside an estimated $180 for two steakhouse meals with a tax and tip reserve, without assuming drinks are included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check whether sides are separate before ordering.",
+    "theme": "steakhouse-meal"
+  },
+  {
+    "id": "outing-dinner-brazilian",
+    "name": "Brazilian steakhouse experience",
+    "category": "dinner",
+    "costCents": 19000,
+    "minCostCents": 19000,
+    "maxCostCents": 19000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan an estimated $190 combined for two at a Brazilian steakhouse; confirm actual admission, tax, service and tip.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask what the advertised rate includes.",
+    "theme": "brazilian-meal"
+  },
+  {
+    "id": "outing-dinner-romantic-room",
+    "name": "A romantic sit-down dinner",
+    "category": "dinner",
+    "costCents": 15000,
+    "minCostCents": 15000,
+    "maxCostCents": 15000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose a real restaurant and menu within a $150 combined estimated allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Reserve after checking cancellation terms and the actual bill estimate.",
+    "theme": "romantic-meal"
+  },
+  {
+    "id": "outing-dinner-patio",
+    "name": "Patio dinner for two",
+    "category": "dinner",
+    "costCents": 7000,
+    "minCostCents": 7000,
+    "maxCostCents": 7000,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Find a restaurant that confirms outdoor seating; use a $70 combined estimated allowance for two meals.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm weather and patio availability before leaving.",
+    "theme": "patio-meal"
+  },
+  {
+    "id": "outing-dinner-fancy-tasting",
+    "name": "A special tasting-menu evening",
+    "category": "dinner",
+    "costCents": 35000,
+    "minCostCents": 35000,
+    "maxCostCents": 35000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Use a $350 combined planning allowance for a tasting menu only after checking the official price and mandatory charges.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍽️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm two seats, age rules and the cancellation policy.",
+    "theme": "tasting-meal"
+  },
+  {
+    "id": "outing-activity-thrift-no-buy",
+    "name": "Thrift-store treasure hunt",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Browse a shop that allows free entry and find the funniest object without buying anything. Purchases are not included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Be respectful of merchandise and ask before taking photos.",
+    "theme": "thrifting"
+  },
+  {
+    "id": "outing-activity-thrift-ten",
+    "name": "The $10 thrift-store challenge",
+    "category": "activity",
+    "costCents": 1000,
+    "minCostCents": 1000,
+    "maxCostCents": 1000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Spend no more than $10 combined finding a small secondhand surprise for each other. This is a purchase cap, not a store price.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Agree whether tax must fit inside the $10 cap.",
+    "theme": "thrifting"
+  },
+  {
+    "id": "outing-activity-thrift-outfits",
+    "name": "Pick thrifted outfits for each other",
+    "category": "activity",
+    "costCents": 3000,
+    "minCostCents": 3000,
+    "maxCostCents": 3000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Browse secondhand clothing and try to assemble two outfits with a $30 combined spending cap. Buying is optional if nothing fits.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check fitting-room rules and condition.",
+    "theme": "thrifting"
+  },
+  {
+    "id": "outing-activity-thrift-matching",
+    "name": "Find matching thrift-store accessories",
+    "category": "activity",
+    "costCents": 1600,
+    "minCostCents": 1600,
+    "maxCostCents": 1600,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Hunt for a matching color or accessory with a $16 combined purchase allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Set a timer and compare your finds.",
+    "theme": "thrifting"
+  },
+  {
+    "id": "outing-activity-thrift-five-gift",
+    "name": "Find each other a gift under $5",
+    "category": "activity",
+    "costCents": 1000,
+    "minCostCents": 1000,
+    "maxCostCents": 1000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose a secondhand gift for each other with a $10 combined cap including tax. Availability and prices vary.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Make a story explaining why you chose the gift.",
+    "theme": "thrifting"
+  },
+  {
+    "id": "outing-activity-thrift-weird",
+    "name": "Find the weirdest secondhand item",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Browse a free-entry thrift or vintage shop and nominate the strangest item without purchasing it.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Leave every item where you found it.",
+    "theme": "thrifting"
+  },
+  {
+    "id": "outing-activity-thrift-vintage",
+    "name": "Vintage decade hunt",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Look for clothing or objects from a favorite decade at a free-entry shop. This is a no-purchase browse.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Pick a decade before entering.",
+    "theme": "thrifting"
+  },
+  {
+    "id": "outing-activity-thrift-upcycle",
+    "name": "Find an item to upcycle",
+    "category": "activity",
+    "costCents": 1600,
+    "minCostCents": 1600,
+    "maxCostCents": 1600,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose one secondhand item within a $16 combined purchase cap to use in a later craft project. Craft materials are not included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Avoid purchases needing repairs you cannot do.",
+    "theme": "thrifting"
+  },
+  {
+    "id": "outing-activity-mall",
+    "name": "Mall window-shopping bingo",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Walk a mall that allows free public entry and find items from a made-up bingo list. Purchases and parking are extra.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Include a ridiculous hat and a dream sofa on the list.",
+    "theme": "window-shopping"
+  },
+  {
+    "id": "outing-activity-bookstore",
+    "name": "Bookstore recommendation swap",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Browse a free-entry bookstore and each recommend a book for the other. No purchase is budgeted.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask before sitting or reading for a long time.",
+    "theme": "book-browsing"
+  },
+  {
+    "id": "outing-activity-records",
+    "name": "Record-store album-cover awards",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Browse a free-entry record shop and choose imaginary awards for album covers. Records are not included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Keep sleeves and records in their original condition.",
+    "theme": "record-browsing"
+  },
+  {
+    "id": "outing-activity-antiques",
+    "name": "Antique-shop story challenge",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Browse a free-entry antique shop and invent a story for an unusual object. No purchase is included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Look without handling fragile objects.",
+    "theme": "antique-browsing"
+  },
+  {
+    "id": "outing-activity-hobby",
+    "name": "Hobby-shop dream project",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Visit a free-entry hobby shop and each choose a future project to learn about. No supplies are purchased.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask about a beginner-friendly project.",
+    "theme": "hobby-browsing"
+  },
+  {
+    "id": "outing-activity-craft-store",
+    "name": "Craft-store color challenge",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Browse a free-entry craft store and choose a color palette for a future shared project. No purchase is included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Write down ideas instead of opening packages.",
+    "theme": "craft-browsing"
+  },
+  {
+    "id": "outing-activity-farm-market",
+    "name": "Farmers-market snack discovery",
+    "category": "activity",
+    "costCents": 1400,
+    "minCostCents": 1400,
+    "maxCostCents": 1400,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Find a market that confirms free entry and allow $14 combined for optional produce or a small snack purchase.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm the market date and stall prices.",
+    "theme": "market-browsing"
+  },
+  {
+    "id": "outing-activity-flea-market",
+    "name": "Flea-market treasure budget",
+    "category": "activity",
+    "costCents": 2500,
+    "minCostCents": 2500,
+    "maxCostCents": 2500,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Use a $25 combined allowance for a flea market only after confirming any admission and desired purchase prices fit.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Leave if entry plus purchases exceed the allowance.",
+    "theme": "flea-market"
+  },
+  {
+    "id": "outing-activity-bowling",
+    "name": "One-game bowling date",
+    "category": "activity",
+    "costCents": 4500,
+    "minCostCents": 4500,
+    "maxCostCents": 4500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan a modest bowling session for two with a $45 combined estimated allowance including rental shoes where possible.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Confirm lane versus per-person charges and shoe rental.",
+    "theme": "bowling"
+  },
+  {
+    "id": "outing-activity-mini-golf",
+    "name": "Indoor mini-golf rivalry",
+    "category": "activity",
+    "costCents": 3500,
+    "minCostCents": 3500,
+    "maxCostCents": 3500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan one indoor mini-golf round for two with a $35 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check admission and reservation fees before going.",
+    "theme": "mini-golf"
+  },
+  {
+    "id": "outing-activity-arcade",
+    "name": "Arcade token team-up",
+    "category": "activity",
+    "costCents": 2500,
+    "minCostCents": 2500,
+    "maxCostCents": 2500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Use a $25 combined credit allowance at an arcade with no separate entry fee, after confirming its policy.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Choose cooperative games and stop when credits run out.",
+    "theme": "arcade"
+  },
+  {
+    "id": "outing-activity-roller",
+    "name": "Roller-skating together",
+    "category": "activity",
+    "costCents": 4500,
+    "minCostCents": 4500,
+    "maxCostCents": 4500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Allow an estimated $45 combined for two admissions and skate rental at a roller rink.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check session times, waivers and rental charges.",
+    "theme": "skating"
+  },
+  {
+    "id": "outing-activity-ice",
+    "name": "Ice-skating date",
+    "category": "activity",
+    "costCents": 5000,
+    "minCostCents": 5000,
+    "maxCostCents": 5000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan an estimated $50 combined for public ice skating and two skate rentals.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm a public session and check gloves or helmet rules.",
+    "theme": "skating"
+  },
+  {
+    "id": "outing-activity-climbing",
+    "name": "Beginner indoor climbing",
+    "category": "activity",
+    "costCents": 8500,
+    "minCostCents": 8500,
+    "maxCostCents": 8500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Use an $85 combined estimated allowance for beginner entry and rental gear after confirming the facility rules.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Under-18 waivers or an adult may be required; check before booking.",
+    "theme": "climbing"
+  },
+  {
+    "id": "outing-activity-trampoline",
+    "name": "Trampoline-park challenge",
+    "category": "activity",
+    "costCents": 8000,
+    "minCostCents": 8000,
+    "maxCostCents": 8000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan two admissions and required socks within an $80 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm session duration, guardian rules and waiver requirements.",
+    "theme": "trampoline"
+  },
+  {
+    "id": "outing-activity-escape",
+    "name": "Escape-room teamwork",
+    "category": "activity",
+    "costCents": 10000,
+    "minCostCents": 10000,
+    "maxCostCents": 10000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Budget an estimated $100 combined for an escape-room booking for two. Minimum player or private-room charges may cost more.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm the room supports two players and the full booking total.",
+    "theme": "escape-room"
+  },
+  {
+    "id": "outing-activity-pottery",
+    "name": "Pottery-painting studio",
+    "category": "activity",
+    "costCents": 7500,
+    "minCostCents": 7500,
+    "maxCostCents": 7500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Allow $75 combined for two modest pottery pieces and studio fees at a studio whose prices fit.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm firing fees, pickup timing and whether paint is included.",
+    "theme": "pottery"
+  },
+  {
+    "id": "outing-activity-art-class",
+    "name": "Alcohol-free art workshop",
+    "category": "activity",
+    "costCents": 9000,
+    "minCostCents": 9000,
+    "maxCostCents": 9000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan an alcohol-free couples painting workshop with a $90 combined estimate for admission and materials.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm the session accepts your ages and includes supplies.",
+    "theme": "painting"
+  },
+  {
+    "id": "outing-activity-museum",
+    "name": "Museum discovery date",
+    "category": "activity",
+    "costCents": 4500,
+    "minCostCents": 4500,
+    "maxCostCents": 4500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Set aside an estimated $45 for two museum tickets after checking the actual admission and exhibit fees.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check whether advance timed entry is required.",
+    "theme": "museum"
+  },
+  {
+    "id": "outing-activity-aquarium",
+    "name": "Aquarium adventure",
+    "category": "activity",
+    "costCents": 10000,
+    "minCostCents": 10000,
+    "maxCostCents": 10000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Use a $100 combined estimated allowance for two aquarium admissions. Parking and optional animal encounters are extra.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check the dated ticket price before making the trip.",
+    "theme": "aquarium"
+  },
+  {
+    "id": "outing-activity-go-karts",
+    "name": "Indoor go-kart race",
+    "category": "activity",
+    "costCents": 11000,
+    "minCostCents": 11000,
+    "maxCostCents": 11000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan a small race package for two within a $110 combined allowance, including required fees only if the track confirms them.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check height, age, license and helmet requirements.",
+    "theme": "go-karting"
+  },
+  {
+    "id": "outing-activity-laser-tag",
+    "name": "Laser-tag team date",
+    "category": "activity",
+    "costCents": 5000,
+    "minCostCents": 5000,
+    "maxCostCents": 5000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Allow an estimated $50 combined for two laser-tag admissions or a short package.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Confirm age rules, game count and any card activation fees.",
+    "theme": "laser-tag"
+  },
+  {
+    "id": "outing-activity-pool",
+    "name": "Pool-hall skill swap",
+    "category": "activity",
+    "costCents": 3500,
+    "minCostCents": 3500,
+    "maxCostCents": 3500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Reserve a short table session with a $35 combined estimate at a venue accepting your ages. Food and drinks are extra.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask whether billing is by table or person.",
+    "theme": "pool"
+  },
+  {
+    "id": "outing-activity-board-cafe",
+    "name": "Board-game cafe sampler",
+    "category": "activity",
+    "costCents": 3000,
+    "minCostCents": 3000,
+    "maxCostCents": 3000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Use a $30 combined estimate for table or game-cover fees at an all-ages board-game cafe. Food minimums may cost more.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check cover charges and required purchases.",
+    "theme": "board-games"
+  },
+  {
+    "id": "outing-activity-cat-cafe",
+    "name": "Cat-cafe visit",
+    "category": "activity",
+    "costCents": 5000,
+    "minCostCents": 5000,
+    "maxCostCents": 5000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan two visits with a $50 combined estimate after confirming reservations and age rules. Drinks may be extra.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check allergies and follow the cats lead.",
+    "theme": "cat-cafe"
+  },
+  {
+    "id": "outing-activity-park",
+    "name": "Park conversation trail",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Choose a public park with confirmed free entry and take a gentle walk. Parking and transport are extra.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Pick a safe open route and check closing time.",
+    "theme": "park-walk"
+  },
+  {
+    "id": "outing-activity-nature",
+    "name": "Nature trail photo prompts",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Find a public trail with confirmed free entry and take photos from a short prompt list. No equipment rental is included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Stay on marked paths and match the route to your abilities.",
+    "theme": "nature-walk"
+  },
+  {
+    "id": "outing-activity-lake",
+    "name": "Lakeside loop",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Walk a public lakeside route with confirmed free access and enjoy conversation. Parking can cost extra.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check public access points and park hours.",
+    "theme": "lake-walk"
+  },
+  {
+    "id": "outing-activity-garden",
+    "name": "Public garden stroll",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Choose a public garden that confirms free entry for your visit. Special exhibitions are not included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check seasonal opening and avoid picking flowers.",
+    "theme": "garden-walk"
+  },
+  {
+    "id": "outing-activity-hike",
+    "name": "Short scenic hike",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Pick a free-entry marked trail suited to both people. Equipment, parking and travel are not included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check conditions and turn back before it gets dark.",
+    "theme": "hiking"
+  },
+  {
+    "id": "outing-activity-town",
+    "name": "Explore a nearby downtown",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Explore public streets and storefronts in a nearby town without a planned purchase.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Choose a public meeting place and check the route.",
+    "theme": "town-exploring"
+  },
+  {
+    "id": "outing-activity-basketball",
+    "name": "A casual public-court game",
+    "category": "activity",
+    "costCents": 1500,
+    "minCostCents": 1500,
+    "maxCostCents": 1500,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Use a free public court and a $15 combined allowance for one basic basketball if needed. Confirm the equipment price and court access first.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check court rules and choose a low-pressure game.",
+    "theme": "basketball"
+  },
+  {
+    "id": "outing-activity-tennis",
+    "name": "Public-court tennis session",
+    "category": "activity",
+    "costCents": 5000,
+    "minCostCents": 5000,
+    "maxCostCents": 5000,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Allow $50 combined for basic rackets, balls and any court charge only where the actual total fits. This is an estimate, not a venue quote.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm permit rules, court access and equipment prices first.",
+    "theme": "tennis"
+  },
+  {
+    "id": "outing-activity-kite",
+    "name": "Fly a kite together",
+    "category": "activity",
+    "costCents": 1600,
+    "minCostCents": 1600,
+    "maxCostCents": 1600,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Allow $16 combined for one simple kite and use a free public open space.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Keep well away from roads, power lines and storms.",
+    "theme": "kite-flying"
+  },
+  {
+    "id": "outing-activity-beach",
+    "name": "Off-season beach walk",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Choose a beach with confirmed free off-season access. Seasonal admission, parking and transport are not budgeted.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Verify local access rules and weather before leaving.",
+    "theme": "beach-walk"
+  },
+  {
+    "id": "outing-activity-boardwalk",
+    "name": "Boardwalk postcard hunt",
+    "category": "activity",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Walk a publicly accessible boardwalk and find three photo-worthy views. Attractions and purchases are extra.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm open access and parking costs.",
+    "theme": "boardwalk-walk"
+  },
+  {
+    "id": "outing-activity-outdoor-golf",
+    "name": "Outdoor mini-golf round",
+    "category": "activity",
+    "costCents": 3500,
+    "minCostCents": 3500,
+    "maxCostCents": 3500,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Plan one outdoor mini-golf round for two within a $35 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm seasonal operation and the admission total.",
+    "theme": "mini-golf"
+  },
+  {
+    "id": "outing-activity-botanical",
+    "name": "Botanical-garden visit",
+    "category": "activity",
+    "costCents": 5500,
+    "minCostCents": 5500,
+    "maxCostCents": 5500,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Allow an estimated $55 combined for two botanical-garden admissions. Special exhibits or parking may be extra.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check dated ticket prices and weather.",
+    "theme": "garden-walk"
+  },
+  {
+    "id": "outing-activity-zoo",
+    "name": "Zoo discovery day",
+    "category": "activity",
+    "costCents": 6000,
+    "minCostCents": 6000,
+    "maxCostCents": 6000,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Use a $60 combined estimated allowance for two zoo admissions where the actual ticket total fits.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check seasonal hours and parking fees.",
+    "theme": "zoo"
+  },
+  {
+    "id": "outing-activity-pumpkin",
+    "name": "Pumpkin-patch outing",
+    "category": "activity",
+    "costCents": 4000,
+    "minCostCents": 4000,
+    "maxCostCents": 4000,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Allow $40 combined for a pumpkin-patch visit after confirming admission and pumpkin pricing.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Only choose a currently operating seasonal farm.",
+    "theme": "pumpkin-patch",
+    "seasons": [
+      9,
+      10
+    ]
+  },
+  {
+    "id": "outing-activity-apple",
+    "name": "Apple-picking adventure",
+    "category": "activity",
+    "costCents": 5000,
+    "minCostCents": 5000,
+    "maxCostCents": 5000,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Plan a $50 combined allowance for orchard admission and a modest picking bag only where the posted total fits.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check crop conditions, minimum bag size and reservation rules.",
+    "theme": "apple-picking",
+    "seasons": [
+      8,
+      9,
+      10
+    ]
+  },
+  {
+    "id": "outing-activity-lights",
+    "name": "Outdoor holiday-light trail",
+    "category": "activity",
+    "costCents": 5000,
+    "minCostCents": 5000,
+    "maxCostCents": 5000,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Use a $50 combined estimate for a seasonal light trail only after confirming tickets and fees.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check event dates, age rules and whether the price is per car or person.",
+    "theme": "holiday-lights",
+    "seasons": [
+      11,
+      12,
+      1
+    ]
+  },
+  {
+    "id": "outing-treat-shared-cake",
+    "name": "Share a slice of cake",
+    "category": "treat",
+    "costCents": 700,
+    "minCostCents": 700,
+    "maxCostCents": 700,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose one modest slice at a bakery with a $7 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask for two forks and confirm tax.",
+    "theme": "cake-dessert"
+  },
+  {
+    "id": "outing-treat-shared-brownie",
+    "name": "Split a bakery brownie",
+    "category": "treat",
+    "costCents": 500,
+    "minCostCents": 500,
+    "maxCostCents": 500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Pick one brownie to share with a $5 combined estimated allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Choose a flavor together.",
+    "theme": "brownie-dessert"
+  },
+  {
+    "id": "outing-treat-shared-milkshake",
+    "name": "Share a milkshake",
+    "category": "treat",
+    "costCents": 800,
+    "minCostCents": 800,
+    "maxCostCents": 800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Order one shake with two straws where appropriate; allow $8 combined as an estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask about ingredients and allergies.",
+    "theme": "milkshake-dessert"
+  },
+  {
+    "id": "outing-treat-donuts",
+    "name": "Donuts for two",
+    "category": "treat",
+    "costCents": 600,
+    "minCostCents": 600,
+    "maxCostCents": 600,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose two simple donuts with a $6 combined estimated allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Swap halves to try both.",
+    "theme": "donut-dessert"
+  },
+  {
+    "id": "outing-treat-cookies",
+    "name": "Cookie-shop flavor swap",
+    "category": "treat",
+    "costCents": 800,
+    "minCostCents": 800,
+    "maxCostCents": 800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Pick two modest cookies with an $8 combined estimated allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Choose contrasting flavors.",
+    "theme": "cookie-dessert"
+  },
+  {
+    "id": "outing-treat-small-ice-cream",
+    "name": "Small ice creams",
+    "category": "treat",
+    "costCents": 1000,
+    "minCostCents": 1000,
+    "maxCostCents": 1000,
+    "settings": [
+      "indoor",
+      "outdoor"
+    ],
+    "locationType": "flexible",
+    "description": "Find a counter offering two small servings within a $10 combined estimate; choose indoor seating or take them outside.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check topping and cone extras.",
+    "theme": "ice-cream-dessert"
+  },
+  {
+    "id": "outing-treat-italian-ice",
+    "name": "Italian ice cups",
+    "category": "treat",
+    "costCents": 900,
+    "minCostCents": 900,
+    "maxCostCents": 900,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Pick two small Italian ice cups from a seasonal stand with a $9 combined estimated allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check seasonal operation first.",
+    "theme": "italian-ice-dessert"
+  },
+  {
+    "id": "outing-treat-convenience",
+    "name": "Convenience-store snack pick",
+    "category": "treat",
+    "costCents": 600,
+    "minCostCents": 600,
+    "maxCostCents": 600,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Choose two small packaged snacks within a $6 combined spending cap and enjoy them in a public outdoor space.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Read the shelf prices and keep tax in the cap.",
+    "theme": "snack-dessert"
+  },
+  {
+    "id": "outing-treat-candy",
+    "name": "Candy-store mini challenge",
+    "category": "treat",
+    "costCents": 800,
+    "minCostCents": 800,
+    "maxCostCents": 800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose a small combined candy purchase capped at $8 including tax.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Weigh bulk candy before committing.",
+    "theme": "candy-dessert"
+  },
+  {
+    "id": "outing-treat-coffee",
+    "name": "Simple coffees together",
+    "category": "treat",
+    "costCents": 900,
+    "minCostCents": 900,
+    "maxCostCents": 900,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose two basic coffees with a $9 combined planning allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check whether specialty drinks would cost more.",
+    "theme": "coffee-dessert"
+  },
+  {
+    "id": "outing-treat-hot-chocolate",
+    "name": "Hot chocolates after dark",
+    "category": "treat",
+    "costCents": 1200,
+    "minCostCents": 1200,
+    "maxCostCents": 1200,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Use a $12 combined estimate for two basic hot chocolates.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Find a quiet table and exchange your favorite winter memory.",
+    "theme": "hot-chocolate-dessert"
+  },
+  {
+    "id": "outing-treat-bakery",
+    "name": "Bakery pastry swap",
+    "category": "treat",
+    "costCents": 1200,
+    "minCostCents": 1200,
+    "maxCostCents": 1200,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Pick two modest pastries within a $12 combined estimated allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Each choose one for the other.",
+    "theme": "pastry-dessert"
+  },
+  {
+    "id": "outing-treat-bubble-tea",
+    "name": "Bubble-tea flavor adventure",
+    "category": "treat",
+    "costCents": 1600,
+    "minCostCents": 1600,
+    "maxCostCents": 1600,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Try two basic bubble teas using a $16 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check topping charges and caffeine preferences.",
+    "theme": "bubble-tea-dessert"
+  },
+  {
+    "id": "outing-treat-frozen-yogurt",
+    "name": "Frozen-yogurt topping challenge",
+    "category": "treat",
+    "costCents": 1600,
+    "minCostCents": 1600,
+    "maxCostCents": 1600,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Set a $16 combined cap at a frozen-yogurt shop and monitor the weight-based price.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Keep cups small and weigh before adding more.",
+    "theme": "frozen-yogurt-dessert"
+  },
+  {
+    "id": "outing-treat-smoothies",
+    "name": "Smoothie-shop refresh",
+    "category": "treat",
+    "costCents": 1800,
+    "minCostCents": 1800,
+    "maxCostCents": 1800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan an $18 combined estimated allowance for two small smoothies.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Skip supplements unless they fit the cap.",
+    "theme": "smoothie-dessert"
+  },
+  {
+    "id": "outing-treat-cupcakes",
+    "name": "Cupcake taste test",
+    "category": "treat",
+    "costCents": 1100,
+    "minCostCents": 1100,
+    "maxCostCents": 1100,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose two cupcakes with an $11 combined estimated allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Compare frosting and cake separately.",
+    "theme": "cupcake-dessert"
+  },
+  {
+    "id": "outing-treat-cheesecake",
+    "name": "Cheesecake slice for two",
+    "category": "treat",
+    "costCents": 1100,
+    "minCostCents": 1100,
+    "maxCostCents": 1100,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Share one modest cheesecake slice within an $11 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask about portion size and extras.",
+    "theme": "cheesecake-dessert"
+  },
+  {
+    "id": "outing-treat-gelato",
+    "name": "Gelato flavor swap",
+    "category": "treat",
+    "costCents": 1500,
+    "minCostCents": 1500,
+    "maxCostCents": 1500,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Choose two small gelatos to enjoy outdoors using a $15 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Try a new flavor before ordering if samples are offered.",
+    "theme": "gelato-dessert"
+  },
+  {
+    "id": "outing-treat-churros",
+    "name": "Churros to share",
+    "category": "treat",
+    "costCents": 1200,
+    "minCostCents": 1200,
+    "maxCostCents": 1200,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Share a modest churro order with a $12 combined estimate at an operating stand.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm sauces are included.",
+    "theme": "churro-dessert"
+  },
+  {
+    "id": "outing-treat-crepes",
+    "name": "Sweet crepe for two",
+    "category": "treat",
+    "costCents": 1600,
+    "minCostCents": 1600,
+    "maxCostCents": 1600,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Share one large sweet crepe with a $16 combined estimated allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Choose one filling each and check extra charges.",
+    "theme": "crepe-dessert"
+  },
+  {
+    "id": "outing-treat-waffles",
+    "name": "Dessert waffle to share",
+    "category": "treat",
+    "costCents": 1800,
+    "minCostCents": 1800,
+    "maxCostCents": 1800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Split one dessert waffle within an $18 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask for sauces on the side.",
+    "theme": "waffle-dessert"
+  },
+  {
+    "id": "outing-treat-cinnamon",
+    "name": "Warm cinnamon-roll stop",
+    "category": "treat",
+    "costCents": 1000,
+    "minCostCents": 1000,
+    "maxCostCents": 1000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Share a large roll or choose two small rolls within a $10 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check size and price before ordering.",
+    "theme": "cinnamon-roll-dessert"
+  },
+  {
+    "id": "outing-treat-mochi-donuts",
+    "name": "Mochi-donut sampler",
+    "category": "treat",
+    "costCents": 1500,
+    "minCostCents": 1500,
+    "maxCostCents": 1500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose a small shared sampler within a $15 combined estimated allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Ask which flavors are available that day.",
+    "theme": "donut-dessert"
+  },
+  {
+    "id": "outing-treat-macarons",
+    "name": "Macaron flavor ranking",
+    "category": "treat",
+    "costCents": 1800,
+    "minCostCents": 1800,
+    "maxCostCents": 1800,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Share a modest macaron selection with an $18 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Rank texture and flavor.",
+    "theme": "macaron-dessert"
+  },
+  {
+    "id": "outing-treat-chocolate",
+    "name": "Chocolate-shop tasting picks",
+    "category": "treat",
+    "costCents": 2000,
+    "minCostCents": 2000,
+    "maxCostCents": 2000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose a small assortment with a $20 combined purchase cap.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check per-piece or weight pricing.",
+    "theme": "chocolate-dessert"
+  },
+  {
+    "id": "outing-treat-sundaes",
+    "name": "Ice-cream sundae outing",
+    "category": "treat",
+    "costCents": 2400,
+    "minCostCents": 2400,
+    "maxCostCents": 2400,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose two modest sundaes with a $24 combined estimated allowance.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check premium topping charges.",
+    "theme": "ice-cream-dessert"
+  },
+  {
+    "id": "outing-treat-dessert-cafe",
+    "name": "Dessert-cafe discovery",
+    "category": "treat",
+    "costCents": 3200,
+    "minCostCents": 3200,
+    "maxCostCents": 3200,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Find an actual dessert cafe and build a shared order within a $32 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Review the menu and any table minimum.",
+    "theme": "dessert-cafe"
+  },
+  {
+    "id": "outing-treat-fancy-dessert",
+    "name": "Dress-up plated dessert date",
+    "category": "treat",
+    "costCents": 4500,
+    "minCostCents": 4500,
+    "maxCostCents": 4500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose two plated desserts within a $45 combined estimate including a tax and tip reserve.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🍨",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm the venue permits dessert-only visits.",
+    "theme": "plated-dessert"
+  },
+  {
+    "id": "outing-entertainment-sunset",
+    "name": "Public sunset-viewing spot",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Visit a public location with confirmed free access to watch the sunset. Parking and transport are extra.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check closing hours and do not enter closed grounds.",
+    "theme": "sunset"
+  },
+  {
+    "id": "outing-entertainment-stars",
+    "name": "A simple stargazing stop",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Find a legal, safe public spot with free after-dark access and look for bright stars. No equipment is needed.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check weather and return before the site closes.",
+    "theme": "stargazing"
+  },
+  {
+    "id": "outing-entertainment-downtown",
+    "name": "Downtown after-dinner stroll",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Enjoy public streets and window displays without planning a purchase.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Choose well-lit public areas and check your route.",
+    "theme": "town-exploring"
+  },
+  {
+    "id": "outing-entertainment-public-art",
+    "name": "Outdoor public-art evening",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Find freely accessible public art and choose your favorite pieces. Private exhibitions are not included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check whether the site is open after dark.",
+    "theme": "public-art"
+  },
+  {
+    "id": "outing-entertainment-street-performance",
+    "name": "A permitted public performance",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Watch a public street performance only where free viewing is confirmed and an event is actually happening. Optional tips are not included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check a current local event listing rather than assuming a performance.",
+    "theme": "live-performance"
+  },
+  {
+    "id": "outing-entertainment-community-concert",
+    "name": "Free community concert",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Choose a currently scheduled community concert explicitly advertised as free admission. No refreshments are included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm date, cancellation updates and access rules.",
+    "theme": "live-music"
+  },
+  {
+    "id": "outing-entertainment-outdoor-movie",
+    "name": "Free community outdoor movie",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Find a currently scheduled screening advertised as free admission. No rental gear, parking or concessions are included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Bring an already-owned seat or choose a venue with seating.",
+    "theme": "cinema"
+  },
+  {
+    "id": "outing-entertainment-public-gallery",
+    "name": "Free public art exhibition",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose an exhibition with confirmed free public admission on your date.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check hours and whether a special exhibition costs extra.",
+    "theme": "art-exhibition"
+  },
+  {
+    "id": "outing-entertainment-library-event",
+    "name": "Free library entertainment event",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose an actual public library performance or film event advertised as free and open to you.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check registration, age and residency requirements first.",
+    "theme": "library-event"
+  },
+  {
+    "id": "outing-entertainment-free-festival",
+    "name": "Free-entry neighborhood festival",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Visit a scheduled festival that explicitly confirms free entry. Rides, food and purchases are not included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check the official event page and weather updates.",
+    "theme": "festival"
+  },
+  {
+    "id": "outing-entertainment-fireworks",
+    "name": "Public fireworks display",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Find a legal public viewing area for a scheduled fireworks display with confirmed free access.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check event dates, crowd rules and transport plans.",
+    "theme": "fireworks"
+  },
+  {
+    "id": "outing-entertainment-holiday-market",
+    "name": "Holiday-market window shopping",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Browse a seasonal market with confirmed free entry. Purchases and parking are extra.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Verify dates and avoid treating an unannounced event as available.",
+    "theme": "holiday-market",
+    "seasons": [
+      11,
+      12
+    ]
+  },
+  {
+    "id": "outing-entertainment-movie-matinee",
+    "name": "Movie-theater matinee",
+    "category": "entertainment",
+    "costCents": 3500,
+    "minCostCents": 3500,
+    "maxCostCents": 3500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan an estimated $35 combined for two standard matinee tickets at a cinema whose actual price fits. Snacks are extra.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check showtimes, format surcharges and age ratings.",
+    "theme": "cinema"
+  },
+  {
+    "id": "outing-entertainment-movie-evening",
+    "name": "Movie-theater evening",
+    "category": "entertainment",
+    "costCents": 4500,
+    "minCostCents": 4500,
+    "maxCostCents": 4500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Set aside a $45 combined estimate for two standard evening tickets. Premium formats and concessions may cost more.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check the final checkout total before booking.",
+    "theme": "cinema"
+  },
+  {
+    "id": "outing-entertainment-drive-in",
+    "name": "Drive-in movie night",
+    "category": "entertainment",
+    "costCents": 4500,
+    "minCostCents": 4500,
+    "maxCostCents": 4500,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Use a $45 combined estimate for one car with two people, only where the posted admission fits.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm seasonal operation, car audio needs and ticket rules.",
+    "theme": "cinema"
+  },
+  {
+    "id": "outing-entertainment-bowling",
+    "name": "Bowling after dinner",
+    "category": "entertainment",
+    "costCents": 5000,
+    "minCostCents": 5000,
+    "maxCostCents": 5000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan a short two-person bowling session within a $50 combined estimate including shoes if required.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Check whether the charge is by lane, hour or person.",
+    "theme": "bowling"
+  },
+  {
+    "id": "outing-entertainment-arcade",
+    "name": "Arcade high-score challenge",
+    "category": "entertainment",
+    "costCents": 2500,
+    "minCostCents": 2500,
+    "maxCostCents": 2500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Use a $25 combined credit cap at an arcade with confirmed no separate admission fee.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Stop when the shared credit budget is spent.",
+    "theme": "arcade"
+  },
+  {
+    "id": "outing-entertainment-karaoke",
+    "name": "Private-room karaoke sampler",
+    "category": "entertainment",
+    "costCents": 6500,
+    "minCostCents": 6500,
+    "maxCostCents": 6500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Use a $65 combined estimate for a short karaoke booking at an all-ages venue. Minimum charges may cost more.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Confirm room rate, minimum time and required purchases.",
+    "theme": "karaoke"
+  },
+  {
+    "id": "outing-entertainment-trivia",
+    "name": "All-ages trivia outing",
+    "category": "entertainment",
+    "costCents": 2000,
+    "minCostCents": 2000,
+    "maxCostCents": 2000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose a real all-ages trivia event and use a $20 combined allowance for any entry or required purchases only if the actual total fits.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check event age rules and food or drink minimums.",
+    "theme": "trivia"
+  },
+  {
+    "id": "outing-entertainment-local-sports",
+    "name": "Local sports game",
+    "category": "entertainment",
+    "costCents": 4000,
+    "minCostCents": 4000,
+    "maxCostCents": 4000,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Plan two general-admission tickets with a $40 combined estimate for a local game.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Confirm the official schedule, tickets and whether the venue is outdoors.",
+    "theme": "sports"
+  },
+  {
+    "id": "outing-entertainment-college-sports",
+    "name": "College sports night",
+    "category": "entertainment",
+    "costCents": 3500,
+    "minCostCents": 3500,
+    "maxCostCents": 3500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Look for an indoor college sports event with two tickets fitting a $35 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "competitive",
+      "adventurous"
+    ],
+    "tip": "Check the schedule and public admission policy.",
+    "theme": "sports"
+  },
+  {
+    "id": "outing-entertainment-community-theater",
+    "name": "Community theater performance",
+    "category": "entertainment",
+    "costCents": 6500,
+    "minCostCents": 6500,
+    "maxCostCents": 6500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan a $65 combined estimated allowance for two community-theater seats.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Confirm dates, ticket fees and age suitability.",
+    "theme": "theater"
+  },
+  {
+    "id": "outing-entertainment-comedy",
+    "name": "All-ages comedy performance",
+    "category": "entertainment",
+    "costCents": 8000,
+    "minCostCents": 8000,
+    "maxCostCents": 8000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose an event that explicitly accepts your ages and fits an $80 combined estimate including any required purchases.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Many clubs are adult-only; check the actual event policy.",
+    "theme": "comedy"
+  },
+  {
+    "id": "outing-entertainment-live-music",
+    "name": "Small-venue live music",
+    "category": "entertainment",
+    "costCents": 8500,
+    "minCostCents": 8500,
+    "maxCostCents": 8500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Choose an age-appropriate live-music event with two admissions within an $85 combined estimate.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check service fees, age rules and ticket availability.",
+    "theme": "live-music"
+  },
+  {
+    "id": "outing-entertainment-concert",
+    "name": "Concert treat night",
+    "category": "entertainment",
+    "costCents": 22000,
+    "minCostCents": 22000,
+    "maxCostCents": 22000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Use a $220 combined estimated allowance for two concert tickets after reviewing the final checkout total.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "No ticket availability or seat quality is guaranteed.",
+    "theme": "live-music"
+  },
+  {
+    "id": "outing-entertainment-theater",
+    "name": "A bigger theater night",
+    "category": "entertainment",
+    "costCents": 26000,
+    "minCostCents": 26000,
+    "maxCostCents": 26000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan a $260 combined estimate for two theater seats with mandatory fees only if the actual checkout total fits.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check runtime, dates and cancellation terms.",
+    "theme": "theater"
+  },
+  {
+    "id": "outing-entertainment-seasonal-lights",
+    "name": "Seasonal light-show outing",
+    "category": "entertainment",
+    "costCents": 6000,
+    "minCostCents": 6000,
+    "maxCostCents": 6000,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Plan a $60 combined estimate for a dated light-show visit after checking whether tickets are per car or person.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check operating dates and total fees.",
+    "theme": "holiday-lights",
+    "seasons": [
+      11,
+      12,
+      1
+    ]
+  },
+  {
+    "id": "outing-entertainment-dance-show",
+    "name": "Local dance performance",
+    "category": "entertainment",
+    "costCents": 7500,
+    "minCostCents": 7500,
+    "maxCostCents": 7500,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Find an actual dance performance and allow an estimated $75 combined for two seats.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check the program and final booking total.",
+    "theme": "dance-performance"
+  },
+  {
+    "id": "outing-entertainment-classical",
+    "name": "A small classical concert",
+    "category": "entertainment",
+    "costCents": 9000,
+    "minCostCents": 9000,
+    "maxCostCents": 9000,
+    "settings": [
+      "indoor"
+    ],
+    "locationType": "indoor",
+    "description": "Plan a $90 combined estimate for two seats at an actual age-appropriate concert.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Look for a current program and confirm ticket fees.",
+    "theme": "classical-music"
+  },
+  {
+    "id": "outing-entertainment-rooftop-view",
+    "name": "Public evening skyline viewpoint",
+    "category": "entertainment",
+    "costCents": 0,
+    "minCostCents": 0,
+    "maxCostCents": 0,
+    "settings": [
+      "outdoor"
+    ],
+    "locationType": "outdoor",
+    "description": "Choose a legal public viewpoint with confirmed free admission and open hours. Private rooftop bars are not included.",
+    "costBasis": "Illustrative spending allowance for two, not a verified business quote. Confirm the all-in cost before choosing a venue; reduce the order or skip if it costs more. Travel and parking are extra.",
+    "supplies": [],
+    "ingredients": [],
+    "instructions": [],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "romantic",
+      "adventurous"
+    ],
+    "tip": "Check access rules and wind or weather conditions.",
+    "theme": "skyline"
+  }
+]

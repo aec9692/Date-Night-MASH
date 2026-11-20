@@ -11,11 +11,14 @@ window.DateCard = (() => {
       `Budget for two: ${money(plan.budgetCents)}`, '', ...picks.flatMap(pick => [
         `${pick.category.toUpperCase()}: ${placeTitle(pick)} - ${money(pick.costCents)}`, pick.venue&&['dinner','treat'].includes(pick.category)?'Choose from their menu. The budget uses a checked sample order, not a guaranteed final bill.':pick.description,
         ...(plan.schedule?[`Suggested visit: ${plan.schedule.stops.find(s=>s.id===pick.id).start}–${plan.schedule.stops.find(s=>s.id===pick.id).end}`]:[]),
+        ...(pick.home?[`Ingredients: ${pick.home.ingredients.join(', ')||'See the idea description'}`,`Supplies: ${pick.home.supplies.join(', ')}`,...pick.home.instructions.map((step,index)=>`${index+1}. ${step}`),pick.costBasis]:[]),
+        ...(pick.place?[pick.place.address||'Map pin only; address unconfirmed',`Community listing: ${pick.place.sourceUrl}`,`Directions: https://www.google.com/maps/dir/?api=1&destination=${pick.place.lat},${pick.place.lon}`,'Price is your personal estimate, not a verified menu/admission quote.']:[]),
         ...(pick.venue ? [pick.venue.address, pick.venue.hoursNote, pick.pricing.order,
           `Posted ${money(pick.pricing.baseCents)}; estimated tax ${money(pick.pricing.taxCents)}; optional tip ${money(pick.pricing.tipCents)}; optional donation ${money(pick.pricing.donationCents)}`,
           pick.pricing.taxNote, pick.pricing.tipNote, pick.pricing.exclusions,
           `Official source (checked ${pick.pricing.checkedOn}): ${pick.pricing.sourceUrl}`] : []), '']),
-      `Estimated total: ${money(plan.totalCents)}`, `Remaining budget: ${money(plan.remainingCents)}`, '', plan.notice].join('\n');
+      `Estimated total: ${money(plan.totalCents)}`, `Remaining budget: ${money(plan.remainingCents)}`,
+      ...(window.DateCosts?[`Already owned: ${(plan.pantry||[]).join(', ')||'None selected'}`,...DateCosts.resolve(plan.picks,plan.pantry||[]).shoppingList.map(line=>`Buy once: ${line.name} - ${money(line.cents)}`)]:[]), '', plan.notice].join('\n');
   }
   function create(plan) {
     const picks=window.MashJourney?MashJourney.ordered(plan):plan.picks;
@@ -53,7 +56,7 @@ window.DateCard = (() => {
       pdf.text(title.slice(0,2),38,y+42,{lineHeightFactor:1.2});
       label(money(pick.costCents),324,y+42,13,true);
       const stop=plan.schedule?.stops.find(s=>s.id===pick.id);
-      label(`${pick.venue?pick.venue.city+', NJ':'Location to arrange'}${stop?' | '+stop.start+'-'+stop.end:''}`,38,y+70,10);
+      label(`${pick.home?'At home':pick.venue?pick.venue.city+', NJ':pick.place?'Community map listing':'Location to arrange'}${stop?' | '+stop.start+'-'+stop.end:''}`,38,y+70,10);
       y+=92;
     });
     paragraph('Suggested stops, not a timed booking. Tap the source and map links on the following pages. Traffic can push a drive beyond an hour. Travel, parking and unconfirmed fees are extra unless listed.',28,y+2,376,10);
@@ -79,12 +82,30 @@ window.DateCard = (() => {
         next+=25;
         pdf.setFontSize(12);pdf.setTextColor(75,36,153);
         pdf.textWithLink('Official price / menu',28,next,{url:p.sourceUrl});
-        const route=window.DateDirections?DateDirections.to(pick.venue.address,{town:plan.mash?.origin||plan.journey?.origin||'Paterson'}):'https://www.google.com/maps/dir/?'+new URLSearchParams({api:'1',destination:pick.venue.address,travelmode:'driving'});
+        const route=window.DateDirections?DateDirections.to(pick.venue.address,{town:plan.mash?.origin||plan.journey?.origin||'Paterson',location:plan.location}):'https://www.google.com/maps/dir/?'+new URLSearchParams({api:'1',destination:pick.venue.address,travelmode:'driving'});
         pdf.textWithLink('Check route in Maps',190,next,{url:route});
         paragraph(p.sourceUrl,28,next+22,376,9);
       } else {
-        next=paragraph(pick.tip || 'Make this idea your own.',28,next,376,13)+20;
-        paragraph('This is a general idea or a personal estimate, not a verified local booking price. Check availability and full costs before making plans.',28,next,376,12);
+        function flow(value,size=11){
+          pdf.setFont('helvetica','normal');pdf.setFontSize(size);
+          const lines=pdf.splitTextToSize(clean(value),376);
+          for(const line of lines){if(next>658){pdf.addPage([432,720]);page(pdf.getNumberOfPages());next=74;}label(line,28,next,size);next+=size*1.4;}
+          next+=8;
+        }
+        if(pick.home){
+          flow('INGREDIENTS FOR TWO: '+(pick.home.ingredients.join(', ')||'See the idea description.'));
+          flow('SUPPLIES: '+pick.home.supplies.join(', '));
+          pick.home.instructions.forEach((step,index)=>flow(`${index+1}. ${step}`));
+          flow('SHOPPING: '+(pick.purchases?.map(line=>`${line.name} ${money(line.cents)}`).join('; ')||'No additional purchase allowance. Shared basics may be charged to an earlier pick.'));
+          flow(pick.costBasis,10);
+        }else flow(pick.tip||'Make this idea your own.',13);
+        if(pick.place){
+          flow(pick.place.address||'Address unconfirmed; use the recorded map pin.');flow('Your personal price estimate; confirm the full bill.');
+          if(next>620){pdf.addPage([432,720]);page(pdf.getNumberOfPages());next=74;}
+          pdf.textWithLink('Community map source',28,next,{url:pick.place.sourceUrl});next+=28;
+          pdf.textWithLink('Get directions',28,next,{url:window.DateDirections?DateDirections.to(`${pick.place.lat},${pick.place.lon}`,{town:plan.mash?.origin,location:plan.location}):'https://www.google.com/maps/dir/?'+new URLSearchParams({api:'1',destination:`${pick.place.lat},${pick.place.lon}`})});next+=28;
+        }
+        flow('Planning estimates for two, not store quotes or reservations. Check the actual basket, full costs and availability.',10);
       }
     });
     return pdf.output('blob');

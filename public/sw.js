@@ -1,6 +1,6 @@
 /* Cache only this app's public assets and read-only catalog. Never cache generated requests. */
-const CACHE='mash-shell-v6';
-const ASSETS=['/','/styles.css','/planner.js','/journey.js','/places.js','/place-ui.js','/directions.js','/smart-ui.js','/nearby.js','/count-worker.js','/show.js','/companion.js','/download.js','/app.js','/manifest.webmanifest','/icons/icon-192.png','/icons/icon-512.png','/icons/icon.svg','/vendor/jspdf.umd.min.js','/api/options'];
+const CACHE='mash-shell-v7';
+const ASSETS=['/','/styles.css','/date-costs.js','/date-combinations.js','/date-extras.js','/planner.js','/journey.js','/places.js','/place-ui.js','/directions.js','/smart-ui.js','/nearby.js','/count-worker.js','/show.js','/companion.js','/download.js','/app.js','/manifest.webmanifest','/icons/icon-192.png','/icons/icon-512.png','/icons/icon.svg','/vendor/jspdf.umd.min.js','/api/options'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS))));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('mash-shell-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{

@@ -5,6 +5,8 @@ const app = require('../server');
 const catalog = require('../data/options.json');
 const localCatalog = require('../data/local-options.json');
 const planner = require('../public/planner');
+const costs=require('../public/date-costs');
+const expanded=[...catalog,...localCatalog,...require('../data/home-options.json'),...require('../data/outing-options.json')].map(costs.enrich);
 let server;
 let base;
 
@@ -36,9 +38,9 @@ test('catalog contains unique IDs, four categories, integer prices, and document
   const response = await fetch(`${base}/api/options`);
   assert.equal(response.status, 200);
   const data = await response.json();
-  assert.equal(data.options.length, 305);
-  assert.equal(new Set(data.options.map(option => option.id)).size, 305);
-  assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category && !option.venue).length), [24,24,24,24]);
+  assert.equal(data.options.length, 689);
+  assert.equal(new Set(data.options.map(option => option.id)).size, 689);
+  assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category && !option.venue).length), [132,136,122,90]);
   assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category && option.venue).length), [50,54,50,55]);
   for (const option of data.options) {
     assert.ok(Number.isSafeInteger(option.costCents) && option.costCents >= 0);
@@ -55,18 +57,12 @@ test('options rejects unexpected query input', async () => {
 test('plans honor budgets, category order, setting eligibility, and arithmetic across boundary cases', async () => {
   for (const setting of ['any', 'indoor', 'outdoor', 'home']) {
     for (const budget of [0, 0.01, 0.29, 4.99, 5, 16.25, 50, 10000]) {
-      const groups = ['dinner', 'activity', 'treat', 'entertainment'].map(category => catalog.filter(option => option.category === category && (setting === 'any' || option.settings.includes(setting))));
-      const minimum = groups.reduce((sum, group) => sum + Math.min(...group.map(option => option.costCents)), 0);
-      const response = await generate({ budget, setting });
-      const plan = await response.json();
-      if (Math.round(budget * 100) < minimum) {
-        assert.equal(response.status, 422);
-        assert.equal(plan.minimumCents, minimum);
-        continue;
-      }
+      const expected=planner.prepare({budget,setting,area:'general'},expanded,false);
+      const response=await generate({budget,setting});const plan=await response.json();
+      if(expected.error){assert.equal(response.status,expected.status);assert.equal(plan.minimumCents,expected.minimumCents);continue;}
       assert.equal(response.status, 200);
       assert.deepEqual(plan.picks.map(pick => pick.category), ['dinner', 'activity', 'treat', 'entertainment']);
-      assert.ok(plan.picks.every(pick => setting === 'any' || pick.settings.includes(setting)));
+      assert.ok(plan.picks.every(pick=>costs.settingMatches(pick,setting)));if(setting==='mixed'){assert.ok(plan.picks.some(p=>p.settings.includes('indoor')));assert.ok(plan.picks.some(p=>p.settings.includes('outdoor')));}
       assert.equal(plan.totalCents, plan.picks.reduce((sum, pick) => sum + pick.costCents, 0));
       assert.ok(plan.totalCents <= Math.round(budget * 100));
       assert.equal(plan.remainingCents, plan.budgetCents - plan.totalCents);
@@ -104,7 +100,7 @@ test('rejects missing body, malformed JSON, primitive JSON, and non-finite JSON 
 });
 
 test('rejects oversized JSON with 413', async () => {
-  const response = await generate({ budget: 50, extra: 'x'.repeat(10000) });
+  const response = await generate({ budget: 50, extra: 'x'.repeat(40000) });
   assert.equal(response.status, 413);
   assert.ok((await response.json()).error);
 });
@@ -131,21 +127,20 @@ test('moods remain preferences and possibility counts match the full feasible se
     const plan = await response.json();
     assert.equal(response.status, 200);
     assert.equal(plan.mood, mood);
-    assert.equal(plan.combinationCount, 24 ** 4);
+    assert.equal(plan.combinationCount,planner.prepare({budget:10000,area:'general',mood},expanded,false).combinationCount);
     assert.equal(typeof plan.title, 'string');
   }
-  const free = await (await generate({ budget: 0 })).json();
-  const freeCount = planner.categories.reduce((count, category) => count * catalog.filter(option => option.category === category && option.costCents === 0).length, 1);
-  assert.equal(free.combinationCount, freeCount);
-  const home = await (await generate({ budget: 10000, setting: 'home' })).json();
-  const homeCount = planner.categories.reduce((count, category) => count * catalog.filter(option => option.category === category && option.settings.includes('home')).length, 1);
-  assert.equal(home.combinationCount, homeCount);
+  const free=await (await generate({budget:0,pantry:['groceries']})).json();
+  assert.equal(free.totalCents,0);assert.equal(free.combinationCount,planner.prepare({budget:0,area:'general',pantry:['groceries']},expanded,false).combinationCount);
+  const home=await (await generate({budget:10000,setting:'home'})).json();
+  assert.equal(home.combinationCount,planner.prepare({budget:10000,area:'general',setting:'home'},expanded,false).combinationCount);
+
 });
 
 test('locks are preserved and a single-category reroll changes only that category', async () => {
   const locked = { dinner: 'dinner-pantry', treat: 'treat-pantry', entertainment: 'entertainment-movie' };
   const previous = ['dinner-pantry', 'activity-games', 'treat-pantry', 'entertainment-movie'];
-  const response = await generate({ budget: 50, locked, previous });
+  const response = await generate({ budget: 50, locked, previous, pantry:['groceries','streaming'] });
   const plan = await response.json();
   assert.equal(response.status, 200);
   for (const pick of plan.picks) if (pick.category !== 'activity') assert.equal(pick.id, locked[pick.category]);
@@ -157,7 +152,7 @@ test('locks are preserved and a single-category reroll changes only that categor
 test('an exhausted reroll reports unchanged instead of pretending to change the result', async () => {
   const previous = ['dinner-pantry', 'activity-games', 'treat-pantry', 'entertainment-movie'];
   const locked = Object.fromEntries(['dinner', 'activity', 'treat', 'entertainment'].map((category, index) => [category, previous[index]]));
-  const response = await generate({ budget: 0, locked, previous });
+  const response = await generate({ budget: 0, locked, previous, pantry:['groceries','boardGames','streaming'] });
   const plan = await response.json();
   assert.equal(response.status, 200);
   assert.deepEqual(plan.picks.map(pick => pick.id), previous);
@@ -166,7 +161,7 @@ test('an exhausted reroll reports unchanged instead of pretending to change the 
 });
 
 test('excluding an entire category and incompatible locks produce useful errors', async () => {
-  const excluded = catalog.filter(option => option.category === 'dinner').map(option => option.id);
+  const excluded = expanded.filter(option => option.category === 'dinner').map(option => option.id);
   const response = await generate({ budget: 50, excluded });
   assert.equal(response.status, 422);
   assert.match((await response.json()).error, /dinner/);
@@ -177,7 +172,7 @@ test('excluding an entire category and incompatible locks produce useful errors'
 test('custom ideas are validated, included, costed, and kept as a saved-plan snapshot', async () => {
   const categories = ['dinner', 'activity', 'treat', 'entertainment'];
   const customOptions = categories.map((category, index) => ({ id: `custom-${index}`, category, name: `Our ${category}`, costCents: 500, settings: ['home'] }));
-  const response = await generate({ budget: 20, setting: 'home', customOptions, excluded: catalog.map(option => option.id) });
+  const response = await generate({ budget: 20, setting: 'home', customOptions, excluded: expanded.map(option => option.id) });
   const plan = await response.json();
   assert.equal(response.status, 200);
   assert.deepEqual(plan.picks.map(pick => pick.id), customOptions.map(option => option.id));
@@ -230,7 +225,7 @@ test('treat mode uses 90–100% of a $1,000 budget without overspending, across 
       assert.equal(response.status, 200);
       assert.equal(plan.spending, 'treat');
       assert.ok(plan.totalCents >= 90000 && plan.totalCents <= 100000, `${setting}/${mood}: ${plan.totalCents}`);
-      assert.ok(plan.picks.every(pick => setting === 'any' || pick.settings.includes(setting)));
+      assert.ok(plan.picks.every(pick=>costs.settingMatches(pick,setting)));if(setting==='mixed'){assert.ok(plan.picks.some(p=>p.settings.includes('indoor')));assert.ok(plan.picks.some(p=>p.settings.includes('outdoor')));}
     }
   }
 });
@@ -256,7 +251,7 @@ test('flexible mode still includes inexpensive choices and treat mode prefers ne
 
 test('when constraints cannot spend the budget, treat mode aims near the attainable maximum', async () => {
   const locked = { dinner: 'dinner-pantry', treat: 'treat-pantry', entertainment: 'entertainment-movie' };
-  const response = await generate({ budget: 1000, setting: 'home', locked });
+  const response = await generate({ budget: 1000, setting: 'home', locked, pantry:['groceries','streaming'] });
   const plan = await response.json();
   assert.equal(response.status, 200);
   assert.equal(plan.maximumCents, 50000);
@@ -352,11 +347,11 @@ test('local $1,000 treat-us dates use sourced menu items without inflating their
   }
 });
 
-test('known closed days and unavailable local home plans are rejected honestly', async () => {
+test('known closures are rejected while home plans ignore the local venue collection', async () => {
   assert.equal((await generate({budget:100,area:'paterson',date:'2026-11-19',locked:{activity:'nj-mam'}})).status,422);
   assert.equal((await generate({budget:100,area:'paterson',date:'2026-11-21',locked:{entertainment:'nj-paterson-museum'}})).status,422);
   assert.equal((await generate({budget:1000,area:'paterson',date:'2026-11-23',locked:{dinner:'nj-saddle-splurge'}})).status,422);
-  assert.equal((await generate({budget:100,area:'paterson',setting:'home'})).status,422);
+  assert.equal((await generate({budget:100,area:'paterson',setting:'home'})).status,200);
   const response=await generate({budget:100,area:'general',setting:'home'});
   assert.equal(response.status,200);
   assert.ok((await response.json()).picks.every(pick=>!pick.venue));
@@ -370,9 +365,10 @@ test('wrong area types and malformed calendar dates are rejected', async () => {
 
 test('all catalog exclusions and custom Unicode names fit within the bounded body', async () => {
   const customOptions=planner.categories.map((category,index)=>({id:`custom-1234567${index}`,category,name:'語'.repeat(48),costCents:0,settings:['indoor','home','outdoor']}));
-  const body={budget:0,area:'paterson',date:'2026-11-20',customOptions,excluded:[...catalog,...localCatalog].map(option=>option.id),
+  const body={budget:0,area:'paterson',date:'2026-11-20',customOptions,excluded:expanded.map(option=>option.id),pantry:costs.ownership,
+    recent:Array.from({length:8},()=>customOptions.map(option=>option.id)),location:{lat:40.91,lon:-74.17,label:'Paterson, NJ'},
     locked:Object.fromEntries(customOptions.map(option=>[option.category,option.id])),previous:customOptions.map(option=>option.id)};
-  assert.ok(Buffer.byteLength(JSON.stringify(body))<8192);
+  assert.ok(Buffer.byteLength(JSON.stringify(body))<32768);
   const response=await generate(body);
   assert.equal(response.status,200);
   assert.equal((await response.json()).totalCents,0);

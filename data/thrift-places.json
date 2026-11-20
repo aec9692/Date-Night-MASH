@@ -1,0 +1,50 @@
+[
+  {
+    "id": "thrift-rwb-paterson",
+    "name": "Red White & Blue Thrift Store - Paterson",
+    "category": "activity",
+    "city": "Paterson",
+    "state": "NJ",
+    "address": "25 McLean Blvd, Paterson, NJ 07514",
+    "sourceUrl": "https://rwbthrift.com/locations/",
+    "checkedOn": "2026-11-19",
+    "priceKnown": false,
+    "costCents": null,
+    "entryFeeCents": null,
+    "verification": "Official store location page confirms the name and address. No admission fee, merchandise price, inventory or availability has been verified.",
+    "suggestedActivity": "Secondhand treasure hunt; agree on a combined purchase cap before shopping.",
+    "notice": "Confirm current hours, access and prices with the store. Purchases, tax, transport and parking are not included."
+  },
+  {
+    "id": "thrift-ranne-clifton",
+    "name": "Ranne Day Thrift",
+    "category": "activity",
+    "city": "Clifton",
+    "state": "NJ",
+    "address": "269 Parker Ave, Clifton, NJ 07011",
+    "sourceUrl": "https://rannedaythrift.com/pages/contact",
+    "checkedOn": "2026-11-19",
+    "priceKnown": false,
+    "costCents": null,
+    "entryFeeCents": null,
+    "verification": "Official shop contact page confirms the name and address. No admission fee, merchandise price, inventory or availability has been verified.",
+    "suggestedActivity": "Vintage decade hunt or album-cover awards; purchasing is optional.",
+    "notice": "Confirm current hours, access and prices with the store. Purchases, tax, transport and parking are not included."
+  },
+  {
+    "id": "thrift-2ndave-union",
+    "name": "2nd Ave Thrift Store - Union",
+    "category": "activity",
+    "city": "Union",
+    "state": "NJ",
+    "address": "2661 Morris Ave, Union, NJ 07083",
+    "sourceUrl": "https://stores.savers.com/nj/union/2ndave-thrift-store-1614.html",
+    "checkedOn": "2026-11-19",
+    "priceKnown": false,
+    "costCents": null,
+    "entryFeeCents": null,
+    "verification": "Official store location page confirms the name and address. No admission fee, merchandise price, inventory or availability has been verified.",
+    "suggestedActivity": "Pick a small secondhand gift for each other within a self-selected combined cap.",
+    "notice": "Confirm current hours, access and prices with the store. Purchases, tax, transport and parking are not included."
+  }
+]

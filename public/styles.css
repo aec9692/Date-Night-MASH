@@ -407,3 +407,21 @@ footer p { font-size: .75rem; color: var(--muted); text-align: right; }
   .phone-nav a[aria-disabled=true] { color: var(--muted); }
   #idea-preview { padding: 20px; }
 }
+
+/* Home planning and explicit location search use the existing card language. */
+.home-supplies { margin: 22px 0; padding: 20px 24px; border: 1.5px solid var(--ink); border-radius: 18px; background: #eee5ff; }
+.home-supplies summary, .location-search summary { font-weight: 750; cursor: pointer; min-height: 44px; padding: 8px 0; }
+.home-supplies .preference-checks { display: grid; grid-template-columns: repeat(auto-fit,minmax(215px,1fr)); gap: 12px; }
+.home-supplies label { display: flex; gap: 10px; align-items: center; min-height: 44px; }
+.location-search { margin: 18px 0; padding: 16px; background: #f2ecff; border-radius: 12px; }
+.location-entry { display: flex; gap: 10px; align-items: center; }.location-entry input { min-width: 0; flex: 1; }
+.location-choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.live-results { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr)); gap: 12px; list-style: none; padding: 0; max-height: 680px; overflow-y: auto; }
+.live-place { min-width: 0; border: 1px solid #c8b8dd; border-radius: 12px; padding: 16px; background: white; }
+.live-place h4 { margin: 0 0 10px; }.live-place a { display: inline-block; padding: 8px 0; }.live-place button { margin-top: 12px; width: 100%; }
+.home-details { margin: 12px 0; font-size: .9rem; }.home-details summary { min-height: 44px; padding-block: 10px; font-weight: 700; cursor: pointer; }
+.home-details h4 { margin: 12px 0 4px; }.home-details ul,.home-details ol { padding-left: 22px; }.home-details li { margin-bottom: 7px; }
+.shopping-summary { padding: 18px; background: #f2ecff; border-radius: 14px; margin: 18px 0; }.shopping-summary ul { padding-left: 22px; }.shopping-summary li { margin-block: 6px; }
+@media (max-width:600px) { .location-entry { flex-direction: column; align-items: stretch; }.home-supplies { padding: 16px; }.live-results { max-height: 520px; } }
+.live-place, .home-details, .shopping-summary { overflow-wrap: anywhere; }
+.checked-thrift { margin-top: 22px; }.checked-thrift summary { min-height: 44px; font-weight: 700; cursor: pointer; }.checked-thrift article { margin-top: 12px; }

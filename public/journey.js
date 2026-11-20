@@ -11,12 +11,16 @@
   const normalized=normalize({format:'full',...value});
   return normalized?{age:normalized.age,origin:normalized.origin,radius:normalized.radius}:null;
  }
- function matchesMash(option,mash){return matches(option,{...mash,alcoholFree:true,lowEffort:false,vegetarian:false,fresh:false,seen:[],cuisine:'any',partner:null});}
+ function matchesMash(option,mash,location=null){
+  if(option.place){const center=location?[location.lat,location.lon]:towns[mash.origin];if(miles(center,[option.place.lat,option.place.lon])>mash.radius)return false;}
+  if(location&&option.venue){const point=towns[option.venue.city],distance=miles([location.lat,location.lon],point);if(distance===null||distance>mash.radius)return false;}
+  return matches(option,{...mash,...(location?{radius:Infinity}:{}),alcoholFree:true,lowEffort:false,vegetarian:false,fresh:false,seen:[],cuisine:'any',partner:null});
+ }
  function normalize(value){
   if(!object(value)||Object.keys(value).some(k=>!['format','start','origin','radius','legMiles','age','cuisine','vegetarian','lowEffort','alcoholFree','fresh','seen','partner','order'].includes(k)))return null;
   const j={format:'quick',start:'17:00',origin:'Paterson',radius:10,legMiles:10,age:'teen',cuisine:'any',vegetarian:false,lowEffort:false,alcoholFree:true,fresh:false,seen:[],partner:null,...value};
-  if(!Object.hasOwn(formats,j.format)||typeof j.start!=='string'||!/^\d{2}:\d{2}$/.test(j.start)||Number(j.start.slice(0,2))>23||Number(j.start.slice(3))>59||!Object.hasOwn(towns,j.origin)||![5,10,25,50].includes(j.radius)||![0,5,10,15,25,50].includes(j.legMiles)||!['teen','adult','21plus'].includes(j.age)||!cuisines.includes(j.cuisine))return null;
-  if(['vegetarian','lowEffort','alcoholFree','fresh'].some(k=>typeof j[k]!=='boolean')||!Array.isArray(j.seen)||j.seen.length>40||new Set(j.seen).size!==j.seen.length||j.seen.some(id=>typeof id!=='string'||id.length>50))return null;
+  if(!Object.hasOwn(formats,j.format)||typeof j.start!=='string'||!/^\d{2}:\d{2}$/.test(j.start)||Number(j.start.slice(0,2))>23||Number(j.start.slice(3))>59||!Object.hasOwn(towns,j.origin)||![5,10,15,25,50].includes(j.radius)||![0,5,10,15,25,50].includes(j.legMiles)||!['teen','adult','21plus'].includes(j.age)||!cuisines.includes(j.cuisine))return null;
+  if(['vegetarian','lowEffort','alcoholFree','fresh'].some(k=>typeof j[k]!=='boolean')||!Array.isArray(j.seen)||j.seen.length>40||new Set(j.seen).size!==j.seen.length||j.seen.some(id=>typeof id!=='string'||id.length>100))return null;
   if(j.partner!==null&&(!object(j.partner)||Object.keys(j.partner).some(k=>!['mood','cuisine'].includes(k))||!['surprise','cozy','romantic','competitive','adventurous'].includes(j.partner.mood)||!cuisines.includes(j.partner.cuisine)))return null;
   j.order=j.order||[...formats[j.format].categories];
   if(!Array.isArray(j.order)||j.order.length!==formats[j.format].categories.length||new Set(j.order).size!==j.order.length||j.order.some(c=>!formats[j.format].categories.includes(c)))return null;
@@ -121,7 +125,7 @@
   if(!Array.isArray(previous)||previous.length&& (previous.length!==active.length||previous.some((id,i)=>!options.some(o=>o.id===id&&o.category===active[i]))))return fail('Previous picks must match the chosen date length.');
   const excluded=new Set(input.excluded||[]),budgetCents=Math.round(input.budget*100);
   const seenVenues=new Set(j.seen.map(id=>options.find(o=>o.id===id)?.venue?.id).filter(Boolean));
-  const groups=j.order.map(c=>options.filter(o=>o.category===c&&core.eligible(o,input.area||'all',input.date||'')&&!excluded.has(o.id)&&((input.setting||'any')==='any'||o.settings.includes(input.setting))&&(!input.locked?.[c]||input.locked[c]===o.id)&&matches(o,j)&&(!j.fresh||!o.venue||!seenVenues.has(o.venue.id))));
+  const groups=j.order.map(c=>options.filter(o=>o.category===c&&!o.home&&!o.place&&core.eligible(o,input.area||'all',input.date||'')&&!excluded.has(o.id)&&((input.setting||'any')==='any'||o.settings.includes(input.setting))&&(!input.locked?.[c]||input.locked[c]===o.id)&&matches(o,j)&&(!j.fresh||!o.venue||!seenVenues.has(o.venue.id))));
   const empty=groups.findIndex(g=>!g.length);
   if(empty!==-1)return fail(`No ${j.order[empty]} choices fit these preferences. Try another cuisine, a wider radius, original ideas, or fewer restrictions.`,422);
   const minimumCents=groups.reduce((n,g)=>n+Math.min(...g.map(o=>o.costCents)),0);
