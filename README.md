@@ -171,3 +171,12 @@ Public deployment is still pending the owner's professor-assisted Vercel setup. 
 
 
 City/ZIP search now suggests supported NJ towns locally as you type. Choose a suggestion, or press Enter / Find location. A unique city/ZIP match automatically loads nearby source-priced choices; shared ZIPs ask for the town. The 43-town/102-ZIP local index works without the live geocoder. Coordinates remain town centers, not precise ZIP centers. Outside that index, explicit searches still use the external geocoder.
+## Day, feedback and spending reserves
+
+Play MASH starts with Tonight, This weekend or an editable date. Presets use New Jersey calendar dates (America/New_York); weekend means the coming Saturday, or today on Saturday/Sunday. Generation checks recorded closures, weekdays and seasonal restrictions for that date. This is a day-level check, not live evening hours, ticket availability or a reservation; confirm each source before going.
+
+Both MASH and Scene let you reserve parking, transportation and unexpected costs inside the combined budget. For example, a $50 budget with $15 reserved leaves $35 for selected ideas. These amounts are your allowances, not quotes. Results, favorites, sharing, companion view and PDF/text exports include the reserve and remaining money.
+
+The optional API field `reserve` accepts only numeric dollar amounts `parking`, `transport` and `extras`, each with at most two decimals; their sum cannot exceed budget. Money is compared in cents. Responses retain `totalCents` for selected ideas and add `reserveCents`, `planningBudgetCents` and `plannedTotalCents`; remaining money subtracts both selected ideas and reserves. Omitted reserves default to zero, preserving older plans.
+
+After completing a date, give it 1–5 stars and answer Would you do this again? Up to 100 validated reviews stay on this browser/device. You can edit, remove or clear reviews independently of favorites. They gently weight future selections without overriding budget, date, exclusions, locks or other filters. Generation sends only derived idea IDs in optional `taste: {liked: [], less: []}` (at most 16 known IDs each, no overlap); full reviews are never saved on the server or included in shared links/exports. Clearing reviews removes this preference signal. No cross-device sync or account is provided.

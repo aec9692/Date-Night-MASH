@@ -299,3 +299,26 @@ Injected delayed city and map responses were resolved after a newer lookup: neit
 
 A first new test assumed Union City was in this existing 43-town collection; it is not. The test was corrected to use supported Jersey City while still verifying that City remains part of the proper municipality name and that Union is not guessed as Union City. No business price/check date was changed. Public deployment and actual phone-browser checks remain pending the professor-assisted setup. Offline shell version is v9.
 Final full Node suite: all 139 tests passed. The updated DOM/API search flow also passed after the town/radius refresh changes.
+## Date selection, completed-date feedback and reserves — November 20, 2026
+
+Executed locally against Express with real HTTP requests, Node tests and independent JSDOM browser contexts. These are simulations, not deployed-site or physical-phone passes. Full Node suite: **147 passed, zero failed**. PDF overview visually inspected; standard, maximum-budget and timed exports passed page-bound checks.
+
+| ID | Executed steps | Expected and actual result |
+| --- | --- | --- |
+| D01 | Select Tonight/This weekend around NY midnight and year rollover | Correct NY date and upcoming Saturday/current weekend day; passed. |
+| D02 | Submit selected date with recorded closures and seasons | Incompatible ideas excluded; passed HTTP/module checks. |
+| D03 | Generate $50 with parking $5, transport $7, extras $3 | Picks at most $35; reserve $15; planned total and remaining reconcile; passed HTTP/DOM. |
+| D04 | Submit malformed, negative, overprecision and over-budget reserves | Readable rejection; UI preserves values and recovers after correction; passed. |
+| D05 | Generate where picks cannot fit after reserve | 422 and minimum includes reserve exactly once; passed. |
+| D06 | Reroll with reserve and locked ideas | Other IDs remain and full spending fits; passed. |
+| D07 | Save and restore, then share/restore another context | Selected date/reserve preserved; private reviews absent; passed DOM/HTTP. |
+| D08 | Choose a MASH date then open calendar controls | Selected date prefilled; passed DOM. Actual Calendar save pending. |
+| D09 | Create, edit and reload a 1–5-star/would-again review | One validated record per date/IDs, persisted on device context; passed. |
+| D10 | Remove/clear reviews with a saved favorite | Reviews removed, favorite retained, next request has no taste signals; passed. |
+| D11 | Inject malformed review data; derive bounded preferences | Invalid records rejected, IDs validated and lists bounded; passed. |
+| D12 | Enumerate weighted draw tickets with positive/negative feedback | Liked ideas gain weight without changing candidate validity, count, locks or price; passed. |
+| D13 | Generate timed Scene with separate reserve and MASH form | Reserve deducted once, two-stop budget reconciles, MASH form retained; passed. |
+| D14 | Export standard, $10,000 and timed plans to PDF/text | Reserve ledger included, all PDF text within bounds; passed; overview visually checked. |
+| D15 | Send maximum expanded exclusions/recent/custom/taste/reserve request | Fits the existing 32 KB limit and succeeds; passed real HTTP. |
+
+Public Vercel deployment and physical iPhone/Android checks remain pending professor-assisted setup. New phone cases are P19–P22 in PHONE_QA.md. No venue prices or source-check dates were changed.

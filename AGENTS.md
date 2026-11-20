@@ -131,3 +131,9 @@ Upgrade behavior:
 
 
 - City/ZIP search uses data/location-index.json and public/location-lookup.js for source-backed NJ suggestions and exact matches before explicit external lookup. Preserve leading-zero ZIPs and multi-town ambiguity; these coordinates are municipality centers. Never use network autocomplete, silently turn a prefix into an exact town, or strip City from a proper municipality name. Cancel/version old city/place requests so stale results cannot override the latest selected origin. Offline shell v9 includes location-lookup.js.
+## Day, reserves and completed-date feedback
+
+- MASH selects a visible date upfront. Tonight/weekend use America/New_York calendar days; enforce recorded day/season restrictions, while clearly requiring confirmation of live hours and availability.
+- Reserve parking/transport/extras inside the total budget, in cents, exactly once before selection. Keep totalCents as the picks subtotal; plannedTotalCents includes reserve and remainingCents subtracts it. Restore and export this ledger consistently for old and new plans.
+- Completed-date reviews remain device-local, validated and bounded to 100. Send only derived liked/less known IDs (maximum 16 each) to influence selection softly. Never expose reviews in sharing or store them on the server. Budget, locks and availability always take precedence. Clear reviews independently of favorites.
+- Offline cache v10 includes date-planning.js, date-planning-ui.js and date-feedback.js. Keep worker/server/browser selection logic aligned and slider handlers light.

@@ -5,7 +5,7 @@
   const moods = ['surprise', 'cozy', 'adventurous', 'romantic', 'competitive'];
   const spendingModes = ['treat', 'flexible'];
   const areas = ['all', 'general', 'paterson'];
-  const fields = ['budget', 'setting', 'mood', 'spending', 'area', 'date', 'excluded', 'customOptions', 'locked', 'previous', 'journey', 'mash', 'pantry', 'recent', 'location', 'fit'];
+  const fields = ['budget', 'setting', 'mood', 'spending', 'area', 'date', 'excluded', 'customOptions', 'locked', 'previous', 'journey', 'mash', 'pantry', 'recent', 'location', 'fit', 'reserve', 'taste'];
   const object = value => value && typeof value === 'object' && !Array.isArray(value);
   const fail = (error, status = 400, extra = {}) => ({ error, status, ...extra });
 
@@ -31,6 +31,15 @@
 
   function prepare(input, catalog, includePlans = true, drawTicket = null) {
     if (!object(input) || Object.keys(input).some(key => !fields.includes(key))) return fail('Send a budget and documented date preferences only.');
+    const planning=typeof module==='object'&&module.exports?require('./date-planning'):root.DatePlanning;
+    if(input.reserve!==undefined){
+      const budgetCents=planning.cents(input.budget);if(budgetCents===null)return fail('Enter a budget from $0 to $10,000 with at most two decimal places.');
+      const reserve=planning.reserve(input.reserve,budgetCents);if(!reserve)return fail('Parking, transportation and extra reserves must be valid amounts that fit inside your total budget.');
+      const reserveCents=planning.reserveTotal(reserve),{reserve:unused,...base}=input,planningBudgetCents=budgetCents-reserveCents;
+      const result=prepare({...base,budget:planningBudgetCents/100},catalog,includePlans,drawTicket);
+      if(result.error){if(result.status!==422)return result;const minimumCents=result.minimumCents===undefined?undefined:result.minimumCents+reserveCents;return {...result,...(minimumCents===undefined?{}:{minimumCents}),error:minimumCents===undefined?`After reserving $${(reserveCents/100).toFixed(2)}, $${(planningBudgetCents/100).toFixed(2)} is available for picks. ${result.error}`:`These choices need at least $${(minimumCents/100).toFixed(2)} including your $${(reserveCents/100).toFixed(2)} reserve. Lower the reserve, unlock a pick or change the ideas.`};}
+      return {...result,budgetCents,planningBudgetCents,reserve,reserveCents};
+    }
     if(input.journey!==undefined&&input.mash!==undefined)return fail('Choose MASH or the custom planner for this request.');
     if (input.journey !== undefined) {
       const journey = typeof module === 'object' && module.exports ? require('./journey') : root.MashJourney;
@@ -62,6 +71,7 @@
     const custom = customCatalog(customOptions);
     if (!custom) return fail('Add up to four custom ideas with a name, category, valid cost, and setting.');
     const options = [...catalog, ...custom];
+    const taste=planning.taste(input.taste,options);if(!taste)return fail('Rating preferences must contain up to 16 known liked and 16 known less-preferred idea IDs.');
     const known = id => typeof id === 'string' && options.some(option => option.id === id);
     if (!Array.isArray(excluded) || excluded.length > options.length || new Set(excluded).size !== excluded.length || !excluded.every(known)) {
       return fail('Excluded ideas must be unique IDs from the current options.');
@@ -85,7 +95,7 @@
     const budgetCents = Math.round(budget * 100);
     if(modernHome||pantry.length||recent.length||setting==='mixed'||mash){
       const combinations=typeof module==='object'&&module.exports?require('./date-combinations'):root.DateCombinations;
-      return combinations.prepare(groups,{budgetCents,setting,mood,spending,area,date,customOptions,pantry,recent,previous,fit,...(mash?{mash}:{}),...(location?{location}:{})},includePlans,drawTicket);
+      return combinations.prepare(groups,{budgetCents,setting,mood,spending,area,date,customOptions,pantry,recent,previous,fit,taste,...(mash?{mash}:{}),...(location?{location}:{})},includePlans,drawTicket);
     }
     const minimumCents = groups.reduce((sum, group) => sum + Math.min(...group.map(option => option.costCents)), 0);
     if (budgetCents < minimumCents) return fail(`These choices need at least $${(minimumCents / 100).toFixed(2)}. Raise the budget, unlock a pick, or change your choices.`, 422, { minimumCents });
@@ -93,7 +103,7 @@
     // millions of complete dates with binary searches, without building those dates.
     function pairs(first, second, offset) {
       return first.flatMap(a => second.map(b => ({ picks: [a,b], cost: a.costCents + b.costCents,
-        score: mood === 'surprise' ? 0 : Number(a.moods.includes(mood)) + Number(b.moods.includes(mood)),
+        score: (mood === 'surprise' ? 0 : Number(a.moods.includes(mood)) + Number(b.moods.includes(mood)))+planning.preferenceScore(a.id,taste)+planning.preferenceScore(b.id,taste),
         previous: a.id === previous[offset] && b.id === previous[offset+1] })));
     }
     const left = pairs(groups[0], groups[1], 0);

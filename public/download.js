@@ -17,7 +17,8 @@ window.DateCard = (() => {
           `Posted ${money(pick.pricing.baseCents)}; estimated tax ${money(pick.pricing.taxCents)}; optional tip ${money(pick.pricing.tipCents)}; optional donation ${money(pick.pricing.donationCents)}`,
           pick.pricing.taxNote, pick.pricing.tipNote, pick.pricing.exclusions,
           `Official source (checked ${pick.pricing.checkedOn}): ${pick.pricing.sourceUrl}`] : []), '']),
-      `Estimated total: ${money(plan.totalCents)}`, `Remaining budget: ${money(plan.remainingCents)}`,
+      ...(plan.reserveCents?[`Selected picks: ${money(plan.totalCents)}`,`Reserve: parking ${money(Math.round(plan.reserve.parking*100))}; transportation ${money(Math.round(plan.reserve.transport*100))}; extras ${money(Math.round(plan.reserve.extras*100))}. Your allowances, not quotes.`]:[]),
+      `Estimated total${plan.reserveCents?' including reserve':''}: ${money(plan.totalCents+(plan.reserveCents||0))}`, `Remaining budget: ${money(plan.remainingCents)}`,
       ...(window.DateCosts?[`Already owned: ${(plan.pantry||[]).join(', ')||'None selected'}`,...DateCosts.resolve(plan.picks,plan.pantry||[]).shoppingList.map(line=>`Buy once: ${line.name} - ${money(line.cents)}`)]:[]), '', plan.notice].join('\n');
   }
   function create(plan) {
@@ -45,9 +46,10 @@ window.DateCard = (() => {
     let y=paragraph(plan.title || 'Your next little adventure',28,82,376,27,[41,35,51]);
     y=paragraph(`${plan.date || 'Pick a date'}${plan.schedule?' | '+plan.schedule.start+'-'+plan.schedule.end:''} | ${plan.journey?.origin||'Your selected ideas'}`,28,y+8,376,12);
     y+=16;
-    label(`Budget ${money(plan.budgetCents)}    Plan ${money(plan.totalCents)}`,28,y,15,true);
+    label(`Budget ${money(plan.budgetCents)}    Plan ${money(plan.totalCents+(plan.reserveCents||0))}`,28,y,15,true);
     label(`${money(plan.remainingCents)} remaining | ${plan.spending === 'treat' ? 'Treat us' : 'Flexible'}`,28,y+23,11);
     y+=44;
+    if(plan.reserveCents){y=paragraph(`Selected picks ${money(plan.totalCents)} + reserve ${money(plan.reserveCents)}. Parking ${money(Math.round(plan.reserve.parking*100))}, transport ${money(Math.round(plan.reserve.transport*100))}, extras ${money(Math.round(plan.reserve.extras*100))}. Allowances, not quotes.`,28,y,376,10)+10;}
     picks.forEach((pick,index)=>{
       pdf.setFillColor(...colors[['dinner','activity','treat','entertainment'].indexOf(pick.category)]); pdf.roundedRect(24,y,384,82,10,10,'F');
       label(`${index+1}  ${pick.category.toUpperCase()}`,38,y+20,9,true);
@@ -59,7 +61,7 @@ window.DateCard = (() => {
       label(`${pick.home?'At home':pick.venue?pick.venue.city+', NJ':pick.place?'Community map listing':'Location to arrange'}${stop?' | '+stop.start+'-'+stop.end:''}`,38,y+70,10);
       y+=92;
     });
-    paragraph('Suggested stops, not a timed booking. Tap the source and map links on the following pages. Traffic can push a drive beyond an hour. Travel, parking and unconfirmed fees are extra unless listed.',28,y+2,376,10);
+    paragraph('Suggested stops, not a timed booking. Tap the source and map links on the following pages. Traffic can push a drive beyond an hour. Reserve amounts are your allowances. Confirm actual travel, parking and fees before going.',28,y+2,376,10);
     picks.forEach((pick,index)=>{
       pdf.addPage([432,720]);page(index+2);
       pdf.setFillColor(...colors[['dinner','activity','treat','entertainment'].indexOf(pick.category)]);pdf.roundedRect(24,54,384,30,9,9,'F');

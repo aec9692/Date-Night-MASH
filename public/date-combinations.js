@@ -2,11 +2,12 @@
 (function(root){
  function prepare(groups,context,includePlans,drawTicket){
   const costs=typeof module==='object'&&module.exports?require('./date-costs'):root.DateCosts;
+  const planning=typeof module==='object'&&module.exports?require('./date-planning'):root.DatePlanning;
   const {budgetCents,mood,spending,pantry=[],recent=[],previous=[]}=context;
   const shared=[];
   const details=new Map(groups.flat().map(option=>{
    const p=costs.profile(option,pantry);p.shared.forEach((value,index)=>{if(value!==undefined)shared[index]=value;});
-   return [option.id,{option,...p,score:mood==='surprise'?0:Number(option.moods.includes(mood)),tokens:[costs.theme(option),option.venue?'venue:'+option.venue.id:option.place?'venue:'+option.place.sourceUrl:null].filter(Boolean),indoor:Number(costs.settingMatches(option,'indoor')),outdoor:Number(costs.settingMatches(option,'outdoor'))}];
+   return [option.id,{option,...p,score:(mood==='surprise'?0:Number(option.moods.includes(mood)))+planning.preferenceScore(option.id,context.taste),tokens:[costs.theme(option),option.venue?'venue:'+option.venue.id:option.place?'venue:'+option.place.sourceUrl:null].filter(Boolean),indoor:Number(costs.settingMatches(option,'indoor')),outdoor:Number(costs.settingMatches(option,'outdoor'))}];
   }));
   const sharedCost=mask=>shared.reduce((sum,value,index)=>sum+((mask&(1<<index))?value:0),0);
   function pairs(first,second){const result=[];for(const a of first)for(const b of second){
