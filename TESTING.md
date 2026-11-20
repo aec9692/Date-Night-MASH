@@ -213,3 +213,9 @@ All 209 local PDF detail pages passed text bounds. New paid pages were rendered;
 | D06 | Exports and compatibility | Save/revisit MASH; export all local details. | Correct mode and budget; readable output; prior prices preserved. | Passed DOM and 209 PDF bounds checks. |
 
 Public deployment, actual phone rendering and Maps device-location/permission behavior remain pending. No GPS was requested or stored by the app, and no App Store or Vercel deployment is claimed.
+
+## Matching MASH budget and setting controls — November 19, 2026
+
+Play MASH now reuses the Scene budget-control layout: numeric amount, caption, $0-$1,000 slider, quick presets including $25, and a typed maximum of $10,000. Added independent Where are we headed and Treat us/Flexible selectors. Existing documented setting/spending request fields enforce the choices; MASH still draws all four categories. Changing the MASH setting clears incompatible locks, preview selection adjusts the correct mode's setting, and Too expensive feedback changes the active mode's spending style. Saved MASH restoration updates only MASH controls; Scene preferences remain independent. Offline shell version is v4.
+
+Executed locally: targeted MASH/places and offline suites passed all nine Node tests. A jsdom/API flow checked slider-to-number, number-to-slider and preset synchronization, typed $2,500 with a clamped $1,000 slider, pressed preset state/caption, indoor Flexible generation, a free at-home draw using original ideas, saved budget/setting/style restoration, independent Scene values, and a $1,000 Treat us draw honoring its target and ceiling. Every generated plan retained all four categories. This was DOM/API simulation; rendered-phone and public-deployment checks remain pending.

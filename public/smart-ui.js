@@ -77,7 +77,7 @@ window.SmartDate=(()=>{
   feedback=[...feedback,{id:pick.id,reason}].slice(-40);write(reasonKey,feedback);
   if(reason==='distance'){$('#leg-limit').value='5';$('#trip-radius').value='5';if(activePlan?.mash)$('#mash-radius').value='5';$('#travel-message').textContent='Looking for a closer date within 5 miles. Other stops may change to keep the outing together.';}
   if(reason==='tried'){tried=[...new Set([...tried,pick.id])].slice(-40);write(historyKey,tried);if(pick.venue)options.filter(o=>o.venue?.id===pick.venue.id).forEach(o=>excluded.add(o.id));}
-  if(reason==='price'&&activePlan){const limit=Math.max(0,pick.costCents-1);options.filter(o=>o.category===pick.category&&o.costCents>limit).forEach(o=>excluded.add(o.id));$('#spending').value='flexible';}
+  if(reason==='price'&&activePlan){const limit=Math.max(0,pick.costCents-1);options.filter(o=>o.category===pick.category&&o.costCents>limit).forEach(o=>excluded.add(o.id));$(activePlan.mash?'#mash-spending':'#spending').value='flexible';}
   // Explicit exclusions stay in this visit's mix; no hidden cross-device profile.
  }
  function summary(){
