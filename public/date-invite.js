@@ -123,7 +123,10 @@
     if(when)lines.push(`${when.date} | ${when.start}-${when.end} (${when.timeZone})`);
     else if(plan.date)lines.push('Date: '+safeText(plan.date));
     if(proposal)lines.push('Suggested change: let us replace '+proposal+'.');
-    for(const pick of plan.picks){
+    const routes=typeof module==='object'&&module.exports?require('./date-route'):root.DateRoute;
+    const route=routes?.analyze(plan),order=plan.journey?.order||route?.order;
+    if(route&&!route.home)lines.push(route.unknown?'Route has unverified endpoints.':`Approximate straight-line route legs: ${route.totalMiles.toFixed(1)} miles.`,route.notice);
+    for(const pick of order?order.map(c=>plan.picks.find(p=>p.category===c)):plan.picks){
       const name=pick.venue&&['dinner','treat'].includes(pick.category)?pick.venue.name:pick.name;
       lines.push(`${pick.category[0].toUpperCase()+pick.category.slice(1)}: ${safeText(name)} - ${money(pick.costCents)}`);
       if(pick.venue?.address||pick.place?.address)lines.push(safeText(pick.venue?.address||pick.place.address));

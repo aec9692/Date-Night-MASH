@@ -3,17 +3,18 @@
  function prepare(groups,context,includePlans,drawTicket){
   const costs=typeof module==='object'&&module.exports?require('./date-costs'):root.DateCosts;
   const planning=typeof module==='object'&&module.exports?require('./date-planning'):root.DatePlanning;
+  const routes=typeof module==='object'&&module.exports?require('./date-route'):root.DateRoute;
   const {budgetCents,mood,spending,pantry=[],recent=[],previous=[]}=context;
   const shared=[];
   const details=new Map(groups.flat().map(option=>{
    const p=costs.profile(option,pantry);p.shared.forEach((value,index)=>{if(value!==undefined)shared[index]=value;});
-   return [option.id,{option,...p,score:(mood==='surprise'?0:Number(option.moods.includes(mood)))+planning.preferenceScore(option.id,context.taste),tokens:[costs.theme(option),option.venue?'venue:'+option.venue.id:option.place?'venue:'+option.place.sourceUrl:null].filter(Boolean),indoor:Number(costs.settingMatches(option,'indoor')),outdoor:Number(costs.settingMatches(option,'outdoor'))}];
+   return [option.id,{option,...p,score:(mood==='surprise'?0:Number(option.moods.includes(mood)))+planning.preferenceScore(option.id,context.taste)+(context.mash?routes.nearScore(option,context):0),tokens:[costs.theme(option),option.venue?'venue:'+option.venue.id:option.place?'venue:'+option.place.sourceUrl:null].filter(Boolean),indoor:Number(costs.settingMatches(option,'indoor')),outdoor:Number(costs.settingMatches(option,'outdoor'))}];
   }));
   const sharedCost=mask=>shared.reduce((sum,value,index)=>sum+((mask&(1<<index))?value:0),0);
   function pairs(first,second){const result=[];for(const a of first)for(const b of second){
    if(!costs.compatible([a,b]))continue;
    const x=details.get(a.id),y=details.get(b.id);
-   result.push({picks:[a,b],cost:x.exclusive+y.exclusive,mask:x.mask|y.mask,score:x.score+y.score,tokens:[...x.tokens,...y.tokens],indoor:x.indoor|y.indoor,outdoor:x.outdoor|y.outdoor});
+   result.push({picks:[a,b],cost:x.exclusive+y.exclusive,mask:x.mask|y.mask,score:x.score+y.score+routes.pairScore(a,b,context),tokens:[...x.tokens,...y.tokens],indoor:x.indoor|y.indoor,outdoor:x.outdoor|y.outdoor});
   }return result;}
   const left=pairs(groups[0],groups[1]),right=pairs(groups[2],groups[3]);
   const leftTokens=new Set(left.flatMap(pair=>pair.tokens));
@@ -37,7 +38,7 @@
    if(picks.some(p=>!p)||!costs.compatible(picks))continue;
    if(context.setting==='mixed'&&!(picks.some(p=>p.settings.includes('indoor'))&&picks.some(p=>p.settings.includes('outdoor'))))continue;
    const total=costs.resolve(picks,pantry).totalCents;
-   if(total<=budgetCents)repeats.push({key,picks,total,score:picks.reduce((sum,p)=>sum+details.get(p.id).score,0)});
+   if(total<=budgetCents)repeats.push({key,picks,total,score:picks.reduce((sum,p)=>sum+details.get(p.id).score,0)+routes.pairScore(picks[0],picks[1],context)+routes.pairScore(picks[2],picks[3],context)});
   }
   const repeatedByLeft=new Map();for(const repeat of repeats){const key=repeat.picks.slice(0,2).map(p=>p.id).join('|');
    if(!repeatedByLeft.has(key))repeatedByLeft.set(key,[]);repeatedByLeft.get(key).push(repeat);

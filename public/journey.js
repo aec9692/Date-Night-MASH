@@ -5,7 +5,8 @@
  let towns={},metadata=new WeakMap(),travelCache=new Map();
  const object=v=>v&&typeof v==='object'&&!Array.isArray(v);
  const fail=(error,status=400,extra={})=>({error,status,...extra});
- function setTowns(data){towns=data?.towns||data||{};travelCache.clear();}
+ const routes=typeof module==='object'&&module.exports?require('./date-route'):root.DateRoute;
+ function setTowns(data){towns=data?.towns||data||{};travelCache.clear();routes.setTowns(data);}
  function normalizeMash(value){
   if(!object(value)||Object.keys(value).some(k=>!['age','origin','radius'].includes(k)))return null;
   const normalized=normalize({format:'full',...value});
@@ -167,7 +168,7 @@
     const arrival=at+leg.minutes,start=Math.max(arrival,e.opens),end=start+e.duration;
     if(start-arrival>60||end>e.closes||end>latest)continue;
     picks.push(e.o);usedVenues.push(e.venue);
-    visit(index+1,total+e.cost,e.city===-1?from:e.city,end,changed||e.changed,score+e.weight);
+    visit(index+1,total+e.cost,e.city===-1?from:e.city,end,changed||e.changed,score+e.weight+(e.venue?(leg.miles<=3?3:leg.miles<=7?2:leg.miles<=15?1:0):0));
     picks.pop();usedVenues.pop();
     if(selectedPicks)return;
    }
@@ -180,7 +181,7 @@
   if(drawTicket){ticket=drawTicket(weightTotal);pass=2;visit(0,0,originIndex,startAt,previous.length!==active.length,0);selectedSchedule=schedule(selectedPicks,j);}
   return {plans,selectedPicks,selectedSchedule,journey:j,fit,combinationCount,maximumCents,targetCents,unchanged:previous.length===active.length&&!alternativeCount,budgetCents,setting:input.setting||'any',mood:input.mood||'surprise',spending:input.spending||'treat',area:input.area||'all',date:input.date||'',customOptions:input.customOptions||[]};
  }
- function ordered(plan){return plan.journey?plan.journey.order.map(c=>plan.picks.find(o=>o.category===c)):plan.picks;}
+ function ordered(plan){const order=plan.journey?.order||routes.analyze(plan).order;return order.map(c=>plan.picks.find(o=>o.category===c));}
  const api={formats,cuisines,setTowns,normalize,normalizeMash,matchesMash,miles,meta,matches,travel,schedule,prepare,ordered,clock};
  if(typeof module==='object'&&module.exports)module.exports=api;else root.MashJourney=api;
 })(typeof globalThis==='object'?globalThis:this);

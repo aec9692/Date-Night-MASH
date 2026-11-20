@@ -322,3 +322,28 @@ Executed locally against Express with real HTTP requests, Node tests and indepen
 | D15 | Send maximum expanded exclusions/recent/custom/taste/reserve request | Fits the existing 32 KB limit and succeeds; passed real HTTP. |
 
 Public Vercel deployment and physical iPhone/Android checks remain pending professor-assisted setup. New phone cases are P19–P22 in PHONE_QA.md. No venue prices or source-check dates were changed.
+## Ready-night upgrade — November 20, 2026
+
+Executed locally with real Express HTTP requests, independent JSDOM browser contexts and PDF rendering. These results do not represent deployed or physical-phone checks.
+
+| ID | Executed steps | Expected and actual result |
+| --- | --- | --- |
+| N01 | Measure a known fixture with a category-order reversal | Dinner stays first; suggested order saves more than five approximate miles and flags detour; passed. |
+| N02 | Add an unverified endpoint; analyze timed and at-home plans | No complete route total for unknowns, timed order retained, no travel for home; passed. |
+| N03 | Enumerate weighted tickets over near/far fixtures | Nearby dinner favored, same 16 valid combinations, locks/repeat exclusion retained; passed. |
+| N04 | Generate local date and inspect Ready for your date | Origin, approximate route legs, directions, official sources and booking-confirmation notes present; passed DOM/API. |
+| N05 | Tick departure checklist and rerender same date | Checked state retained during visit; passed DOM. |
+| N06 | Replace outdoor activity using the real button | Non-home indoor alternative; other IDs, retained lock, date and reserve unchanged; passed DOM/HTTP. |
+| N07 | Exclude every indoor alternative | Helpful 422 without returning a changed plan; passed HTTP. |
+| N08 | Compare three home dates with a dinner lock and $15 reserve | Three distinct affordable combinations, same dinner/date/reserve, picks fit $35; passed HTTP/DOM. |
+| N09 | Lock every pick then compare | Helpful 422 instead of duplicate choices; passed HTTP. |
+| N10 | Send invite to independent browser; choose same plan; return reply | One choice each, match shown; passed DOM with mocked native sharing. No message sent. |
+| N11 | Partner changes choice and returns another reply | Guest vote replaced, explicit two-person tie; passed DOM/module. |
+| N12 | Reload creator with local vote storage; open reply on wrong device | Creator can recover result; wrong-device reply rejected; passed independent DOM contexts. |
+| N13 | Open a vote candidate on receiving browser | Canonical plan and reserve restore; recipient pantry checks preserved; passed DOM/HTTP. |
+| N14 | Submit altered IDs, unexpected fields, bad tokens, malformed and oversized JSON | 400/413/422 as appropriate; no ballot persistence on server; passed HTTP/module. |
+| N15 | Export home, maximum-budget and timed plans with reserves | Text ledger and PDF page bounds pass; new route page visually inspected. |
+
+Initial regression run passed 152 of 153 tests. The failure was the expected vendor PDF asset returning 404 in the fresh worktree, which had not run the existing postinstall asset preparation. Ran scripts/prepare-assets.js and repeated the suite: **all 153 tests passed, zero failed**. No dependency or price changes were needed.
+
+Physical route opening, native phone share sheets, calendar saves and public deployment remain pending. PHONE_QA.md adds P23–P28; use the public deployment for cross-phone voting because localhost links are computer-local.

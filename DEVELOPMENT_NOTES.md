@@ -35,3 +35,12 @@ Local DOM/API and PDF bounds checks are not phone frame-rate or deployed-site ev
 Useful prompts: (1) make home ideas actionable with quantities/time/equipment without changing price evidence; (2) create portable canonical plan links and timezone-safe calendar drafts without accounts; (3) test partner suggestions with independent browser storage so the sender's groceries do not become free groceries for the recipient.
 
 A review caught the hidden-idea UI holding the same options array as the canonical catalog. Adding a personal idea to the UI's hidden-item lookup could mutate that shared array. The UI now takes its own array copy; canonical catalog data remains the source for validation. A separate DOM-test assertion initially compared arrays from different JavaScript realms using strict prototype equality; normalizing the expected array fixed the harness without changing valid reroll behavior. No physical-phone or deployed result is inferred from either check.
+## Ready-night feature work
+
+Useful prompts for explaining this change:
+
+1. Prefer nearby places without changing affordable candidate counts or overriding locks; label municipality-center distances and detect category-order detours.
+2. Build an indoor backup that retains the other canonical IDs, date, age/fit filters and expense reserves, and reports failure without changing the current plan.
+3. Implement a bounded three-plan, two-person vote using invite/reply links and device-local storage; revalidate all snapshots and make clear that the tally is not live or authenticated.
+
+Codex test error: an early privacy assertion searched the entire JSON response for the substring `taste`. Ordinary idea descriptions can contain that word, so it falsely failed despite no preference field being returned. Inspection identified the overly broad assertion; changed it to check for own `taste` and `ratings` properties on each returned plan. The corrected test passed without changing response data.

@@ -17,6 +17,7 @@ window.DateCard = (() => {
           `Posted ${money(pick.pricing.baseCents)}; estimated tax ${money(pick.pricing.taxCents)}; optional tip ${money(pick.pricing.tipCents)}; optional donation ${money(pick.pricing.donationCents)}`,
           pick.pricing.taxNote, pick.pricing.tipNote, pick.pricing.exclusions,
           `Official source (checked ${pick.pricing.checkedOn}): ${pick.pricing.sourceUrl}`] : []), '']),
+      ...(window.DateRoute?[DateRoute.analyze(plan).notice,...DateRoute.analyze(plan).legs.map(leg=>`${placeTitle(plan.picks.find(p=>p.id===leg.id))}: ${leg.miles===null?'endpoint unverified':leg.miles+' approximate straight-line miles from previous point'}`)]:[]),
       ...(plan.reserveCents?[`Selected picks: ${money(plan.totalCents)}`,`Reserve: parking ${money(Math.round(plan.reserve.parking*100))}; transportation ${money(Math.round(plan.reserve.transport*100))}; extras ${money(Math.round(plan.reserve.extras*100))}. Your allowances, not quotes.`]:[]),
       `Estimated total${plan.reserveCents?' including reserve':''}: ${money(plan.totalCents+(plan.reserveCents||0))}`, `Remaining budget: ${money(plan.remainingCents)}`,
       ...(window.DateCosts?[`Already owned: ${(plan.pantry||[]).join(', ')||'None selected'}`,...DateCosts.resolve(plan.picks,plan.pantry||[]).shoppingList.map(line=>`Buy once: ${line.name} - ${money(line.cents)}`)]:[]), '', plan.notice].join('\n');
@@ -111,6 +112,13 @@ window.DateCard = (() => {
         flow('Planning estimates for two, not store quotes or reservations. Check the actual basket, full costs and availability.',10);
       }
     });
+    if(window.DateRoute&&!DateRoute.analyze(plan).home){
+      const route=DateRoute.analyze(plan);pdf.addPage([432,720]);page(pdf.getNumberOfPages());let at=78;
+      function routeText(value,size=11){pdf.setFont('helvetica','normal');pdf.setFontSize(size);for(const line of pdf.splitTextToSize(clean(value),376)){if(at>650){pdf.addPage([432,720]);page(pdf.getNumberOfPages());at=78;}label(line,28,at,size);at+=size*1.4;}at+=10;}
+      routeText('YOUR ROUTE & DEPARTURE CHECKS',17);routeText(`Starting area: ${plan.location?.label||plan.mash?.origin||plan.journey?.origin||'unverified'}`);routeText(route.notice);if(route.backtracking)routeText('Possible detour/backtracking: review the order in Maps.');
+      for(const leg of route.legs){const pick=plan.picks.find(p=>p.id===leg.id);routeText(`${placeTitle(pick)}: ${leg.miles===null?'unverified endpoint':leg.miles+' approximate straight-line miles from previous point'}`);}
+      routeText('Confirm hours, reservation/session requirements, age/guardian rules, actual prices, parking and fees for every stop. Nothing is booked. Official source and direction links are on each stop page.');
+    }
     for(let number=1;number<=pdf.getNumberOfPages();number++){pdf.setPage(number);pdf.setFillColor(247,243,255);pdf.rect(350,20,70,22,'F');label(`${number} / ${pdf.getNumberOfPages()}`,368,34,10,false,[103,95,114]);}
     return pdf.output('blob');
   }
