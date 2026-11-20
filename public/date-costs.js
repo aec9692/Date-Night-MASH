@@ -62,7 +62,7 @@
   function settingMatches(option,setting){
     if(setting==='any')return true;
     if(setting==='home')return option.settings.includes('home');
-    const homeOnly=Boolean(option.home)||option.settings.includes('home')&&!option.custom;
+    const homeOnly=Boolean(option.home)||option.settings.includes('home')&&(!option.custom||!option.settings.includes('outdoor'));
     if(setting==='mixed')return !homeOnly;
     return option.settings.includes(setting)&&!homeOnly;
   }

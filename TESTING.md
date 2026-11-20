@@ -259,3 +259,5 @@ Executed locally against this branch: all 110 Node tests passed. After the final
 | H20 | Existing regression suite | Settings, validation, source arithmetic, timed routes, offline and sound retained | Passed full 110 tests. |
 
 Offline cache is v7. Actual iPhone/Android PDF sharing, live nearby success, phone/laptop page rendering and public production verification remain pending. Home/general prices are explicitly estimates, existing NJ quotes retain their original source basis, and unknown business prices are never $0. No native App Store submission was performed.
+
+Final settings guard: an at-home personal idea tagged indoor/home is excluded from Indoor Date and mixed outings; a personal idea explicitly allowed in all three settings can still be used outside. Both assertions passed in the six-test pricing suite.
