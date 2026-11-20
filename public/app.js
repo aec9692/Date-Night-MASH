@@ -13,6 +13,7 @@ let currentPlan = null;
 let favorites = [];
 let busy = false;
 let planningMode = 'mash';
+let budgetCountTimer = null;
 
 function element(tag, text, className) {
   const node = document.createElement(tag);
@@ -124,19 +125,36 @@ async function loadCatalog() {
   }
 }
 
+function syncBudgetControls(mode = planningMode) {
+  const prefix = mode === 'mash' ? 'mash-' : '';
+  const input = $(`#${prefix}budget`);
+  const budget = Number(input.value);
+  $(`#${prefix}budget-slider`).value = Math.min(1000, Math.max(0, budget));
+  $(`#${prefix}budget-caption`).textContent = budget === 0 ? 'The best things can be free.' : budget <= 25 ? 'Small budget. Big possibilities.' : budget <= 100 ? 'A lovely little night out.' : budget <= 300 ? 'Make a whole occasion of it.' : 'Time to really treat each other.';
+  document.querySelectorAll(`[data-${prefix}budget]`).forEach(node => {
+    const selected = input.value !== '' && Number(node.getAttribute(`data-${prefix}budget`)) === budget;
+    node.classList.toggle('is-selected', selected);
+    node.setAttribute('aria-pressed', String(selected));
+  });
+}
+function updateBudget(event, mode) {
+  const prefix = mode === 'mash' ? 'mash-' : '';
+  if (![`${prefix}budget`, `${prefix}budget-slider`].includes(event.target.id)) return false;
+  if (event.target.id === `${prefix}budget-slider`) $(`#${prefix}budget`).value = event.target.value;
+  syncBudgetControls(mode);
+  clearTimeout(budgetCountTimer);
+  budgetCountTimer = setTimeout(updatePossibilities, 180);
+  return true;
+}
 function updatePossibilities() {
+  clearTimeout(budgetCountTimer);
+  syncBudgetControls();
   if(planningMode==='mash'){
-    const result=MashPlanner.prepare(mashPreferences(),catalog,false);
-    const budget=Number($('#mash-budget').value);
-    $('#mash-budget-slider').value=Math.min(1000,Math.max(0,budget));
-    $('#mash-budget-caption').textContent=budget===0?'The best things can be free.':budget<=25?'Small budget. Big possibilities.':budget<=100?'A lovely little night out.':budget<=300?'Make a whole occasion of it.':'Time to really treat each other.';
-    document.querySelectorAll('[data-mash-budget]').forEach(b=>{
-      const selected=$('#mash-budget').value!==''&&Number(b.dataset.mashBudget)===budget;
-      b.classList.toggle('is-selected',selected);b.setAttribute('aria-pressed',String(selected));
-    });
+    SmartDate.count(mashPreferences(),result=>{
     $('#mash-count').textContent=`${(result.combinationCount||0).toLocaleString()} four-pick dates`;
     $('#mash-note').textContent=result.error||($('#mash-spending').value==='treat'?'Four picks near your budget when possible, all matching your setting.':'Four picks matching your setting; any affordable total can win.');
     $('#mash-note').classList.toggle('error',Boolean(result.error));
+    });
     return;
   }
   SmartDate.count(preferences(),analysis=>{
@@ -146,14 +164,6 @@ function updatePossibilities() {
   const spendingNote = $('#spending').value === 'treat' ? 'Treat us picks near-budget dates from this mix.' : 'Any affordable total can be picked.';
   $('#possibility-note').textContent = analysis.error || `${lockedCount ? `${lockedCount} ${lockedCount === 1 ? 'pick' : 'picks'} locked. ` : ''}${spendingNote}`;
   $('#possibility-note').classList.toggle('error', Boolean(analysis.error));
-  const budget = Number($('#budget').value);
-  $('#budget-caption').textContent = budget === 0 ? 'The best things can be free.' : budget <= 25 ? 'Small budget. Big possibilities.' : budget <= 100 ? 'A lovely little night out.' : budget <= 300 ? 'Make a whole occasion of it.' : 'Time to really treat each other.';
-  $('#budget-slider').value = Math.min(1000, Math.max(0, budget));
-  document.querySelectorAll('[data-budget]').forEach(node => {
-    const selected = $('#budget').value !== '' && Number(node.dataset.budget) === budget;
-    node.classList.toggle('is-selected', selected);
-    node.setAttribute('aria-pressed', String(selected));
-  });
   });
 }
 
@@ -399,7 +409,7 @@ function addCustom(event) {
 $('#plan-form').addEventListener('submit',event=>generate(event,null,'scene'));
 $('#mash-form').addEventListener('submit',event=>generate(event,null,'mash'));
 $('#mash-form').addEventListener('input',event=>{
-  if(event.target.id==='mash-budget-slider')$('#mash-budget').value=event.target.value;
+  if(updateBudget(event,'mash'))return;
   if(event.target.id==='mash-setting'){locks={};if(currentPlan)renderResult();}
   updatePossibilities();renderCatalog();
 });
@@ -422,7 +432,7 @@ $('#idea-cost').addEventListener('change',renderCatalog);
 $('#drive-origin').addEventListener('change',()=>{if(currentPlan)renderResult();document.dispatchEvent(new Event('mash:directions-change'));});
 $('#again').addEventListener('click', generate);
 $('#plan-form').addEventListener('input', event => {
-  if (event.target.id === 'budget-slider') $('#budget').value = event.target.value;
+  if (updateBudget(event, 'scene')) return;
   if (['setting', 'area', 'visit-date','date-format','start-town','trip-radius','leg-limit','audience','cuisine','vegetarian','low-effort','alcohol-free','fresh-ideas','smart-enabled'].includes(event.target.id)) {
     locks = {};
     renderCatalog();
