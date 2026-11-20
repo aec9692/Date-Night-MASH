@@ -224,3 +224,9 @@ Executed locally: targeted MASH/places and offline suites passed all nine Node t
 The MASH numeric field now receives the same font and left padding as Scene. The currency prefix is vertically centered and ignores pointer events; both sliders and captions share styling. Offline shell version is v5.
 
 Executed locally: jsdom computed-style assertions passed for 36px amount padding, equal font/padding between both budget fields, centered currency prefix, and pointer-events none. The initial assertion expected rem units; corrected the check to the computed pixel value. Actual rendered-phone and public-deployment verification remain pending.
+
+## Budget slider responsiveness - November 19, 2026
+
+Budget dragging now updates the amount, caption and presets immediately, defers counts until 180 ms after the latest budget input, and avoids rebuilding the catalog for budget changes. MASH uses the existing background count worker as Scene does; browsers without workers retain the local calculation fallback. Scene controls no longer wait for a count response. Switching modes cancels the pending budget refresh. Offline shell version is v6.
+
+Executed locally: instrumented DOM/API simulation sent 300 slider input events in each mode. During each burst there were zero count calls and zero catalog rebuilds, with the final amount immediately visible; one correct count followed the pause. Also passed mode-switch cancellation, immediate generation using the latest budget, slider/typed/preset synchronization, $2,500 typed amounts, saved controls, indoor/home filters, four-pick generation and Treat us budget behavior. Ten targeted Node tests passed for background counting, MASH and offline behavior; the worker fixture now also checks a MASH request. These checks measure work scheduling, not rendered frame rate. Actual phone drag smoothness and public deployment remain unverified.

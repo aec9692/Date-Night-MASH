@@ -10,7 +10,8 @@ test('background counts match server planning and retain request IDs so the UI c
  for(const [i,preferences]of [
   {budget:50,area:'paterson',journey:{format:'quick'}},
   {budget:150,area:'paterson',journey:{format:'evening',start:'17:00'}},
-  {budget:100,area:'paterson',journey:{format:'full',start:'11:00'}}
+  {budget:100,area:'paterson',journey:{format:'full',start:'11:00'}},
+  {budget:300,area:'paterson',mash:{age:'teen',origin:'Paterson',radius:10}}
  ].entries()){
   self.onmessage({data:{type:'count',id:i+1,preferences}});
   const expected=planner.prepare(preferences,options,false);
