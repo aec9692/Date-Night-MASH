@@ -11,7 +11,7 @@ window.DateCard = (() => {
       `Budget for two: ${money(plan.budgetCents)}`, '', ...picks.flatMap(pick => [
         `${pick.category.toUpperCase()}: ${placeTitle(pick)} - ${money(pick.costCents)}`, pick.venue&&['dinner','treat'].includes(pick.category)?'Choose from their menu. The budget uses a checked sample order, not a guaranteed final bill.':pick.description,
         ...(plan.schedule?[`Suggested visit: ${plan.schedule.stops.find(s=>s.id===pick.id).start}–${plan.schedule.stops.find(s=>s.id===pick.id).end}`]:[]),
-        ...(pick.home?[`Ingredients: ${pick.home.ingredients.join(', ')||'See the idea description'}`,`Supplies: ${pick.home.supplies.join(', ')}`,...pick.home.instructions.map((step,index)=>`${index+1}. ${step}`),pick.costBasis]:[]),
+        ...(pick.home?[...(pick.guide?[`Prep ${pick.guide.prepMinutes} min; active ${pick.guide.activeMinutes} min; elapsed about ${pick.guide.totalMinutes} min; ${pick.guide.difficulty}`,pick.guide.quantityNote]:[]),`Ingredients: ${(pick.guide?pick.guide.ingredients.map(item=>item.quantity+' '+item.name):pick.home.ingredients).join(', ')||'See the idea description'}`,`Supplies: ${pick.home.supplies.join(', ')}`,...(pick.guide?.steps?.length?pick.guide.steps:pick.home.instructions).map((step,index)=>`${index+1}. ${step}`),pick.costBasis]:[]),
         ...(pick.place?[pick.place.address||'Map pin only; address unconfirmed',`Community listing: ${pick.place.sourceUrl}`,`Directions: https://www.google.com/maps/dir/?api=1&destination=${pick.place.lat},${pick.place.lon}`,'Price is your personal estimate, not a verified menu/admission quote.']:[]),
         ...(pick.venue ? [pick.venue.address, pick.venue.hoursNote, pick.pricing.order,
           `Posted ${money(pick.pricing.baseCents)}; estimated tax ${money(pick.pricing.taxCents)}; optional tip ${money(pick.pricing.tipCents)}; optional donation ${money(pick.pricing.donationCents)}`,
@@ -93,9 +93,10 @@ window.DateCard = (() => {
           next+=8;
         }
         if(pick.home){
-          flow('INGREDIENTS FOR TWO: '+(pick.home.ingredients.join(', ')||'See the idea description.'));
+          if(pick.guide){flow(`PREP ${pick.guide.prepMinutes} min | ACTIVE ${pick.guide.activeMinutes} min | ELAPSED about ${pick.guide.totalMinutes} min | ${pick.guide.difficulty}`);flow(pick.guide.quantityNote,10);}
+          flow('INGREDIENTS FOR TWO: '+((pick.guide?pick.guide.ingredients.map(item=>item.quantity+' '+item.name):pick.home.ingredients).join(', ')||'See the idea description.'));
           flow('SUPPLIES: '+pick.home.supplies.join(', '));
-          pick.home.instructions.forEach((step,index)=>flow(`${index+1}. ${step}`));
+          (pick.guide?.steps?.length?pick.guide.steps:pick.home.instructions).forEach((step,index)=>flow(`${index+1}. ${step}`));
           flow('SHOPPING: '+(pick.purchases?.map(line=>`${line.name} ${money(line.cents)}`).join('; ')||'No additional purchase allowance. Shared basics may be charged to an earlier pick.'));
           flow(pick.costBasis,10);
         }else flow(pick.tip||'Make this idea your own.',13);
@@ -108,6 +109,7 @@ window.DateCard = (() => {
         flow('Planning estimates for two, not store quotes or reservations. Check the actual basket, full costs and availability.',10);
       }
     });
+    for(let number=1;number<=pdf.getNumberOfPages();number++){pdf.setPage(number);pdf.setFillColor(247,243,255);pdf.rect(350,20,70,22,'F');label(`${number} / ${pdf.getNumberOfPages()}`,368,34,10,false,[103,95,114]);}
     return pdf.output('blob');
   }
   function download(plan,format='pdf') {

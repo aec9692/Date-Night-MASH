@@ -261,3 +261,31 @@ Executed locally against this branch: all 110 Node tests passed. After the final
 Offline cache is v7. Actual iPhone/Android PDF sharing, live nearby success, phone/laptop page rendering and public production verification remain pending. Home/general prices are explicitly estimates, existing NJ quotes retain their original source basis, and unknown business prices are never $0. No native App Store submission was performed.
 
 Final settings guard: an at-home personal idea tagged indoor/home is excluded from Indoor Date and mixed outings; a personal idea explicitly allowed in all three settings can still be used outside. Both assertions passed in the six-test pricing suite.
+
+
+## Practical dates, calendars and sharing - November 20, 2026
+
+Executed locally: the full 134-test Node suite passed. A three-window DOM/API simulation then passed the complete new UI flow, including independent recipient storage. All 384 home/outing options were exported again with guide quantities/steps, and every page's text remained inside phone-PDF bounds. The updated cake page was rendered and visually inspected. These are not physical-device or public-site results.
+
+| ID | Steps | Expected | Actual |
+| --- | --- | --- | --- |
+| R01 | Open catalog; show more Dinner after selecting its tab | Initially at most 48 cards; another 12 Dinner cards; other tabs stay hidden | Passed DOM. |
+| R02 | Use Stay home / Go out | Relevant inventory/location controls appear | Passed DOM. |
+| R03 | Generate with each restrictive food preference | Food picks carry matching guide tags or a useful no-plan result | Passed actual HTTP selections for vegetarian/vegan/dairy-free/gluten-free orientations. |
+| R04 | Choose beginner, gentle effort and available equipment | Server honors constraints; access checklist preference retained | Passed Node/HTTP and DOM. |
+| R05 | Inspect guides and ingredient checklist; lock a pick | Quantities/time/difficulty visible; checklist ticks retained for same plan | Passed all 246 guide schema checks and DOM flow. |
+| R06 | Never suggest again; generate; reload; Suggest again | Exclusion persists and can be restored | Passed three-window DOM flow. |
+| R07 | Save, change preferences and revisit | Original saved preferences restore | Passed DOM. |
+| R08 | Query source-priced nearby and then simulate live-provider failure | Checked NJ cards remain available with honest prices/check dates | Passed curated route, six module tests and DOM. |
+| R09 | Open calendar from untimed MASH and choose date/times | Calendar draft works without requiring a timed Scene plan | Passed DOM/HTTP. |
+| R10 | Use Google Calendar | Official event-edit URL carries UTC times, full note and plan link | Passed pure-module and DOM checks. |
+| R11 | Simulate iPhone and choose Apple Calendar | Apple recommended first; valid single-event .ics returned | Passed platform detection, DOM and HTTP content/header checks. No real phone save performed. |
+| R12 | Native Share date, then clipboard fallback | Readable picks/cost note and snapshot link; copy fallback remains | Passed mocked-native/clipboard DOM flow. No message sent. |
+| R13 | Share a suggestion and open in another independent context | Exact picks/costs; proposal visible; recipient pantry unchanged | Passed real restore HTTP route and DOM flow. |
+| R14 | Recipient confirms own supplies and applies suggested activity reroll | Other three IDs remain; new activity and total fit | Passed DOM/API. |
+| R15 | Tamper token, budget, date/time or unsupported fields | Readable 400/422; no trusted copied source prices | Passed module/HTTP tests. |
+| R16 | Choose a museum's recorded closed date for the calendar | Reject calendar file instead of suggesting a known-closed visit | Passed HTTP 422. |
+| R17 | Export 384 ideas with new guides; inspect rendered cake page | No clipped text, correct continuation page counts | Passed PDF bounds and visual inspection. |
+| R18 | Check deployment metadata and browser automation | Report actual availability without inventing public/phone checks | GitHub returned no homepage/deployments; user said professor will assist. CUA module and Windows native pipe unavailable. |
+
+Actual iPhone/Android Calendar saves, real native share sheets, screen rendering and public deployment remain pending. PHONE_QA.md contains 18 unexecuted physical-device acceptance cases, and PROFESSOR_HANDOFF.md covers the free deployment handoff.

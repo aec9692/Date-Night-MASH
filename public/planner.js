@@ -5,7 +5,7 @@
   const moods = ['surprise', 'cozy', 'adventurous', 'romantic', 'competitive'];
   const spendingModes = ['treat', 'flexible'];
   const areas = ['all', 'general', 'paterson'];
-  const fields = ['budget', 'setting', 'mood', 'spending', 'area', 'date', 'excluded', 'customOptions', 'locked', 'previous', 'journey', 'mash', 'pantry', 'recent', 'location'];
+  const fields = ['budget', 'setting', 'mood', 'spending', 'area', 'date', 'excluded', 'customOptions', 'locked', 'previous', 'journey', 'mash', 'pantry', 'recent', 'location', 'fit'];
   const object = value => value && typeof value === 'object' && !Array.isArray(value);
   const fail = (error, status = 400, extra = {}) => ({ error, status, ...extra });
 
@@ -43,6 +43,9 @@
     }
     const { budget, setting = 'any', mood = 'surprise', spending = 'treat', area = 'all', date = '', excluded = [], customOptions = [], locked = {}, previous = [], pantry = [], recent = [], location = null } = input;
     const costs=typeof module==='object'&&module.exports?require('./date-costs'):root.DateCosts;
+    const fitRules=typeof module==='object'&&module.exports?require('./date-fit'):root.DateFit;
+    const fit=fitRules.normalize(input.fit);
+    if(!fit)return fail('Choose valid food, effort, cooking and equipment preferences.');
     if(!costs.validPantry(pantry))return fail('Choose only the documented already-owned supplies.');
     if(location!==null&&(!object(location)||Object.keys(location).some(key=>!['lat','lon','label'].includes(key))||typeof location.lat!=='number'||!Number.isFinite(location.lat)||location.lat < -90||location.lat > 90||typeof location.lon!=='number'||!Number.isFinite(location.lon)||location.lon < -180||location.lon > 180||typeof location.label!=='string'||!location.label.trim()||location.label.length>160||/[\x00-\x1f\x7f]/.test(location.label)))return fail('Choose a city or ZIP search result with valid coordinates.');
     const journeyRules=typeof module==='object'&&module.exports?require('./journey'):root.MashJourney;
@@ -74,15 +77,15 @@
     const modernHome=catalog.some(option=>option.home);
     const groups = categories.map(category => options.filter(option => option.category === category &&
       eligible(option, setting==='home'?'general':area, date) && (!mash||journeyRules.matchesMash(option,mash,location)) &&
-      costs.available(option,pantry) && !(modernHome&&option.settings.includes('home')&&!option.home&&!option.custom) &&
+      costs.available(option,pantry) && fitRules.matches(option,fit) && !(modernHome&&option.settings.includes('home')&&!option.home&&!option.custom) &&
       !excluded.includes(option.id) && (mash||modernHome?costs.settingMatches(option,setting):setting==='any'||option.settings.includes(setting)) &&
       (!locked[category] || option.id === locked[category])));
     const empty = groups.findIndex(group => !group.length);
-    if (empty !== -1) return fail(`No ${categories[empty]} ideas match. Include an idea, unlock the pick, or change the setting.`, 422);
+    if (empty !== -1) return fail(`No ${categories[empty]} ideas match. Unlock a pick or relax food, equipment or source requirements; unknown ingredients/access are not guarantees.`, 422);
     const budgetCents = Math.round(budget * 100);
     if(modernHome||pantry.length||recent.length||setting==='mixed'||mash){
       const combinations=typeof module==='object'&&module.exports?require('./date-combinations'):root.DateCombinations;
-      return combinations.prepare(groups,{budgetCents,setting,mood,spending,area,date,customOptions,pantry,recent,previous,...(mash?{mash}:{}),...(location?{location}:{})},includePlans,drawTicket);
+      return combinations.prepare(groups,{budgetCents,setting,mood,spending,area,date,customOptions,pantry,recent,previous,fit,...(mash?{mash}:{}),...(location?{location}:{})},includePlans,drawTicket);
     }
     const minimumCents = groups.reduce((sum, group) => sum + Math.min(...group.map(option => option.costCents)), 0);
     if (budgetCents < minimumCents) return fail(`These choices need at least $${(minimumCents / 100).toFixed(2)}. Raise the budget, unlock a pick, or change your choices.`, 422, { minimumCents });
@@ -153,7 +156,7 @@
     }
     return { plans, selectedPicks, combinationCount, maximumCents, targetCents,
       ...(mash?{mash}:{}),
-      unchanged: previous.length === 4 && !alternativeCount, budgetCents, setting, mood, spending, area, date, customOptions };
+      unchanged: previous.length === 4 && !alternativeCount, budgetCents, setting, mood, spending, area, date, customOptions,fit };
   }
 
   const names = {

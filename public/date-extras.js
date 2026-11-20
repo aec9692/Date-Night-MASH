@@ -2,7 +2,7 @@
 window.DateExtras=(()=>{
  const $=selector=>document.querySelector(selector),node=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
  const labels={groceries:'Pasta, rice & basic groceries',seasonings:'Cooking oil & seasonings',baking:'Flour, sugar, eggs & butter',boardGames:'Board games & cards',videoGames:'Video games & a console',art:'Art supplies',streaming:'Streaming access',craft:'Craft supplies'};
- let origin=null,recent=[],pendingPlace=null,searching=false;
+ let origin=null,recent=[],pendingPlace=null,searching=false,shoppingKey='',shoppingChecks=new Set(),catalogOptions=[],towns={};
  function read(key,fallback){try{return JSON.parse(localStorage.getItem(key))||fallback;}catch{return fallback;}}
  function save(key,value){try{localStorage.setItem(key,JSON.stringify(value));}catch{/* Per-visit choices still work. */}}
  const saved=read('mash-owned-v1',[]),owned=DateCosts.validPantry(saved)?saved:[];
@@ -10,7 +10,7 @@ window.DateExtras=(()=>{
  for(const key of DateCosts.ownership){const label=node('label'),input=node('input');input.type='checkbox';input.value=key;input.checked=owned.includes(key);label.append(input,document.createTextNode(labels[key]));field.append(label);}
  function pantry(){return [...field.querySelectorAll('input:checked')].map(input=>input.value);}
  field.addEventListener('change',()=>{save('mash-owned-v1',pantry());updatePossibilities();renderCatalog();});
- function restore(plan){for(const input of field.querySelectorAll('input'))input.checked=(plan.pantry||[]).includes(input.value);save('mash-owned-v1',pantry());origin=plan.location||null;showOrigin();}
+ function restore(plan,{ownership=true}={}){if(ownership){for(const input of field.querySelectorAll('input'))input.checked=(plan.pantry||[]).includes(input.value);save('mash-owned-v1',pantry());}origin=plan.location||null;showOrigin();}
  function remember(plan){if(plan.picks.length!==4)return;const ids=plan.picks.map(pick=>pick.id),key=ids.join('|');recent=[ids,...recent.filter(row=>row.join('|')!==key)].slice(0,8);}
  function recentDates(options){const known=new Set(options.map(option=>option.id));return recent.filter(ids=>ids.every(id=>known.has(id)));}
  function showOrigin(){$('#location-selected').textContent=origin?`MASH starts near ${origin.label}. Radius uses approximate straight-line distance.`:'MASH uses the starting town below. Home dates ignore travel distance.';$('#location-clear').hidden=!origin;}
@@ -23,10 +23,22 @@ window.DateExtras=(()=>{
   $('#custom-form').scrollIntoView({block:'center'});$('#custom-cost').focus();
  }
  function placeMetadata(){if(!pendingPlace||$('#custom-name').value!==pendingPlace.name.slice(0,48)||!pendingPlace.sourceUrl?.startsWith('https://www.openstreetmap.org/'))return null;return {name:pendingPlace.name,address:pendingPlace.address,lat:pendingPlace.lat,lon:pendingPlace.lon,sourceUrl:pendingPlace.sourceUrl};}
- async function findPlaces(){
-  if(!origin||searching)return;searching=true;$('#live-search').disabled=true;$('#location-status').textContent='Looking up community-listed places. Prices and availability need confirmation…';
+ function center(){const point=towns[$('#mash-town').value];return origin||(point?{lat:point[0],lon:point[1],label:$('#mash-town').value+', NJ'}:null);}
+ async function findCurated(){
+  const selected=center();if(!selected||searching)return;searching=true;$('#curated-search').disabled=true;$('#location-status').textContent='Finding source-priced NJ choices…';
   try{
-   const params=new URLSearchParams({lat:origin.lat,lon:origin.lon,radius:$('#mash-radius').value,kind:$('#live-kind').value});
+   const data=await api('/api/nearby-curated?'+new URLSearchParams({lat:selected.lat,lon:selected.lon,radius:$('#mash-radius').value,kind:$('#live-kind').value}));const list=$('#curated-results');list.replaceChildren();
+   for(const place of data.results){const card=node('li',undefined,'live-place');card.append(node('h4',place.name),node('span','Source-priced examples','confidence-badge source'),node('p',place.address),node('p',`$${(place.minCostCents/100).toFixed(2)}–$${(place.maxCostCents/100).toFixed(2)} sample totals for two · about ${place.distanceMiles} miles by town center`),node('p',place.freshnessLabel||`Checked ${place.checkedOn}; reconfirm before visiting.`,'helper'));card.append(link('Official price source',place.sourceUrl),document.createTextNode(' · '),link('Get directions',DateDirections.to(place.address,{town:$('#mash-town').value,location:origin})));
+    const option=catalogOptions.find(option=>place.optionIds.includes(option.id));if(option){const b=node('button','Details / build around this','secondary');b.type='button';b.addEventListener('click',event=>previewIdea(option,event.currentTarget));card.append(b);}list.append(card);
+   }
+   $('#location-status').textContent=data.results.length?`${data.results.length} source-priced choices near ${selected.label}. ${data.notice}`:'No source-priced NJ choices in this radius. Try a wider radius or community map search; unknown prices need your own estimate.';
+  }catch(error){$('#location-status').textContent=error.message;}
+  finally{searching=false;$('#curated-search').disabled=false;}
+ }
+ async function findPlaces(){
+  const selected=center();if(!selected||searching)return;searching=true;$('#live-search').disabled=true;$('#location-status').textContent='Looking up community-listed places. Source-priced results stay available below.';
+  try{
+   const params=new URLSearchParams({lat:selected.lat,lon:selected.lon,radius:$('#mash-radius').value,kind:$('#live-kind').value});
    const data=await api('/api/nearby?'+params);const list=$('#live-results');list.replaceChildren();
    for(const place of data.results){const card=node('li',undefined,'live-place');card.append(node('h4',place.name),node('p',`${place.category} · ${place.distanceMiles} miles · ${place.listedType}`),node('p',place.address||'Street address not recorded. Check the map pin.'),node('p','Price unknown · hours and availability unconfirmed','helper'));
     const links=node('div',undefined,'nearby-actions');links.append(link('Map listing',place.sourceUrl),link('Get directions',place.directionsUrl));if(place.website)links.append(link('Business website',place.website));card.append(links);
@@ -48,11 +60,14 @@ window.DateExtras=(()=>{
  }
  $('#location-search').addEventListener('click',searchCity);
  $('#location-query').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();searchCity();}});
- $('#location-clear').addEventListener('click',()=>{origin=null;$('#live-discovery').hidden=true;showOrigin();locks={};updatePossibilities();renderCatalog();});
+ $('#location-clear').addEventListener('click',()=>{origin=null;$('#live-discovery').hidden=false;showOrigin();locks={};updatePossibilities();renderCatalog();});
  $('#live-search').addEventListener('click',findPlaces);
+ $('#curated-search').addEventListener('click',findCurated);
  function homeDetails(pick){
-  const data=pick.home||pick;
+  const data={...(pick.home||pick)};
+  if(pick.guide){data.ingredients=pick.guide.ingredients.map(item=>`${item.quantity} ${item.name}`);if(pick.guide.steps?.length)data.instructions=pick.guide.steps;}
   const details=node('details',undefined,'home-details');details.append(node('summary',pick.home?'Ingredients, supplies & how to':'What to bring & try'));
+  if(pick.guide)details.append(node('p',`${pick.guide.prepMinutes} min prep · ${pick.guide.activeMinutes} min active · about ${pick.guide.totalMinutes} min elapsed · ${pick.guide.difficulty}`,'guide-times'),node('p',pick.guide.quantityNote,'helper'));
   for(const [key,title]of [['ingredients','Ingredients for two'],['supplies','What you need'],['instructions','Try it together']])if(data[key]?.length){details.append(node('h4',title));const list=node(key==='instructions'?'ol':'ul');data[key].forEach(text=>list.append(node('li',text)));details.append(list);}
   details.append(node('p',pick.costBasis||'Illustrative additional-spend estimate for two. Compare your actual grocery basket before shopping.','helper'));
   if(Number.isSafeInteger(pick.minCostCents)&&Number.isSafeInteger(pick.maxCostCents)&&pick.minCostCents!==pick.maxCostCents)details.append(node('p',`Illustrative range before owned-supply adjustments: $${(pick.minCostCents/100).toFixed(2)}–$${(pick.maxCostCents/100).toFixed(2)} for two. The plan uses the displayed point estimate.`,'helper'));
@@ -65,8 +80,12 @@ window.DateExtras=(()=>{
   container.append(node('h3','One shopping list. Shared basics once.'),node('p',`Already-owned allowance saved $${(resolved.ownedSavingsCents/100).toFixed(2)}; shared baskets saved $${(resolved.sharedSavingsCents/100).toFixed(2)}. Your selected items are treated as already available in sufficient quantity.`,'helper'));
   const list=node('ul');resolved.shoppingList.forEach(line=>list.append(node('li',`${line.name} · $${(line.cents/100).toFixed(2)} allowance`)));container.append(list);
   if(!resolved.shoppingList.length)container.append(node('p','No additional home supplies budgeted. Check your selected pantry quantities before starting.'));
+  const nextKey=plan.picks.map(p=>p.id).join('|')+'|'+(plan.pantry||[]).join('|');if(nextKey!==shoppingKey){shoppingChecks=new Set();shoppingKey=nextKey;}
+  const ingredients=new Map();for(const pick of plan.picks)for(const item of pick.guide?.ingredients||[]){const key=item.name.toLowerCase().trim();if(!ingredients.has(key))ingredients.set(key,{name:item.name,quantities:[],owned:[]});const entry=ingredients.get(key);entry.quantities.push(`${item.quantity} (${pick.category})`);entry.owned.push(Boolean(item.pantryKey&&(plan.pantry||[]).includes(item.pantryKey)));}
+  if(ingredients.size){container.append(node('h4','Ingredient checklist'),node('p','Quantities describe each recipe or package yield. Check sufficient amounts; list ticks track shopping only. Change pantry selections to change the budget.','helper'));const list=node('ul');for(const [key,item]of ingredients){const li=node('li'),label=node('label'),input=node('input');input.type='checkbox';input.checked=shoppingChecks.has(key);input.addEventListener('change',()=>{if(input.checked)shoppingChecks.add(key);else shoppingChecks.delete(key);});label.append(input,document.createTextNode(`${item.name}: ${item.quantities.join(' + ')}${item.owned.every(Boolean)?' · assumed already owned in this plan':''}`));li.append(label);list.append(li);}container.append(list);}
  }
  function setup(data){
+  catalogOptions=data.options;towns=data.towns.towns;
   $('#nearby .checked-thrift')?.remove();
   const section=node('details',undefined,'checked-thrift');section.append(node('summary','A few source-checked thrift shops'));
   for(const place of data.unpricedPlaces||[]){const card=node('article',undefined,'live-place');card.append(node('h3',place.name),node('p',place.address),node('p',place.suggestedActivity),node('p','Address checked; purchase prices, hours and admission need confirmation.','helper'),link('Official location source',place.sourceUrl),document.createTextNode(' · '),link('Get directions','https://www.google.com/maps/dir/?'+new URLSearchParams({api:'1',destination:place.address})));section.append(card);}

@@ -137,12 +137,6 @@ window.SmartDate=(()=>{
   // Fold at UTF-8-safe 70-byte boundaries (RFC 5545 limits content lines to 75 octets).
   return lines.map(line=>{let parts=[],piece='';for(const char of line){if(new TextEncoder().encode(piece+char).length>70){parts.push(piece);piece=' '+char;}else piece+=char;}parts.push(piece);return parts.join('\r\n');}).join('\r\n')+'\r\n';
  }
- $('#add-calendar').addEventListener('click',()=>{if(!activePlan)return;try{saveBlob(new Blob([calendar(activePlan)],{type:'text/calendar;charset=utf-8'}),'date-night-mash.ics');$('#travel-message').textContent='Calendar file downloaded with New Jersey time converted for your calendar. These are suggested visits, not reservations.';}catch(e){$('#travel-message').textContent=e.message;}});
- $('#share-invite').addEventListener('click',async()=>{
-  if(!activePlan)return;
-  const plan=activePlan,text=`It’s a date! ${plan.date||'Pick a day'}${plan.schedule?` · ${plan.schedule.start}–${plan.schedule.end}`:''}\n${MashJourney.ordered(plan).map(p=>p.name+(p.venue?' · '+p.venue.city:'')).join('\n')}\nEstimated $${(plan.totalCents/100).toFixed(2)} for two. Confirm hours and bookings.`;
-  try{if(navigator.share)await navigator.share({title:plan.title,text});else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);$('#travel-message').textContent='Invitation copied. Paste it into a message.';}else{saveBlob(new Blob([text],{type:'text/plain;charset=utf-8'}),'our-date-invitation.txt');$('#travel-message').textContent='Invitation downloaded as a text file.';}}catch(e){if(e.name!=='AbortError')$('#travel-message').textContent='Could not share. Use the PDF or text download.';}
- });
  $('#mark-tried').addEventListener('click',()=>{if(!activePlan)return;tried=[...new Set([...tried,...activePlan.picks.map(o=>o.id)])].slice(-40);if(write(historyKey,tried))$('#travel-message').textContent='Marked as tried on this device. Turn on “Something we haven’t tried” for your next plan.';updatePossibilities();});
  $('#clear-tried').addEventListener('click',()=>{tried=[];feedback=[];write(historyKey,tried);write(reasonKey,feedback);$('#travel-message').textContent='Your tried-place and feedback history is cleared on this device.';updatePossibilities();});
  function online(){const b=$('#connection-note');b.hidden=navigator.onLine!==false;b.textContent='You’re offline. Previously saved dates and downloads remain available after this app has been cached. Reconnect to generate or open directions.';}
