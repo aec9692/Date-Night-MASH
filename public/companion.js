@@ -23,7 +23,7 @@ window.DateCompanion = (() => {
     return item;
   }
   function mapLink(label, destination, waypoints = []) {
-    const url = DateDirections.to(destination,{town:plan?.mash?.origin||plan?.journey?.origin||'Paterson',waypoints});
+    const url = DateDirections.to(destination,{town:plan?.mash?.origin||plan?.journey?.origin||'Paterson',location:plan?.location,waypoints});
     const link = node('a', label, 'button secondary');
     link.href = url; link.target = '_blank'; link.rel = 'noopener noreferrer';
     return link;
@@ -49,6 +49,8 @@ window.DateCompanion = (() => {
     const stop=plan.schedule?.stops.find(s=>s.id===pick.id);if(stop)card.append(node('p',`${stop.start}–${stop.end} suggested visit`,'time-badge'));
     if (pick.venue) card.append(node('p',pick.venue.address,'venue-address'),node('p',pick.venue.hoursNote,'helper'),mapLink('Directions to this stop ↗',pick.venue.address));
     else card.append(node('p',pick.tip,'helper'));
+    if(pick.home||pick.instructions?.length)card.append(DateExtras.homeDetails(pick));
+    if(pick.place)card.append(node('p',pick.place.address||'Use the recorded map pin.'),mapLink('Directions to this stop',`${pick.place.lat},${pick.place.lon}`));
     const mark = node('button',done.has(selected)?'✓ Enjoyed · undo':'We did this! ✓','stop-done'); mark.type='button';
     mark.addEventListener('click',()=>{
       if(done.has(selected)) done.delete(selected);
@@ -58,7 +60,7 @@ window.DateCompanion = (() => {
     card.append(mark);
     $('#date-complete').hidden = done.size !== picks.length;
     $('#full-route').replaceChildren();
-    const addresses = picks.filter(pick=>pick.venue).map(pick=>pick.venue.address);
+    const addresses = picks.filter(pick=>pick.venue||pick.place).map(pick=>pick.venue?.address||`${pick.place.lat},${pick.place.lon}`);
     if(addresses.length) $('#full-route').append(mapLink('Check the whole route ↗',addresses[addresses.length-1],addresses.slice(0,-1)));
     $('#spark-question').textContent = sparks[spark];
   }

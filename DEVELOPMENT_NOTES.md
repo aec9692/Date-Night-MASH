@@ -17,3 +17,14 @@ Visual PDF review also caught category colors being assigned by stop position: t
 ## Scope and verification
 
 The implementation uses plain JavaScript and Express, retains all 296 ideas, and adds no accounts, database, uploads or paid services. Location points are Census municipality representative points, not venue geocodes. Scheduling and travel are estimates; live availability, traffic, guardian policies and booking times still need confirmation. Actual phone rendering, native sharing, installed offline behavior and public Vercel deployment remain separate acceptance checks.
+
+## November 19 expanded planner implementation notes
+
+Useful prompts for individual reflection (not shared report prose):
+1. Fix Night at Home being filtered out by the NJ-only collection; prove $10-$100 dates fit and $0 requires existing food.
+2. Count complete dates exactly with shared grocery baskets, theme conflicts, locked rerolls and eight recent combinations, without retaining all dates.
+3. Keep unknown business prices separate from verified NJ orders, and verify the ownership/custom-place/favorite/PDF flows together.
+
+Detected error: a new regression fixture looked for an activity that purchased cooking oil, but this catalog had no such activity. The shared-basket assertion failed before testing the cost logic. Changing the fixture to a pasta dinner and cake treat, which both buy oil, exercised the actual shared basket; the test then passed. Independent small-deck enumeration also checks totals, conflicts, candidates and weighted draws, so the optimized selector is not validated solely against itself. An early test suite also exposed obsolete assumptions about 305 entries and local home plans failing; those assertions now cover the expanded catalog and intended home behavior.
+
+Local DOM/API and PDF bounds checks are not phone frame-rate or deployed-site evidence. Browser automation could not connect to its native pipe; real phone/laptop rendering and production verification remain pending.

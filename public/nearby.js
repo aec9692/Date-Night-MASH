@@ -77,7 +77,7 @@
     event.preventDefault();
     if (search.disabled) return;
     const center = towns.get(town.value), limit = Number(radius.value);
-    if (!center || ![5,10,25,50].includes(limit)) {
+    if (!center || ![5,10,15,25,50].includes(limit)) {
       status.textContent = 'Choose a starting town and a supported radius.';
       return;
     }

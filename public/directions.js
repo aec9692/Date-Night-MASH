@@ -5,9 +5,10 @@
   target.search=new URLSearchParams({api:'1',destination,travelmode:'driving',...(origin?{origin}:{}),...(waypoints.length?{waypoints:waypoints.slice(0,3).join('|')}:{})});
   return target.href;
  }
- function to(destination,{town,waypoints=[]}={}){
+ function to(destination,{town,location,waypoints=[]}={}){
   const useTown=typeof document!=='undefined'&&document.querySelector('#drive-origin')?.value==='town';
-  return url(destination,{origin:useTown?`${town||document.querySelector('#start-town')?.value||'Paterson'}, NJ`:undefined,waypoints});
+  const chosen=location&&Number.isFinite(location.lat)&&Number.isFinite(location.lon)?`${location.lat},${location.lon}`:`${town||document.querySelector('#start-town')?.value||'Paterson'}, NJ`;
+  return url(destination,{origin:useTown?chosen:undefined,waypoints});
  }
  const api={url,to};
  if(typeof module==='object'&&module.exports)module.exports=api;else root.DateDirections=api;

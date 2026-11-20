@@ -1,4 +1,4 @@
-importScripts('/journey.js','/planner.js');
+importScripts('/date-costs.js','/date-combinations.js','/journey.js','/planner.js');
 let catalog=[];
 self.onmessage=event=>{
  const data=event.data;

@@ -57,7 +57,7 @@ window.SmartDate=(()=>{
   const m=MashJourney.meta(pick),badges=node('div',undefined,'experience-badges');
   const time=plan?.schedule?.stops.find(s=>s.id===pick.id);
   if(time)badges.append(node('span',`${time.start}–${time.end} suggested`,'time-badge'));
-  m.flags.forEach(flag=>badges.append(node('span',flag)));
+  (pick.home?['At home · plan together']:m.flags).forEach(flag=>badges.append(node('span',flag)));
   if(plan?.journey?.vegetarian&&pick.category==='dinner')badges.append(node('span','Confirm vegetarian ingredients'));
   copy.prepend(badges);
   const likes=[plan?.mood,plan?.journey?.partner?.mood].filter(v=>v&&v!=='surprise'&&m.moods.includes(v));

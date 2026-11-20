@@ -230,3 +230,32 @@ Executed locally: jsdom computed-style assertions passed for 36px amount padding
 Budget dragging now updates the amount, caption and presets immediately, defers counts until 180 ms after the latest budget input, and avoids rebuilding the catalog for budget changes. MASH uses the existing background count worker as Scene does; browsers without workers retain the local calculation fallback. Scene controls no longer wait for a count response. Switching modes cancels the pending budget refresh. Offline shell version is v6.
 
 Executed locally: instrumented DOM/API simulation sent 300 slider input events in each mode. During each burst there were zero count calls and zero catalog rebuilds, with the final amount immediately visible; one correct count followed the pause. Also passed mode-switch cancellation, immediate generation using the latest budget, slider/typed/preset synchronization, $2,500 typed amounts, saved controls, indoor/home filters, four-pick generation and Treat us budget behavior. Ten targeted Node tests passed for background counting, MASH and offline behavior; the worker fixture now also checks a MASH request. These checks measure work scheduling, not rendered frame rate. Actual phone drag smoothness and public deployment remain unverified.
+
+## Complete home/outing planner - November 19, 2026
+
+Executed locally against this branch: all 110 Node tests passed. After the final shared-savings adjustment, the six pricing/combination tests passed again. DOM/API simulation exercised the actual local Express routes and client scripts; external discovery responses in that simulation were explicitly fixtures. Browser CUA initialization failed, and the Windows computer-use native pipe was also unavailable. Therefore none of the following local checks claims real phone rendering, browser frame rate, or a deployed Vercel result.
+
+| ID | Item and steps | Expected | Actual |
+| --- | --- | --- | --- |
+| H01 | GET catalog; count IDs/categories | Original 96 + NJ 209 + home 246 + outings 138 | Passed: 689 unique IDs; original source prices retained. |
+| H02 | $50 + home + NJ-only + teen MASH | Four home picks, total <= $50 | Passed core, HTTP and DOM; no $57 threshold. |
+| H03 | Generate home with $10/$20/$30/$40/$50/$75/$100/$250/$1,000/$10,000 | Complete affordable dates for two | Passed all budgets. |
+| H04 | $0 home with groceries checked | Zero additional food spend, four picks | Passed API/DOM; total and remaining correct. |
+| H05 | $0 home with no supplies checked | Explain genuine minimum; preserve amount | Passed 422 and DOM recovery. |
+| H06 | Select pasta dinner and cake treat sharing oil | Buy oil once; total matches category amounts | Passed; shared basket deduplicated. |
+| H07 | Toggle groceries/seasoning/baking | Remove only owned allowances | Passed; shopping list and savings reconcile. |
+| H08 | Lock steak dinner under $50 | Steak stays eligible; total <= ceiling | Passed. |
+| H09 | Enumerate small fixtures independently | Exact counts, maxima, candidates and weighted tickets | Passed shared-cost, conflict, ownership, previous and recent cases. |
+| H10 | Generate eight mixed dates with recent IDs | Indoor/outdoor outings; no repeated combination | Passed, including conflict checks. |
+| H11 | Reroll treat while keeping other three | Other IDs unchanged; recomputed basket affordable | Passed core/API/DOM. |
+| H12 | Save and revisit home date | Correct four picks, budget and canonical details | Passed DOM; old ownership-free favorites retained with a reminder, while new invalid ownership assumptions are rejected. |
+| H13 | Inspect home result/companion details | Ingredients, supplies, steps and shopping | Passed DOM; one shopping list displayed. |
+| H14 | Simulate 300 budget slider inputs | Immediate amount; no count/card rebuild during drag | Passed; one count after settling. |
+| H15 | Explicit city lookup and selected origin | Matching city; selected center in planning | Deterministic tests/DOM passed. Actual Paterson geocoding request also succeeded. |
+| H16 | Nearby public-provider request | Sourced listings or readable provider error | Actual nearby attempt timed out here; live nearby success remains unverified. Twelve provider/cache/validation/error fixture tests passed. |
+| H17 | Add discovered fixture place with $10 personal estimate | Keep price unknown until entered; plan uses personal amount | Passed DOM/API, custom lock, address/map pin, directions and PDF/text. Fixture business is not a production listing. |
+| H18 | Export every new idea to PDF | All text stays within phone-size pages | Passed all 384 new options, all pages; cake page visually inspected. |
+| H19 | Maximum expanded exclusion/custom/recent request | Fits bounded JSON parser | Passed 32 KB bound; oversized requests still return 413. |
+| H20 | Existing regression suite | Settings, validation, source arithmetic, timed routes, offline and sound retained | Passed full 110 tests. |
+
+Offline cache is v7. Actual iPhone/Android PDF sharing, live nearby success, phone/laptop page rendering and public production verification remain pending. Home/general prices are explicitly estimates, existing NJ quotes retain their original source basis, and unknown business prices are never $0. No native App Store submission was performed.
