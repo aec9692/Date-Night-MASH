@@ -425,3 +425,25 @@ footer p { font-size: .75rem; color: var(--muted); text-align: right; }
 @media (max-width:600px) { .location-entry { flex-direction: column; align-items: stretch; }.home-supplies { padding: 16px; }.live-results { max-height: 520px; } }
 .live-place, .home-details, .shopping-summary { overflow-wrap: anywhere; }
 .checked-thrift { margin-top: 22px; }.checked-thrift summary { min-height: 44px; font-weight: 700; cursor: pointer; }.checked-thrift article { margin-top: 12px; }
+
+.quick-start { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 22px; }
+.quick-start button { flex: 1; min-width: 100px; background: white; color: var(--ink); }
+.quick-start button[aria-pressed=true] { background: var(--purple); color: white; box-shadow: 3px 3px 0 var(--ink); }
+.personal-fit,.hidden-ideas { margin: 18px 0; border: 1.5px solid #c8b8dd; border-radius: 16px; padding: 18px 22px; background: white; }
+.personal-fit summary,.hidden-ideas summary { min-height: 44px; font-weight: 750; cursor: pointer; }
+.personal-fit summary span { display: inline-block; font-weight: 400; margin-left: 10px; color: var(--muted); }
+.personal-fit .form-grid { margin-top: 12px; }.personal-fit .preference-checks { margin-top: 14px; }
+#equipment-choices label,.before-you-go label { display: flex; align-items: flex-start; gap: 10px; padding-block: 10px; min-height: 44px; }
+#equipment-choices input,.before-you-go input { margin-top: 4px; flex: 0 0 auto; }
+.confidence-badge { display: inline-block; padding: 5px 9px; border-radius: 8px; background: #ede7f5; color: #493456; font-size: .85rem; font-weight: 700; }
+.confidence-badge.source { background: #e7f0d7; color: #294619; }.confidence-badge.personal { background: #ffe7cf; }
+.guide-times { font-weight: 700; color: #543582; }.before-you-go { margin-top: 16px; font-size: .95rem; }.before-you-go summary { min-height: 44px; padding-top: 10px; cursor: pointer; font-weight: 700; }.before-you-go ul { list-style: none; padding: 0; }
+#shopping-summary label { display: flex; gap: 10px; align-items: flex-start; padding-block: 8px; }#shopping-summary input { margin-top: 5px; flex-shrink: 0; }
+.shared-date { margin: 22px 0; padding: 24px; border: 2px solid var(--purple); border-radius: 20px; background: #eee5ff; }
+.partner-plan { margin: 20px 0; padding: 18px; border-radius: 14px; background: #f2ecff; }.partner-plan select { margin: 8px 0 12px; }
+#calendar-dialog,#share-dialog { width: min(620px,calc(100% - 24px)); max-height: 90dvh; overflow: auto; box-sizing: border-box; border: 2px solid var(--ink); border-radius: 22px; padding: 24px; }
+#calendar-dialog::backdrop,#share-dialog::backdrop { background: rgb(25 12 42 / .6); }
+.dialog-close { float: right; }.dialog-close+h2 { clear: both; padding-top: 8px; }
+#share-note { width: 100%; box-sizing: border-box; font: inherit; line-height: 1.5; border: 1.5px solid #b7a9c9; border-radius: 10px; padding: 12px; margin-top: 6px; resize: vertical; }
+#share-link { margin: 8px 0 16px; }#calendar-status,#share-status { overflow-wrap: anywhere; }
+@media(max-width:600px) { .hero-collage { display: none; }.hero { padding-block: 20px; }.hero h1 { font-size: clamp(2.3rem,10vw,3.5rem); }.hero-footnote { margin-bottom: 8px; }.personal-fit,.hidden-ideas { padding: 16px; }#calendar-dialog,#share-dialog { padding: 18px; }.partner-plan button { width: 100%; } }

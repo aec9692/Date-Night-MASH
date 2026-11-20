@@ -115,4 +115,16 @@ Upgrade behavior:
 - Default UI spending is flexible; Treat us remains available. A free food plan requires sufficient already-owned groceries. Explain a real minimum rather than silently assigning free ingredients. Never require spending exactly the budget.
 - Preserve old favorites with an ownership confirmation note where necessary; canonicalize all new home costs and metadata on restore/export. The per-visit recent list avoids eight recent dates when alternatives exist.
 - Live locations use explicit-submit free city geocoding and community map discovery; see LOCATION_SEARCH.md. Unknown prices stay null, not zero. Only personal estimates may add a live listing to the mix, clearly labeled. Official thrift addresses without prices remain discovery-only.
-- Keep slider updates immediate; never rebuild the catalog or count combinations in its input handler. Count after input settles and use the existing worker when supported. Keep offline cache v7 synchronized with the new shared modules.
+- Keep slider updates immediate; never rebuild the catalog or count combinations in its input handler. Count after input settles and use the existing worker when supported. Keep offline cache v8 synchronized with the new shared modules.
+
+
+## Practical-date and sharing rules
+
+- Keep data/home-guides.json separate from base prices. Server and browser receive canonical guide metadata; dietary/time/quantity estimates are not tested recipes, allergy guarantees or live venue information.
+- fit accepts only diet, effort, cooking, equipment, accessChecklist and verifiedOnly through date-fit.js. Apply filters in both four-pick and timed selection. Never suggest again uses device-local venue/idea keys converted to current known exclusion IDs. Keep local state arrays separate from the canonical catalog.
+- Curated source-priced nearby results must remain usable if live providers fail. Preserve check dates and label old checks for review rather than inventing fresh prices.
+- Share snapshots contain minimal IDs/preferences, not trusted price/source metadata. Decode and revalidate on the server before restore or calendar generation. Never restore the sender's pantry choices over a recipient's choices. Reject malformed, oversized, incompatible and over-budget snapshots.
+- Calendar UI supports MASH without a timed itinerary, asks for a date/time block, recommends Apple on iOS and Google on Android, and keeps both choices available. Preserve the selected provider on this device. The user saves the draft/import; do not claim silent calendar insertion or a booking.
+- Keep .ics escaping, UTF-8 folding, timezone/DST validation and source-day rechecking. Calendar/restore routes are stateless, bounded and uncached, with no OAuth, database, account, file upload or invitation sending.
+- Maintain progressive catalog rendering and quick start controls. Never reintroduce heavy work into budget slider input. Verify category visibility and personal idea visibility after paging/filtering.
+- Public deployment and actual phone checks remain pending the professor-assisted setup. Use PHONE_QA.md and PROFESSOR_HANDOFF.md and record only executed results.

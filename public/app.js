@@ -42,14 +42,14 @@ async function request(url, options = {}) {
 }
 function preferences(locked = locks) {
   return { budget: $('#budget').value === '' ? null : Number($('#budget').value), setting: $('#setting').value,
-    mood: mood(), spending: $('#spending').value, area: $('#area').value, date: $('#visit-date').value, excluded: [...excluded], customOptions, locked,
-    pantry:DateExtras.pantry(),
+    mood: mood(), spending: $('#spending').value, area: $('#area').value, date: $('#visit-date').value, excluded: [...new Set([...excluded,...DateFitUI.hiddenIDs(allOptions())])], customOptions, locked,
+    pantry:DateExtras.pantry(),fit:DateFitUI.preferences(),
     ...(SmartDate.preferences()&&!['home','mixed'].includes($('#setting').value) ? {journey:SmartDate.preferences()} : {}) };
 }
 function mashPreferences(locked=locks) {
   return {budget:$('#mash-budget').value===''?null:Number($('#mash-budget').value),area:$('#mash-area').value,
-    setting:$('#mash-setting').value,mood:'surprise',spending:$('#mash-spending').value,date:'',excluded:[...excluded],customOptions,locked,
-    pantry:DateExtras.pantry(),recent:DateExtras.recentDates(allOptions()),...(DateExtras.location()?{location:DateExtras.location()}:{}),
+    setting:$('#mash-setting').value,mood:'surprise',spending:$('#mash-spending').value,date:'',excluded:[...new Set([...excluded,...DateFitUI.hiddenIDs(allOptions())])],customOptions,locked,
+    pantry:DateExtras.pantry(),fit:DateFitUI.preferences(),recent:DateExtras.recentDates(allOptions()),...(DateExtras.location()?{location:DateExtras.location()}:{}),
     mash:{age:$('#mash-age').value,origin:$('#mash-town').value,radius:Number($('#mash-radius').value)}};
 }
 function activePreferences(){return planningMode==='mash'?mashPreferences():preferences();}
@@ -80,7 +80,8 @@ function validPlan(plan) {
   if (![plan.budgetCents, plan.totalCents, plan.remainingCents].every(Number.isSafeInteger)) return false;
   if (plan.budgetCents < 0 || plan.budgetCents > 1000000 || plan.totalCents < 0 || plan.remainingCents < 0) return false;
   const custom = MashPlanner.customCatalog(plan.customOptions || []);
-  if (!custom || !DateCosts.validPantry(plan.pantry||[])) return false;
+  const fit=DateFit.normalize(plan.fit);
+  if (!custom || !DateCosts.validPantry(plan.pantry||[]) || !fit) return false;
   const knownOptions = [...catalog, ...custom];
   const canonical = plan.picks.map(pick=>knownOptions.find(option=>option.id===pick?.id));
   if(canonical.some(pick=>!pick))return false;
@@ -90,7 +91,7 @@ function validPlan(plan) {
     const known = knownOptions.find(option => option.id === pick.id);
     return known && known.category === pick.category && known.name === pick.name && known.description === pick.description &&
       priced[index].costCents === pick.costCents && (plan.setting === 'any' || plan.setting==='mixed'&&!known.settings.includes('home') || known.settings.includes(plan.setting)) &&
-      (plan.pantry===undefined||DateCosts.available(known,plan.pantry)) && MashPlanner.eligible(known,plan.setting==='home'?'general':plan.area||'all',plan.date||'');
+      (plan.pantry===undefined||DateCosts.available(known,plan.pantry)) && DateFit.matches(known,fit) && MashPlanner.eligible(known,plan.setting==='home'?'general':plan.area||'all',plan.date||'');
   });
   if(journey&&(!matching||!plan.picks.every(pick=>MashJourney.matches(knownOptions.find(o=>o.id===pick.id),journey))||!MashJourney.schedule(plan.picks.map(pick=>knownOptions.find(o=>o.id===pick.id)),journey)))return false;
   if(mash&&(!matching||!plan.picks.every(pick=>MashJourney.matchesMash(knownOptions.find(o=>o.id===pick.id),mash,plan.location))))return false;
@@ -119,6 +120,8 @@ async function loadCatalog() {
     catalog = data.options;
     SmartDate.setup(data);
     DateExtras.setup(data);
+    DateFitUI.setup(data);
+    DateActions.setup(data);
     populateTowns();
     renderCatalog();
     loadFavorites();
@@ -126,6 +129,7 @@ async function loadCatalog() {
     $('#play').disabled = false;
     $('#mash-play').disabled=false;
     message('Your next “remember when” is one click away.');
+    DateActions.loadShared();
   } catch {
     message('Could not load date ideas. Check your connection and try again.', true);
     $('#retry').hidden = false;
@@ -155,6 +159,7 @@ function updateBudget(event, mode) {
   return true;
 }
 function updatePossibilities() {
+  DateFitUI.scene(planningMode);
   clearTimeout(budgetCountTimer);
   syncBudgetControls();
   if(planningMode==='mash'){
@@ -178,7 +183,8 @@ function updatePossibilities() {
 function renderCatalog() {
   const active=activePreferences();
   const home=active.setting==='home';
-  const options=allOptions().filter(option=>DateCosts.available(option,active.pantry||[])&&(!home||option.home||option.custom&&option.settings.includes('home')))
+  const hidden=new Set(DateFitUI.hiddenIDs(allOptions()));
+  const options=allOptions().filter(option=>!hidden.has(option.id)&&DateCosts.available(option,active.pantry||[])&&DateFit.matches(option,active.fit)&&(!home||option.home||option.custom&&option.settings.includes('home')))
     .map(option=>DateCosts.resolve([option],active.pantry||[]).picks[0]);
   DatePlaceUI.render({options,area:home?'general':active.area,setting:active.setting,date:active.date,
     deck:$('#catalog').dataset.deck||'all',query:$('#idea-search').value,town:$('#idea-town').value,tier:$('#idea-tier').value,kind:$('#idea-cost').value,
@@ -200,7 +206,7 @@ function renderCatalog() {
 function setBusy(value) {
   busy = value;
   document.body.classList.toggle('is-busy', value);
-  document.querySelectorAll('#owned-items input, .saved-card button, .place-card button, #plan-form input, #plan-form select, #plan-form button, #mash-form input, #mash-form select, #mash-form button, [data-mode], #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, #idea-cost, #idea-town, #town-chips button, [data-deck], .idea-details, .option-choice, .remove-custom, .pick-controls button, .replace-choice, .order-controls button, #again, #reset-ideas, #date-start, #add-calendar, #share-invite, #mark-tried, #clear-tried').forEach(node => { node.disabled = value; });
+  document.querySelectorAll('#personal-fit input, #personal-fit select, #owned-items input, .saved-card button, .place-card button, #plan-form input, #plan-form select, #plan-form button, #mash-form input, #mash-form select, #mash-form button, [data-mode], #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, #idea-cost, #idea-town, #town-chips button, [data-deck], .idea-details, .option-choice, .remove-custom, .pick-controls button, .replace-choice, .order-controls button, #again, #reset-ideas, #date-start, #add-calendar, #share-invite, #mark-tried, #clear-tried').forEach(node => { node.disabled = value; });
   if (!value && currentPlan) renderResult();
 }
 
@@ -273,6 +279,8 @@ function renderResult() {
       const link=element('a','Get directions');link.href=DateDirections.to(`${pick.place.lat},${pick.place.lon}`,{town:currentPlan.mash?.origin,location:currentPlan.location});link.target='_blank';link.rel='noopener noreferrer';copy.append(link);
     }
     if(pick.home||pick.instructions?.length)copy.append(DateExtras.homeDetails(pick));
+    const confidence=DateConfidence.info(pick);copy.append(element('span',confidence.label,'confidence-badge '+confidence.kind),element('p',confidence.detail,'helper'));
+    copy.append(DateFitUI.checklist(pick,currentPlan));
     SmartDate.decorate(pick,art,copy,currentPlan);
     const controls = element('div', undefined, 'pick-controls');
     const lock = button(locked ? '🔒 Locked in' : '♡ Keep this', 'lock-button', () => {
@@ -297,6 +305,7 @@ function renderResult() {
     lock.disabled = busy;
     reroll.disabled = busy || locked;
     controls.append(lock, reroll);
+    const hide=button('Never suggest again','text-button',()=>{if(busy)return;DateFitUI.hide(pick);if(locks[pick.category]===pick.id)delete locks[pick.category];updatePossibilities();renderCatalog();message('Hidden from future suggestions on this device. Restore it in Never suggest again.');});hide.disabled=busy;controls.append(hide);
     controls.append(SmartDate.replaceControl(pick,reason=>{
       if(busy)return;
       SmartDate.rememberReason(pick,reason);
@@ -328,6 +337,31 @@ function renderResult() {
   DateCompanion.render(currentPlan);
   DateExtras.shopping(currentPlan);
   SmartDate.render(currentPlan,next=>{currentPlan=next;renderResult();},()=>generate());
+  DateActions.render(currentPlan);
+}
+
+function restoreDatePlan(plan,restoreOwnership=true) {
+  if(busy)return;
+      customOptions = plan.customOptions || [];
+      DateExtras.restore(plan,{ownership:restoreOwnership});
+      DateFitUI.restore(plan);
+      excluded = new Set();
+      locks = {};
+      if(plan.mash){
+        $('#mash-budget').value=plan.budgetCents/100;$('#mash-setting').value=plan.setting;$('#mash-spending').value=plan.spending;
+        $('#mash-area').value=plan.area;$('#mash-town').value=plan.mash.origin;$('#mash-radius').value=String(plan.mash.radius);$('#mash-age').value=plan.mash.age;
+      }else{
+        $('#budget').value=plan.budgetCents/100;$('#setting').value=plan.setting;$('#spending').value=plan.spending;
+        $('#area').value=plan.area;$('#visit-date').value=plan.date;SmartDate.restore(plan);
+        $(`input[name=mood][value="${plan.mood}"]`).checked=true;
+      }
+      setPlanningMode(plan.mash?'mash':'scene');
+      currentPlan = hydrate(plan);
+      renderResult();
+      renderCatalog();
+      updatePossibilities();
+      $('#result-title').focus({ preventScroll: true });
+      $('#result').scrollIntoView({ block: 'nearest' });
 }
 
 function loadFavorites() {
@@ -378,25 +412,7 @@ function renderFavorites() {
     const actions = element('div', undefined, 'actions');
     actions.append(button('PDF', 'secondary saved-download', () => downloadPlan(plan)), button('Revisit', 'secondary', () => {
       if (busy) return;
-      customOptions = plan.customOptions || [];
-      DateExtras.restore(plan);
-      excluded = new Set();
-      locks = {};
-      if(plan.mash){
-        $('#mash-budget').value=plan.budgetCents/100;$('#mash-setting').value=plan.setting;$('#mash-spending').value=plan.spending;
-        $('#mash-area').value=plan.area;$('#mash-town').value=plan.mash.origin;$('#mash-radius').value=String(plan.mash.radius);$('#mash-age').value=plan.mash.age;
-      }else{
-        $('#budget').value=plan.budgetCents/100;$('#setting').value=plan.setting;$('#spending').value=plan.spending;
-        $('#area').value=plan.area;$('#visit-date').value=plan.date;SmartDate.restore(plan);
-        $(`input[name=mood][value="${plan.mood}"]`).checked=true;
-      }
-      setPlanningMode(plan.mash?'mash':'scene');
-      currentPlan = plan;
-      renderResult();
-      renderCatalog();
-      updatePossibilities();
-      $('#result-title').focus({ preventScroll: true });
-      $('#result').scrollIntoView({ block: 'nearest' });
+      restoreDatePlan(plan);
     }), button('Remove', 'text-button saved-remove', () => {
       if (writeFavorites(favorites.filter(saved => planKey(saved) !== planKey(plan)))) {
         $('#storage-message').textContent = 'Date removed from this device.';

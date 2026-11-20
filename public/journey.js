@@ -118,6 +118,8 @@
   const {journey,...base}=input;
   const checked=core.prepare({...base,previous:[]},catalog,false);
   if(checked.status===400)return checked;
+  const fitRules=typeof module==='object'&&module.exports?require('./date-fit'):root.DateFit;
+  const fit=fitRules.normalize(input.fit);
   const options=[...catalog,...core.customCatalog(input.customOptions||[])],active=formats[j.format].categories;
   if(j.seen.some(id=>!options.some(o=>o.id===id)))return fail('Seen ideas must be IDs from this catalog.');
   if(Object.keys(input.locked||{}).some(c=>!active.includes(c)))return fail('Clear a locked category before choosing a shorter date.',422);
@@ -125,7 +127,7 @@
   if(!Array.isArray(previous)||previous.length&& (previous.length!==active.length||previous.some((id,i)=>!options.some(o=>o.id===id&&o.category===active[i]))))return fail('Previous picks must match the chosen date length.');
   const excluded=new Set(input.excluded||[]),budgetCents=Math.round(input.budget*100);
   const seenVenues=new Set(j.seen.map(id=>options.find(o=>o.id===id)?.venue?.id).filter(Boolean));
-  const groups=j.order.map(c=>options.filter(o=>o.category===c&&!o.home&&!o.place&&core.eligible(o,input.area||'all',input.date||'')&&!excluded.has(o.id)&&((input.setting||'any')==='any'||o.settings.includes(input.setting))&&(!input.locked?.[c]||input.locked[c]===o.id)&&matches(o,j)&&(!j.fresh||!o.venue||!seenVenues.has(o.venue.id))));
+  const groups=j.order.map(c=>options.filter(o=>o.category===c&&!o.home&&!o.place&&fitRules.matches(o,fit)&&core.eligible(o,input.area||'all',input.date||'')&&!excluded.has(o.id)&&((input.setting||'any')==='any'||o.settings.includes(input.setting))&&(!input.locked?.[c]||input.locked[c]===o.id)&&matches(o,j)&&(!j.fresh||!o.venue||!seenVenues.has(o.venue.id))));
   const empty=groups.findIndex(g=>!g.length);
   if(empty!==-1)return fail(`No ${j.order[empty]} choices fit these preferences. Try another cuisine, a wider radius, original ideas, or fewer restrictions.`,422);
   const minimumCents=groups.reduce((n,g)=>n+Math.min(...g.map(o=>o.costCents)),0);
@@ -175,7 +177,7 @@
   const near=Math.ceil(budgetCents*.9);targetCents=(input.spending||'treat')==='treat'?(maximumCents>=near?near:Math.ceil(maximumCents*.95)):0;
   pass=1;visit(0,0,originIndex,startAt,previous.length!==active.length,0);
   if(drawTicket){ticket=drawTicket(weightTotal);pass=2;visit(0,0,originIndex,startAt,previous.length!==active.length,0);selectedSchedule=schedule(selectedPicks,j);}
-  return {plans,selectedPicks,selectedSchedule,journey:j,combinationCount,maximumCents,targetCents,unchanged:previous.length===active.length&&!alternativeCount,budgetCents,setting:input.setting||'any',mood:input.mood||'surprise',spending:input.spending||'treat',area:input.area||'all',date:input.date||'',customOptions:input.customOptions||[]};
+  return {plans,selectedPicks,selectedSchedule,journey:j,fit,combinationCount,maximumCents,targetCents,unchanged:previous.length===active.length&&!alternativeCount,budgetCents,setting:input.setting||'any',mood:input.mood||'surprise',spending:input.spending||'treat',area:input.area||'all',date:input.date||'',customOptions:input.customOptions||[]};
  }
  function ordered(plan){return plan.journey?plan.journey.order.map(c=>plan.picks.find(o=>o.category===c)):plan.picks;}
  const api={formats,cuisines,setTowns,normalize,normalizeMash,matchesMash,miles,meta,matches,travel,schedule,prepare,ordered,clock};

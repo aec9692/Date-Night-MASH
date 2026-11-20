@@ -28,3 +28,10 @@ Useful prompts for individual reflection (not shared report prose):
 Detected error: a new regression fixture looked for an activity that purchased cooking oil, but this catalog had no such activity. The shared-basket assertion failed before testing the cost logic. Changing the fixture to a pasta dinner and cake treat, which both buy oil, exercised the actual shared basket; the test then passed. Independent small-deck enumeration also checks totals, conflicts, candidates and weighted draws, so the optimized selector is not validated solely against itself. An early test suite also exposed obsolete assumptions about 305 entries and local home plans failing; those assertions now cover the expanded catalog and intended home behavior.
 
 Local DOM/API and PDF bounds checks are not phone frame-rate or deployed-site evidence. Browser automation could not connect to its native pipe; real phone/laptop rendering and production verification remain pending.
+
+
+## November 20 practical-date prompts and review note
+
+Useful prompts: (1) make home ideas actionable with quantities/time/equipment without changing price evidence; (2) create portable canonical plan links and timezone-safe calendar drafts without accounts; (3) test partner suggestions with independent browser storage so the sender's groceries do not become free groceries for the recipient.
+
+A review caught the hidden-idea UI holding the same options array as the canonical catalog. Adding a personal idea to the UI's hidden-item lookup could mutate that shared array. The UI now takes its own array copy; canonical catalog data remains the source for validation. A separate DOM-test assertion initially compared arrays from different JavaScript realms using strict prototype equality; normalizing the expected array fixed the harness without changing valid reroll behavior. No physical-phone or deployed result is inferred from either check.
