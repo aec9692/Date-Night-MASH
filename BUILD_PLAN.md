@@ -131,3 +131,9 @@ Check current Hobby collaboration rules when connecting the three-person reposit
 - Implemented: town/category browsing, source previews, build-around locks, opt-in rolling/reveal sound, date companion with progress/directions/conversation prompts, phone bottom navigation, standalone home-screen manifest and icons.
 - Implemented: constant retained-candidate memory for server generation; 8 KB bounded requests accommodate the expanded exclusions plus Unicode custom ideas.
 - Local API, simulated interaction and PDF checks are recorded in TESTING.md. Real-device sound/rendering and deployed cases remain pending. Git merge evidence does not establish a Vercel deployment. Native App Store packaging/review is separate.
+
+## Broad NJ catalog expansion
+
+Implemented: 200 NJ choices, exactly 50 in each category, across 99 venue/route identifiers and 43 towns; original 96 ideas preserved. Free/Under $15/Under $30 browsing makes inexpensive choices visible. All fifteen newly requested towns appear. Sources, quantities, allowances and restrictions are in DATA_SOURCES.md.
+
+The picker now counts sorted category pairs with binary searches, and draws from weighted affordable bands without materializing full dates. Known dated closures/ranges are checked on client and server. No dependencies, accounts or paid services added. Public Vercel and real-phone checks remain pending; local checks below do not substitute for deployed acceptance.

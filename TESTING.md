@@ -102,7 +102,7 @@ Add the remaining application, input-validation, and advanced-feature cases as t
 | V04 | Flexible mode | Switch to Flexible, generate, save, reload, and revisit. | Any affordable total can win; spending style persists; prior saved dates remain compatible. | Pending deployment |
 | V05 | Limited spending potential | Lock three free picks, set $1,000, and generate. | Near the highest attainable remaining pick; explanation identifies the maximum without inflated prices. | Pending deployment |
 | V06 | Quick budget controls | Use $25/$50/$100/$250/$500/$1,000 buttons, slider, and a typed $2,500. | Values and selected state stay synchronized; slider cap is clearly stated. | Pending deployment |
-| NJ01 | Local choices | Load the default Paterson deck and inspect all four categories. | 18 NJ ideas, official sources, checked dates, addresses, and explicit price components; original/mixed decks remain available. | Pending deployment |
+| NJ01 | Local choices | Load the default Paterson deck and inspect all four categories. | 50 NJ ideas per category, official sources, checked dates, addresses, and explicit price components; original/mixed decks remain available. | Pending deployment |
 | NJ02 | Known closed days | Select a Monday or Saturday and try locked venues closed on that day. | Known closed options are not generated; errors explain the constraint; holidays/showtimes still require checking. | Pending deployment |
 | NJ03 | Phone sharing | On deployed HTTPS, generate and share/download PDFs on iPhone and Android; test native-share cancellation and unsupported sharing. | PDF opens in a normal viewer, can be saved/shared, cancellation is harmless, and unsupported file sharing downloads instead. | Pending deployment |
 | NJ04 | Route/price verification | Open each source and map link for a generated NJ plan before a visit. | Correct public venue addresses and source basis; confirm live traffic, fees, hours, and actual availability separately. | Pending deployment |
@@ -127,3 +127,21 @@ Additional deployed cases to execute:
 | A23 | Date companion | Generate; Take this date out; complete/undo four stops; switch a stop and prompt. | Accessible stop navigation, correct progress, route and conversation text. | Pending deployment |
 | A24 | Phone safe areas | At 320/390/430px and landscape, open result, preview and keyboard. | Readable single-column cards; no clipped controls or bottom-nav overlap; keyboard usable. | Pending deployment |
 | A25 | Home-screen launch | Add from Safari/phone browser and launch icon. | Correct icon and standalone website; live generation requires connection. | Pending deployment |
+
+## Fifty-per-category expansion — November 19, 2026
+
+Executed locally in the isolated north-jersey-catalog checkout: 69 Node tests passed. New coverage checks exactly 50 NJ ideas in each category, all fifteen requested towns, 99 venue/route identifiers, inexpensive price coverage, known holiday/winter restrictions, corrected addresses and lunch weekdays, 120 independently brute-forced constrained fixtures, and every weighted ticket in a small fixture. Existing input/route, 8 KB payload, budget, locks, rerolls, original-catalog, sound and PDF-library tests passed.
+
+Executed three jsdom interaction suites against this checkout’s Express app: original game; local catalog/source/favorites/PDF/share fallback; town/category/preview/lock/date-companion interactions. New Free/Under $15/Under $30 controls showed only matching prices and did not alter inclusion. Local/mixed counts were 200/296. These are simulated interactions, not rendered real-phone tests.
+
+Generated and parsed all 200 local PDF detail pages: all text stayed within the page bounds. Five representative new pages (dinner, pastry, mini-golf, VR and a public waterfront visit) were rendered and visually inspected with readable text and no clipping/overlap. Visual review caught a shared builder-object mistake that copied a breakfast-hours note into other meals; independent row configuration corrected it, and catalog coverage now checks the dinner note.
+
+| ID | Item | Steps | Expected | Actual |
+| --- | --- | --- | --- | --- |
+| X01 | Expanded catalog | GET /api/options and inspect category/town counts. | 200 NJ ideas, 50 per category; original 96 preserved; all requested towns. | Passed locally, 69-test suite. |
+| X02 | Affordable browsing | In DOM simulation select Free, Under $15 and Under $30. | Every visible option fits the chosen tier; restore All. | Passed locally. |
+| X03 | Picker equivalence | Compare 120 small constrained fixtures to independent complete enumeration; inspect weighted-ticket frequencies. | Same counts, maxima, spending bands and candidate weights. | Passed locally. |
+| X04 | Closure dates | Check Thanksgiving, aviation winter endpoints, Edison winter and Imperial Monday. | Known closed options excluded on both sides. | Passed locally. |
+| X05 | Full PDF deck | Generate one PDF detail page for every NJ entry; parse bounds; render representative pages. | Readable text within page bounds and correct source links. | All 200 passed; five rendered and inspected. |
+
+Public-site checks, actual iPhone/Android rendering, audible playback and native sharing remain pending. The browser-control runtime is unavailable; no Vercel deployment is claimed.
