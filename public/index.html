@@ -100,11 +100,12 @@
       <h2 id="nearby-title">Where should we look for date ideas?</h2>
       <form id="nearby-form" aria-describedby="nearby-help">
         <div class="form-grid">
-          <div><label for="nearby-town">Starting town in North Jersey</label><select id="nearby-town" required><option value="">Choose a town</option></select></div>
+          <div><label for="nearby-town">Starting town in North Jersey</label><select id="nearby-town" required disabled><option value="">Loading towns…</option></select></div>
           <div><label for="nearby-radius">How far would you like to go?</label><select id="nearby-radius"><option value="5">5 miles</option><option value="10" selected>10 miles</option><option value="25">25 miles</option><option value="50">50 miles</option></select></div>
         </div>
         <p id="nearby-help" class="helper">The radius uses approximate straight-line distances between town centers. Open directions to check the drive to a venue.</p>
-        <button id="nearby-search" type="submit">Find Nearby Ideas</button>
+        <button id="nearby-search" type="submit" disabled>Find Nearby Ideas</button>
+        <button id="nearby-retry" type="button" class="secondary" hidden>Retry loading towns</button>
       </form>
       <p id="nearby-status" role="status"></p>
       <ul id="nearby-results" class="nearby-results" hidden></ul>

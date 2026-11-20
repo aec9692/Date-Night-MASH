@@ -14,7 +14,7 @@ function runtime(){
 }
 test('offline shell serves saved public assets/catalog after install without caching generated plans',async()=>{
  const r=runtime();await r.event('install');r.setOffline(true);
- for(const path of ['/','/app.js','/journey.js','/smart-ui.js','/count-worker.js','/api/options','/vendor/jspdf.umd.min.js']){
+ for(const path of ['/','/app.js','/journey.js','/smart-ui.js','/nearby.js','/count-worker.js','/api/options','/vendor/jspdf.umd.min.js']){
   const response=await r.event('fetch',r.req(path));assert.equal(response.status,200);assert.equal(await response.text(),'cached '+path);
  }
  assert.equal(await r.event('fetch',r.req('/api/generate','POST')),null);
