@@ -143,3 +143,7 @@ The picker now counts sorted category pairs with binary searches, and draws from
 Implemented for high-school students, college students and couples: nearby complete dates; time/length formats; food/comfort/age/tried preferences; shared-phone picks; attributed venue photos and grouped variants; itinerary ordering, reasoned replacements, calendar/invitation exports and offline saved-date access. The default is a $50 quick date, with alcohol-free/teen preferences. All 296 choices remain.
 
 Acceptance evidence is in TESTING.md and DEVELOPMENT_NOTES.md. Keep manual real-phone, native calendar/share, installed offline and deployed cases pending until actually observed. Repository merge is not evidence of Vercel deployment or App Store approval.
+
+## MASH and place discovery correction
+
+Implemented: explicit category panels; venue cards with labeled sample ranges/location/details; separate four-pick MASH and custom timed Scene forms; device-location Maps links with town fallback; nine new paid examples across eight venues; paid-first discovery and paid/free browsing. Catalog total is 305 (209 NJ plus the original 96). Existing checked prices and IDs remain unchanged. Verification is in TESTING.md; public/device checks remain pending.

@@ -23,10 +23,9 @@ window.DateCompanion = (() => {
     return item;
   }
   function mapLink(label, destination, waypoints = []) {
-    const url = new URL('https://www.google.com/maps/dir/');
-    url.search = new URLSearchParams({ api:'1', origin:`${plan?.journey?.origin||'Paterson'}, NJ`, destination, travelmode:'driving', ...(waypoints.length ? {waypoints:waypoints.join('|')} : {}) });
+    const url = DateDirections.to(destination,{town:plan?.mash?.origin||plan?.journey?.origin||'Paterson',waypoints});
     const link = node('a', label, 'button secondary');
-    link.href = url.href; link.target = '_blank'; link.rel = 'noopener noreferrer';
+    link.href = url; link.target = '_blank'; link.rel = 'noopener noreferrer';
     return link;
   }
   function render(value) {
@@ -46,7 +45,7 @@ window.DateCompanion = (() => {
     });
     const pick = picks[selected];
     const card = $('#current-stop'); card.className = `current-stop ${pick.category}`; card.replaceChildren();
-    card.append(node('span',`STOP ${selected+1} / ${picks.length}`, 'eyebrow'),node('h3',pick.name),node('p',pick.description));
+    card.append(node('span',`STOP ${selected+1} / ${picks.length}`, 'eyebrow'),node('h3',DatePlaces.title(pick)),node('p',pick.venue&&['dinner','treat'].includes(pick.category)?`Your ${pick.category} stop in ${pick.venue.city}. Choose from their menu; the saved cost is a budget example.`:pick.description));
     const stop=plan.schedule?.stops.find(s=>s.id===pick.id);if(stop)card.append(node('p',`${stop.start}–${stop.end} suggested visit`,'time-badge'));
     if (pick.venue) card.append(node('p',pick.venue.address,'venue-address'),node('p',pick.venue.hoursNote,'helper'),mapLink('Directions to this stop ↗',pick.venue.address));
     else card.append(node('p',pick.tip,'helper'));

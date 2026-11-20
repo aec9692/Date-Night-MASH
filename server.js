@@ -51,6 +51,7 @@ app.post('/api/generate', (req, res) => {
     spending: prepared.spending, maximumCents: prepared.maximumCents, targetCents: prepared.targetCents,
     area: prepared.area, date: prepared.date,
     ...(prepared.journey ? {journey:prepared.journey,schedule:prepared.selectedSchedule} : {}),
+    ...(prepared.mash ? {mash:prepared.mash} : {}),
     notice: 'Estimates for two, not booking quotes. Check full costs, hours, reservations and age/guardian rules. Travel and parking are extra. Suggested timing and town-center distances do not verify traffic, showtimes or availability.' });
 });
 

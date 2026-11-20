@@ -59,14 +59,13 @@
       Math.cos(radians(aLat))*Math.cos(radians(bLat))*Math.sin(radians(bLon-aLon)/2)**2;
     return 3958.8 * 2 * Math.asin(Math.sqrt(Math.min(1,value)));
   }
-  function resultItem(option, miles, origin) {
+  function resultItem(group, miles, origin) {
+    const option=group.options[0];
     const item = node('li');
-    item.append(node('h3',option.name),node('p',option.venue.address),
-      node('p',`${miles === 0 ? 'Same town' : `About ${miles.toFixed(1)} mi`} · ${currency.format(option.costCents/100)} estimated for two`));
+    item.append(node('h3',option.venue.name),node('p',option.venue.address),
+      node('p',`${miles === 0 ? 'Same town' : `About ${miles.toFixed(1)} mi`} · ${group.category} · ${DatePlaces.range(group)} sample totals for two`));
     const link = node('a','Open driving directions');
-    link.href = 'https://www.google.com/maps/dir/?' + new URLSearchParams({
-      api:'1',origin:`${origin}, NJ`,destination:option.venue.address,travelmode:'driving'
-    });
+    link.href = DateDirections.to(option.venue.address,{town:origin});
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
     link.setAttribute('aria-label',`Open driving directions to ${option.venue.name}`);
@@ -82,15 +81,16 @@
       status.textContent = 'Choose a starting town and a supported radius.';
       return;
     }
-    const matches = options.map(option => ({option,miles:distanceMiles(center,towns.get(option.venue.city))}))
+    const matches = DatePlaces.group(options).map(group => ({group,miles:distanceMiles(center,towns.get(group.venue.city))}))
       .filter(({miles}) => miles <= limit)
-      .sort((a,b) => a.miles-b.miles || a.option.name.localeCompare(b.option.name));
-    results.replaceChildren(...matches.map(({option,miles}) => resultItem(option,miles,town.value)));
+      .sort((a,b) => a.miles-b.miles || a.group.venue.name.localeCompare(b.group.venue.name));
+    results.replaceChildren(...matches.map(({group,miles}) => resultItem(group,miles,town.value)));
     results.hidden = matches.length === 0;
     status.textContent = matches.length
       ? `${matches.length} ${matches.length === 1 ? 'idea' : 'ideas'} within ${limit} miles of ${town.value}, NJ.`
       : `No catalog ideas within ${limit} miles of ${town.value}, NJ. Try a wider radius or a different town.`;
   });
   retry.addEventListener('click',load);
+  document.addEventListener('mash:directions-change',()=>{if(!results.hidden)form.dispatchEvent(new Event('submit',{cancelable:true}));});
   load();
 })();

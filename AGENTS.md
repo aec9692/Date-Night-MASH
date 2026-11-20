@@ -62,7 +62,7 @@ The owner requested an interactive game upgrade and authorized Codex to handle m
 
 Upgrade behavior:
 - Shared validation and combination enumeration live in public/planner.js. The server remains authoritative; browser counts are a preview.
-- Generation may also receive mood, spending, area, date, excluded, customOptions, locked, previous, and a strictly validated journey object. Validate every field and reject undocumented fields. Keep JSON requests bounded to 8 KB.
+- Generation may also receive mood, spending, area, date, excluded, customOptions, locked, previous, a strictly validated journey object, or a mutually exclusive mash object. Validate every field and reject undocumented fields. Keep JSON requests bounded to 8 KB.
 - Spending defaults to treat: select estimated totals at 90–100% of budget when available, otherwise at least 95% of the highest attainable total. Flexible allows any affordable total. Apply mood weighting after spending selection. Explain unattainable budgets honestly and never inflate catalog prices.
 - Preserve the 96 original ideas and the separately maintained source-linked NJ catalog in data/local-options.json. The UI defaults to the Paterson-area deck; all/general/paterson are valid area values. A valid optional calendar date filters known regular weekdays and recorded closedDates/closedDateRanges, not live availability or unrecorded holidays. Do not promise a timed itinerary or a measured one-hour driving radius.
 - Each local price needs an official source URL, checked date, explicit order/admission basis for two, and separate base/tax/tip/donation components. See DATA_SOURCES.md. Never invent a local price or copy a third-party estimate as a verified menu quote. Unknown fees and travel/parking exclusions must remain visible. Review sources periodically; checked dates are not automatic live updates.
@@ -88,7 +88,7 @@ Upgrade behavior:
 
 - Preserve the legacy four-category API when journey is absent. With journey, quick uses dinner/treat (150 minutes), evening dinner/activity/treat (300), full all four (540). Validate nested fields and keep requests bounded to 8 KB.
 - public/journey.js owns shared numeric time/distance/preference rules; public/count-worker.js keeps counts off the main thread. Preserve equality with independent itinerary enumeration and never retain all complete dates in production.
-- Default to a $50 quick date, teen audience and alcohol-free ideas. Age groups are preferences, not identity verification; never collect DOB. Teen plans finish by 21:00, exclude adult-only activities, and still require venue/guardian checks. Both-18+ does not qualify for 21+ experiences.
+- Default to the separate $50 four-category MASH game; Set the scene retains timed quick/evening/full formats. Teen means the broad high-school 13–17 profile; ideas requiring an adult companion or an older participant must be excluded unless the selected profile guarantees eligibility. Age groups are preferences, not identity verification; never collect DOB. Timed teen plans finish by 21:00, exclude adult-only activities, and still require venue/guardian checks. Both-18+ does not qualify for 21+ experiences.
 - Census representative points are approximate municipality locations, not venue geocodes or live travel estimates. All local stops must fit the radius; later legs must fit the leg limit. Unknown locations must remain explicit. Return travel is excluded.
 - Timing windows, visit lengths, food tags and effort classifications are planning guidance. Do not claim live reservations, showtimes, ingredient guarantees, walking accessibility or a traffic-verified itinerary. Keep known dated closures and conservative published-hour restrictions.
 - Exclude repeated venue IDs within timed dates. Apply both people’s moods without bypassing hard constraints; either cuisine may win. Shared-phone inputs are hidden/reset between turns and need no account.
@@ -96,3 +96,11 @@ Upgrade behavior:
 - Photo records require verified source, author, license and historical/crop notes. Prefer verified small renditions; lazy-load and remove failed images. Group venue variants without pretending they are different businesses.
 - Service workers may cache this app’s public shell and read-only catalog only. Never cache generated POST requests or remove unrelated caches. Update the owned cache version when offline assets change in a future release. Offline/native-phone behavior needs real-device verification.
 - Calendar exports escape and fold RFC 5545 content lines and convert America/New_York civil times to UTC; exports are suggestions, not bookings. No uploads, accounts, paid services or new runtime dependencies.
+
+## Place browsing and MASH separation
+
+- Keep MASH and Set the scene in distinct sections/forms. MASH always returns all four categories for a budget; timed format controls apply only to Set the scene. Validate mash fields age/origin/radius and reject combined mash/journey requests.
+- Use explicit hidden state for category panels; CSS must never hide the active category. Preserve selected category after browsing filters change.
+- Present venues/ranges/locations in discovery, not a list of dishes. Price ranges must be labeled as checked sample totals for two, never all-menu bounds. Keep the actual sample basis in expandable details and exports. Preserve canonical IDs/prices/favorites.
+- Prefer paid outings first in discovery while retaining free choices and explicit paid/free admission filters. Browsing does not silently exclude ideas from generation.
+- Map URLs default to Maps resolving device location; allow planning-town fallback. Do not request/store/transmit GPS coordinates. Keep card, nearby, companion and PDF routes consistent. Offline shell v3 includes places.js, place-ui.js and directions.js.

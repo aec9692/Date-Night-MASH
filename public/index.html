@@ -15,6 +15,9 @@
   <script src="/vendor/jspdf.umd.min.js" defer></script>
   <script src="/planner.js" defer></script>
   <script src="/journey.js" defer></script>
+  <script src="/places.js" defer></script>
+  <script src="/place-ui.js" defer></script>
+  <script src="/directions.js" defer></script>
   <script src="/show.js" defer></script>
   <script src="/download.js" defer></script>
   <script src="/companion.js" defer></script>
@@ -23,7 +26,7 @@
   <script src="/nearby.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#planner">Skip to the game</a>
+  <a class="skip-link" href="#mash">Skip to the game</a>
   <header class="topbar">
     <a class="brand" href="/" aria-label="Date Night MASH home"><span class="brand-mark" aria-hidden="true">✳</span> date night <strong>MASH</strong></a>
     <nav aria-label="Main"><button id="sound" type="button" class="quiet-button" aria-pressed="false">Sound off</button><a class="saved-link" href="#saved">Saved dates <span id="saved-count">0</span></a></nav>
@@ -36,7 +39,8 @@
         <h1 id="hero-title">A little chance.<br>A lot of <span class="highlight">chemistry.</span></h1>
         <p class="intro">Skip the “I don't know, what do you want to do?”<br>Pick a vibe. Set a budget. Let fate plan the date.</p>
         <div class="nearby-actions">
-          <a href="#planner" class="button hero-button">Play MASH <span aria-hidden="true">✳</span></a>
+          <a href="#mash" data-open-mode="mash" class="button hero-button">Play MASH <span aria-hidden="true">✳</span></a>
+          <a href="#planner" data-open-mode="scene" class="button secondary">Set the scene</a>
           <a href="#nearby" class="button secondary">Find Nearby</a>
         </div>
         <p class="hero-footnote">Two people. Your kind of date. Endless “remember when”s.</p>
@@ -53,7 +57,19 @@
     </section>
     <div class="ribbon" aria-hidden="true"><span>✳ LESS SCROLLING</span><span>♡ MORE TOGETHER</span><span>✳ SMALL BUDGET, BIG MEMORIES</span><span>♡ LET'S CALL IT A DATE</span></div>
 
-    <section id="planner" class="planner" aria-labelledby="planner-title">
+    <div class="planning-modes" role="group" aria-label="Choose how to plan"><button type="button" data-mode="mash" aria-pressed="true" aria-controls="mash">✳ Play MASH <span>Four surprises. One budget.</span></button><button type="button" data-mode="scene" aria-pressed="false" aria-controls="planner">♡ Set the scene <span>Your time, preferences & itinerary.</span></button></div>
+    <section id="mash" class="mash-game" aria-labelledby="mash-title">
+      <div class="section-heading"><div><p class="eyebrow">FOUR PICKS. LET FATE DO ITS THING.</p><h2 id="mash-title" tabindex="-1">Play MASH.</h2><p>Set your budget. We’ll draw one dinner, one activity, one treat and one entertainment pick.</p></div><span class="pill">Always four · for two people</span></div>
+      <div class="mash-slots" aria-label="The four MASH categories"><div class="dinner"><span aria-hidden="true">🍽</span><strong>Dinner</strong></div><div class="activity"><span aria-hidden="true">🎯</span><strong>Activity</strong></div><div class="treat"><span aria-hidden="true">🍰</span><strong>Treat</strong></div><div class="entertainment"><span aria-hidden="true">🎟</span><strong>Entertainment</strong></div></div>
+      <form id="mash-form">
+        <label for="mash-budget">Our total budget for two</label><div class="money-input"><span aria-hidden="true">$</span><input id="mash-budget" type="number" min="0" max="10000" step="0.01" value="50" required></div>
+        <div class="budget-presets" aria-label="MASH budget presets"><button type="button" data-mash-budget="50">$50</button><button type="button" data-mash-budget="100">$100</button><button type="button" data-mash-budget="250">$250</button><button type="button" data-mash-budget="500">$500</button><button type="button" data-mash-budget="1000">$1,000</button></div>
+        <details class="mash-settings"><summary>Where are we playing?</summary><div class="form-grid"><div><label for="mash-area">Idea collection</label><select id="mash-area"><option value="paterson">Real NJ places</option><option value="all">NJ places & original ideas</option><option value="general">Original / at-home ideas</option></select></div><div><label for="mash-town">Starting town</label><select id="mash-town"><option value="Paterson">Paterson</option></select></div><div><label for="mash-radius">Keep NJ places within</label><select id="mash-radius"><option value="5">5 miles</option><option value="10" selected>10 miles</option><option value="25">25 miles</option><option value="50">50 miles</option></select></div><div><label for="mash-age">Who’s playing?</label><select id="mash-age"><option value="teen">High-school ages · 13-17</option><option value="adult">Both 18 or older</option><option value="21plus">Both 21 or older</option></select></div></div><label class="instant-label"><input id="mash-instant" type="checkbox">Skip the suspense</label></details>
+        <p class="helper">Four budgeted examples, not reservations or a timed route. NJ distances use town centers. Food prices use checked sample orders; choose your own dishes and confirm the bill.</p>
+        <div class="play-strip"><div><strong id="mash-count">Finding four-pick dates…</strong><p id="mash-note" class="helper">A little chance. A whole date.</p></div><button id="mash-play" type="submit" class="play-button" disabled>✳ Play MASH</button></div>
+      </form>
+    </section>
+    <section id="planner" class="planner" aria-labelledby="planner-title" hidden>
       <div class="section-heading"><div><p class="eyebrow">YOUR NIGHT. YOUR RULES.</p><h2 id="planner-title">Set the scene.</h2></div><span class="pill">A plan for two · USD estimates</span></div>
       <form id="plan-form">
         <div class="journey-setup">
@@ -67,7 +83,7 @@
             <div class="form-grid">
               <div><label for="trip-radius">Keep places within</label><select id="trip-radius"><option value="5">5 miles of our town</option><option value="10" selected>10 miles of our town</option><option value="25">25 miles of our town</option><option value="50">50 miles of our town</option></select></div>
               <div><label for="leg-limit">Between stops</label><select id="leg-limit"><option value="0">Stay in one town</option><option value="5">Up to 5 miles</option><option value="10" selected>Up to 10 miles</option><option value="15">Up to 15 miles</option><option value="25">Up to 25 miles</option><option value="50">Up to 50 miles</option></select></div>
-              <div><label for="audience">Who’s heading out?</label><select id="audience"><option value="teen">Include someone under 18</option><option value="adult">Both 18 or older</option><option value="21plus">Both 21 or older</option></select></div>
+              <div><label for="audience">Who’s heading out?</label><select id="audience"><option value="teen">High-school ages · 13-17</option><option value="adult">Both 18 or older</option><option value="21plus">Both 21 or older</option></select></div>
               <div><label for="cuisine">Food we’re feeling</label><select id="cuisine"><option value="any">Anything sounds good</option><option value="italian">Italian & pizza</option><option value="mexican">Mexican</option><option value="asian">Asian & sushi</option><option value="peruvian">Peruvian</option><option value="cafe">Café & brunch</option></select></div>
             </div>
             <div class="preference-checks"><label><input type="checkbox" id="vegetarian">Vegetarian-oriented meals</label><label><input type="checkbox" id="low-effort">Keep physical effort low</label><label><input type="checkbox" id="alcohol-free" checked>Alcohol-free ideas</label><label><input type="checkbox" id="fresh-ideas">Something we haven’t tried</label></div>
@@ -89,12 +105,12 @@
           <div class="budget-control"><label for="budget">The budget for both of you</label><div class="budget-line"><div class="money-input"><span aria-hidden="true">$</span><input id="budget" name="budget" type="number" min="0" max="10000" step="0.01" value="50" required aria-describedby="budget-help"></div><span id="budget-caption">A lovely little night out.</span></div><input id="budget-slider" type="range" min="0" max="1000" step="1" value="50" aria-label="Budget slider, from zero to one thousand dollars"><div class="range-labels"><span>$0</span><span>$500</span><span>$1,000</span></div><div class="budget-presets" aria-label="Quick budgets"><button type="button" data-budget="25">$25</button><button type="button" data-budget="50">$50</button><button type="button" data-budget="100">$100</button><button type="button" data-budget="250">$250</button><button type="button" data-budget="500">$500</button><button type="button" data-budget="1000">$1,000</button></div><p id="budget-help" class="helper">Slide up to $1,000, or type any amount up to $10,000.</p></div>
           <div class="setting-control"><label for="setting">Where are we headed?</label><select id="setting" name="setting"><option value="any">Anywhere · let fate decide</option><option value="indoor">Stay indoors</option><option value="outdoor">Get outside</option><option value="home">A night at home</option></select><p class="helper">Every pick will fit your setting.</p><label for="spending">How should we use your budget?</label><select id="spending"><option value="treat">Treat us · aim near our budget</option><option value="flexible">Keep it flexible · any affordable plan</option></select><p class="helper">Treat us aims for 90–100% of your budget when possible. Estimated totals stay within your limit.</p><label class="instant-label"><input id="instant" type="checkbox"> Skip the suspense</label></div>
         </div>
-        <div class="play-strip"><div><strong id="possibility-count">Finding the possibilities…</strong><p id="possibility-note" class="helper">Four categories. One very good night.</p></div><button id="play" type="submit" class="play-button" disabled><span aria-hidden="true">✳</span> Play MASH</button></div>
+        <div class="play-strip"><div><strong id="possibility-count">Finding the possibilities…</strong><p id="possibility-note" class="helper">A plan for the time you have.</p></div><button id="play" type="submit" class="play-button" disabled>Build our date</button></div>
         <a href="#nearby" class="nearby-alternative">Browse nearby date ideas</a>
       </form>
-      <p id="message" role="status" aria-live="polite">Loading the good ideas…</p><button id="retry" type="button" class="secondary" hidden>Retry loading ideas</button>
       <noscript><p>Enable JavaScript to play MASH and save your date plans.</p></noscript>
     </section>
+    <div class="planning-status"><p id="message" role="status" aria-live="polite">Loading the good ideas…</p><button id="retry" type="button" class="secondary" hidden>Retry loading ideas</button></div>
 
     <section id="nearby" class="planner nearby-section" aria-labelledby="nearby-title">
       <h2 id="nearby-title">Where should we look for date ideas?</h2>
@@ -141,7 +157,8 @@
       <p class="section-intro"><strong id="catalog-size">Four decks. Every kind of date.</strong> Tap an idea to take it out of the mix, or add a personal favorite. The best dates have a little bit of you in them.</p>
       <div class="browse-controls"><div><label for="idea-search">Find your kind of adventure</label><input id="idea-search" type="search" maxlength="80" placeholder="Try sushi, skating, gardens, Wayne…"></div><div><label for="idea-tier">Browse by estimated price for two</label><select id="idea-tier"><option value="all">All price ranges</option><option value="free">Free admission / no purchase</option><option value="under15">Under $15</option><option value="under30">Under $30</option><option value="low">Under $50</option><option value="mid">$50–$200</option><option value="high">Over $200 · special occasions</option></select></div></div>
       <div class="town-browser"><div><label for="idea-town">Explore a town</label><select id="idea-town"><option value="all">Every town</option></select></div><div id="town-chips" class="town-chips" role="group" aria-label="Quick town browsing"></div></div>
-      <p class="helper">Search, town, price, and category tabs only change browsing. Include/exclude changes the mix; “Build around this” keeps a specific pick.</p>
+      <div class="discovery-settings"><div><label for="idea-cost">Experience cost</label><select id="idea-cost"><option value="all">All experiences</option><option value="paid">Paid experiences</option><option value="free">Free admission / no purchase</option></select></div><div><label for="drive-origin">Directions start from</label><select id="drive-origin"><option value="device">My location in Maps</option><option value="town">The selected planning town</option></select><p class="helper">Maps can ask for your location, or let you enter a start. MASH never requests or stores GPS coordinates.</p></div></div>
+      <p class="helper">Browse places by category. Price ranges come from checked examples for two, not every possible order. Include/exclude changes the mix; details keep the price basis available.</p>
       <div class="deck-tabs" role="group" aria-label="Browse a category"><button type="button" data-deck="all" aria-pressed="true">All four</button><button type="button" data-deck="dinner" aria-pressed="false">🍽 Dinner</button><button type="button" data-deck="activity" aria-pressed="false">🎯 Activity</button><button type="button" data-deck="treat" aria-pressed="false">🍰 Treat</button><button type="button" data-deck="entertainment" aria-pressed="false">🎟 Entertainment</button></div>
       <div class="spotlight-heading"><p class="eyebrow">A FEW LOCAL FAVORITES</p><p>Real places. A little inspiration.</p></div><div id="local-spotlight" class="local-spotlight"></div><div id="catalog" class="catalog-grid"></div>
       <details class="custom-details"><summary>＋ Add your own little adventure <span>Up to four custom ideas</span></summary><form id="custom-form"><div class="custom-form-grid"><div><label for="custom-name">Your idea</label><input id="custom-name" maxlength="48" required placeholder="Our favorite noodle spot"></div><div><label for="custom-category">Category</label><select id="custom-category"><option value="dinner">Dinner</option><option value="activity">Activity</option><option value="treat">Treat</option><option value="entertainment">Entertainment</option></select></div><div><label for="custom-cost">Estimate for two ($)</label><input id="custom-cost" type="number" min="0" max="10000" step="0.01" required placeholder="20"></div><div><label for="custom-setting">Setting</label><select id="custom-setting"><option value="any">Any setting</option><option value="indoor">Indoors</option><option value="outdoor">Outdoors</option><option value="home">At home</option></select></div></div><button type="submit" class="secondary">Add to the mix</button><p class="helper">Custom ideas stay for this visit. Saved dates keep a copy. All prices are your estimates.</p><p id="custom-message" role="status"></p></form></details>
@@ -154,7 +171,7 @@
   </main>
   <footer><a class="brand" href="#">date night <strong>MASH</strong></a><p>Dreamed up by Adrainn Coloma, Andrew Russo & Alex Marshall.<br>Big memories. Small budgets. All prices are estimates for two.</p></footer>
   <div id="confetti" aria-hidden="true"></div>
-  <nav class="phone-nav" aria-label="Phone shortcuts"><a href="#planner"><span aria-hidden="true">✳</span>Plan</a><a href="#explore"><span aria-hidden="true">⌕</span>Explore</a><a id="phone-date" href="#result" aria-disabled="true"><span aria-hidden="true">♡</span>Our date</a><a href="#saved"><span aria-hidden="true">▱</span>Saved</a></nav>
+  <nav class="phone-nav" aria-label="Phone shortcuts"><a href="#mash" data-open-mode="mash"><span aria-hidden="true">✳</span>MASH</a><a href="#explore"><span aria-hidden="true">⌕</span>Explore</a><a id="phone-date" href="#result" aria-disabled="true"><span aria-hidden="true">♡</span>Our date</a><a href="#saved"><span aria-hidden="true">▱</span>Saved</a></nav>
   <dialog id="idea-preview" aria-labelledby="preview-title"><button id="preview-close" type="button" class="secondary">Close details</button><div id="preview-content"></div></dialog>
   <dialog id="couple-dialog" aria-labelledby="couple-title"><button type="button" id="couple-close" class="text-button">Close</button><p class="eyebrow" id="couple-step">PASS THE PHONE</p><h2 id="couple-title">Person one, pick your vibe.</h2><p id="couple-help">Your choices will be hidden before person two takes a turn. Shared device only; no account or names.</p><form id="couple-form"><label for="couple-mood">Your vibe</label><select id="couple-mood"><option value="surprise">Surprise me</option><option value="cozy">Cozy</option><option value="romantic">Romantic</option><option value="adventurous">Adventurous</option><option value="competitive">Competitive</option></select><label for="couple-cuisine">Your food pick</label><select id="couple-cuisine"><option value="any">Anything</option><option value="italian">Italian & pizza</option><option value="mexican">Mexican</option><option value="asian">Asian & sushi</option><option value="peruvian">Peruvian</option><option value="cafe">Café & brunch</option></select><button id="couple-next" type="submit">Hide picks & pass the phone</button></form><button type="button" id="couple-reset" class="text-button">Clear shared preferences</button></dialog>
 </body>

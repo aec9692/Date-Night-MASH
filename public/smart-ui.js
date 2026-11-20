@@ -9,6 +9,7 @@ window.SmartDate=(()=>{
   options=data.options;media=data.media||{};MashJourney.setTowns(data.towns);
   $('#start-town').replaceChildren();
   Object.keys(data.towns?.towns||{}).sort().forEach(town=>{const o=node('option',town);o.value=town;$('#start-town').append(o);});$('#start-town').value='Paterson';
+  $('#mash-town').replaceChildren(...[...$('#start-town').options].map(o=>o.cloneNode(true)));$('#mash-town').value='Paterson';
   tried=storageRead(historyKey,[]);if(!Array.isArray(tried))tried=[];tried=[...new Set(tried.filter(id=>options.some(o=>o.id===id)))].slice(-40);
   feedback=storageRead(reasonKey,[]);if(!Array.isArray(feedback))feedback=[];
   const spotlight=$('#local-spotlight');spotlight.replaceChildren();
@@ -74,7 +75,7 @@ window.SmartDate=(()=>{
  function rememberReason(pick,reason){
   if(!['distance','price','tried','taste'].includes(reason))return;
   feedback=[...feedback,{id:pick.id,reason}].slice(-40);write(reasonKey,feedback);
-  if(reason==='distance'){$('#leg-limit').value='5';$('#trip-radius').value='5';$('#travel-message').textContent='Looking for a closer date within 5 miles. Other stops may change to keep the outing together.';}
+  if(reason==='distance'){$('#leg-limit').value='5';$('#trip-radius').value='5';if(activePlan?.mash)$('#mash-radius').value='5';$('#travel-message').textContent='Looking for a closer date within 5 miles. Other stops may change to keep the outing together.';}
   if(reason==='tried'){tried=[...new Set([...tried,pick.id])].slice(-40);write(historyKey,tried);if(pick.venue)options.filter(o=>o.venue?.id===pick.venue.id).forEach(o=>excluded.add(o.id));}
   if(reason==='price'&&activePlan){const limit=Math.max(0,pick.costCents-1);options.filter(o=>o.category===pick.category&&o.costCents>limit).forEach(o=>excluded.add(o.id));$('#spending').value='flexible';}
   // Explicit exclusions stay in this visit's mix; no hidden cross-device profile.

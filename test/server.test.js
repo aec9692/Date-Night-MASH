@@ -36,10 +36,10 @@ test('catalog contains unique IDs, four categories, integer prices, and document
   const response = await fetch(`${base}/api/options`);
   assert.equal(response.status, 200);
   const data = await response.json();
-  assert.equal(data.options.length, 296);
-  assert.equal(new Set(data.options.map(option => option.id)).size, 296);
+  assert.equal(data.options.length, 305);
+  assert.equal(new Set(data.options.map(option => option.id)).size, 305);
   assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category && !option.venue).length), [24,24,24,24]);
-  assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category && option.venue).length), [50,50,50,50]);
+  assert.deepEqual(data.categories.map(category => data.options.filter(option => option.category === category && option.venue).length), [50,54,50,55]);
   for (const option of data.options) {
     assert.ok(Number.isSafeInteger(option.costCents) && option.costCents >= 0);
     assert.ok(option.settings.length && option.settings.every(setting => ['indoor', 'outdoor', 'home'].includes(setting)));
@@ -311,8 +311,8 @@ test('an attainable 90% target takes priority over the fallback band near the ma
 });
 
 test('local catalog has official price provenance and transparent arithmetic for every NJ stop', () => {
-  assert.equal(localCatalog.length,200);
-  assert.equal(new Set(localCatalog.map(option=>option.venue.id)).size,99);
+  assert.equal(localCatalog.length,209);
+  assert.equal(new Set(localCatalog.map(option=>option.venue.id)).size,107);
   for (const option of localCatalog) {
     const {pricing:p,venue:v}=option;
     assert.equal(v.state,'NJ');

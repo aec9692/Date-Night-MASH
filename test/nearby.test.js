@@ -12,7 +12,9 @@ function open(fetch){
  const ids=['form','town','radius','search','status','results','retry'];
  const nodes=Object.fromEntries(ids.map(id=>['#nearby-'+id,new Element()]));
  nodes['#nearby-radius'].value='5';
- const context=vm.createContext({document:{querySelector:id=>nodes[id],createElement:()=>new Element()},fetch,AbortController,setTimeout,clearTimeout,Intl,URLSearchParams});
+ const context=vm.createContext({document:{querySelector:id=>nodes[id],createElement:()=>new Element(),addEventListener(){}},fetch,AbortController,setTimeout,clearTimeout,Intl,URLSearchParams,URL,Event});
+ vm.runInContext(fs.readFileSync('public/places.js','utf8'),context);
+ vm.runInContext(fs.readFileSync('public/directions.js','utf8'),context);
  vm.runInContext(fs.readFileSync('public/nearby.js','utf8'),context);
  return Object.fromEntries(ids.map(id=>[id,nodes['#nearby-'+id]]));
 }
@@ -33,7 +35,7 @@ test('nearby dropdown loads all 43 supported towns and every town can find its l
   assert.ok(ui.results.children.length>0,name);
   assert.ok(ui.results.children.some(item=>item.children[2].textContent.startsWith('Same town')),name);
   const link=ui.results.children[0].children[3];
-  assert.equal(new URL(link.href).searchParams.get('origin'),name+', NJ');
+  assert.equal(new URL(link.href).searchParams.has('origin'),false);
  }
 });
 

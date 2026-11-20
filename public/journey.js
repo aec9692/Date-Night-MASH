@@ -6,6 +6,12 @@
  const object=v=>v&&typeof v==='object'&&!Array.isArray(v);
  const fail=(error,status=400,extra={})=>({error,status,...extra});
  function setTowns(data){towns=data?.towns||data||{};travelCache.clear();}
+ function normalizeMash(value){
+  if(!object(value)||Object.keys(value).some(k=>!['age','origin','radius'].includes(k)))return null;
+  const normalized=normalize({format:'full',...value});
+  return normalized?{age:normalized.age,origin:normalized.origin,radius:normalized.radius}:null;
+ }
+ function matchesMash(option,mash){return matches(option,{...mash,alcoholFree:true,lowEffort:false,vegetarian:false,fresh:false,seen:[],cuisine:'any',partner:null});}
  function normalize(value){
   if(!object(value)||Object.keys(value).some(k=>!['format','start','origin','radius','legMiles','age','cuisine','vegetarian','lowEffort','alcoholFree','fresh','seen','partner','order'].includes(k)))return null;
   const j={format:'quick',start:'17:00',origin:'Paterson',radius:10,legMiles:10,age:'teen',cuisine:'any',vegetarian:false,lowEffort:false,alcoholFree:true,fresh:false,seen:[],partner:null,...value};
@@ -27,7 +33,7 @@
   else if(/peruanito|ceviche517/.test(v)||/peruvian/.test(text))cuisine='peruvian';
   else if(/toast|waffle|breakfast|brunch|sandwich|croissant|cafe|café/.test(text))cuisine='cafe';
   const alcohol=/wine tasting|winery|brewery|beer tasting|cocktail (?:bar|crawl|class)|mixology|champagne|bourbon tasting/.test(text);
-  const physical=/climb|boulder|axe|hatchet|hike|hiking|skating|kayak|laser tag|go-kart|race, play|pickleball|dance class/.test(text);
+  let physical=/climb|boulder|axe|hatchet|hike|hiking|skating|kayak|laser tag|go-kart|race, play|pickleball|dance class/.test(text);
   const massage=/massage|reflexology|spa day/.test(text);
   const vegetarian=o.category!=='dinner'||/vegetarian|veggie|cauliflower.taco|pomodoro|cheese pizza|cheese calzone|eggplant|avocado.toast|waffle|french.toast|breakfast sammie|pasta night|pack a picnic/.test(text)&&!/chicken|beef|ham|pork|bacon|sausage|sandwich/.test(text);
   let duration={dinner:60,activity:60,treat:25,entertainment:75}[o.category];
@@ -62,15 +68,23 @@
   if(v==='billy'){window=[17*60,22*60];hoursKnown=true;}
   if(v==='monster-paramus'){window=[14*60,20*60];hoursKnown=true;}
   if(v==='hob-hist'){window=[14*60,17*60];hoursKnown=true;}
+  const experience=o.experience||{};
+  if(Number.isInteger(experience.durationMinutes)&&experience.durationMinutes>0)duration=experience.durationMinutes;
+  if(Array.isArray(experience.planningWindow)){window=experience.planningWindow;hoursKnown=true;}
+  if(experience.physicalEffort)physical=experience.physicalEffort!=='low';
   const moods=physical?['adventurous','competitive']:/arcade|bowling|game|golf|racing|escape/.test(text)?['competitive','adventurous']:/museum|gallery|coffee|cappuccino|espresso|bakery|pastry|cookie/.test(text)?['cozy','romantic']:/park|garden|waterfront|skyline|picnic/.test(text)?['romantic','adventurous']:['cozy','romantic'];
   const flags=[`${duration} min planned`,...(hoursKnown?['Check current hours']:['Hours need confirmation']),...(/shared|share|one .*pizza/i.test(o.description)?['Shared order']:[]),...(/reserv|book|appointment|session/i.test(o.venue?.hoursNote||'')?['Check booking']:[])];
   if(physical&&v.includes('gravity'))flags.push('Under 18: guardian waiver');
-  const result={cuisine,vegetarian,alcohol,physical,minimumAge:alcohol?21:massage||/stumpys/.test(v)?18:0,duration,window,hoursKnown,moods,flags};metadata.set(o,result);return result;
+  if(experience.adultRequiredUnder)flags.push(`Under ${experience.adultRequiredUnder}: adult required`);
+  if(experience.guardianWaiverUnder)flags.push(`Under ${experience.guardianWaiverUnder}: guardian waiver`);
+  if(experience.participantAgeAtLeast)flags.push(`Group needs someone ${experience.participantAgeAtLeast}+`);
+  if(/stairs|no elevator/i.test(o.venue?.hoursNote||''))flags.push('Check stairs / access');
+  const result={cuisine,vegetarian,alcohol,physical,minimumAge:Math.max(alcohol?21:massage||/stumpys/.test(v)?18:0,experience.minimumAge||0),partyMinimumAge:experience.participantAgeAtLeast||0,adultRequiredUnder:experience.adultRequiredUnder||0,duration,window,hoursKnown,moods,flags};metadata.set(o,result);return result;
  }
  function matches(o,j){
   const m=meta(o);
-  const minimum=j.age==='teen'?0:j.age==='adult'?18:21;
-  if(m.minimumAge>minimum||j.alcoholFree&&m.alcohol||j.lowEffort&&m.physical||j.vegetarian&&!m.vegetarian||j.fresh&&j.seen.includes(o.id))return false;
+  const minimum=j.age==='teen'?13:j.age==='adult'?18:21;
+  if(m.minimumAge>minimum||m.partyMinimumAge>minimum||minimum<18&&m.adultRequiredUnder>minimum||j.alcoholFree&&m.alcohol||j.lowEffort&&m.physical||j.vegetarian&&!m.vegetarian||j.fresh&&j.seen.includes(o.id))return false;
   const foodChoices=[j.cuisine,j.partner?.cuisine].filter(c=>c&&c!=='any');
   if(o.category==='dinner'&&foodChoices.length&&!foodChoices.includes(m.cuisine))return false;
   if(o.venue){const distance=miles(towns[j.origin],towns[o.venue.city]);if(distance===null||distance>j.radius)return false;}
@@ -160,6 +174,6 @@
   return {plans,selectedPicks,selectedSchedule,journey:j,combinationCount,maximumCents,targetCents,unchanged:previous.length===active.length&&!alternativeCount,budgetCents,setting:input.setting||'any',mood:input.mood||'surprise',spending:input.spending||'treat',area:input.area||'all',date:input.date||'',customOptions:input.customOptions||[]};
  }
  function ordered(plan){return plan.journey?plan.journey.order.map(c=>plan.picks.find(o=>o.category===c)):plan.picks;}
- const api={formats,cuisines,setTowns,normalize,miles,meta,matches,travel,schedule,prepare,ordered,clock};
+ const api={formats,cuisines,setTowns,normalize,normalizeMash,matchesMash,miles,meta,matches,travel,schedule,prepare,ordered,clock};
  if(typeof module==='object'&&module.exports)module.exports=api;else root.MashJourney=api;
 })(typeof globalThis==='object'?globalThis:this);

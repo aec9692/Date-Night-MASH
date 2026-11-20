@@ -195,3 +195,21 @@ Executed locally: all 86 Node tests passed. New regression cases cover all 43 se
 | N01 | Supported towns | Load nearby picker; inspect options; search from each supported town. | 43 unique alphabetized towns, with local results. | Passed local regression tests. |
 | N02 | Retry loading | Simulate failed catalog request, then retry successfully. | Disabled empty picker with visible recovery; full list after retry. | Passed local regression test. |
 | N03 | Served integration | Open actual HTML in jsdom, load /nearby.js over local HTTP, select Parsippany. | Script 200, 43 towns, results and correct directions. | Passed local DOM/API check. |
+## MASH / category / place discovery update — November 19, 2026
+
+Executed locally: 92 Node tests passed. Six new cases verify four-pick MASH versus timed scenes, strict mutually exclusive preferences, reroll locks, grouped restaurant sample ranges, paid/free admission semantics, device/town map URL construction and new paid-entry restrictions. Existing route/input, age, calendar, weighted selection, offline and 8 KB payload tests passed with the expanded 305-entry catalog. Original 96 ideas and prior 200 NJ entries were compared to HEAD and remained semantically unchanged.
+
+A full jsdom HTML/JS/CSS flow passed: each of Dinner, Activity, Treat and Entertainment showed exactly its own non-hidden, computed-visible panel; All four restored four panels. Venue/range cards replaced dish lists, paid filtering matched admission prices, preview details opened, MASH returned four picks, Set the scene returned two, saved MASH restored the right section, PDF download worked, and device/town map settings applied to result/nearby links. These are simulated browser checks, not real-phone verification.
+
+All 209 local PDF detail pages passed text bounds. New paid pages were rendered; the long Glassworks page was visually inspected with readable text and no clipping or overlap. Food PDF headings now use venue names while the budget-example section retains checked orders.
+
+| ID | Item | Steps | Expected | Actual |
+| --- | --- | --- | --- | --- |
+| D01 | Category tabs | Click every category, then All four; inspect CSS visibility. | One correct panel, then all four. | Passed DOM/CSS simulation. |
+| D02 | Venue display | Inspect dinner cards and open details. | Venue, range and location first; exact sample basis in details. | Passed DOM and grouping tests. |
+| D03 | Separate MASH | Draw MASH, then generate a quick Scene plan. | Four categories for MASH; two for quick Scene. | Passed HTTP and DOM. |
+| D04 | Directions | Use device default; switch to town; browse nearby. | No forced origin by default; chosen town only on explicit fallback. | Passed URL and DOM checks. |
+| D05 | Paid outings | Filter Paid and Free; inspect new sources/age rules. | Paid leads; free remains; guardian/party rules honored. | Passed Node/DOM; no bookings performed. |
+| D06 | Exports and compatibility | Save/revisit MASH; export all local details. | Correct mode and budget; readable output; prior prices preserved. | Passed DOM and 209 PDF bounds checks. |
+
+Public deployment, actual phone rendering and Maps device-location/permission behavior remain pending. No GPS was requested or stored by the app, and no App Store or Vercel deployment is claimed.

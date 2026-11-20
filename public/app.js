@@ -12,6 +12,7 @@ let locks = {};
 let currentPlan = null;
 let favorites = [];
 let busy = false;
+let planningMode = 'mash';
 
 function element(tag, text, className) {
   const node = document.createElement(tag);
@@ -30,7 +31,7 @@ function message(text, error = false) {
   $('#message').classList.toggle('error', error);
 }
 function allOptions() { return [...catalog, ...(MashPlanner.customCatalog(customOptions) || [])]; }
-function planKey(plan) { return `${plan.date||''}|${plan.journey?`${plan.journey.format}|${plan.journey.start}|${plan.journey.origin}|${plan.journey.order.join(',')}`:''}|${plan.picks.map(pick => pick.id).join('|')}`; }
+function planKey(plan) { return `${plan.date||''}|${plan.mash?`mash|${plan.mash.origin}|${plan.mash.radius}|${plan.mash.age}`:''}|${plan.journey?`${plan.journey.format}|${plan.journey.start}|${plan.journey.origin}|${plan.journey.order.join(',')}`:''}|${plan.picks.map(pick => pick.id).join('|')}`; }
 function mood() { return $('input[name=mood]:checked').value; }
 async function request(url, options = {}) {
   const controller = new AbortController();
@@ -43,12 +44,29 @@ function preferences(locked = locks) {
     mood: mood(), spending: $('#spending').value, area: $('#area').value, date: $('#visit-date').value, excluded: [...excluded], customOptions, locked,
     ...(SmartDate.preferences() ? {journey:SmartDate.preferences()} : {}) };
 }
+function mashPreferences(locked=locks) {
+  return {budget:$('#mash-budget').value===''?null:Number($('#mash-budget').value),area:$('#mash-area').value,
+    setting:'any',mood:'surprise',spending:'treat',date:'',excluded:[...excluded],customOptions,locked,
+    mash:{age:$('#mash-age').value,origin:$('#mash-town').value,radius:Number($('#mash-radius').value)}};
+}
+function activePreferences(){return planningMode==='mash'?mashPreferences():preferences();}
+function setPlanningMode(mode,scroll=false){
+  if(busy)return;
+  planningMode=mode==='scene'?'scene':'mash';
+  $('#mash').hidden=planningMode!=='mash';$('#planner').hidden=planningMode!=='scene';
+  document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===planningMode)));
+  if(planningMode==='scene')for(const category of Object.keys(locks))if(!MashJourney.formats[$('#date-format').value].categories.includes(category))delete locks[category];
+  updatePossibilities();if(catalog.length)renderCatalog();
+  if(scroll){const section=planningMode==='mash'?$('#mash'):$('#planner');section.scrollIntoView({block:'start'});}
+}
 
 // Saved plans can contain custom ideas. Validate their snapshot as strictly as a request.
 function validPlan(plan) {
   if (!plan || !Array.isArray(plan.picks) || !Object.prototype.hasOwnProperty.call(settingLabels, plan.setting)) return false;
   const journey=plan.journey===undefined?null:MashJourney.normalize(plan.journey);
   if (plan.journey!==undefined&&!journey) return false;
+  const mash=plan.mash===undefined?null:MashJourney.normalizeMash(plan.mash);
+  if(plan.mash!==undefined&&(!mash||journey))return false;
   const categories=journey?MashJourney.formats[journey.format].categories:MashPlanner.categories;
   if(plan.picks.length!==categories.length) return false;
   if (plan.mood !== undefined && !MashPlanner.moods.includes(plan.mood)) return false;
@@ -68,6 +86,7 @@ function validPlan(plan) {
       MashPlanner.eligible(known, plan.area || 'all', plan.date || '');
   });
   if(journey&&(!matching||!plan.picks.every(pick=>MashJourney.matches(knownOptions.find(o=>o.id===pick.id),journey))||!MashJourney.schedule(plan.picks.map(pick=>knownOptions.find(o=>o.id===pick.id)),journey)))return false;
+  if(mash&&(!matching||!plan.picks.every(pick=>MashJourney.matchesMash(knownOptions.find(o=>o.id===pick.id),mash))))return false;
   return matching && plan.totalCents === plan.picks.reduce((sum, pick) => sum + pick.costCents, 0) &&
     plan.budgetCents - plan.totalCents === plan.remainingCents && typeof plan.notice === 'string' && plan.notice.length <= 300;
 }
@@ -82,6 +101,7 @@ function hydrate(plan) {
 async function loadCatalog() {
   $('#retry').hidden = true;
   $('#play').disabled = true;
+  $('#mash-play').disabled=true;
   message('Loading the good ideas…');
   try {
     const response = await request('/api/options');
@@ -95,6 +115,7 @@ async function loadCatalog() {
     loadFavorites();
     updatePossibilities();
     $('#play').disabled = false;
+    $('#mash-play').disabled=false;
     message('Your next “remember when” is one click away.');
   } catch {
     message('Could not load date ideas. Check your connection and try again.', true);
@@ -104,6 +125,13 @@ async function loadCatalog() {
 }
 
 function updatePossibilities() {
+  if(planningMode==='mash'){
+    const result=MashPlanner.prepare(mashPreferences(),catalog,false);
+    $('#mash-count').textContent=`${(result.combinationCount||0).toLocaleString()} four-pick dates`;
+    $('#mash-note').textContent=result.error||'One from every category, with estimates inside your budget.';
+    $('#mash-note').classList.toggle('error',Boolean(result.error));
+    return;
+  }
   SmartDate.count(preferences(),analysis=>{
   const count = analysis.combinationCount || 0;
   $('#possibility-count').textContent = `${count.toLocaleString()} affordable ${count === 1 ? 'date' : 'dates'}`;
@@ -123,90 +151,34 @@ function updatePossibilities() {
 }
 
 function renderCatalog() {
-  const setting = $('#setting').value;
-  const area = $('#area').value;
-  const date = $('#visit-date').value;
-  const inArea = allOptions().filter(option => option.custom || area === 'all' || (area === 'paterson' ? Boolean(option.venue) : !option.venue));
-  $('#catalog-size').textContent = `${inArea.length} ideas in ${areaLabels[area].toLowerCase()}.`;
-  $('#catalog').replaceChildren();
-  for (const [category, label] of Object.entries(labels)) {
-    const section = element('section', undefined, `category ${category}`);
-    const head = element('div', undefined, 'category-head');
-    const options = inArea.filter(option => option.category === category);
-    const active = options.filter(option => !excluded.has(option.id) && MashPlanner.eligible(option, area, date) && (setting === 'any' || option.settings.includes(setting))).length;
-    const query = $('#idea-search').value.trim().toLowerCase();
-    const tier = $('#idea-tier').value;
-    const town = $('#idea-town').value;
-    const visible = options.filter(option => `${option.name} ${option.description} ${option.venue?.city || ''}`.toLowerCase().includes(query) &&
-      (town === 'all' || option.venue?.city === town) &&
-      (tier === 'all' || tier === 'free' && option.costCents === 0 || tier === 'under15' && option.costCents < 1500 || tier === 'under30' && option.costCents < 3000 || tier === 'low' && option.costCents < 5000 || tier === 'mid' && option.costCents >= 5000 && option.costCents <= 20000 || tier === 'high' && option.costCents > 20000)).sort((a, b) => a.costCents - b.costCents);
-    head.append(element('h3', label), element('p', `${active} in the mix · ${visible.length} shown`));
-    const list = element('ul', undefined, 'option-list');
-    const venueGroups=new Map();
-    list.tabIndex = 0;
-    list.setAttribute('aria-label', `${label} ideas. Scroll to explore.`);
-    if (!visible.length) list.append(element('li', 'No matches to browse. Try another search or price range.', 'empty-category'));
-    for (const option of visible) {
-      const eligible = (setting === 'any' || option.settings.includes(setting)) && MashPlanner.eligible(option, area, date);
-      const item = element('li');
-      const choice = button('', `option-choice${eligible ? '' : ' unavailable'}`, () => {
-        if (busy) return;
-        if (excluded.has(option.id)) excluded.delete(option.id);
-        else { excluded.add(option.id); if (locks[category] === option.id) delete locks[category]; }
-        renderCatalog();
-        updatePossibilities();
-        if (currentPlan) renderResult();
-        // Preserve focus when the deck is rebuilt after this toggle.
-        [...document.querySelectorAll('.option-choice')].find(node => node.dataset.id === option.id)?.focus({ preventScroll: true });
-      });
-      choice.dataset.id = option.id;
-      choice.setAttribute('aria-pressed', String(!excluded.has(option.id)));
-      choice.setAttribute('aria-label', `${option.name}, ${money(option.costCents)}${eligible ? '' : ', other setting'}. Include in mix`);
-      const copy = element('span');
-      copy.append(element('span', option.name, 'option-name'), element('span', `${money(option.costCents)}${eligible ? '' : ' · other setting'}`, 'option-price'));
-      const emoji = element('span', option.emoji || '✨', 'option-emoji');
-      emoji.setAttribute('aria-hidden', 'true');
-      choice.append(emoji, copy);
-      item.append(choice);
-      if (option.venue) {
-        item.append(element('span', `${option.venue.city}, NJ · source checked ${option.pricing.checkedOn}${eligible ? '' : ' · check setting/date'}`, 'venue-caption'));
-        item.append(button('Details / choose this ↗', 'text-button idea-details', event => previewIdea(option, event.currentTarget)));
-      }
-      if (option.custom) item.append(button('Remove custom idea', 'text-button remove-custom', () => {
-        if (busy) return;
-        customOptions = customOptions.filter(custom => custom.id !== option.id);
-        excluded.delete(option.id);
-        if (locks[category] === option.id) delete locks[category];
-        renderCatalog();
-        updatePossibilities();
-        if (currentPlan) renderResult();
-      }));
-      if(option.venue){
-        const id=option.venue.id;
-        if(!venueGroups.has(id)){
-          const entry=element('li',undefined,'venue-group-item'),details=element('details',undefined,'venue-group'),inner=element('ul');
-          const count=visible.filter(o=>o.venue?.id===id).length;
-          details.append(element('summary',`${option.venue.name} · ${count} ${count===1?'choice':'choices'} from ${money(option.costCents)}`),inner);
-          entry.append(details);list.append(entry);venueGroups.set(id,inner);
-        }
-        venueGroups.get(id).append(item);
-      }else list.append(item);
-    }
-    section.append(head, list);
-    $('#catalog').append(section);
-  }
+  const active=activePreferences();
+  DatePlaceUI.render({options:allOptions(),area:active.area,setting:active.setting,date:active.date,
+    deck:$('#catalog').dataset.deck||'all',query:$('#idea-search').value,town:$('#idea-town').value,tier:$('#idea-tier').value,kind:$('#idea-cost').value,
+    excluded,busy,
+    onToggle(group){
+      if(busy)return;
+      const remove=group.options.every(o=>!excluded.has(o.id));
+      for(const option of group.options){if(remove)excluded.add(option.id);else excluded.delete(option.id);if(remove&&locks[option.category]===option.id)delete locks[option.category];}
+      renderCatalog();updatePossibilities();if(currentPlan)renderResult();
+    },
+    onPreview(group,trigger){
+      const example=group.options.filter(o=>!excluded.has(o.id)&&MashPlanner.eligible(o,active.area,active.date)).sort((a,b)=>a.costCents-b.costCents)[0]||group.options[0];
+      previewIdea(example,trigger);
+    },
+    onRemove(option){customOptions=customOptions.filter(o=>o.id!==option.id);excluded.delete(option.id);if(locks[option.category]===option.id)delete locks[option.category];renderCatalog();updatePossibilities();}
+  });
 }
-
 function setBusy(value) {
   busy = value;
   document.body.classList.toggle('is-busy', value);
-  document.querySelectorAll('#plan-form input, #plan-form select, #plan-form button, #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, #idea-town, #town-chips button, [data-deck], .idea-details, .option-choice, .remove-custom, .pick-controls button, .replace-choice, .order-controls button, #again, #reset-ideas, #date-start, #add-calendar, #share-invite, #mark-tried, #clear-tried').forEach(node => { node.disabled = value; });
+  document.querySelectorAll('#plan-form input, #plan-form select, #plan-form button, #mash-form input, #mash-form select, #mash-form button, [data-mode], #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, #idea-cost, #idea-town, #town-chips button, [data-deck], .idea-details, .option-choice, .remove-custom, .pick-controls button, .replace-choice, .order-controls button, #again, #reset-ideas, #date-start, #add-calendar, #share-invite, #mark-tried, #clear-tried').forEach(node => { node.disabled = value; });
   if (!value && currentPlan) renderResult();
 }
 
-async function generate(event, rerollCategory = null) {
+async function generate(event, rerollCategory = null, requestedMode = null) {
   event?.preventDefault();
-  if (busy || !catalog.length || !$('#plan-form').reportValidity()) return;
+  const mode=requestedMode||(rerollCategory&&currentPlan?(currentPlan.mash?'mash':'scene'):planningMode);
+  if (busy || !catalog.length || !$(mode==='mash'?'#mash-form':'#plan-form').reportValidity()) return;
   MashShow.primeSound();
   const known = allOptions();
   if (rerollCategory && currentPlan.picks.some(pick => !known.some(option => option.id === pick.id))) {
@@ -214,7 +186,7 @@ async function generate(event, rerollCategory = null) {
     return;
   }
   const requestLocks = rerollCategory ? Object.fromEntries(currentPlan.picks.filter(pick => pick.category !== rerollCategory).map(pick => [pick.category, pick.id])) : locks;
-  const payload = preferences(requestLocks);
+  const payload = mode==='mash'?mashPreferences(requestLocks):preferences(requestLocks);
   if (currentPlan && currentPlan.picks.every(pick => known.some(option => option.id === pick.id)) &&
     (payload.journey?currentPlan.journey?.format===payload.journey.format:currentPlan.picks.length===4)) payload.previous = currentPlan.picks.map(pick => pick.id);
   setBusy(true);
@@ -233,9 +205,10 @@ async function generate(event, rerollCategory = null) {
         (payload.setting === 'any' || option.settings.includes(payload.setting)) &&
         (!payload.locked[option.category] || payload.locked[option.category] === option.id) &&
         option.costCents + data.picks.filter(pick => pick.category !== option.category).reduce((sum, pick) => sum + pick.costCents, 0) <= data.budgetCents);
-      await MashShow.reveal(data, pool, $('#instant').checked || Boolean(rerollCategory));
+      await MashShow.reveal(data, pool, $(mode==='mash'?'#mash-instant':'#instant').checked || Boolean(rerollCategory));
     }
     currentPlan = hydrate(data);
+    planningMode=mode;
     renderResult();
     message(data.unchanged ? 'This is the only combination that fits these choices. Unlock a pick, include more ideas, or adjust your plan.' : rerollCategory ? `${labels[rerollCategory]} remixed. Your other picks stayed put, and the total still fits.` : 'It’s a date! Keep the picks you love, remix the rest.');
     $('#result-title').focus({ preventScroll: true });
@@ -257,8 +230,13 @@ function renderResult() {
     emoji.setAttribute('aria-hidden', 'true');
     art.append(element('span', `0${index + 1} / ${labels[pick.category].toUpperCase()}`, 'step-label'), emoji);
     const copy = element('div', undefined, 'pick-body');
-    copy.append(element('h3', pick.name), element('p', pick.description, 'pick-description'), element('p', pick.tip || 'Make this one your own.', 'pick-tip'), element('span', money(pick.costCents), 'pick-price'));
-    if (pick.venue) copy.append(venueDetails(pick,currentPlan.journey?.origin||'Paterson'));
+    const food=pick.venue&&['dinner','treat'].includes(pick.category);
+    const group=food?DatePlaces.group(catalog.filter(o=>o.venue?.id===pick.venue.id&&o.category===pick.category))[0]:null;
+    copy.append(element('h3',DatePlaces.title(pick)),element('p',food?`${labels[pick.category]} in ${pick.venue.city}. Explore the menu and choose what sounds good.`:pick.description,'pick-description'),
+      element('span',group?`${DatePlaces.range(group)} · sample range for two`:money(pick.costCents),'pick-price'));
+    if(food)copy.append(element('p',`Budgeted example: ${money(pick.costCents)}. Actual dishes and final bill are your choice.`,'helper'));
+    else copy.append(element('p',pick.tip||'Make this one your own.','pick-tip'));
+    if (pick.venue) copy.append(venueDetails(pick,currentPlan.mash?.origin||currentPlan.journey?.origin||'Paterson'));
     SmartDate.decorate(pick,art,copy,currentPlan);
     const controls = element('div', undefined, 'pick-controls');
     const lock = button(locked ? '🔒 Locked in' : '♡ Keep this', 'lock-button', () => {
@@ -297,6 +275,7 @@ function renderResult() {
     $('#result-picks').append(card);
   });
   $('#result-title').textContent = currentPlan.title;
+  $('#result-subtitle').textContent=currentPlan.mash?'Your MASH draw: one pick from each of the four categories. Confirm opening times and arrange your stops.':'Your custom plan. Check bookings and opening times before heading out.';
   $('#result-setting').textContent = `${moodLabels[currentPlan.mood]} · ${settingLabels[currentPlan.setting]} · ${areaLabels[currentPlan.area]}${currentPlan.date ? ` · ${currentPlan.date}` : ''}`;
   $('#result-total').textContent = money(currentPlan.totalCents);
   $('#remaining').textContent = `${money(currentPlan.remainingCents)} left for little extras`;
@@ -358,7 +337,7 @@ function renderFavorites() {
     const card = element('article', undefined, 'saved-card');
     card.append(element('h3', plan.title), element('p', plan.picks.map(pick => pick.emoji || '✳').join(' '), 'saved-emoji'));
     const list = element('ul');
-    for (const pick of plan.picks) list.append(element('li', `${pick.name} · ${money(pick.costCents)}`));
+    for (const pick of plan.picks) list.append(element('li', `${DatePlaces.title(pick)} · ${money(pick.costCents)}`));
     const actions = element('div', undefined, 'actions');
     actions.append(button('PDF', 'secondary saved-download', () => downloadPlan(plan)), button('Revisit', 'secondary', () => {
       if (busy) return;
@@ -371,6 +350,8 @@ function renderFavorites() {
       $('#area').value = plan.area;
       $('#visit-date').value = plan.date;
       SmartDate.restore(plan);
+      if(plan.mash){$('#mash-budget').value=plan.budgetCents/100;$('#mash-area').value=plan.area;$('#mash-town').value=plan.mash.origin;$('#mash-radius').value=String(plan.mash.radius);$('#mash-age').value=plan.mash.age;}
+      setPlanningMode(plan.mash?'mash':'scene');
       $(`input[name=mood][value="${plan.mood}"]`).checked = true;
       currentPlan = plan;
       renderResult();
@@ -408,7 +389,12 @@ function addCustom(event) {
   updatePossibilities();
 }
 
-$('#plan-form').addEventListener('submit', generate);
+$('#plan-form').addEventListener('submit',event=>generate(event,null,'scene'));
+$('#mash-form').addEventListener('submit',event=>generate(event,null,'mash'));
+$('#mash-form').addEventListener('input',()=>{updatePossibilities();renderCatalog();});
+document.querySelectorAll('[data-mash-budget]').forEach(b=>b.addEventListener('click',()=>{$('#mash-budget').value=b.dataset.mashBudget;updatePossibilities();}));
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setPlanningMode(b.dataset.mode)));
+document.querySelectorAll('[data-open-mode]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();setPlanningMode(link.dataset.openMode,true);}));
 document.querySelectorAll('[data-budget]').forEach(node => node.addEventListener('click', () => {
   $('#budget').value = node.dataset.budget;
   updatePossibilities();
@@ -417,9 +403,12 @@ $('#idea-search').addEventListener('input', renderCatalog);
 $('#idea-town').addEventListener('change', () => { syncTownChips(); renderCatalog(); });
 document.querySelectorAll('[data-deck]').forEach(tab => tab.addEventListener('click', () => {
   $('#catalog').dataset.deck = tab.dataset.deck;
+  document.querySelectorAll('#catalog .category').forEach(section=>{section.hidden=tab.dataset.deck!=='all'&&section.dataset.category!==tab.dataset.deck;});
   document.querySelectorAll('[data-deck]').forEach(other=>other.setAttribute('aria-pressed', String(other===tab)));
 }));
 $('#idea-tier').addEventListener('change', renderCatalog);
+$('#idea-cost').addEventListener('change',renderCatalog);
+$('#drive-origin').addEventListener('change',()=>{if(currentPlan)renderResult();document.dispatchEvent(new Event('mash:directions-change'));});
 $('#again').addEventListener('click', generate);
 $('#plan-form').addEventListener('input', event => {
   if (event.target.id === 'budget-slider') $('#budget').value = event.target.value;
@@ -467,17 +456,15 @@ function externalLink(label, href) {
   link.rel = 'noopener noreferrer';
   return link;
 }
-function venueDetails(pick, origin = SmartDate.preferences()?.origin||'Paterson') {
+function venueDetails(pick, origin = activePreferences().mash?.origin||activePreferences().journey?.origin||'Paterson') {
   const wrap = element('div', undefined, 'venue-details');
   wrap.append(element('p', pick.venue.address, 'venue-address'));
   const links = element('div', undefined, 'venue-links');
-  const route = new URL('https://www.google.com/maps/dir/');
-  route.search = new URLSearchParams({ api:'1', origin:`${origin}, NJ`, destination:pick.venue.address, travelmode:'driving' });
-  links.append(externalLink('Official price', pick.pricing.sourceUrl), externalLink('Check drive', route.href));
+  links.append(externalLink('Official menu / tickets', pick.pricing.sourceUrl), externalLink('Check drive', DateDirections.to(pick.venue.address,{town:origin})));
   wrap.append(links);
   const details = element('details', undefined, 'price-proof');
   const p = pick.pricing;
-  details.append(element('summary', 'What the estimate covers'), element('p', p.order),
+  details.append(element('summary', 'How the budget example was calculated'), element('p', p.order),
     element('p', `Posted subtotal ${money(p.baseCents)} · tax reserve ${money(p.taxCents)} · optional tip ${money(p.tipCents)}${p.donationCents ? ` · optional donation ${money(p.donationCents)}` : ''}`),
     element('p', p.taxNote), element('p', p.tipNote), element('p', pick.venue.hoursNote), element('p', p.exclusions), element('p', `Source checked ${p.checkedOn}. Prices can change.`));
   wrap.append(details);
@@ -506,18 +493,20 @@ function previewIdea(option, trigger) {
   if(busy) return;
   previewTrigger=trigger;
   const content=$('#preview-content'); content.replaceChildren();
-  const title=element('h2',option.name); title.id='preview-title';
-  content.append(element('p',`${labels[option.category]} · ${option.venue.city}, NJ`,'eyebrow'),title,element('strong',`${money(option.costCents)} estimated for two`),element('p',option.description),venueDetails(option));
+  const group=DatePlaces.group(catalog.filter(o=>o.venue?.id===option.venue.id&&o.category===option.category))[0];
+  const title=element('h2',option.venue.name); title.id='preview-title';
+  content.append(element('p',`${labels[option.category]} · ${option.venue.city}, NJ`,'eyebrow'),title,element('strong',`${DatePlaces.range(group)} · sample totals for two`),element('p','Range based on checked examples, including the listed planning allowances. Your order and final bill can differ.'),venueDetails(option));
   SmartDate.decorate(option,null,content,null);
   const choose=button('Build around this ♡','',()=>{
     if(busy)return;
-    SmartDate.includeCategory(option);
+    if(planningMode==='scene')SmartDate.includeCategory(option);
     locks[option.category]=option.id;excluded.delete(option.id);
+    if(planningMode==='mash'&&$('#mash-area').value==='general')$('#mash-area').value='paterson';
     if($('#area').value==='general')$('#area').value='paterson';
     if($('#setting').value!=='any'&&!option.settings.includes($('#setting').value))$('#setting').value='any';
     closePreview();renderCatalog();updatePossibilities();if(currentPlan)renderResult();
-    message(`${option.name} is kept for your next roll. Check the date and budget, then Play MASH.`);
-    $('#planner').scrollIntoView({block:'start'});$('#play').focus({preventScroll:true});
+    message(`${option.venue.name} is kept with a ${money(option.costCents)} budget example. Check your budget, then generate.`);
+    $(planningMode==='mash'?'#mash':'#planner').scrollIntoView({block:'start'});$(planningMode==='mash'?'#mash-play':'#play').focus({preventScroll:true});
   });
   content.append(choose);
   const dialog=$('#idea-preview');
@@ -531,4 +520,4 @@ function closePreview() {
 }
 $('#preview-close').addEventListener('click',closePreview);
 $('#idea-preview').addEventListener('cancel',()=>{ if(previewTrigger?.isConnected)previewTrigger.focus({preventScroll:true}); });
-$('#phone-date').addEventListener('click',event=>{ if(!currentPlan){event.preventDefault();$('#planner').scrollIntoView({block:'start'});} });
+$('#phone-date').addEventListener('click',event=>{ if(!currentPlan){event.preventDefault();setPlanningMode(planningMode,true);} });
