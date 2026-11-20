@@ -1,5 +1,7 @@
 # Date Night MASH
 
+Submission audit: RUBRIC_CHECKLIST.md maps the supplied requirements. Use DEPLOYED_ACCEPTANCE.md for current manual coverage and SUBMISSION_GUIDE.md for group demo/individual-report preparation. Keep exactly three designated advanced features for this three-member group; extra features are supplementary. Suggested ownership does not prove contribution or instructor credit. Never mark deployed tests, screenshots, video, approval, collaborator acceptance or Canvas submission complete without evidence. Preserve independently written report prose.
+
 ## Approved project proposal
 
 Group members: Adrainn Coloma, Andrew Russo, Alex Marshall.

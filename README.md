@@ -3,6 +3,10 @@ Date Night MASH helps couples create a random date plan by choosing dinner, an a
 
 Group members: Adrainn Coloma, Andrew Russo, Alex Marshall.
 
+Repository: https://github.com/aec9692/Date-Night-MASH. Public Vercel URL: **pending**. Group demo: **pending**.
+
+Submission readiness: [RUBRIC_CHECKLIST.md](RUBRIC_CHECKLIST.md). Three designated advanced features follow the proposed ownership: persistent favorites (Adrainn), server-enforced setting filters (Andrew), and PDF/text downloads (Alex). Confirm actual contributions and instructor acceptance; extras are supplementary. Public deployment, executed deployed tests, screenshots, video and individual reports remain incomplete. See [DEPLOYED_ACCEPTANCE.md](DEPLOYED_ACCEPTANCE.md) and [SUBMISSION_GUIDE.md](SUBMISSION_GUIDE.md).
+
 ## Current version
 
 Play MASH is its own four-pick game: enter a total budget for two and draw one dinner, activity, treat and entertainment choice. The default is a flexible $50 draw from local and general ideas for high-school ages 13–17, with a Paterson-area 10-mile town-center radius. Set the scene is a separate custom planner for quick, evening or full-day itineraries, start time and preferences.
@@ -22,7 +26,7 @@ npm ci
 npm start
 ```
 
-Open http://localhost:3000, choose a date length, start time, starting town and budget, then click Play MASH. Use `npm run dev` to restart the server automatically after server file changes. No environment variables or API keys are required; `PORT` is optional and defaults to 3000. Run `npm test` for the automated HTTP tests. Deployed manual checks are tracked separately in TESTING.md.
+Open http://localhost:3000, choose a date, budget and setting, then click Play MASH for four picks. Set the scene separately offers timed quick/evening/full plans. Use `npm run dev` to restart after server changes. No environment variables or API keys are required; `PORT` is optional and defaults to 3000. Run `npm test` for automated checks. Deployed manual checks are tracked separately in TESTING.md and DEPLOYED_ACCEPTANCE.md.
 
 ## How it works
 
@@ -34,13 +38,21 @@ The Share PDF button appears when the browser exposes native sharing and falls b
 
 Local coverage is a North Jersey shortlist intended for trips of roughly an hour or less from Paterson in ordinary traffic, not a measured travel-time radius. Maps resolves device origin by default; a starting-town fallback is optional. The app does not request a home address or device GPS. Traffic can exceed an hour, and the four-stop route can take longer. Date filtering checks known regular weekdays and recorded closure dates/ranges; it does not verify unrecorded holiday closures, actual showtimes, reservation availability, or a feasible timed itinerary. Some local settings/budgets/dates cannot produce four stops; switch to original/mixed ideas or adjust preferences rather than inventing prices.
 
-The slider covers $0–$1,000, with quick budget buttons; direct typing supports up to $10,000. Treat us is the default spending style: it chooses totals at 90–100% of budget when available. If the current constraints cannot get that high, it chooses within the top 5% of the highest attainable total and explains the limit. Flexible keeps every affordable total in the mix. Mood weights candidates within the chosen spending style; it never overrides budget or other constraints. Changes to the setting clear existing locks. A single-category reroll fixes the other three picks and checks the entire budget again. When there is no different valid plan, the server returns the same result with `unchanged: true`, and the interface explains how to open up more choices. Previous plans are excluded before computing the attainable maximum when a different plan is available.
+The slider covers $0–$1,000, with quick budget buttons; direct typing supports up to $10,000. MASH defaults to Flexible. Optional Treat us chooses totals at 90–100% of budget when available. If the current constraints cannot get that high, it chooses within the top 5% of the highest attainable total and explains the limit. Flexible keeps every affordable total in the mix. Mood weights candidates within the chosen spending style; it never overrides budget or other constraints. Changes to the setting clear existing locks. A single-category reroll fixes the other three picks and checks the entire budget again. When there is no different valid plan, the server returns the same result with `unchanged: true`, and the interface explains how to open up more choices. Previous plans are excluded before computing the attainable maximum when a different plan is available.
 
 Search, town/category browsing, and Free/Under $15/Under $30/Under $50 price filters help explore the larger decks; they only change what is visible. Inclusion/exclusion remains an explicit idea toggle. The displayed affordable count includes all feasible totals, while Treat us selects from the near-budget subset. Preview counts and weighted server draws use sorted category pairs and binary searches, without retaining complete candidate plans. Pair storage grows with two category sizes rather than all four; this keeps the 305-option mixed deck manageable. The browser builds reveal candidates as affordable replacements within the selected plan, avoiding a second bulk enumeration.
 
 | Route | Input | Response |
 | --- | --- | --- |
 | GET /api/health | None | Application name and status |
+| GET /api/locations | Public town/ZIP query q | Validated geocoding choices; local NJ lookup before optional free provider |
+| GET /api/nearby-curated | lat, lon, radius, kind | Source-priced NJ ideas near planning center |
+| GET /api/nearby | lat, lon, radius, kind | Community listings with unknown prices or readable provider failure |
+| POST /api/restore | Shared-plan token | Canonically revalidated plan |
+| GET /api/calendar | Calendar draft token | Validated .ics draft; user imports/saves |
+| POST /api/backup | Plan token, category; optional excluded/taste | Indoor replacement retaining other picks and reserve, or helpful error |
+| POST /api/compare | Plan token; optional locked/excluded/taste | Three distinct affordable alternatives or helpful error |
+| POST /api/compare/restore | Vote token | Three canonically revalidated candidate plans; no server tally |
 | GET /api/options | None; query parameters rejected | Categories, settings, moods, spending modes, areas, 689 options, and price basis |
 | POST /api/generate | JSON such as `{"budget":1000,"area":"paterson","date":"2026-11-20","mood":"romantic","spending":"treat"}` | Four picks including local price/source metadata when applicable, title, preferences, integer-cent totals, combinationCount, unchanged, customOptions, and estimate notice |
 
