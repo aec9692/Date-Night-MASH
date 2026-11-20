@@ -2,6 +2,14 @@
 
 Deployed URL: pending. No deployed-site tests have been executed yet.
 
+## Current submission acceptance plan
+
+Use [DEPLOYED_ACCEPTANCE.md](DEPLOYED_ACCEPTANCE.md) for current coverage of all 77 static controls, generated inputs, 11 routes, phone sections and the three designated advanced features. All public-site outcomes remain Pending. At least 12 cases must be executed on the deployment, and every required input/route/feature/page must be covered. Local automated/DOM checks below do not meet that deployed-manual requirement.
+
+The earlier milestone tables are historical planning records: fixed catalog counts, dollar minima and 8 KB limits in them are superseded. The current JSON bound is 32 KB; expected minima come from current canonical options/ownership/filters, not old $17 examples. Append actual deployment records here with unique EXEC- IDs, item, steps, expected, actual, URL/commit, tester/date, device/browser and failure/fix/retest evidence.
+
+Latest runtime baseline before this documentation audit: all 153 automated tests passed on the ready-night implementation merged in PR #22, with separate DOM/PDF evidence below. This audit changes documentation only; it does not claim a newly executed runtime suite or any deployed passes.
+
 ## Local checks — November 19, 2026
 
 Passed on Node.js 24.22.3: syntax checks for server.js and public/app.js; live HTTP checks for health JSON and its no-store header, landing page, CSS, JavaScript, and an unknown API route returning JSON with HTTP 404. `npm install express` reported zero dependency vulnerabilities. `git diff --check` passed. These checks do not verify browser rendering or Vercel behavior.

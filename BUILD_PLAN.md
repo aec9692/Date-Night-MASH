@@ -2,7 +2,7 @@
 
 Repository: https://github.com/aec9692/Date-Night-MASH
 
-Target: a publicly deployed, responsive HTML/CSS/JavaScript application backed by Express. No database, accounts, paid services, or external APIs are needed.
+Target: a publicly deployed, responsive HTML/CSS/JavaScript application backed by Express. No database, accounts or paid services are required. The implemented app also offers optional free public discovery APIs.
 
 Start each task on a branch from the latest `origin/main`. Commit and push to the task branch, open a pull request into `main`, and have a teammate review it before merging. Verify each milestone on the deployed site before starting the next one.
 
@@ -108,14 +108,15 @@ BUILD_PLAN.md
 TESTING.md
 ```
 
-## Current setup status
+## Current setup status — November 20 rubric audit
 
-- Existing repository remote: aec9692/Date-Night-MASH, branch main.
-- The initial implementation was merged in PR #2. The game upgrade is prepared on `adrainn/mash-game-upgrade`: scrapbook-style interface, moods, budget slider, live counts, exclusions, custom ideas, animated/skippable reveals, named itineraries, locks, rerolls, compatible favorites, and SVG/text downloads. The owner authorized Codex to handle merges in this session. The normal staged deployed checks remain pending while Vercel access is unavailable; local implementation and tests do not count as passing those checks.
-- Node.js and npm were not found on the shell PATH; a portable Node.js 24 runtime is kept in ignored `.tools/` for local checks. Teammates should install Node.js 24 LTS to use the documented npm commands.
-- Vercel account connection, project import, deployment, and automatic redeployment remain unverified. Do not treat this plan as a deployed application.
-- The Paterson update now contains 50 source-linked local choices across all four categories and 30 venues, an area selector, optional weekday-aware date filtering, detailed price assumptions, and PDF/native-share downloads. The original 96 ideas remain available. Check DATA_SOURCES.md before updating venue prices. Public deployment, actual phone/browser testing, live route/scheduling checks, and any native App Store packaging remain separate unfinished work.
-- The variety/spending update now has 96 total ideas, with 24 in each of the four categories, Treat us/Flexible spending modes, a $1,000 slider with quick presets, searchable/price-browsable decks, and an honest attainable-budget explanation. Expanded requests remain bounded to 8 KB. Local HTTP and DOM checks are recorded in TESTING.md; deployed verification is still pending.
+- Current main includes the complete plain-JavaScript/Express planner, favorites, settings, PDF/text, source-priced NJ/home catalog, calendars, sharing, reviews, reserves, route guidance, indoor backups and two-person link voting. The 689 canonical ideas are 96 original + 209 NJ + 246 home + 138 general outings.
+- Exactly three advanced features are designated for the three members: Adrainn/favorites, Andrew/settings, Alex/downloads. Confirm instructor credit and actual work; extras do not require adding group members.
+- GitHub confirmed public visibility and two accepted collaborators; the third has not joined and the owner will add them later.
+- Public deployment, automatic Git redeployment, all manual deployed results, real phone/laptop screenshots, video and individual reports remain pending. The repository has no recorded deployment/homepage, and no verified public URL is available here.
+- Follow RUBRIC_CHECKLIST.md, PROFESSOR_HANDOFF.md, DEPLOYED_ACCEPTANCE.md and SUBMISSION_GUIDE.md to finish. The latest runtime baseline is 153 passing automated tests; simulations do not count as deployed manual tests.
+- The required deployment-first verification sequence was not achieved while access was unavailable. Record the deviation honestly; do not retroactively mark stages verified. Complete deployed foundation, routes, features and advanced-feature checks in order now.
+- Node.js 24 is needed for documented npm commands. A portable runtime and QA helpers live in ignored .tools; they are not deployment artifacts.
 
 ## Deployment references
 
@@ -125,7 +126,11 @@ TESTING.md
 
 Check current Hobby collaboration rules when connecting the three-person repository. Do not alter commit authorship to bypass restrictions or upgrade to a paid plan. Verify the expected deployment behavior for each member's contribution.
 
-## NJ discovery and phone-experience update
+## Historical implementation notes (superseded counts follow)
+
+The following notes document earlier milestones. Use the current setup status and rubric checklist above for present defaults, counts, limits and unfinished work.
+
+### NJ discovery and phone-experience update
 
 - Implemented: 50 NJ options (18 dinner, 12 activity, 12 treat, 8 entertainment), 30 distinct venues, 13 towns. The original 96 ideas remain unchanged. Current official sources and allowances are in DATA_SOURCES.md.
 - Implemented: town/category browsing, source previews, build-around locks, opt-in rolling/reveal sound, date companion with progress/directions/conversation prompts, phone bottom navigation, standalone home-screen manifest and icons.
