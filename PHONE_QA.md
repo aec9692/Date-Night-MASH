@@ -28,3 +28,11 @@ Use the public HTTPS URL after deployment. A localhost share link cannot open th
 For a failure, record device model, OS/browser versions, public URL, exact steps and observed result. If available, include the browser console error or Vercel function log. Do not replace Pending with Passed until the case is actually executed.
 
 Calendar actions prepare drafts/files. MASH does not have calendar-account write access, and no booking or message is sent automatically. Shared links are snapshots; send a new link after changing a plan.
+## Day, reserves and feedback: additional pending checks
+
+| ID | Action on actual iPhone and Android | Expected | Status |
+| --- | --- | --- | --- |
+| P19 | Choose Tonight, This weekend and a custom MASH date | Visible NY calendar date changes; recorded closed/seasonal ideas excluded; confirmation notice visible | Pending |
+| P20 | Set $50 with $5 parking, $7 transport and $3 extras; generate/save/share/export | Picks fit $35; total including $15 reserve fits $50; restored plans retain amounts | Pending |
+| P21 | Enter reserve greater than budget; correct it | Readable error preserves values, then generation recovers | Pending |
+| P22 | Rate a completed date, edit it, reload, remove and clear reviews | Review persists locally, edits replace it, clearing retains favorites; controls fit the phone | Pending |

@@ -2,7 +2,7 @@
 (function(root){
   const categories=['dinner','activity','treat','entertainment'];
   const formats={quick:['dinner','treat'],evening:['dinner','activity','treat'],full:categories};
-  const fields=['v','ids','budgetCents','setting','mood','spending','area','date','pantry','customOptions','mash','journey','location','fit','when','proposal'];
+  const fields=['v','ids','budgetCents','setting','mood','spending','area','date','pantry','customOptions','mash','journey','location','fit','when','proposal','reserve'];
   const owned=['groceries','seasonings','baking','boardGames','videoGames','art','streaming','craft'];
   const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
   const copy=value=>JSON.parse(JSON.stringify(value));
@@ -26,6 +26,7 @@
     rejectSpecialKeys(value);
     if(!Array.isArray(value.ids)||value.ids.length<2||value.ids.length>4||new Set(value.ids).size!==value.ids.length||value.ids.some(id=>typeof id!=='string'||!/^[a-z0-9-]{1,100}$/.test(id)))fail('The shared date must identify two to four distinct catalog choices.');
     if(!Number.isSafeInteger(value.budgetCents)||value.budgetCents<0||value.budgetCents>1000000)fail('The shared date has an invalid budget.');
+    if(value.reserve!==undefined){const rules=typeof module==='object'&&module.exports?require('./date-planning'):root.DatePlanning;if(!rules.reserve(value.reserve,value.budgetCents))fail('The shared date has an invalid reserve.');}
     if(!['any','indoor','outdoor','home','mixed'].includes(value.setting)||!['surprise','cozy','adventurous','romantic','competitive'].includes(value.mood)||!['treat','flexible'].includes(value.spending)||!['all','general','paterson'].includes(value.area))fail('The shared date has unsupported preferences.');
     if(typeof value.date!=='string'||value.date!==''&&!dateValid(value.date))fail('The shared date has an invalid calendar date.');
     if(!Array.isArray(value.pantry)||value.pantry.length>owned.length||new Set(value.pantry).size!==value.pantry.length||value.pantry.some(key=>!owned.includes(key)))fail('The shared date has invalid owned-supply choices.');
@@ -42,6 +43,7 @@
     if(!plan||!Array.isArray(plan.picks))fail('Generate a date before sharing it.');
     const data={v:1,ids:plan.picks.map(pick=>pick.id),budgetCents:plan.budgetCents,setting:plan.setting||'any',mood:plan.mood||'surprise',spending:plan.spending||'flexible',area:plan.area||'general',date:plan.date||'',pantry:copy(plan.pantry||[]),customOptions:copy(plan.customOptions||[])};
     for(const key of ['mash','journey','location','fit'])if(plan[key])data[key]=copy(plan[key]);
+    if(plan.reserveCents>0)data.reserve=copy(plan.reserve);
     // Tried-place history is device-local and is not needed to restore locked picks.
     if(data.journey){delete data.journey.seen;data.journey.fresh=false;}
     if(when)data.when=normalizeWhen(when);
@@ -74,7 +76,7 @@
   function preferences(value){
     validate(value);const active=value.journey?formats[value.journey.format]:categories;
     const result={budget:value.budgetCents/100,setting:value.setting,mood:value.mood,spending:value.spending,area:value.area,date:value.date,pantry:copy(value.pantry),customOptions:copy(value.customOptions),locked:Object.fromEntries(active.map((category,index)=>[category,value.ids[index]]))};
-    for(const key of ['mash','journey','location','fit'])if(value[key])result[key]=copy(value[key]);
+    for(const key of ['mash','journey','location','fit','reserve'])if(value[key])result[key]=copy(value[key]);
     if(result.journey){delete result.journey.seen;result.journey.fresh=false;}
     return result;
   }
@@ -110,6 +112,7 @@
   const money=cents=>'$'+(cents/100).toFixed(2);
   function checkedPlan(plan){
     if(!plan||!Array.isArray(plan.picks)||plan.picks.length<2||plan.picks.length>4||!Number.isSafeInteger(plan.budgetCents)||plan.budgetCents<0||!Number.isSafeInteger(plan.totalCents)||plan.totalCents<0||plan.totalCents>plan.budgetCents||plan.picks.some(pick=>!pick||typeof pick.id!=='string'||typeof pick.name!=='string'||!categories.includes(pick.category)||!Number.isSafeInteger(pick.costCents)||pick.costCents<0)||plan.picks.reduce((sum,pick)=>sum+pick.costCents,0)!==plan.totalCents)fail('Generate a complete affordable date before sharing or adding it to a calendar.');
+    if(plan.reserve!==undefined){const rules=typeof module==='object'&&module.exports?require('./date-planning'):root.DatePlanning,value=rules.reserve(plan.reserve,plan.budgetCents);if(!value||plan.totalCents+rules.reserveTotal(value)>plan.budgetCents||plan.reserveCents!==undefined&&plan.reserveCents!==rules.reserveTotal(value))fail('The plan and reserve must fit the combined budget.');}
     return plan;
   }
   function safeLink(value){if(!value)return '';try{const url=new URL(value);return ['https:','http:'].includes(url.protocol)&&!url.username&&!url.password?url.href:'';}catch{return '';}}
@@ -125,7 +128,9 @@
       lines.push(`${pick.category[0].toUpperCase()+pick.category.slice(1)}: ${safeText(name)} - ${money(pick.costCents)}`);
       if(pick.venue?.address||pick.place?.address)lines.push(safeText(pick.venue?.address||pick.place.address));
     }
-    lines.push(`Estimated total: ${money(plan.totalCents)} | Budget: ${money(plan.budgetCents)} | Remaining: ${money(plan.budgetCents-plan.totalCents)}`,'Estimates for two. Confirm full prices, opening times, access and bookings.');
+    const reserveCents=plan.reserveCents||0;
+    if(reserveCents)lines.push(`Reserve: parking ${money(Math.round(plan.reserve.parking*100))}, transportation ${money(Math.round(plan.reserve.transport*100))}, extras ${money(Math.round(plan.reserve.extras*100))}. Your own allowances, not quotes.`,`Selected picks: ${money(plan.totalCents)}`);
+    lines.push(`Estimated total${reserveCents?' including reserve':''}: ${money(plan.totalCents+reserveCents)} | Budget: ${money(plan.budgetCents)} | Remaining: ${money(plan.budgetCents-plan.totalCents-reserveCents)}`,'Estimates for two. Confirm full prices, opening times, access and bookings.');
     const link=safeLink(shareUrl);if(link)lines.push('View or suggest a change: '+link);
     return lines.join('\n');
   }

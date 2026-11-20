@@ -447,3 +447,9 @@ footer p { font-size: .75rem; color: var(--muted); text-align: right; }
 #share-note { width: 100%; box-sizing: border-box; font: inherit; line-height: 1.5; border: 1.5px solid #b7a9c9; border-radius: 10px; padding: 12px; margin-top: 6px; resize: vertical; }
 #share-link { margin: 8px 0 16px; }#calendar-status,#share-status { overflow-wrap: anywhere; }
 @media(max-width:600px) { .hero-collage { display: none; }.hero { padding-block: 20px; }.hero h1 { font-size: clamp(2.3rem,10vw,3.5rem); }.hero-footnote { margin-bottom: 8px; }.personal-fit,.hidden-ideas { padding: 16px; }#calendar-dialog,#share-dialog { padding: 18px; }.partner-plan button { width: 100%; } }
+
+.date-choice { border: 1px solid #c8b8dd; border-radius: 14px; padding: 18px; margin: 0 0 22px; }.date-choice legend { font-weight: 750; padding-inline: 8px; }.date-choice input { max-width: 300px; }
+.date-presets { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }.date-presets button { background: white; color: var(--ink); }.date-presets button[aria-pressed=true] { background: var(--purple); color: white; }
+.budget-reserve { margin-top: 12px; padding: 12px 0; }.budget-reserve summary { min-height: 44px; font-weight: 700; cursor: pointer; }.reserve-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }.reserve-grid label { font-size: .9rem; }
+.date-review,.rating-history { margin: 20px 0; padding: 18px; background: #f2ecff; border: 1px solid #c8b8dd; border-radius: 16px; }.date-review summary,.rating-history summary { min-height: 44px; cursor: pointer; font-weight: 750; }.date-review button { margin-top: 16px; }#rating-list { padding-left: 22px; }#rating-list li { padding-bottom: 12px; overflow-wrap: anywhere; }
+@media(max-width:600px) { .reserve-grid { grid-template-columns: 1fr; gap: 12px; }.date-choice { padding: 14px; }.date-choice input { max-width: none; }.date-review,.rating-history { padding: 16px; } }

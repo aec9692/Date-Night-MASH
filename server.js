@@ -82,8 +82,10 @@ app.get('/api/calendar',(req,res,next)=>{
 function planResult(prepared) {
   const priced = costs.resolve(prepared.selectedPicks,prepared.pantry||[]);
   const {picks,totalCents} = priced;
+  const reserveCents=prepared.reserveCents||0;
   return { picks, setting: prepared.setting, mood: prepared.mood, title: planner.title(prepared.mood, picks),
-    budgetCents: prepared.budgetCents, totalCents, remainingCents: prepared.budgetCents - totalCents,
+    budgetCents: prepared.budgetCents, totalCents, remainingCents: prepared.budgetCents - totalCents - reserveCents,
+    reserve:prepared.reserve||{parking:0,transport:0,extras:0},reserveCents,planningBudgetCents:prepared.planningBudgetCents??prepared.budgetCents,plannedTotalCents:totalCents+reserveCents,
     combinationCount: prepared.combinationCount, unchanged: prepared.unchanged, customOptions: prepared.customOptions,
     spending: prepared.spending, maximumCents: prepared.maximumCents, targetCents: prepared.targetCents,
     area: prepared.area, date: prepared.date,
@@ -92,7 +94,7 @@ function planResult(prepared) {
     pantry:prepared.pantry||[], fit:prepared.fit,settingLabel:costs.settingLabel(picks,prepared.setting),
     ...(prepared.location?{location:prepared.location}:{}),
     shoppingList:priced.shoppingList,ownedSavingsCents:priced.ownedSavingsCents,sharedSavingsCents:priced.sharedSavingsCents,recentExhausted:Boolean(prepared.recentExhausted),
-    notice: 'Estimates for two, not booking quotes. Check full costs, hours, reservations and age/guardian rules. Travel and parking are extra. Suggested timing and town-center distances do not verify traffic, showtimes or availability.' };
+    notice: 'Budget includes the displayed picks and any reserve you entered. Confirm actual prices, fees, travel, parking, hours and availability. Estimates are for two, not bookings; suggested timing and town-center distances do not verify traffic.' };
 }
 
 app.post('/api/generate', (req, res) => {

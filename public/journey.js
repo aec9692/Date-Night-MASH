@@ -135,7 +135,8 @@
   const picks=[],usedVenues=[],plans=[];let combinationCount=0,maximumCents=0,alternativeCount=0,previousTotal=0;
   const rest=groups.map((_,i)=>groups.slice(i+1).reduce((n,g)=>n+Math.min(...g.map(o=>o.costCents)),0));
   const moodList=[input.mood||'surprise',j.partner?.mood].filter(m=>m&&m!=='surprise');
-  const weights=new Map(options.map(o=>[o.id,moodList.reduce((n,m)=>n+(meta(o).moods.includes(m)?3:0),0)]));
+  const planning=typeof module==='object'&&module.exports?require('./date-planning'):root.DatePlanning,taste=planning.taste(input.taste,options);
+  const weights=new Map(options.map(o=>[o.id,moodList.reduce((n,m)=>n+(meta(o).moods.includes(m)?3:0),0)+3*planning.preferenceScore(o.id,taste)]));
   // Precompute numeric timing/route data once. Counting millions of dates must
   // not create clock strings, stop objects or complete itineraries per candidate.
   const cities=Object.keys(towns),cityIndex=new Map(cities.map((city,i)=>[city,i]));

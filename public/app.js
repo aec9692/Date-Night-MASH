@@ -32,7 +32,7 @@ function message(text, error = false) {
   $('#message').classList.toggle('error', error);
 }
 function allOptions() { return [...catalog, ...(MashPlanner.customCatalog(customOptions) || [])]; }
-function planKey(plan) { return `${plan.date||''}|${plan.mash?`mash|${plan.mash.origin}|${plan.mash.radius}|${plan.mash.age}`:''}|${plan.journey?`${plan.journey.format}|${plan.journey.start}|${plan.journey.origin}|${plan.journey.order.join(',')}`:''}|${plan.picks.map(pick => pick.id).join('|')}`; }
+function planKey(plan) { return `${plan.date||''}|${plan.budgetCents}|${plan.reserveCents||0}|${plan.mash?`mash|${plan.mash.origin}|${plan.mash.radius}|${plan.mash.age}`:''}|${plan.journey?`${plan.journey.format}|${plan.journey.start}|${plan.journey.origin}|${plan.journey.order.join(',')}`:''}|${plan.picks.map(pick => pick.id).join('|')}`; }
 function mood() { return $('input[name=mood]:checked').value; }
 async function request(url, options = {}) {
   const controller = new AbortController();
@@ -43,13 +43,13 @@ async function request(url, options = {}) {
 function preferences(locked = locks) {
   return { budget: $('#budget').value === '' ? null : Number($('#budget').value), setting: $('#setting').value,
     mood: mood(), spending: $('#spending').value, area: $('#area').value, date: $('#visit-date').value, excluded: [...new Set([...excluded,...DateFitUI.hiddenIDs(allOptions())])], customOptions, locked,
-    pantry:DateExtras.pantry(),fit:DateFitUI.preferences(),
+    pantry:DateExtras.pantry(),fit:DateFitUI.preferences(),reserve:DatePlanningUI.values('scene'),taste:DateFeedback.preferences(allOptions()),
     ...(SmartDate.preferences()&&!['home','mixed'].includes($('#setting').value) ? {journey:SmartDate.preferences()} : {}) };
 }
 function mashPreferences(locked=locks) {
   return {budget:$('#mash-budget').value===''?null:Number($('#mash-budget').value),area:$('#mash-area').value,
-    setting:$('#mash-setting').value,mood:'surprise',spending:$('#mash-spending').value,date:'',excluded:[...new Set([...excluded,...DateFitUI.hiddenIDs(allOptions())])],customOptions,locked,
-    pantry:DateExtras.pantry(),fit:DateFitUI.preferences(),recent:DateExtras.recentDates(allOptions()),...(DateExtras.location()?{location:DateExtras.location()}:{}),
+    setting:$('#mash-setting').value,mood:'surprise',spending:$('#mash-spending').value,date:$('#mash-date').value,excluded:[...new Set([...excluded,...DateFitUI.hiddenIDs(allOptions())])],customOptions,locked,
+    pantry:DateExtras.pantry(),fit:DateFitUI.preferences(),reserve:DatePlanningUI.values('mash'),taste:DateFeedback.preferences(allOptions()),recent:DateExtras.recentDates(allOptions()),...(DateExtras.location()?{location:DateExtras.location()}:{}),
     mash:{age:$('#mash-age').value,origin:$('#mash-town').value,radius:Number($('#mash-radius').value)}};
 }
 function activePreferences(){return planningMode==='mash'?mashPreferences():preferences();}
@@ -79,6 +79,8 @@ function validPlan(plan) {
   if(plan.location&&(typeof plan.location.lat!=='number'||!Number.isFinite(plan.location.lat)||Math.abs(plan.location.lat)>90||typeof plan.location.lon!=='number'||!Number.isFinite(plan.location.lon)||Math.abs(plan.location.lon)>180||typeof plan.location.label!=='string'||plan.location.label.length>160))return false;
   if (![plan.budgetCents, plan.totalCents, plan.remainingCents].every(Number.isSafeInteger)) return false;
   if (plan.budgetCents < 0 || plan.budgetCents > 1000000 || plan.totalCents < 0 || plan.remainingCents < 0) return false;
+  const reserve=DatePlanning.reserve(plan.reserve||{},plan.budgetCents);if(!reserve)return false;const reserveCents=DatePlanning.reserveTotal(reserve);
+  if(plan.reserveCents!==undefined&&plan.reserveCents!==reserveCents||plan.plannedTotalCents!==undefined&&plan.plannedTotalCents!==plan.totalCents+reserveCents||plan.planningBudgetCents!==undefined&&plan.planningBudgetCents!==plan.budgetCents-reserveCents)return false;
   const custom = MashPlanner.customCatalog(plan.customOptions || []);
   const fit=DateFit.normalize(plan.fit);
   if (!custom || !DateCosts.validPantry(plan.pantry||[]) || !fit) return false;
@@ -96,7 +98,7 @@ function validPlan(plan) {
   if(journey&&(!matching||!plan.picks.every(pick=>MashJourney.matches(knownOptions.find(o=>o.id===pick.id),journey))||!MashJourney.schedule(plan.picks.map(pick=>knownOptions.find(o=>o.id===pick.id)),journey)))return false;
   if(mash&&(!matching||!plan.picks.every(pick=>MashJourney.matchesMash(knownOptions.find(o=>o.id===pick.id),mash,plan.location))))return false;
   return matching && plan.totalCents === plan.picks.reduce((sum, pick) => sum + pick.costCents, 0) &&
-    plan.budgetCents - plan.totalCents === plan.remainingCents && typeof plan.notice === 'string' && plan.notice.length <= 300;
+    plan.budgetCents - plan.totalCents - reserveCents === plan.remainingCents && typeof plan.notice === 'string' && plan.notice.length <= 300;
 }
 function hydrate(plan) {
   const known = [...catalog, ...MashPlanner.customCatalog(plan.customOptions || [])];
@@ -104,7 +106,8 @@ function hydrate(plan) {
   const chosenMood = plan.mood || 'surprise';
   const legacyOwnership=plan.pantry===undefined&&picks.some(pick=>pick.home?.requiresOwned.length);
   const journey=plan.journey&&MashJourney.normalize(plan.journey);
-  return { ...plan, picks, legacyOwnership, ...(journey?{journey,schedule:MashJourney.schedule(picks,journey)}:{}), mood: chosenMood, spending: plan.spending || 'flexible', area: plan.area || 'general', date: plan.date || '', title: MashPlanner.title(chosenMood, picks), customOptions: plan.customOptions || [] };
+  const reserve=DatePlanning.reserve(plan.reserve||{},plan.budgetCents),reserveCents=DatePlanning.reserveTotal(reserve);
+  return { ...plan, picks, reserve,reserveCents,planningBudgetCents:plan.budgetCents-reserveCents,plannedTotalCents:plan.totalCents+reserveCents,legacyOwnership, ...(journey?{journey,schedule:MashJourney.schedule(picks,journey)}:{}), mood: chosenMood, spending: plan.spending || 'flexible', area: plan.area || 'general', date: plan.date || '', title: MashPlanner.title(chosenMood, picks), customOptions: plan.customOptions || [] };
 }
 
 async function loadCatalog() {
@@ -122,6 +125,7 @@ async function loadCatalog() {
     DateExtras.setup(data);
     DateFitUI.setup(data);
     DateActions.setup(data);
+    DateFeedback.setup(data);
     populateTowns();
     renderCatalog();
     loadFavorites();
@@ -138,6 +142,7 @@ async function loadCatalog() {
 }
 
 function syncBudgetControls(mode = planningMode) {
+  DatePlanningUI.sync(mode);
   const prefix = mode === 'mash' ? 'mash-' : '';
   const input = $(`#${prefix}budget`);
   const budget = Number(input.value);
@@ -150,6 +155,7 @@ function syncBudgetControls(mode = planningMode) {
   });
 }
 function updateBudget(event, mode) {
+  if(event.target.hasAttribute('data-reserve')){DatePlanningUI.sync(mode);clearTimeout(budgetCountTimer);budgetCountTimer=setTimeout(updatePossibilities,180);return true;}
   const prefix = mode === 'mash' ? 'mash-' : '';
   if (![`${prefix}budget`, `${prefix}budget-slider`].includes(event.target.id)) return false;
   if (event.target.id === `${prefix}budget-slider`) $(`#${prefix}budget`).value = event.target.value;
@@ -206,7 +212,7 @@ function renderCatalog() {
 function setBusy(value) {
   busy = value;
   document.body.classList.toggle('is-busy', value);
-  document.querySelectorAll('#personal-fit input, #personal-fit select, #owned-items input, .saved-card button, .place-card button, #plan-form input, #plan-form select, #plan-form button, #mash-form input, #mash-form select, #mash-form button, [data-mode], #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, #idea-cost, #idea-town, #town-chips button, [data-deck], .idea-details, .option-choice, .remove-custom, .pick-controls button, .replace-choice, .order-controls button, #again, #reset-ideas, #date-start, #add-calendar, #share-invite, #mark-tried, #clear-tried').forEach(node => { node.disabled = value; });
+  document.querySelectorAll('#date-review-form select, #date-review-form button, #rating-list button, #ratings-clear, #personal-fit input, #personal-fit select, #owned-items input, .saved-card button, .place-card button, #plan-form input, #plan-form select, #plan-form button, #mash-form input, #mash-form select, #mash-form button, [data-mode], #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, #idea-cost, #idea-town, #town-chips button, [data-deck], .idea-details, .option-choice, .remove-custom, .pick-controls button, .replace-choice, .order-controls button, #again, #reset-ideas, #date-start, #add-calendar, #share-invite, #mark-tried, #clear-tried').forEach(node => { node.disabled = value; });
   if (!value && currentPlan) renderResult();
 }
 
@@ -240,7 +246,7 @@ async function generate(event, rerollCategory = null, requestedMode = null) {
         DateCosts.available(option,payload.pantry||[]) && DateCosts.settingMatches(option,payload.setting) &&
         (!payload.locked[option.category] || payload.locked[option.category] === option.id) &&
         DateCosts.compatible(data.picks.map(pick=>pick.category===option.category?option:pick)) &&
-        DateCosts.resolve(data.picks.map(pick=>pick.category===option.category?option:pick),payload.pantry||[]).totalCents<=data.budgetCents);
+        DateCosts.resolve(data.picks.map(pick=>pick.category===option.category?option:pick),payload.pantry||[]).totalCents<=(data.planningBudgetCents??data.budgetCents));
       await MashShow.reveal(data, pool, $(mode==='mash'?'#mash-instant':'#instant').checked || Boolean(rerollCategory));
     }
     currentPlan = hydrate(data);
@@ -322,13 +328,16 @@ function renderResult() {
   $('#result-title').textContent = currentPlan.title;
   $('#result-subtitle').textContent=currentPlan.mash?'Your MASH draw: one pick from each of the four categories. Confirm opening times and arrange your stops.':'Your custom plan. Check bookings and opening times before heading out.';
   $('#result-setting').textContent = `${DateCosts.settingLabel(currentPlan.picks,currentPlan.setting)} · ${moodLabels[currentPlan.mood]}${currentPlan.location?' · '+currentPlan.location.label:currentPlan.setting==='home'?' · Your place':' · '+areaLabels[currentPlan.area]}${currentPlan.date ? ` · ${currentPlan.date}` : ''}`;
-  $('#result-total').textContent = money(currentPlan.totalCents);
-  $('#remaining').textContent = `${money(currentPlan.remainingCents)} left for little extras`;
+  $('#result-total').textContent = money(currentPlan.plannedTotalCents);
+  $('#result-total-label').textContent=currentPlan.reserveCents?'Planned total for two, including reserve':'Estimated total for two';
+  $('#remaining').textContent = `${money(currentPlan.remainingCents)} ${currentPlan.reserveCents?'unallocated after reserve':'left for little extras'}`;
+  $('#reserve-breakdown').hidden=!currentPlan.reserveCents;
+  $('#reserve-breakdown').textContent=`Selected picks ${money(currentPlan.totalCents)} + parking ${money(Math.round(currentPlan.reserve.parking*100))} + transportation ${money(Math.round(currentPlan.reserve.transport*100))} + extras ${money(Math.round(currentPlan.reserve.extras*100))}. Reserve amounts are your allowances, not verified costs.`;
   const max = currentPlan.maximumCents;
   $('#spend-explanation').textContent = currentPlan.spending === 'flexible' ? 'Flexible mode: your budget is a ceiling, and any affordable combination can win.' :
-    Number.isSafeInteger(max) && max < currentPlan.budgetCents * .9 ? `Treat us: these choices top out at ${money(max)}. We aimed near that amount. Change the setting, unlock picks, or add an idea to go bigger.` :
-    'Treat us: this plan aims to use 90–100% of your budget while staying within your limit.';
-  $('#budget-used').style.width = `${currentPlan.budgetCents ? Math.min(100, currentPlan.totalCents / currentPlan.budgetCents * 100) : 0}%`;
+    Number.isSafeInteger(max) && max < currentPlan.planningBudgetCents * .9 ? `Treat us: these choices top out at ${money(max)}. We aimed near that amount after keeping the reserve aside.` :
+    'Treat us: this plan aims to use 90–100% of the amount available for picks, with your reserve kept aside.';
+  $('#budget-used').style.width = `${currentPlan.budgetCents ? Math.min(100, currentPlan.plannedTotalCents / currentPlan.budgetCents * 100) : 0}%`;
   $('#result-notice').textContent = currentPlan.legacyOwnership?'Older saved date: confirm already-owned food, games or streaming before treating its $0 picks as free. '+currentPlan.notice:currentPlan.notice;
   $('#save').textContent = favorites.some(plan => planKey(plan) === planKey(currentPlan)) ? '♡ Date saved' : '♡ Save this date';
   $('#result').hidden = false;
@@ -338,6 +347,7 @@ function renderResult() {
   DateExtras.shopping(currentPlan);
   SmartDate.render(currentPlan,next=>{currentPlan=next;renderResult();},()=>generate());
   DateActions.render(currentPlan);
+  DateFeedback.render(currentPlan);
 }
 
 function restoreDatePlan(plan,restoreOwnership=true) {
@@ -355,6 +365,7 @@ function restoreDatePlan(plan,restoreOwnership=true) {
         $('#area').value=plan.area;$('#visit-date').value=plan.date;SmartDate.restore(plan);
         $(`input[name=mood][value="${plan.mood}"]`).checked=true;
       }
+      DatePlanningUI.restore(plan,plan.mash?'mash':'scene');
       setPlanningMode(plan.mash?'mash':'scene');
       currentPlan = hydrate(plan);
       renderResult();
@@ -420,7 +431,7 @@ function renderFavorites() {
         $('#saved-title').focus({ preventScroll: true });
       }
     }));
-    card.append(list, element('strong', `${money(plan.totalCents)} for two`), element('p', `${moodLabels[plan.mood]} · ${settingLabels[plan.setting]}`, 'helper'), actions);
+    card.append(list, element('strong', `${money(plan.plannedTotalCents??plan.totalCents)} for two${plan.reserveCents?' · includes '+money(plan.reserveCents)+' reserve':''}`), element('p', `${moodLabels[plan.mood]} · ${settingLabels[plan.setting]}`, 'helper'), actions);
     $('#saved-plans').append(card);
   }
 }

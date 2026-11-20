@@ -34,6 +34,7 @@ window.DateCompanion = (() => {
     if (key !== nextKey) { key = nextKey; done = new Set(); selected = 0; spark = 0; }
     const picks=window.MashJourney?MashJourney.ordered(plan):plan.picks;
     $('#date-summary').textContent = `${done.size}/${picks.length} stops enjoyed · ${plan.date || 'Your next adventure'}`;
+    $('#date-budget').textContent=`Selected picks $${(plan.totalCents/100).toFixed(2)} + reserve $${((plan.reserveCents||0)/100).toFixed(2)} = planned $${((plan.totalCents+(plan.reserveCents||0))/100).toFixed(2)} of $${(plan.budgetCents/100).toFixed(2)}. $${(plan.remainingCents/100).toFixed(2)} unallocated.`;
     $('#date-progress').max=picks.length;
     $('#date-progress').value = done.size;
     $('#stop-tabs').replaceChildren();
