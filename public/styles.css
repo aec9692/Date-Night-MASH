@@ -102,10 +102,10 @@ input:not([type=radio]):not([type=range]):not([type=checkbox]), select { width: 
 select { appearance: none; padding-right: 38px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8'%3E%3Cpath d='m1 1 6 6 6-6' fill='none' stroke='%23292333' stroke-width='2'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; }
 .budget-line { display: flex; gap: 20px; align-items: center; }
 .money-input { position: relative; max-width: 175px; flex-shrink: 0; }
-.money-input span { position: absolute; left: 15px; top: 10px; font-size: 1.6rem; font-weight: 750; }
-.money-input #budget { font-size: 1.8rem; font-weight: 800; padding: 4px 8px 4px 34px; }
-#budget-caption { font: italic .95rem Georgia, serif; color: var(--muted); }
-#budget-slider { width: 100%; accent-color: var(--purple); height: 28px; margin: 16px 0 0; cursor: pointer; }
+.money-input span { position: absolute; left: .875rem; top: 50%; transform: translateY(-50%); font-size: 1.6rem; font-weight: 750; pointer-events: none; }
+.money-input #budget, .money-input #mash-budget { font-size: 1.8rem; font-weight: 800; padding: .25rem .5rem .25rem 2.25rem; }
+#budget-caption, #mash-budget-caption { font: italic .95rem Georgia, serif; color: var(--muted); }
+#budget-slider, #mash-budget-slider { width: 100%; accent-color: var(--purple); height: 28px; margin: 16px 0 0; cursor: pointer; }
 .range-labels { display: flex; justify-content: space-between; font-size: .73rem; color: var(--muted); }
 .budget-presets { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 .budget-presets button { min-height: 36px; padding: 5px 10px; border-radius: 20px; font-size: .75rem; background: white; color: var(--ink); border-color: var(--line); }
