@@ -46,7 +46,7 @@ function preferences(locked = locks) {
 }
 function mashPreferences(locked=locks) {
   return {budget:$('#mash-budget').value===''?null:Number($('#mash-budget').value),area:$('#mash-area').value,
-    setting:'any',mood:'surprise',spending:'treat',date:'',excluded:[...excluded],customOptions,locked,
+    setting:$('#mash-setting').value,mood:'surprise',spending:$('#mash-spending').value,date:'',excluded:[...excluded],customOptions,locked,
     mash:{age:$('#mash-age').value,origin:$('#mash-town').value,radius:Number($('#mash-radius').value)}};
 }
 function activePreferences(){return planningMode==='mash'?mashPreferences():preferences();}
@@ -127,8 +127,15 @@ async function loadCatalog() {
 function updatePossibilities() {
   if(planningMode==='mash'){
     const result=MashPlanner.prepare(mashPreferences(),catalog,false);
+    const budget=Number($('#mash-budget').value);
+    $('#mash-budget-slider').value=Math.min(1000,Math.max(0,budget));
+    $('#mash-budget-caption').textContent=budget===0?'The best things can be free.':budget<=25?'Small budget. Big possibilities.':budget<=100?'A lovely little night out.':budget<=300?'Make a whole occasion of it.':'Time to really treat each other.';
+    document.querySelectorAll('[data-mash-budget]').forEach(b=>{
+      const selected=$('#mash-budget').value!==''&&Number(b.dataset.mashBudget)===budget;
+      b.classList.toggle('is-selected',selected);b.setAttribute('aria-pressed',String(selected));
+    });
     $('#mash-count').textContent=`${(result.combinationCount||0).toLocaleString()} four-pick dates`;
-    $('#mash-note').textContent=result.error||'One from every category, with estimates inside your budget.';
+    $('#mash-note').textContent=result.error||($('#mash-spending').value==='treat'?'Four picks near your budget when possible, all matching your setting.':'Four picks matching your setting; any affordable total can win.');
     $('#mash-note').classList.toggle('error',Boolean(result.error));
     return;
   }
@@ -344,15 +351,15 @@ function renderFavorites() {
       customOptions = plan.customOptions || [];
       excluded = new Set();
       locks = {};
-      $('#budget').value = plan.budgetCents / 100;
-      $('#setting').value = plan.setting;
-      $('#spending').value = plan.spending;
-      $('#area').value = plan.area;
-      $('#visit-date').value = plan.date;
-      SmartDate.restore(plan);
-      if(plan.mash){$('#mash-budget').value=plan.budgetCents/100;$('#mash-area').value=plan.area;$('#mash-town').value=plan.mash.origin;$('#mash-radius').value=String(plan.mash.radius);$('#mash-age').value=plan.mash.age;}
+      if(plan.mash){
+        $('#mash-budget').value=plan.budgetCents/100;$('#mash-setting').value=plan.setting;$('#mash-spending').value=plan.spending;
+        $('#mash-area').value=plan.area;$('#mash-town').value=plan.mash.origin;$('#mash-radius').value=String(plan.mash.radius);$('#mash-age').value=plan.mash.age;
+      }else{
+        $('#budget').value=plan.budgetCents/100;$('#setting').value=plan.setting;$('#spending').value=plan.spending;
+        $('#area').value=plan.area;$('#visit-date').value=plan.date;SmartDate.restore(plan);
+        $(`input[name=mood][value="${plan.mood}"]`).checked=true;
+      }
       setPlanningMode(plan.mash?'mash':'scene');
-      $(`input[name=mood][value="${plan.mood}"]`).checked = true;
       currentPlan = plan;
       renderResult();
       renderCatalog();
@@ -391,7 +398,11 @@ function addCustom(event) {
 
 $('#plan-form').addEventListener('submit',event=>generate(event,null,'scene'));
 $('#mash-form').addEventListener('submit',event=>generate(event,null,'mash'));
-$('#mash-form').addEventListener('input',()=>{updatePossibilities();renderCatalog();});
+$('#mash-form').addEventListener('input',event=>{
+  if(event.target.id==='mash-budget-slider')$('#mash-budget').value=event.target.value;
+  if(event.target.id==='mash-setting'){locks={};if(currentPlan)renderResult();}
+  updatePossibilities();renderCatalog();
+});
 document.querySelectorAll('[data-mash-budget]').forEach(b=>b.addEventListener('click',()=>{$('#mash-budget').value=b.dataset.mashBudget;updatePossibilities();}));
 document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setPlanningMode(b.dataset.mode)));
 document.querySelectorAll('[data-open-mode]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();setPlanningMode(link.dataset.openMode,true);}));
@@ -503,7 +514,8 @@ function previewIdea(option, trigger) {
     locks[option.category]=option.id;excluded.delete(option.id);
     if(planningMode==='mash'&&$('#mash-area').value==='general')$('#mash-area').value='paterson';
     if($('#area').value==='general')$('#area').value='paterson';
-    if($('#setting').value!=='any'&&!option.settings.includes($('#setting').value))$('#setting').value='any';
+    const settingControl=$(planningMode==='mash'?'#mash-setting':'#setting');
+    if(settingControl.value!=='any'&&!option.settings.includes(settingControl.value))settingControl.value='any';
     closePreview();renderCatalog();updatePossibilities();if(currentPlan)renderResult();
     message(`${option.venue.name} is kept with a ${money(option.costCents)} budget example. Check your budget, then generate.`);
     $(planningMode==='mash'?'#mash':'#planner').scrollIntoView({block:'start'});$(planningMode==='mash'?'#mash-play':'#play').focus({preventScroll:true});
