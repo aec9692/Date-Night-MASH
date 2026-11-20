@@ -1,6 +1,6 @@
 # Paterson-area price sources
 
-Checked November 19, 2026. These are posted public prices, not live booking quotes. The default local deck has 50 ideas across 30 venues, all in New Jersey. Source-linked nearby towns were selected as a practical shortlist around Paterson, not a geocoded or traffic-verified 60-minute radius. Every result includes a map link; traffic and a multi-stop route can take longer.
+Checked November 19, 2026. These are posted public prices, not live booking quotes. The default local deck has 200 ideas: 50 per category, across 99 venue/route identifiers in 43 towns, all in New Jersey. Source-linked nearby towns were selected as a practical shortlist around Paterson, not a geocoded or traffic-verified 60-minute radius. Every result includes a map link; traffic and a multi-stop route can take longer.
 
 ## Cost basis
 
@@ -69,8 +69,156 @@ Checked November 19, 2026. These are posted public prices, not live booking quot
 | nj-bellevue | entertainment | The Bellevue, Montclair | $34.00 | $34.00 | [Official source](https://www.montclairfilm.org/cinemas/overview/) |
 | nj-dey-mansion | entertainment | Dey Mansion Washington’s Headquarters, Wayne | $10.00 | $10.00 | [Official source](https://seepassaiccounty.org/dey-mansion-plan-your-visit/) |
 | nj-yestercades | entertainment | YESTERcades, Westfield | $23.90 | $25.48 | [Official source](https://yestercades.com/pricing/) |
-
-The JSON stores the exact item quantities, admission duration, allowances, exclusions, checked date, regular weekdays, and hours notes for each row. The Saddle River splurge is an assembled order from separately posted items, not a restaurant package or special offer. Prices may change; re-open the source before booking.
+| nj-n001 | dinner | El Cid, Paramus | $78.00 | $98.77 | [Official source](https://www.elcidrestaurant.com/menus/) |
+| nj-n002 | dinner | El Cid, Paramus | $68.00 | $86.11 | [Official source](https://www.elcidrestaurant.com/menus/) |
+| nj-n003 | dinner | La Candelaria, Bergenfield | $17.00 | $21.53 | [Official source](https://lacandelarianj.com/menu/) |
+| nj-n004 | dinner | La Candelaria, Bergenfield | $20.00 | $25.33 | [Official source](https://lacandelarianj.com/menu/) |
+| nj-n005 | dinner | La Candelaria, Bergenfield | $39.99 | $50.64 | [Official source](https://lacandelarianj.com/menu/) |
+| nj-n006 | dinner | ARCA Restaurant & Bar, Lincoln Park | $52.00 | $65.85 | [Official source](https://arcarestaurantnj.com/dinner-menu/) |
+| nj-n007 | dinner | ARCA Restaurant & Bar, Lincoln Park | $112.00 | $141.82 | [Official source](https://arcarestaurantnj.com/dinner-menu/) |
+| nj-n008 | dinner | Sage Restaurant, Fair Lawn | $58.00 | $73.44 | [Official source](https://sagefairlawn.com/menu) |
+| nj-n009 | dinner | Sage Restaurant, Fair Lawn | $70.00 | $88.64 | [Official source](https://sagefairlawn.com/menu) |
+| nj-n010 | dinner | Bella Rosa, Parsippany | $35.00 | $44.32 | [Official source](https://bellarosarestaurant.com/menus/) |
+| nj-n011 | dinner | Bella Rosa, Parsippany | $35.00 | $44.32 | [Official source](https://bellarosarestaurant.com/menus/) |
+| nj-n012 | dinner | Gourmet Cafe, Parsippany | $51.90 | $65.72 | [Official source](https://gourmetcafenj.com/) |
+| nj-n013 | dinner | Gourmet Cafe, Parsippany | $71.90 | $91.04 | [Official source](https://gourmetcafenj.com/) |
+| nj-n014 | dinner | Kafe Neo, Totowa | $18.00 | $22.79 | [Official source](https://thekafeneo.com/menu/) |
+| nj-n015 | dinner | Kafe Neo, Totowa | $16.50 | $20.89 | [Official source](https://thekafeneo.com/menu/) |
+| nj-n016 | dinner | Imperial 46, Woodland Park | $30.50 | $32.52 | [Official source](https://imperial46restaurant.com/woodland-park-imperial-46-restaurant-takeout) |
+| nj-n017 | dinner | Imperial 46, Woodland Park | $58.00 | $61.84 | [Official source](https://imperial46restaurant.com/woodland-park-imperial-46-restaurant-takeout) |
+| nj-n018 | dinner | Imperial 46, Woodland Park | $28.00 | $29.86 | [Official source](https://imperial46restaurant.com/woodland-park-imperial-46-restaurant-takeout) |
+| nj-n019 | dinner | Lyndhurst Pizza, Lyndhurst | $25.98 | $27.70 | [Official source](https://lyndhurstpizza.com/menu) |
+| nj-n020 | dinner | City Bistro, Hoboken | $20.00 | $25.33 | [Official source](https://www.citybistrohobokennj.com/menu) |
+| nj-n021 | dinner | City Bistro, Hoboken | $38.00 | $48.12 | [Official source](https://www.citybistrohobokennj.com/menu) |
+| nj-n022 | dinner | Jane Doe, Jersey City | $50.00 | $63.31 | [Official source](https://janedoejc.com/food-menu/) |
+| nj-n023 | dinner | Jane Doe, Jersey City | $84.00 | $106.37 | [Official source](https://janedoejc.com/food-menu/) |
+| nj-n024 | dinner | Haute Dulce, Secaucus | $24.00 | $25.59 | [Official source](https://hautedulce.com/our-menu/) |
+| nj-n025 | dinner | Haute Dulce, Secaucus | $26.00 | $27.72 | [Official source](https://hautedulce.com/our-menu/) |
+| nj-n026 | dinner | El Peruanito Restaurante Cafe, Passaic | $16.00 | $17.06 | [Official source](https://www.elperuanitorestaurante.com/menu) |
+| nj-n027 | dinner | El Peruanito Restaurante Cafe, Passaic | $16.00 | $17.06 | [Official source](https://www.elperuanitorestaurante.com/menu) |
+| nj-n028 | dinner | El Peruanito Restaurante Cafe, Passaic | $24.00 | $25.59 | [Official source](https://www.elperuanitorestaurante.com/menu) |
+| nj-n029 | dinner | Kafe Neo, Totowa | $26.00 | $32.92 | [Official source](https://thekafeneo.com/menu/) |
+| nj-n030 | dinner | Kafe Neo, Totowa | $24.00 | $30.39 | [Official source](https://thekafeneo.com/menu/) |
+| nj-n031 | dinner | Sook Pastry, Ridgewood | $21.80 | $23.24 | [Official source](https://www.sookpastry.com/menu/pastries?location_id=3617) |
+| nj-n032 | dinner | City Bistro, Hoboken | $52.00 | $65.85 | [Official source](https://www.citybistrohobokennj.com/menu) |
+| nj-n033 | treat | La Candelaria, Bergenfield | $12.00 | $15.20 | [Official source](https://lacandelarianj.com/menu/) |
+| nj-n034 | treat | La Candelaria, Bergenfield | $13.00 | $16.46 | [Official source](https://lacandelarianj.com/menu/) |
+| nj-n035 | treat | La Candelaria, Bergenfield | $5.00 | $5.33 | [Official source](https://lacandelarianj.com/menu/) |
+| nj-n036 | treat | La Candelaria, Bergenfield | $5.00 | $5.33 | [Official source](https://lacandelarianj.com/menu/) |
+| nj-n037 | treat | El Cid, Paramus | $18.00 | $22.79 | [Official source](https://www.elcidrestaurant.com/menus/desserts/) |
+| nj-n038 | treat | El Cid, Paramus | $18.00 | $22.79 | [Official source](https://www.elcidrestaurant.com/menus/desserts/) |
+| nj-n039 | treat | ARCA Restaurant & Bar, Lincoln Park | $24.00 | $30.39 | [Official source](https://arcarestaurantnj.com/dessert-menu/) |
+| nj-n040 | treat | ARCA Restaurant & Bar, Lincoln Park | $20.00 | $25.33 | [Official source](https://arcarestaurantnj.com/dessert-menu/) |
+| nj-n041 | treat | ARCA Restaurant & Bar, Lincoln Park | $7.50 | $9.50 | [Official source](https://arcarestaurantnj.com/dessert-menu/) |
+| nj-n042 | treat | Sage Restaurant, Fair Lawn | $28.00 | $35.46 | [Official source](https://sagefairlawn.com/menu) |
+| nj-n043 | treat | Sage Restaurant, Fair Lawn | $26.00 | $32.92 | [Official source](https://sagefairlawn.com/menu) |
+| nj-n044 | treat | City Bistro, Hoboken | $24.00 | $30.39 | [Official source](https://www.citybistrohobokennj.com/menu) |
+| nj-n045 | treat | City Bistro, Hoboken | $26.00 | $32.92 | [Official source](https://www.citybistrohobokennj.com/menu) |
+| nj-n046 | treat | Jane Doe, Jersey City | $30.00 | $37.99 | [Official source](https://janedoejc.com/food-menu/) |
+| nj-n047 | treat | Jane Doe, Jersey City | $15.00 | $18.99 | [Official source](https://janedoejc.com/food-menu/) |
+| nj-n048 | treat | Haute Dulce, Secaucus | $10.00 | $10.66 | [Official source](https://hautedulce.com/our-menu/) |
+| nj-n049 | treat | Haute Dulce, Secaucus | $12.00 | $12.80 | [Official source](https://hautedulce.com/our-menu/) |
+| nj-n050 | treat | Haute Dulce, Secaucus | $16.00 | $17.06 | [Official source](https://hautedulce.com/our-menu/) |
+| nj-n051 | treat | Haute Dulce, Secaucus | $16.00 | $17.06 | [Official source](https://hautedulce.com/our-menu/) |
+| nj-n052 | treat | Haute Dulce, Secaucus | $16.00 | $17.06 | [Official source](https://hautedulce.com/our-menu/) |
+| nj-n053 | treat | Ceviche 517 Pisco Lounge, Garfield | $18.00 | $22.79 | [Official source](https://www.ceviche517piscolounge.com/menu?menu=desserts) |
+| nj-n054 | treat | Ceviche 517 Pisco Lounge, Garfield | $22.00 | $27.86 | [Official source](https://www.ceviche517piscolounge.com/menu?menu=desserts) |
+| nj-n055 | treat | Ceviche 517 Pisco Lounge, Garfield | $26.00 | $32.92 | [Official source](https://www.ceviche517piscolounge.com/menu?menu=desserts) |
+| nj-n056 | treat | Calandra’s Bakery Caldwell, Caldwell | $11.10 | $11.84 | [Official source](https://order.online/en-US/store/26098160) |
+| nj-n057 | treat | Calandra’s Bakery Caldwell, Caldwell | $11.10 | $11.84 | [Official source](https://order.online/en-US/store/26098160) |
+| nj-n058 | treat | Calandra’s Bakery Caldwell, Caldwell | $14.30 | $15.25 | [Official source](https://order.online/en-US/store/26098160) |
+| nj-n059 | treat | Sweet Kitchen, Montclair | $7.70 | $8.21 | [Official source](https://www.sweetkitchenmontclair.com/our-bakery) |
+| nj-n060 | treat | Sweet Kitchen, Montclair | $5.50 | $5.86 | [Official source](https://www.sweetkitchenmontclair.com/our-bakery) |
+| nj-n061 | treat | Sweet Kitchen, Montclair | $8.00 | $8.53 | [Official source](https://www.sweetkitchenmontclair.com/our-bakery) |
+| nj-n062 | treat | Sweet Kitchen, Montclair | $13.90 | $14.82 | [Official source](https://www.sweetkitchenmontclair.com/our-bakery) |
+| nj-n063 | treat | Sook Pastry, Ridgewood | $7.50 | $8.00 | [Official source](https://www.sookpastry.com/menu/pastries?location_id=3617) |
+| nj-n064 | treat | Sook Pastry, Ridgewood | $8.30 | $8.85 | [Official source](https://www.sookpastry.com/menu/pastries?location_id=3617) |
+| nj-n065 | treat | Sook Pastry, Ridgewood | $9.50 | $10.13 | [Official source](https://www.sookpastry.com/menu/pastries?location_id=3617) |
+| nj-n066 | treat | Sook Pastry, Ridgewood | $10.30 | $10.98 | [Official source](https://www.sookpastry.com/menu/pastries?location_id=3617) |
+| nj-n067 | treat | Lyndhurst Pizza, Lyndhurst | $23.98 | $25.57 | [Official source](https://lyndhurstpizza.com/menu) |
+| nj-n068 | treat | El Cid, Paramus | $8.00 | $8.53 | [Official source](https://www.elcidrestaurant.com/menus/desserts/) |
+| nj-n069 | treat | Haute Dulce, Secaucus | $6.00 | $6.40 | [Official source](https://hautedulce.com/our-menu/) |
+| nj-n070 | treat | Sweet Kitchen, Montclair | $8.00 | $8.53 | [Official source](https://www.sweetkitchenmontclair.com/our-bakery) |
+| nj-n071 | activity | Fairfield Escape Room, Fairfield | $90.00 | $95.96 | [Official source](https://fairfieldescaperoom.com/faq/) |
+| nj-n072 | activity | TacOps Tactical Laser Tag, Fairfield | $80.00 | $85.30 | [Official source](https://tacopslasertag.com/contact/hours-rates/) |
+| nj-n073 | activity | Stumpy’s Hatchet House Fairfield, Fairfield | $60.00 | $63.98 | [Official source](https://stumpysfairfield.com/faq/) |
+| nj-n074 | activity | Monster Mini Golf Paramus, Paramus | $32.00 | $34.12 | [Official source](https://monsterminigolf.com/locations/us/nj/paramus/) |
+| nj-n075 | activity | Monster Mini Golf Paramus, Paramus | $46.00 | $49.05 | [Official source](https://monsterminigolf.com/locations/us/nj/paramus/) |
+| nj-n076 | activity | Play! Hoboken, Hoboken | $59.00 | $62.91 | [Official source](https://playhoboken.com/rates/) |
+| nj-n077 | activity | Play! Hoboken, Hoboken | $59.00 | $62.91 | [Official source](https://playhoboken.com/rates/) |
+| nj-n078 | activity | The Gravity Vault Hoboken, Hoboken | $75.00 | $79.97 | [Official source](https://gravityvault.com/locations/hoboken-nj/pricing) |
+| nj-n079 | activity | The Gravity Vault Hoboken, Hoboken | $50.00 | $53.31 | [Official source](https://gravityvault.com/locations/hoboken-nj/pricing) |
+| nj-n080 | activity | RPM Raceway Jersey City, Jersey City | $150.00 | $159.94 | [Official source](https://www.rpmraceway.com/locations/jersey-city-nj) |
+| nj-n081 | activity | Taiji Oriental Massage Fair Lawn, Fair Lawn | $110.00 | $139.29 | [Official source](https://www.taijiorientalmassagefairlawn.com/Service/Index) |
+| nj-n082 | activity | Taiji Oriental Massage Fair Lawn, Fair Lawn | $164.00 | $207.67 | [Official source](https://www.taijiorientalmassagefairlawn.com/Service/Index) |
+| nj-n083 | activity | Taiji Oriental Massage Fair Lawn, Fair Lawn | $220.00 | $278.58 | [Official source](https://www.taijiorientalmassagefairlawn.com/Service/Index) |
+| nj-n084 | activity | Taiji Oriental Massage Fair Lawn, Fair Lawn | $130.00 | $164.61 | [Official source](https://www.taijiorientalmassagefairlawn.com/Service/Index) |
+| nj-n085 | activity | Taiji Oriental Massage Fair Lawn, Fair Lawn | $100.00 | $126.63 | [Official source](https://www.taijiorientalmassagefairlawn.com/Service/Index) |
+| nj-n086 | activity | Richard W. DeKorte Park, Lyndhurst | $0.00 | $0.00 | [Official source](https://www.njsea.com/park-info/) |
+| nj-n087 | activity | Mill Creek Marsh, Secaucus | $0.00 | $0.00 | [Official source](https://www.njsea.com/parks-and-trails/) |
+| nj-n088 | activity | Liberty State Park, Jersey City | $0.00 | $0.00 | [Official source](https://visitnj.org/nj-parks/liberty-state-park) |
+| nj-n089 | activity | Pier A Park, Hoboken | $0.00 | $0.00 | [Official source](https://www.hobokennj.gov/locations) |
+| nj-n090 | activity | Saddle River County Park — Dunkerhook, Fair Lawn | $0.00 | $0.00 | [Official source](https://bergencountynj.gov/bergen-county-department-of-parks/saddle-river-county-park/) |
+| nj-n091 | activity | J.A. McFaul Environmental Center, Wyckoff | $0.00 | $0.00 | [Official source](https://bergencountynj.gov/bergen-county-department-of-parks/j-a-mcfaul-environmental-center/j-a-mcfaul-environmental-center-faqs/) |
+| nj-n092 | activity | Garret Mountain Reservation, Woodland Park | $0.00 | $0.00 | [Official source](https://seepassaiccounty.org/explore/parks/garret-mountain-reservation/) |
+| nj-n093 | activity | Rifle Camp Park, Woodland Park | $0.00 | $0.00 | [Official source](https://seepassaiccounty.org/explore/parks/rifle-camp-park/) |
+| nj-n094 | activity | Old Troy County Park, Parsippany | $0.00 | $0.00 | [Official source](https://www.morrisparks.net/parks_trails/old-troy-county-park/) |
+| nj-n095 | activity | Central Park of Morris County, Parsippany | $0.00 | $0.00 | [Official source](https://www.morrisparks.net/parks_trails/central-park-of-morris-county/) |
+| nj-n096 | activity | Troy Meadows, Parsippany | $0.00 | $0.00 | [Official source](https://wildlifepreserves.org/our-preserves/troy-meadows/public-access/) |
+| nj-n097 | activity | Centennial Park, Lincoln Park | $0.00 | $0.00 | [Official source](https://www.lincolnpark.org/627/Centennial-Park-Playground) |
+| nj-n098 | activity | Grover Cleveland Park, Essex Fells | $0.00 | $0.00 | [Official source](https://essexcountyparks.org/parks/grover-cleveland-park) |
+| nj-n099 | activity | Belmont Hill County Park, Garfield | $0.00 | $0.00 | [Official source](https://co.bergen.nj.us/images/Departments__Services/Parks/parks-guide-2024/parks-guide-2024---interactive.pdf) |
+| nj-n100 | activity | Dundee Island Park, Passaic | $0.00 | $0.00 | [Official source](https://seepassaiccounty.org/explore/parks/dundee-island-park/) |
+| nj-n101 | activity | Third Ward Memorial Park, Passaic | $0.00 | $0.00 | [Official source](https://www.cityofpassaic.com/DocumentCenter/View/10270/2023-Passaic-City-Aging-Friendly-Land-Use-Plan-) |
+| nj-n102 | activity | Flat Rock Brook, Englewood | $0.00 | $0.00 | [Official source](https://www.flatrockbrook.org/who-we-are) |
+| nj-n103 | activity | Brookdale Park, Bloomfield | $0.00 | $0.00 | [Official source](https://essexcountyparks.org/parks/brookdale-park) |
+| nj-n104 | activity | Branch Brook Park, Newark | $0.00 | $0.00 | [Official source](https://essexcountyparks.org/parks/branch-brook-park) |
+| nj-n105 | activity | South Mountain Reservation, West Orange | $0.00 | $0.00 | [Official source](https://essexcountyparks.org/parks/south-mountain-reservation) |
+| nj-n106 | activity | Mills Reservation, Cedar Grove | $0.00 | $0.00 | [Official source](https://essexcountyparks.org/parks/mills-reservation) |
+| nj-n107 | activity | Saddle River County Park — Otto Pehle, Saddle Brook | $0.00 | $0.00 | [Official source](https://bergencountynj.gov/bergen-county-department-of-parks/saddle-river-county-park/) |
+| nj-n108 | activity | Saddle River County Park — Wild Duck Pond, Ridgewood | $0.00 | $0.00 | [Official source](https://bergencountynj.gov/bergen-county-department-of-parks/saddle-river-county-park/) |
+| nj-n109 | entertainment | Hoboken Historical Museum, Hoboken | $10.00 | $10.00 | [Official source](https://hobokenmuseum.org/visit/plan-your-visit/) |
+| nj-n110 | entertainment | New Jersey Hall of Fame, East Rutherford | $30.00 | $30.00 | [Official source](https://njhalloffame.org/entertainment-learning-center/plan-your-trip/) |
+| nj-n111 | entertainment | Aviation Hall of Fame and Museum of NJ, Teterboro | $30.00 | $30.00 | [Official source](https://njahof.org/plan-your-visit/) |
+| nj-n112 | entertainment | Morris Museum, Morristown | $30.00 | $30.00 | [Official source](https://morrismuseum.org/visit-morris-museum) |
+| nj-n113 | entertainment | The Newark Museum of Art, Newark | $20.00 | $20.00 | [Official source](https://newarkmuseumart.org/visit/plan-your-visit/) |
+| nj-n114 | entertainment | Hiram Blauvelt Art Museum, Oradell | $0.00 | $0.00 | [Official source](https://blauveltartmuseum.com/contact/) |
+| nj-n115 | entertainment | Belskie Museum of Art & Science, Closter | $0.00 | $0.00 | [Official source](https://www.belskiemuseum.com/default.asp) |
+| nj-n116 | entertainment | Art House Gallery, Jersey City | $0.00 | $0.00 | [Official source](https://www.arthouseproductions.org/pages/about-1) |
+| nj-n117 | entertainment | Drawing Rooms, Jersey City | $0.00 | $0.00 | [Official source](https://www.drawingrooms.org/) |
+| nj-n118 | entertainment | Mana Contemporary, Jersey City | $0.00 | $0.00 | [Official source](https://www.visithudson.org/things-to-do/attractions/mana-contemporary/) |
+| nj-n119 | entertainment | Passaic County Arts Center, Hawthorne | $0.00 | $0.00 | [Official source](https://seepassaiccounty.org/explore/arts-culture/the-passaic-county-arts-center/) |
+| nj-n120 | entertainment | Clifton Arts Center Sculpture Park, Clifton | $0.00 | $0.00 | [Official source](https://cliftonartscenter.org/sculpture-park) |
+| nj-n121 | entertainment | Visual Arts Center of New Jersey, Summit | $0.00 | $10.00 | [Official source](https://www.artcenternj.org/about/plan-your-visit/) |
+| nj-n122 | entertainment | Pascack Historical Society Museum, Park Ridge | $0.00 | $0.00 | [Official source](https://pascackhistoricalsociety.org/) |
+| nj-n123 | entertainment | Meadowlands Museum, Rutherford | $0.00 | $10.00 | [Official source](https://www.meadowlandsmuseum.com/visit-us) |
+| nj-n124 | entertainment | George Segal Gallery, Montclair | $0.00 | $0.00 | [Official source](https://inside.montclair.edu/departments/university-galleries/visit-galleries) |
+| nj-n125 | entertainment | William Paterson University Galleries, Wayne | $0.00 | $0.00 | [Official source](https://www.wpunj.edu/coac/gallery/contact-us.html) |
+| nj-n126 | entertainment | Barrymore Film Center, Fort Lee | $30.00 | $30.00 | [Official source](https://barrymorefilmcenter.org/faq) |
+| nj-n127 | entertainment | Barrymore Film Center, Fort Lee | $0.00 | $0.00 | [Official source](https://barrymorefilmcenter.org/faq) |
+| nj-n128 | entertainment | Thomas Edison National Historical Park, West Orange | $30.00 | $30.00 | [Official source](https://www.nps.gov/edis/planyourvisit/fees.htm) |
+| nj-n129 | entertainment | The Newark Museum of Art, Newark | $40.00 | $40.00 | [Official source](https://newarkmuseumart.org/visit/plan-your-visit/) |
+| nj-n130 | entertainment | Billy’s Midway Arcade, Hawthorne | $20.00 | $21.33 | [Official source](https://billysmidway.com/index.html) |
+| nj-n131 | entertainment | Billy’s Midway Arcade, Hawthorne | $30.00 | $31.99 | [Official source](https://billysmidway.com/index.html) |
+| nj-n132 | entertainment | Billy’s Midway Arcade, Hawthorne | $50.00 | $53.31 | [Official source](https://billysmidway.com/index.html) |
+| nj-n133 | entertainment | Billy’s Midway Arcade, Hawthorne | $60.00 | $63.98 | [Official source](https://billysmidway.com/index.html) |
+| nj-n134 | entertainment | Morristown Game Vault, Morristown | $28.00 | $29.86 | [Official source](https://www.morristowngamevault.com/pricing/) |
+| nj-n135 | entertainment | Morristown Game Vault, Morristown | $38.00 | $40.52 | [Official source](https://www.morristowngamevault.com/pricing/) |
+| nj-n136 | entertainment | Morristown Game Vault, Morristown | $42.00 | $44.78 | [Official source](https://www.morristowngamevault.com/pricing/) |
+| nj-n137 | entertainment | Morristown Game Vault, Morristown | $60.00 | $63.98 | [Official source](https://www.morristowngamevault.com/pricing/) |
+| nj-n138 | entertainment | YESTERcades, Westfield | $55.90 | $59.60 | [Official source](https://yestercades.com/shop/) |
+| nj-n139 | entertainment | Play! Hoboken, Hoboken | $58.00 | $61.84 | [Official source](https://playhoboken.com/rates/) |
+| nj-n140 | entertainment | RPM Raceway Jersey City, Jersey City | $24.00 | $25.59 | [Official source](https://www.rpmraceway.com/locations/jersey-city-nj) |
+| nj-n141 | entertainment | RPM Raceway Jersey City, Jersey City | $24.00 | $25.59 | [Official source](https://www.rpmraceway.com/locations/jersey-city-nj) |
+| nj-n142 | entertainment | Monster Mini Golf Paramus, Paramus | $10.00 | $10.66 | [Official source](https://monsterminigolf.com/locations/us/nj/paramus/) |
+| nj-n143 | entertainment | Hawthorne Theaters, Hawthorne | $22.00 | $22.00 | [Official source](https://www.hawthornetheatres.com/theater-info/) |
+| nj-n144 | entertainment | Hawthorne Theaters, Hawthorne | $20.00 | $20.00 | [Official source](https://www.hawthornetheatres.com/theater-info/) |
+| nj-n145 | entertainment | The Clairidge, Montclair | $24.00 | $24.00 | [Official source](https://www.montclairfilm.org/cinemas/overview/) |
+| nj-n146 | entertainment | The Bellevue, Montclair | $24.00 | $24.00 | [Official source](https://www.montclairfilm.org/cinemas/overview/) |
+| nj-n147 | entertainment | Cinema505, Montclair | $34.00 | $34.00 | [Official source](https://www.montclairfilm.org/cinemas/overview/) |
+| nj-n148 | entertainment | Hoboken Historic Walking Map, Hoboken | $0.00 | $0.00 | [Official source](https://hobokenmuseum.org/visit/) |
+| nj-n149 | entertainment | Jersey City Mural Arts Program, Jersey City | $0.00 | $0.00 | [Official source](https://jerseycityculture.org/programs-initiatives/mural-arts-program/) |
+| nj-n150 | entertainment | Pier C Park, Hoboken | $0.00 | $0.00 | [Official source](https://www.hobokennj.gov/locations) |
 
 ## Additional location and hours evidence
 
@@ -82,7 +230,7 @@ The JSON stores the exact item quantities, admission duration, allowances, exclu
 
 ## Accuracy limits and maintenance
 
-The optional visit date checks known regular weekdays. It does not check live showtimes, reservations, holiday exceptions, weather, sellouts, or a feasible timed order of stops. Blank dates skip weekday filtering. Known closure/rate restrictions are shown with each idea; verify before leaving.
+The optional visit date checks known regular weekdays and explicitly recorded closure dates/ranges. It does not check live showtimes, reservations, unrecorded holidays, weather, sellouts, or a feasible timed order of stops. Blank dates skip calendar filtering. Known closure/rate restrictions are shown with each idea; verify before leaving.
 
 No live-price API is connected. To refresh an entry: open the current official menu/ticket page, confirm the specific location and order basis, update the posted subtotal and checked date, recalculate tax/allowances, verify the address/hours, and run npm test. Do not infer prices from generic review-site ranges or add a seasonal promotion as a year-round price.
 
@@ -104,4 +252,35 @@ Unpriced/dynamic/ambiguous options were not guessed: SoJo admission requires a d
 - [Applegate official homepage](https://applegatefarm.com/) links the ChowNow pickup menu used for the ice cream and milkshake entries.
 - [YESTERcades Westfield location](https://yestercades.com/mobile-locations/) and [official hourly-pass listing](https://yestercades.com/shop/) corroborate the location and $11.95 hourly basis; confirm walk-in rates. Westfield is farther away and may exceed an hour in traffic.
 
-The expansion contains 50 choices across 30 distinct venues and 13 towns. Prices were checked on November 19, 2026. No live route, checkout, reservation, or phone-device verification is implied.
+The expanded deck contains 200 choices across 99 venue/route identifiers and 43 towns. Different menu orders, ticket durations and experiences at one venue are labeled as choices, not represented as different businesses. Prices were checked on November 19, 2026. No live route, checkout, reservation, or phone-device verification is implied.
+
+## Fifty choices per category — affordability and restrictions
+
+| Category | NJ choices | Under $30 for two | Under $50 for two | Planning range |
+| --- | ---: | ---: | ---: | --- |
+| dinner | 50 | 16 | 23 | $17.06–$830.66 |
+| activity | 50 | 27 | 31 | $0.00–$278.58 |
+| treat | 50 | 41 | 50 | $5.33–$40.52 |
+| entertainment | 50 | 31 | 45 | $0.00–$63.98 |
+
+The requested towns all appear: Paramus, Parsippany, Lincoln Park, Caldwell, Fair Lawn, Woodland Park, Fairfield, Lyndhurst, East Rutherford, Secaucus, Jersey City, Hoboken, Bergenfield, Garfield and Passaic. Existing Wayne, Montclair, Totowa and Paterson choices remain. Coverage varies by category; this is not fifty businesses in each town.
+
+Additional evidence decisions:
+
+- [Bella Rosa directions](https://www.bellarosarestaurant.com/directions-hours/) confirms 3835 US-46 East in Parsippany. [ARCA visitor information](https://arcarestaurantnj.com/about-arca/) confirms Lincoln Park and Monday closure; posted cash/debit menu prices exclude its 3% card fee.
+- [Imperial 46](https://imperial46restaurant.com/woodland-park-imperial-46-restaurant-takeout) and its officially linked [Toast location](https://order.toasttab.com/online/imperial46) identify 1570 US-46 West. The two lunch ideas are restricted to Tue–Fri; the restaurant is closed Monday despite the lunch heading saying Mon–Fri. Holiday lunch availability still requires confirmation.
+- [El Peruanito](https://www.elperuanitorestaurante.com/menu) publishes menu images: the inspected Tue–Fri sheet lists $8 beef/chicken sandwiches and $6 tamales. The restaurant is at 741 Main Avenue; the bakery is a separate location. Only the legible, inspected prices are included.
+- [Calandra’s Caldwell location](https://calandrasbakery.com/locations/caldwell/) links its pickup ordering service; the location-specific pickup menu, rather than a Fairfield or delivery estimate, supplies these pastry prices. [Sook’s location-specific menu](https://www.sookpastry.com/menu/pastries?location_id=3617) supplies the Ridgewood pastry prices.
+- [Play! Hoboken’s current Rates page](https://playhoboken.com/rates/) lists a $29-per-person two-hour bundle and $59-per-lane/bay hourly bowling/golf. Its FAQ retains lower prices, so those older prices are not used. Confirm equipment and checkout fees.
+- [Stumpy’s Fairfield FAQ](https://stumpysfairfield.com/faq/) explicitly allows a one-hour reservation for 1–4 people at $30 each. Two-person dates do not use the conflicting two-hour group price. Reservations and closed-toe footwear are required.
+- [Gravity Vault Hoboken](https://gravityvault.com/locations/hoboken-nj/pricing) lists $75 total for one or two climbers for Staff Belay, including equipment, and $25 per person for two walk-in climbs. Do not multiply the shared $75 session price by two.
+- [Taiji Fair Lawn’s store-specific menu](https://www.taijiorientalmassagefairlawn.com/Service/Index) supplies massage durations/rates and the 23-14 Broadway address. Prices are two individual appointments; a shared couples room must be confirmed. The 20% tip is an optional planning allowance.
+- [Morris Museum’s current visit page](https://morrismuseum.org/visit-morris-museum) lists $15 adult general admission. A lower price on an older ticket page is not used. [Newark Museum](https://newarkmuseumart.org/visit/plan-your-visit/) lists museum and planetarium tickets separately; the combined idea includes both.
+- [Drawing Rooms visitor information](https://www.drawingrooms.org/visit.html) confirms 926 Newark Avenue and exhibition hours; the page contains conflicting suite numbers, so the street/building is used and guests are asked to confirm the suite.
+- [Mana’s county-tourism listing](https://www.visithudson.org/things-to-do/attractions/mana-contemporary/) says admission and parking are free. Its Saturday time contains a typo, so no exact Saturday time is promised; arrange an available public tour directly.
+- [Clifton’s sculpture park](https://cliftonartscenter.org/sculpture-park) is explicitly free, dawn–dusk. This entry does not claim free admission to every indoor event. [Meadowlands Museum](https://www.meadowlandsmuseum.com/visit-us) currently opens Saturday only; the $10 allowance for two is a voluntary donation.
+- Public park entries cover self-guided pedestrian access only, with no purchase, rentals, reserved facilities, guided programs or fishing. Sources substantiate the park/trails; $0 means no admission purchase for that stated walk, not free travel, parking or every park activity. [Flat Rock Brook](https://www.flatrockbrook.org/who-we-are) and [Liberty State Park](https://visitnj.org/nj-parks/liberty-state-park) explicitly publish free admission.
+- [Lincoln Park’s park ordinance](https://ecode360.com/28359912) distinguishes Centennial Park public use from Community Lake membership and limits use to 7am–sunset/9pm. [Garfield’s county park guide](https://co.bergen.nj.us/images/Departments__Services/Parks/parks-guide-2024/parks-guide-2024---interactive.pdf) confirms Belmont Hill at 79 Botany Street. [Passaic park rules](https://ecode360.com/8637165) prohibit entry after sunset.
+- Garret Mountain’s Lambert Castle–Tower trail and Rifle Camp’s observatory/nature center are closed; only open outdoor paths are suggested. DeKorte/Mill Creek do not allow picnicking. Public walking maps do not authorize entry to private buildings.
+- Known dated closures are stored as closedDates/closedDateRanges and checked by both browser and server. [Edison’s current NPS information](https://www.nps.gov/edis/planyourvisit/basicinfo.htm) lists Tue/Wed closures and winter closures; this deck conservatively suppresses Jan 1–Mar 9, 2027 pending a reopening check. The Aviation Museum’s Dec 23–Jan 5 closure is also excluded. This is not a live calendar service.
+- Closed or unpriceable candidates were omitted: McDowell Observatory, Caldwell Cinema, the Warner Theatre, retired GoodFellas ordering prices, date-specific SoJo quotes, and American Dream group/child-only offers that do not apply to two adults. No child, member, first-time-only or large-group discount is silently assumed.

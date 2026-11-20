@@ -60,44 +60,71 @@
     const budgetCents = Math.round(budget * 100);
     const minimumCents = groups.reduce((sum, group) => sum + Math.min(...group.map(option => option.costCents)), 0);
     if (budgetCents < minimumCents) return fail(`These choices need at least $${(minimumCents / 100).toFixed(2)}. Raise the budget, unlock a pick, or change your choices.`, 422, { minimumCents });
-    // Enumerate directly with budget pruning. Browser counts need no arrays of every plan.
-    let combinationCount = 0, alternativeCount = 0, maximumCents = 0;
-    const picks = [];
-    let weightTotal = 0, ticket = null, selectedPicks = null;
-    function visit(index, total, collect) {
-      if (selectedPicks) return;
-      if (index === groups.length) {
-        const alternative = picks.some((option, i) => option.id !== previous[i]);
-        if (collect) {
-          if ((!alternativeCount || alternative) && total >= targetCents) {
-            if (drawTicket) {
-              const weight = mood === 'surprise' ? 1 : 1 + 3 * picks.filter(pick => pick.moods.includes(mood)).length;
-              if (ticket === null) weightTotal += weight;
-              else if ((ticket -= weight) < 0) selectedPicks = [...picks];
-            } else plans.push([...picks]);
-          }
-        } else {
-          combinationCount++;
-          if (alternative) { alternativeCount++; maximumCents = Math.max(maximumCents, total); }
-        }
-        return;
-      }
-      for (const option of groups[index]) {
-        if (total + option.costCents > budgetCents) continue;
-        picks.push(option);
-        visit(index + 1, total + option.costCents, collect);
-        picks.pop();
-      }
+    // Pair dinner/activity and treat/entertainment. Sorted pair costs let us count
+    // millions of complete dates with binary searches, without building those dates.
+    function pairs(first, second, offset) {
+      return first.flatMap(a => second.map(b => ({ picks: [a,b], cost: a.costCents + b.costCents,
+        score: mood === 'surprise' ? 0 : Number(a.moods.includes(mood)) + Number(b.moods.includes(mood)),
+        previous: a.id === previous[offset] && b.id === previous[offset+1] })));
     }
-    visit(0, 0, false);
-    if (!alternativeCount) maximumCents = groups.reduce((sum, group) => sum + group.find(option => previous.includes(option.id)).costCents, 0);
+    const left = pairs(groups[0], groups[1], 0);
+    const right = pairs(groups[2], groups[3], 2).sort((a,b) => a.cost-b.cost);
+    function boundary(cost, inclusive) {
+      let low = 0, high = right.length;
+      while (low < high) {
+        const middle = Math.floor((low+high)/2);
+        if (right[middle].cost < cost || inclusive && right[middle].cost === cost) low = middle+1;
+        else high = middle;
+      }
+      return low;
+    }
+    const previousLeft = left.find(pair=>pair.previous), previousRightIndex = right.findIndex(pair=>pair.previous);
+    const previousFits = previousLeft && previousRightIndex !== -1 && previousLeft.cost + right[previousRightIndex].cost <= budgetCents;
+    let combinationCount = 0, maximumCents = 0;
+    for (const pair of left) {
+      const end = boundary(budgetCents-pair.cost, true);
+      combinationCount += end;
+      // Exclude the previous date from the attainable maximum when another date fits.
+      let top = end-1;
+      if (pair.previous && right[top]?.previous) top--;
+      if (top >= 0) maximumCents = Math.max(maximumCents, pair.cost+right[top].cost);
+    }
+    const alternativeCount = combinationCount - Number(Boolean(previousFits));
+    if (!alternativeCount) maximumCents = previousLeft.cost + right[previousRightIndex].cost;
     // Aim at 90% of the budget when possible; otherwise stay near the best attainable total.
     const nearBudgetCents = Math.ceil(budgetCents * .9);
     const targetCents = spending === 'treat' ? maximumCents >= nearBudgetCents ? nearBudgetCents : Math.ceil(maximumCents * .95) : 0;
-    // Only retain the final spending band, rather than materializing every feasible plan first.
+    const scorePrefix = [0];
+    right.forEach(pair => scorePrefix.push(scorePrefix[scorePrefix.length-1]+pair.score));
+    const weight = (a,b) => 1+3*(a.score+b.score);
+    let weightTotal = 0;
+    const bands = left.map(pair => {
+      const start = boundary(targetCents-pair.cost, false), end = boundary(budgetCents-pair.cost, true);
+      let tickets = (end-start)*(1+3*pair.score)+3*(scorePrefix[end]-scorePrefix[start]);
+      const omitPrevious = Boolean(alternativeCount && pair.previous && previousRightIndex >= start && previousRightIndex < end);
+      if (omitPrevious) tickets -= weight(pair,right[previousRightIndex]);
+      weightTotal += tickets;
+      return { pair, start, end, tickets, omitPrevious };
+    });
     const plans = [];
-    if (includePlans || drawTicket) visit(0, 0, true);
-    if (drawTicket) { ticket = drawTicket(weightTotal); visit(0, 0, true); }
+    let selectedPicks = null;
+    if (drawTicket) {
+      let ticket = drawTicket(weightTotal);
+      for (const band of bands) {
+        if (ticket >= band.tickets) { ticket -= band.tickets; continue; }
+        for (let index=band.start; index<band.end; index++) {
+          if (band.omitPrevious && index === previousRightIndex) continue;
+          ticket -= weight(band.pair,right[index]);
+          if (ticket < 0) { selectedPicks = [...band.pair.picks,...right[index].picks]; break; }
+        }
+        break;
+      }
+    } else if (includePlans) {
+      // Retained complete plans are for small fixtures/tools; production uses drawTicket.
+      for (const band of bands) for (let index=band.start; index<band.end; index++) {
+        if (!band.omitPrevious || index !== previousRightIndex) plans.push([...band.pair.picks,...right[index].picks]);
+      }
+    }
     return { plans, selectedPicks, combinationCount, maximumCents, targetCents,
       unchanged: previous.length === 4 && !alternativeCount, budgetCents, setting, mood, spending, area, date, customOptions };
   }
@@ -115,7 +142,11 @@
   }
   function eligible(option, area, date) {
     if (!option.custom && (area === 'paterson' && !option.venue || area === 'general' && option.venue)) return false;
-    return !date || !option.venue || option.venue.openDays.includes(new Date(`${date}T12:00:00Z`).getUTCDay());
+    if (!date || !option.venue) return true;
+    const venue = option.venue;
+    return venue.openDays.includes(new Date(`${date}T12:00:00Z`).getUTCDay()) &&
+      !(venue.closedDates || []).includes(date) &&
+      !(venue.closedDateRanges || []).some(([start,end]) => date >= start && date <= end);
   }
   function validDate(date) {
     return typeof date === 'string' && (!date || /^\d{4}-\d{2}-\d{2}$/.test(date) && Number.isFinite(Date.parse(`${date}T12:00:00Z`)) && new Date(`${date}T12:00:00Z`).toISOString().slice(0,10) === date);

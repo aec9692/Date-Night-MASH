@@ -130,7 +130,7 @@ function renderCatalog() {
     const town = $('#idea-town').value;
     const visible = options.filter(option => `${option.name} ${option.description} ${option.venue?.city || ''}`.toLowerCase().includes(query) &&
       (town === 'all' || option.venue?.city === town) &&
-      (tier === 'all' || tier === 'low' && option.costCents < 5000 || tier === 'mid' && option.costCents >= 5000 && option.costCents <= 20000 || tier === 'high' && option.costCents > 20000)).sort((a, b) => a.costCents - b.costCents);
+      (tier === 'all' || tier === 'free' && option.costCents === 0 || tier === 'under15' && option.costCents < 1500 || tier === 'under30' && option.costCents < 3000 || tier === 'low' && option.costCents < 5000 || tier === 'mid' && option.costCents >= 5000 && option.costCents <= 20000 || tier === 'high' && option.costCents > 20000)).sort((a, b) => a.costCents - b.costCents);
     head.append(element('h3', label), element('p', `${active} in the mix · ${visible.length} shown`));
     const list = element('ul', undefined, 'option-list');
     list.tabIndex = 0;
@@ -458,7 +458,7 @@ function populateTowns() {
   $('#idea-town').firstChild.value = 'all';
   towns.forEach(town=>{ const option=element('option',town); option.value=town; $('#idea-town').append(option); });
   $('#town-chips').replaceChildren();
-  ['all','Wayne','Montclair','Totowa','Paterson','Fairfield','Ridgewood'].filter(town=>town==='all'||towns.includes(town)).forEach(town=>{
+  ['all','Wayne','Montclair','Totowa','Paterson','Paramus','Parsippany','Fair Lawn','Fairfield','Hoboken','Jersey City'].filter(town=>town==='all'||towns.includes(town)).forEach(town=>{
     const chip=button(town==='all'?'Every town':town,'town-chip',()=>{ $('#idea-town').value=town;syncTownChips();renderCatalog(); });
     chip.dataset.town=town; $('#town-chips').append(chip);
   });
