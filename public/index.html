@@ -13,6 +13,7 @@
   <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/styles.css">
   <script src="/vendor/jspdf.umd.min.js" defer></script>
+  <script src="/date-route.js" defer></script>
   <script src="/date-planning.js" defer></script>
   <script src="/date-costs.js" defer></script>
   <script src="/date-combinations.js" defer></script>
@@ -34,6 +35,8 @@
   <script src="/date-actions.js" defer></script>
   <script src="/date-planning-ui.js" defer></script>
   <script src="/date-feedback.js" defer></script>
+  <script src="/date-vote.js" defer></script>
+  <script src="/ready-night.js" defer></script>
   <script src="/app.js" defer></script>
   <script src="/nearby.js" defer></script>
 </head>
@@ -146,6 +149,7 @@
     <aside id="shared-date" class="shared-date" hidden><h2>A date to share.</h2><p id="shared-message" role="status"></p><button id="shared-apply-change" type="button" class="secondary" hidden>Try a suggested change</button><button id="shared-dismiss" type="button" class="text-button">Dismiss shared view</button></aside><section id="result" class="result" aria-labelledby="result-title" hidden>
       <div class="result-topline"><span class="eyebrow">IT'S A DATE!</span><span id="result-setting" class="pill"></span></div>
       <div class="itinerary-heading"><div><h2 id="result-title" tabindex="-1">Your next little adventure.</h2><p id="result-subtitle">A few good stops to make your own. Check hours and arrange your stops before heading out.</p></div><span class="date-stamp" aria-hidden="true">LET'S CALL<br>IT A DATE<br>♡</span></div>
+      <section id="ready-night" class="ready-night" aria-labelledby="ready-title"><h3 id="ready-title">Ready for your date?</h3><p id="ready-explanation"></p><details><summary>Your route &amp; before-you-leave checks</summary><div id="ready-route"></div><div id="ready-stops" class="ready-stops"></div></details><p id="ready-status" role="status" aria-live="polite"></p><button id="compare-dates" type="button" class="secondary">Choose together: compare 3 dates</button><p class="helper">Two people, one choice each. Share three plans, then bring back your partner’s reply link. No account or live tally.</p></section>
       <div id="journey-result" class="journey-result" hidden></div>
       <section id="shopping-summary" class="shopping-summary" hidden></section><div id="result-picks" class="picks-grid"></div>
       <div class="total-row"><div><span id="result-total-label" class="helper">Estimated total for two</span><p id="result-total" class="total"></p></div><div class="budget-meter"><p id="remaining"></p><div class="meter-track"><span id="budget-used"></span></div></div></div>

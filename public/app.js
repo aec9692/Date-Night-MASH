@@ -134,6 +134,7 @@ async function loadCatalog() {
     $('#mash-play').disabled=false;
     message('Your next “remember when” is one click away.');
     DateActions.loadShared();
+    ReadyNight.loadVote();
   } catch {
     message('Could not load date ideas. Check your connection and try again.', true);
     $('#retry').hidden = false;
@@ -348,6 +349,7 @@ function renderResult() {
   SmartDate.render(currentPlan,next=>{currentPlan=next;renderResult();},()=>generate());
   DateActions.render(currentPlan);
   DateFeedback.render(currentPlan);
+  ReadyNight.render(currentPlan);
 }
 
 function restoreDatePlan(plan,restoreOwnership=true) {

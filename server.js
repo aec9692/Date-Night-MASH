@@ -10,6 +10,8 @@ const locationIndex = require('./data/location-index.json');
 const locationSearch = createLocationSearch({localLocations:locationIndex.locations});
 const planner = require('./public/planner');
 const invite = require('./public/date-invite');
+const vote = require('./public/date-vote');
+const routes = require('./public/date-route');
 const journey = require('./public/journey');
 const townData = require('./data/towns.json');
 const media = require('./data/place-media.json');
@@ -94,8 +96,61 @@ function planResult(prepared) {
     pantry:prepared.pantry||[], fit:prepared.fit,settingLabel:costs.settingLabel(picks,prepared.setting),
     ...(prepared.location?{location:prepared.location}:{}),
     shoppingList:priced.shoppingList,ownedSavingsCents:priced.ownedSavingsCents,sharedSavingsCents:priced.sharedSavingsCents,recentExhausted:Boolean(prepared.recentExhausted),
+    route:routes.analyze({picks,journey:prepared.journey,mash:prepared.mash,location:prepared.location}),
     notice: 'Budget includes the displayed picks and any reserve you entered. Confirm actual prices, fees, travel, parking, hours and availability. Estimates are for two, not bookings; suggested timing and town-center distances do not verify traffic.' };
 }
+
+// Every link is revalidated against canonical prices and restrictions. No ballots are stored here.
+app.post('/api/compare/restore',(req,res,next)=>{
+  try{
+    if(!req.is('application/json')||Object.keys(req.query).length||!req.body||Array.isArray(req.body)||Object.keys(req.body).some(k=>k!=='token'))return res.status(400).json({error:'Send only a vote token as JSON.'});
+    let ballot;try{ballot=vote.decode(req.body.token);}catch(error){error.status=400;throw error;}
+    const plans=ballot.plans.map(token=>restoreInvite(token).plan);
+    if(new Set(plans.map(vote.identity)).size!==3)return res.status(422).json({error:'These plans no longer offer three different choices. Ask for a new vote.'});
+    res.json({plans});
+  }catch(error){if([400,422].includes(error.status))return res.status(error.status).json({error:error.message});next(error);}
+});
+function changeRequest(req,res){
+  if(!req.is('application/json')||Object.keys(req.query).length||!req.body||Array.isArray(req.body)||Object.keys(req.body).some(k=>!['token','category','excluded','taste','locked'].includes(k))||typeof req.body.token!=='string'){
+    res.status(400).json({error:'Send a plan token and documented change preferences as JSON.'});return null;
+  }
+  try{return invite.preferences(invite.decode(req.body.token));}catch(error){error.status=400;throw error;}
+}
+app.post('/api/backup',(req,res,next)=>{
+  try{
+    const prefs=changeRequest(req,res);if(!prefs)return;
+    if(req.body.locked!==undefined)return res.status(400).json({error:'Backup locks come from the original plan.'});
+    const original=restoreInvite(req.body.token).plan,category=req.body.category,pick=original.picks.find(p=>p.category===category);
+    if(!pick||!pick.settings.includes('outdoor')||pick.home)return res.status(400).json({error:'Choose an outdoor stop from this date to replace.'});
+    const custom=planner.customCatalog(prefs.customOptions),all=[...options,...custom];
+    const excluded=req.body.excluded===undefined?[]:req.body.excluded;
+    if(!Array.isArray(excluded)||excluded.length>all.length||new Set(excluded).size!==excluded.length||excluded.some(id=>!all.some(o=>o.id===id)))return res.status(400).json({error:'Excluded ideas must be unique current idea IDs.'});
+    prefs.excluded=[...new Set([...excluded,pick.id,...all.filter(o=>o.category===category&&(!o.settings.includes('indoor')||o.settings.includes('home'))).map(o=>o.id)])];
+    delete prefs.locked[category];prefs.setting='any';prefs.spending='flexible';prefs.taste=req.body.taste;
+    const prepared=planner.prepare(prefs,options,false,randomInt);
+    if(prepared.error)return res.status(prepared.status).json({error:'No indoor backup could be selected while keeping your other stops and reserve. '+prepared.error});
+    res.json(planResult(prepared));
+  }catch(error){if([400,422].includes(error.status))return res.status(error.status).json({error:error.message});next(error);}
+});
+app.post('/api/compare',(req,res,next)=>{
+  try{
+    const prefs=changeRequest(req,res);if(!prefs)return;
+    if(req.body.category!==undefined)return res.status(400).json({error:'A comparison does not accept a category.'});
+    const original=restoreInvite(req.body.token).plan;
+    prefs.locked=req.body.locked===undefined?{}:req.body.locked;prefs.excluded=req.body.excluded===undefined?[]:req.body.excluded;prefs.taste=req.body.taste;
+    // Validate all preferences before counting. Explicit user locks remain in place.
+    const checked=planner.prepare(prefs,options,false);if(checked.error)return res.status(checked.status).json({error:checked.error});
+    if(original.picks.some(p=>prefs.excluded.includes(p.id)||prefs.locked[p.category]&&prefs.locked[p.category]!==p.id))return res.status(422).json({error:'The current date no longer matches your locks or hidden ideas. Generate a fresh date before comparing.'});
+    const plans=[original],identities=new Set([vote.identity(original)]);
+    for(let attempt=0;attempt<6&&plans.length<3;attempt++){
+      prefs.previous=plans.at(-1).picks.map(p=>p.id);if(!prefs.journey)prefs.recent=plans.map(p=>p.picks.map(o=>o.id));
+      const prepared=planner.prepare(prefs,options,false,randomInt);if(prepared.error)break;
+      const plan=planResult(prepared),identity=vote.identity(plan);if(!identities.has(identity)){identities.add(identity);plans.push(plan);}
+    }
+    if(plans.length!==3)return res.status(422).json({error:'Could not find three different dates in this mix. Include more ideas, unlock a pick or use Flexible spending, then try again.'});
+    res.json({plans});
+  }catch(error){if([400,422].includes(error.status))return res.status(error.status).json({error:error.message});next(error);}
+});
 
 app.post('/api/generate', (req, res) => {
   if (!req.is('application/json')) {

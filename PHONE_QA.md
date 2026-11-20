@@ -36,3 +36,13 @@ Calendar actions prepare drafts/files. MASH does not have calendar-account write
 | P20 | Set $50 with $5 parking, $7 transport and $3 extras; generate/save/share/export | Picks fit $35; total including $15 reserve fits $50; restored plans retain amounts | Pending |
 | P21 | Enter reserve greater than budget; correct it | Readable error preserves values, then generation recovers | Pending |
 | P22 | Rate a completed date, edit it, reload, remove and clear reviews | Review persists locally, edits replace it, clearing retains favorites; controls fit the phone | Pending |
+## Ready-night checks: pending on real phones
+
+| ID | Action | Expected | Status |
+| --- | --- | --- | --- |
+| P23 | Generate a local date, expand Ready for your date and open whole-route Maps | Clear origin, approximate legs/unknowns and route warnings; Maps opens in suggested order | Pending |
+| P24 | Open official sources, tick departure checks, reroll a stop | Accessible links/checks; checks reset for the changed plan | Pending |
+| P25 | Replace an outdoor stop with Find an indoor backup | Other stops and reserve stay fixed; indoor replacement or helpful no-plan result | Pending |
+| P26 | Compare three dates, vote and share to a second phone | Three affordable distinct options; native share or copyable link | Pending |
+| P27 | Partner votes and sends reply; creator opens it on the creating browser | One vote each, match or tie; changed reply replaces guest vote | Pending |
+| P28 | Reload/reopen comparison, clear saved votes, export route PDF | Reopen works locally; clear removes comparisons; readable route page and source links | Pending |
