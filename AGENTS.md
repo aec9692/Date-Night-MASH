@@ -128,3 +128,6 @@ Upgrade behavior:
 - Keep .ics escaping, UTF-8 folding, timezone/DST validation and source-day rechecking. Calendar/restore routes are stateless, bounded and uncached, with no OAuth, database, account, file upload or invitation sending.
 - Maintain progressive catalog rendering and quick start controls. Never reintroduce heavy work into budget slider input. Verify category visibility and personal idea visibility after paging/filtering.
 - Public deployment and actual phone checks remain pending the professor-assisted setup. Use PHONE_QA.md and PROFESSOR_HANDOFF.md and record only executed results.
+
+
+- City/ZIP search uses data/location-index.json and public/location-lookup.js for source-backed NJ suggestions and exact matches before explicit external lookup. Preserve leading-zero ZIPs and multi-town ambiguity; these coordinates are municipality centers. Never use network autocomplete, silently turn a prefix into an exact town, or strip City from a proper municipality name. Cancel/version old city/place requests so stale results cannot override the latest selected origin. Offline shell v9 includes location-lookup.js.

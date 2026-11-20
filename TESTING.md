@@ -289,3 +289,13 @@ Executed locally: the full 134-test Node suite passed. A three-window DOM/API si
 | R18 | Check deployment metadata and browser automation | Report actual availability without inventing public/phone checks | GitHub returned no homepage/deployments; user said professor will assist. CUA module and Windows native pipe unavailable. |
 
 Actual iPhone/Android Calendar saves, real native share sheets, screen rendering and public deployment remain pending. PHONE_QA.md contains 18 unexecuted physical-device acceptance cases, and PROFESSOR_HANDOFF.md covers the free deployment handoff.
+
+
+## City/ZIP usability fix - November 20, 2026
+
+Executed against the local app: the new DOM/API flow passed for Go out and Surprise me, local typing suggestions, Find location and Enter, Paterson/07501, Wayne/07470, Paramus, Montclair and shared ZIP 07424. Unique matches automatically selected the center and loaded real curated nearby results; ambiguous ZIPs required a town choice. Generation used the selected center and town. Pressing Enter did not submit MASH. Manual town and radius changes refreshed results.
+
+Injected delayed city and map responses were resolved after a newer lookup: neither overwrote the latest selection, and a pending map request did not block city search. All bundled town/ZIP associations were also tested with an unavailable external-geocoder fixture and made zero provider calls. The source-data build successfully queried all 43 official geocoder town searches and preserved Census coordinates and postal evidence. Direct live probes for Paterson, Wayne and their ZIPs returned data during investigation; that does not guarantee ongoing provider availability.
+
+A first new test assumed Union City was in this existing 43-town collection; it is not. The test was corrected to use supported Jersey City while still verifying that City remains part of the proper municipality name and that Union is not guessed as Union City. No business price/check date was changed. Public deployment and actual phone-browser checks remain pending the professor-assisted setup. Offline shell version is v9.
+Final full Node suite: all 139 tests passed. The updated DOM/API search flow also passed after the town/radius refresh changes.

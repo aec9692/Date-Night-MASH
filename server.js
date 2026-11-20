@@ -6,7 +6,8 @@ const guides = require('./data/home-guides.json');
 const options = [...require('./data/options.json'), ...require('./data/local-options.json'), ...require('./data/home-options.json'), ...require('./data/outing-options.json')].map(costs.enrich).map(option=>guides[option.id]?{...option,guide:guides[option.id]}:option);
 const { curatedNearby } = require('./lib/curated-nearby');
 const { createLocationSearch, LocationSearchError } = require('./lib/location-search');
-const locationSearch = createLocationSearch();
+const locationIndex = require('./data/location-index.json');
+const locationSearch = createLocationSearch({localLocations:locationIndex.locations});
 const planner = require('./public/planner');
 const invite = require('./public/date-invite');
 const journey = require('./public/journey');
@@ -33,7 +34,7 @@ app.get('/api/options', (req, res) => {
   if (Object.keys(req.query).length) {
     return res.status(400).json({ error: 'This route does not accept query parameters.' });
   }
-  res.json({ categories, settings, moods, spendingModes, areas, options, towns:townData, media, unpricedPlaces:require('./data/thrift-places.json'), currency: 'USD', priceBasis: 'All totals are for two. Source-linked NJ orders retain posted prices and allowances. Home and general ideas are illustrative shopping allowances, not store quotes. Owned supplies are explicit; shared baskets count once.' });
+  res.json({ categories, settings, moods, spendingModes, areas, options, towns:townData, locations:locationIndex.locations.map(({name,lat,lon,postcodes})=>({name,lat,lon,postcodes})), media, unpricedPlaces:require('./data/thrift-places.json'), currency: 'USD', priceBasis: 'All totals are for two. Source-linked NJ orders retain posted prices and allowances. Home and general ideas are illustrative shopping allowances, not store quotes. Owned supplies are explicit; shared baskets count once.' });
 });
 
 app.get('/api/locations', async (req,res,next)=>{

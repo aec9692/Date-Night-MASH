@@ -168,3 +168,6 @@ Share date sends a readable note and plan link through the native share sheet wh
 New stateless routes: POST /api/restore accepts only a JSON token; GET /api/calendar?token=... returns a validated calendar file. These routes store no uploaded files or shared-plan database records. Service-worker cache v8 includes the new client modules; calendar files and restore/generation requests are not cached.
 
 Public deployment is still pending the owner's professor-assisted Vercel setup. Use [PROFESSOR_HANDOFF.md](PROFESSOR_HANDOFF.md) and [PHONE_QA.md](PHONE_QA.md); do not claim a physical-device test or deployment from local DOM/API checks.
+
+
+City/ZIP search now suggests supported NJ towns locally as you type. Choose a suggestion, or press Enter / Find location. A unique city/ZIP match automatically loads nearby source-priced choices; shared ZIPs ask for the town. The 43-town/102-ZIP local index works without the live geocoder. Coordinates remain town centers, not precise ZIP centers. Outside that index, explicit searches still use the external geocoder.
