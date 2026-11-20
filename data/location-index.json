@@ -1,0 +1,1882 @@
+{
+  "checkedOn": "2026-11-20",
+  "method": "Municipal representative points from the existing Census town data. Postal codes are associated through recorded public venue addresses or exact nearby New Jersey GeoNames populated-place records. ZIPs may cover several municipalities; these are town centers, not ZIP centroids, street addresses, routes or driving distances.",
+  "sourceUrlCensus": "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+  "locations": [
+    {
+      "name": "Bergenfield",
+      "lat": 40.9223342,
+      "lon": -73.9980008,
+      "postcodes": [
+        "07621"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://lacandelarianj.com/menu/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Bergenfield%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07621",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://lacandelarianj.com/menu/"
+        },
+        {
+          "postcode": "07621",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Bergenfield%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Bloomfield",
+      "lat": 40.8091411,
+      "lon": -74.1871418,
+      "postcodes": [
+        "07003"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://essexcountyparks.org/parks/brookdale-park",
+        "https://burythehatchet.com/axe-throwing-nj-bloomfield-montclair/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Bloomfield%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07003",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://essexcountyparks.org/parks/brookdale-park"
+        },
+        {
+          "postcode": "07003",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://burythehatchet.com/axe-throwing-nj-bloomfield-montclair/"
+        },
+        {
+          "postcode": "07003",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Bloomfield%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Caldwell",
+      "lat": 40.8392346,
+      "lon": -74.2770264,
+      "postcodes": [
+        "07006",
+        "07007"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://order.online/en-US/store/26098160",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Caldwell%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07006",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://order.online/en-US/store/26098160"
+        },
+        {
+          "postcode": "07006",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Caldwell%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07007",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Caldwell%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Cedar Grove",
+      "lat": 40.8580173,
+      "lon": -74.2297838,
+      "postcodes": [
+        "07009"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://essexcountyparks.org/parks/mills-reservation",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Cedar+Grove%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07009",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://essexcountyparks.org/parks/mills-reservation"
+        },
+        {
+          "postcode": "07009",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Cedar+Grove%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Clifton",
+      "lat": 40.8621369,
+      "lon": -74.1603932,
+      "postcodes": [
+        "07011",
+        "07012",
+        "07013",
+        "07014",
+        "07015"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://cliftonartscenter.org/sculpture-park",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Clifton%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07013",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://cliftonartscenter.org/sculpture-park"
+        },
+        {
+          "postcode": "07011",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Clifton%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07012",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Clifton%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07013",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Clifton%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07014",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Clifton%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07015",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Clifton%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Closter",
+      "lat": 40.9728898,
+      "lon": -73.9603147,
+      "postcodes": [
+        "07624"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.belskiemuseum.com/default.asp",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Closter%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07624",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.belskiemuseum.com/default.asp"
+        },
+        {
+          "postcode": "07624",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Closter%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "East Rutherford",
+      "lat": 40.8170966,
+      "lon": -74.0850235,
+      "postcodes": [
+        "07073"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://njhalloffame.org/entertainment-learning-center/plan-your-trip/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=East+Rutherford%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07073",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://njhalloffame.org/entertainment-learning-center/plan-your-trip/"
+        },
+        {
+          "postcode": "07073",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=East+Rutherford%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Elmwood Park",
+      "lat": 40.9045259,
+      "lon": -74.1195136,
+      "postcodes": [
+        "07407"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://parkwaylanesnj.com/bowling/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Elmwood+Park%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07407",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://parkwaylanesnj.com/bowling/"
+        },
+        {
+          "postcode": "07407",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Elmwood+Park%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Englewood",
+      "lat": 40.8911966,
+      "lon": -73.972515,
+      "postcodes": [
+        "07631"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.flatrockbrook.org/who-we-are",
+        "https://escaperoomnj.com/englewood-nj-escape-rooms-the-euphoria-hest/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Englewood%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07631",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.flatrockbrook.org/who-we-are"
+        },
+        {
+          "postcode": "07631",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://escaperoomnj.com/englewood-nj-escape-rooms-the-euphoria-hest/"
+        },
+        {
+          "postcode": "07631",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Englewood%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Essex Fells",
+      "lat": 40.8281024,
+      "lon": -74.2762262,
+      "postcodes": [
+        "07021"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://essexcountyparks.org/parks/grover-cleveland-park",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Essex+Fells%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07021",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://essexcountyparks.org/parks/grover-cleveland-park"
+        },
+        {
+          "postcode": "07021",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Essex+Fells%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Fair Lawn",
+      "lat": 40.9358298,
+      "lon": -74.1175045,
+      "postcodes": [
+        "07410"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://sagefairlawn.com/menu",
+        "https://www.taijiorientalmassagefairlawn.com/Service/Index",
+        "https://bergencountynj.gov/bergen-county-department-of-parks/saddle-river-county-park/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Fair+Lawn%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07410",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://sagefairlawn.com/menu"
+        },
+        {
+          "postcode": "07410",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.taijiorientalmassagefairlawn.com/Service/Index"
+        },
+        {
+          "postcode": "07410",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://bergencountynj.gov/bergen-county-department-of-parks/saddle-river-county-park/"
+        },
+        {
+          "postcode": "07410",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Fair+Lawn%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Fairfield",
+      "lat": 40.8825075,
+      "lon": -74.3045935,
+      "postcodes": [
+        "07004"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://monsterminigolf.com/locations/us/nj/fairfield/",
+        "https://njrockgym.com/rates/",
+        "https://fairfieldescaperoom.com/faq/",
+        "https://tacopslasertag.com/contact/hours-rates/",
+        "https://stumpysfairfield.com/faq/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Fairfield%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07004",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://monsterminigolf.com/locations/us/nj/fairfield/"
+        },
+        {
+          "postcode": "07004",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://njrockgym.com/rates/"
+        },
+        {
+          "postcode": "07004",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://fairfieldescaperoom.com/faq/"
+        },
+        {
+          "postcode": "07004",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://tacopslasertag.com/contact/hours-rates/"
+        },
+        {
+          "postcode": "07004",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://stumpysfairfield.com/faq/"
+        },
+        {
+          "postcode": "07004",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Fairfield%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Fort Lee",
+      "lat": 40.8506403,
+      "lon": -73.9710074,
+      "postcodes": [
+        "07024"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://barrymorefilmcenter.org/faq",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Fort+Lee%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07024",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://barrymorefilmcenter.org/faq"
+        },
+        {
+          "postcode": "07024",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Fort+Lee%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Garfield",
+      "lat": 40.8797971,
+      "lon": -74.1082503,
+      "postcodes": [
+        "07026"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.ceviche517piscolounge.com/menu?menu=desserts",
+        "https://co.bergen.nj.us/images/Departments__Services/Parks/parks-guide-2024/parks-guide-2024---interactive.pdf",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Garfield%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07026",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.ceviche517piscolounge.com/menu?menu=desserts"
+        },
+        {
+          "postcode": "07026",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://co.bergen.nj.us/images/Departments__Services/Parks/parks-guide-2024/parks-guide-2024---interactive.pdf"
+        },
+        {
+          "postcode": "07026",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Garfield%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Hawthorne",
+      "lat": 40.9569572,
+      "lon": -74.1585611,
+      "postcodes": [
+        "07506",
+        "07507"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.hawthornetheatres.com/theater-info/",
+        "https://seepassaiccounty.org/explore/arts-culture/the-passaic-county-arts-center/",
+        "https://billysmidway.com/index.html",
+        "https://www.theothertales.com/rooms/rooms.php",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Hawthorne%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07506",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.hawthornetheatres.com/theater-info/"
+        },
+        {
+          "postcode": "07506",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://seepassaiccounty.org/explore/arts-culture/the-passaic-county-arts-center/"
+        },
+        {
+          "postcode": "07506",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://billysmidway.com/index.html"
+        },
+        {
+          "postcode": "07506",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.theothertales.com/rooms/rooms.php"
+        },
+        {
+          "postcode": "07506",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Hawthorne%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07507",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Hawthorne%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Hoboken",
+      "lat": 40.7452508,
+      "lon": -74.0279257,
+      "postcodes": [
+        "07030"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.citybistrohobokennj.com/menu",
+        "https://playhoboken.com/rates/",
+        "https://gravityvault.com/locations/hoboken-nj/pricing",
+        "https://www.hobokennj.gov/locations",
+        "https://hobokenmuseum.org/visit/plan-your-visit/",
+        "https://hobokenmuseum.org/visit/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Hoboken%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07030",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.citybistrohobokennj.com/menu"
+        },
+        {
+          "postcode": "07030",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://playhoboken.com/rates/"
+        },
+        {
+          "postcode": "07030",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://gravityvault.com/locations/hoboken-nj/pricing"
+        },
+        {
+          "postcode": "07030",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.hobokennj.gov/locations"
+        },
+        {
+          "postcode": "07030",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://hobokenmuseum.org/visit/plan-your-visit/"
+        },
+        {
+          "postcode": "07030",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://hobokenmuseum.org/visit/"
+        },
+        {
+          "postcode": "07030",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Hoboken%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Jersey City",
+      "lat": 40.7114174,
+      "lon": -74.0647599,
+      "postcodes": [
+        "07097",
+        "07302",
+        "07303",
+        "07304",
+        "07305",
+        "07306",
+        "07307",
+        "07308",
+        "07310",
+        "07311",
+        "07395",
+        "07399"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://janedoejc.com/food-menu/",
+        "https://www.rpmraceway.com/locations/jersey-city-nj",
+        "https://visitnj.org/nj-parks/liberty-state-park",
+        "https://www.arthouseproductions.org/pages/about-1",
+        "https://www.drawingrooms.org/",
+        "https://www.visithudson.org/things-to-do/attractions/mana-contemporary/",
+        "https://jerseycityculture.org/programs-initiatives/mural-arts-program/",
+        "https://www.pixellab.gg/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07302",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://janedoejc.com/food-menu/"
+        },
+        {
+          "postcode": "07305",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.rpmraceway.com/locations/jersey-city-nj"
+        },
+        {
+          "postcode": "07305",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://visitnj.org/nj-parks/liberty-state-park"
+        },
+        {
+          "postcode": "07302",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.arthouseproductions.org/pages/about-1"
+        },
+        {
+          "postcode": "07306",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.drawingrooms.org/"
+        },
+        {
+          "postcode": "07306",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.visithudson.org/things-to-do/attractions/mana-contemporary/"
+        },
+        {
+          "postcode": "07302",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://jerseycityculture.org/programs-initiatives/mural-arts-program/"
+        },
+        {
+          "postcode": "07302",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.pixellab.gg/"
+        },
+        {
+          "postcode": "07097",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07302",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07303",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07304",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07305",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07306",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07307",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07308",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07310",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07311",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07399",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07395",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Jersey+City%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Lincoln Park",
+      "lat": 40.9237508,
+      "lon": -74.304235,
+      "postcodes": [
+        "07035"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://arcarestaurantnj.com/dinner-menu/",
+        "https://arcarestaurantnj.com/dessert-menu/",
+        "https://www.lincolnpark.org/627/Centennial-Park-Playground",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Lincoln+Park%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07035",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://arcarestaurantnj.com/dinner-menu/"
+        },
+        {
+          "postcode": "07035",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://arcarestaurantnj.com/dessert-menu/"
+        },
+        {
+          "postcode": "07035",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.lincolnpark.org/627/Centennial-Park-Playground"
+        },
+        {
+          "postcode": "07035",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Lincoln+Park%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Little Falls",
+      "lat": 40.8761798,
+      "lon": -74.21691,
+      "postcodes": [
+        "07424"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://yogiberramuseum.org/visit/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Little+Falls%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07424",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://yogiberramuseum.org/visit/"
+        },
+        {
+          "postcode": "07424",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Little+Falls%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Lyndhurst",
+      "lat": 40.7971128,
+      "lon": -74.11298,
+      "postcodes": [
+        "07071"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://lyndhurstpizza.com/menu",
+        "https://www.njsea.com/park-info/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Lyndhurst%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07071",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://lyndhurstpizza.com/menu"
+        },
+        {
+          "postcode": "07071",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.njsea.com/park-info/"
+        },
+        {
+          "postcode": "07071",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Lyndhurst%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Montclair",
+      "lat": 40.8249977,
+      "lon": -74.2108562,
+      "postcodes": [
+        "07042",
+        "07043"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.montclairartmuseum.org/visit-mam/plan-your-visit",
+        "https://zeugmagrill.com/menu",
+        "https://montclairfoundation.org/plan-your-visit/",
+        "https://gravityvault.com/locations/montclair-nj/pricing",
+        "https://www.sweetkitchenmontclair.com/our-bakery",
+        "https://www.sweetkitchenmontclair.com/menu?menu=sweet-kitchen",
+        "https://direct.chownow.com/order/4792/locations/6216",
+        "https://www.montclairfilm.org/cinemas/overview/",
+        "https://inside.montclair.edu/departments/university-galleries/visit-galleries",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Montclair%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07042",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.montclairartmuseum.org/visit-mam/plan-your-visit"
+        },
+        {
+          "postcode": "07042",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://zeugmagrill.com/menu"
+        },
+        {
+          "postcode": "07042",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://montclairfoundation.org/plan-your-visit/"
+        },
+        {
+          "postcode": "07042",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://gravityvault.com/locations/montclair-nj/pricing"
+        },
+        {
+          "postcode": "07042",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.sweetkitchenmontclair.com/our-bakery"
+        },
+        {
+          "postcode": "07042",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.sweetkitchenmontclair.com/menu?menu=sweet-kitchen"
+        },
+        {
+          "postcode": "07043",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://direct.chownow.com/order/4792/locations/6216"
+        },
+        {
+          "postcode": "07042",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.montclairfilm.org/cinemas/overview/"
+        },
+        {
+          "postcode": "07043",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.montclairfilm.org/cinemas/overview/"
+        },
+        {
+          "postcode": "07043",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://inside.montclair.edu/departments/university-galleries/visit-galleries"
+        },
+        {
+          "postcode": "07042",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Montclair%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07043",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Montclair%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Morristown",
+      "lat": 40.7965621,
+      "lon": -74.4773184,
+      "postcodes": [
+        "07960",
+        "07962",
+        "07963"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.morristowngamevault.com/pricing/",
+        "https://morrismuseum.org/visit-morris-museum",
+        "https://www.umakeglass.com/30-35",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Morristown%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07960",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.morristowngamevault.com/pricing/"
+        },
+        {
+          "postcode": "07960",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://morrismuseum.org/visit-morris-museum"
+        },
+        {
+          "postcode": "07960",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.umakeglass.com/30-35"
+        },
+        {
+          "postcode": "07960",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Morristown%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07962",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Morristown%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07963",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Morristown%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Newark",
+      "lat": 40.7242204,
+      "lon": -74.1725735,
+      "postcodes": [
+        "07101",
+        "07102",
+        "07103",
+        "07104",
+        "07105",
+        "07106",
+        "07107",
+        "07108",
+        "07112",
+        "07114",
+        "07175",
+        "07184",
+        "07188",
+        "07189",
+        "07191",
+        "07192",
+        "07193",
+        "07195",
+        "07198",
+        "07199"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://essexcountyparks.org/parks/branch-brook-park",
+        "https://newarkmuseumart.org/visit/plan-your-visit/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07104",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://essexcountyparks.org/parks/branch-brook-park"
+        },
+        {
+          "postcode": "07102",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://newarkmuseumart.org/visit/plan-your-visit/"
+        },
+        {
+          "postcode": "07101",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07102",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07103",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07104",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07105",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07106",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07107",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07108",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07112",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07114",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07175",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07184",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07188",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07189",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07191",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07192",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07193",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07195",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07198",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07199",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Newark%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Oradell",
+      "lat": 40.9566531,
+      "lon": -74.0328615,
+      "postcodes": [
+        "07649"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://blauveltartmuseum.com/contact/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Oradell%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07649",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://blauveltartmuseum.com/contact/"
+        },
+        {
+          "postcode": "07649",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Oradell%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Paramus",
+      "lat": 40.9472994,
+      "lon": -74.0701694,
+      "postcodes": [
+        "07652",
+        "07653"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.elcidrestaurant.com/menus/",
+        "https://www.elcidrestaurant.com/menus/desserts/",
+        "https://monsterminigolf.com/locations/us/nj/paramus/",
+        "https://www.humdingersnj.com/bowl",
+        "https://www.poweruparena.com/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Paramus%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07652",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.elcidrestaurant.com/menus/"
+        },
+        {
+          "postcode": "07652",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.elcidrestaurant.com/menus/desserts/"
+        },
+        {
+          "postcode": "07652",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://monsterminigolf.com/locations/us/nj/paramus/"
+        },
+        {
+          "postcode": "07652",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.humdingersnj.com/bowl"
+        },
+        {
+          "postcode": "07652",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.poweruparena.com/"
+        },
+        {
+          "postcode": "07652",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paramus%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07653",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paramus%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Park Ridge",
+      "lat": 41.0361833,
+      "lon": -74.0442926,
+      "postcodes": [
+        "07656"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://pascackhistoricalsociety.org/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Park+Ridge%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07656",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://pascackhistoricalsociety.org/"
+        },
+        {
+          "postcode": "07656",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Park+Ridge%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Parsippany",
+      "lat": 40.8596359,
+      "lon": -74.4233483,
+      "postcodes": [
+        "07054",
+        "07950"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://bellarosarestaurant.com/menus/",
+        "https://gourmetcafenj.com/",
+        "https://www.morrisparks.net/parks_trails/old-troy-county-park/",
+        "https://www.morrisparks.net/parks_trails/central-park-of-morris-county/",
+        "https://wildlifepreserves.org/our-preserves/troy-meadows/public-access/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Parsippany%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07054",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://bellarosarestaurant.com/menus/"
+        },
+        {
+          "postcode": "07054",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://gourmetcafenj.com/"
+        },
+        {
+          "postcode": "07054",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.morrisparks.net/parks_trails/old-troy-county-park/"
+        },
+        {
+          "postcode": "07950",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.morrisparks.net/parks_trails/central-park-of-morris-county/"
+        },
+        {
+          "postcode": "07054",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://wildlifepreserves.org/our-preserves/troy-meadows/public-access/"
+        },
+        {
+          "postcode": "07054",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Parsippany%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Passaic",
+      "lat": 40.8575524,
+      "lon": -74.1290888,
+      "postcodes": [
+        "07055"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.elperuanitorestaurante.com/menu",
+        "https://seepassaiccounty.org/explore/parks/dundee-island-park/",
+        "https://www.cityofpassaic.com/DocumentCenter/View/10270/2023-Passaic-City-Aging-Friendly-Land-Use-Plan-",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Passaic%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07055",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.elperuanitorestaurante.com/menu"
+        },
+        {
+          "postcode": "07055",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://seepassaiccounty.org/explore/parks/dundee-island-park/"
+        },
+        {
+          "postcode": "07055",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.cityofpassaic.com/DocumentCenter/View/10270/2023-Passaic-City-Aging-Friendly-Land-Use-Plan-"
+        },
+        {
+          "postcode": "07055",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Passaic%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Paterson",
+      "lat": 40.9147662,
+      "lon": -74.1628291,
+      "postcodes": [
+        "07501",
+        "07502",
+        "07503",
+        "07504",
+        "07505",
+        "07509",
+        "07510",
+        "07513",
+        "07514",
+        "07522",
+        "07524",
+        "07533",
+        "07543",
+        "07544"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.nps.gov/pagr/planyourvisit/fees.htm",
+        "https://patersonmuseum.com/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07501",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.nps.gov/pagr/planyourvisit/fees.htm"
+        },
+        {
+          "postcode": "07501",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://patersonmuseum.com/"
+        },
+        {
+          "postcode": "07501",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07502",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07503",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07504",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07505",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07509",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07510",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07513",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07514",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07522",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07524",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07533",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07543",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07544",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Paterson%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Ridgewood",
+      "lat": 40.9818601,
+      "lon": -74.1134564,
+      "postcodes": [
+        "07450",
+        "07451"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.sookpastry.com/menu/sandwiches-soup?location_id=3617",
+        "https://www.sookpastry.com/menu/pastries?location_id=3617",
+        "https://bergencountynj.gov/bergen-county-department-of-parks/saddle-river-county-park/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Ridgewood%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07450",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.sookpastry.com/menu/sandwiches-soup?location_id=3617"
+        },
+        {
+          "postcode": "07450",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.sookpastry.com/menu/pastries?location_id=3617"
+        },
+        {
+          "postcode": "07450",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://bergencountynj.gov/bergen-county-department-of-parks/saddle-river-county-park/"
+        },
+        {
+          "postcode": "07450",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Ridgewood%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07451",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Ridgewood%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Ringwood",
+      "lat": 41.1039627,
+      "lon": -74.2711379,
+      "postcodes": [
+        "07456"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://njbg.org/hours-admission/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Ringwood%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07456",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://njbg.org/hours-admission/"
+        },
+        {
+          "postcode": "07456",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Ringwood%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Rutherford",
+      "lat": 40.8203143,
+      "lon": -74.1060409,
+      "postcodes": [
+        "07070"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.meadowlandsmuseum.com/visit-us",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Rutherford%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07070",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.meadowlandsmuseum.com/visit-us"
+        },
+        {
+          "postcode": "07070",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Rutherford%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Saddle Brook",
+      "lat": 40.9030993,
+      "lon": -74.0935906,
+      "postcodes": [
+        "07663"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://bergencountynj.gov/bergen-county-department-of-parks/saddle-river-county-park/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Saddle+Brook%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07663",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://bergencountynj.gov/bergen-county-department-of-parks/saddle-river-county-park/"
+        },
+        {
+          "postcode": "07663",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Saddle+Brook%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Saddle River",
+      "lat": 41.023696,
+      "lon": -74.0925529,
+      "postcodes": [
+        "07458"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.saddleriverinn.com/menus/",
+        "https://www.saddleriverinn.com/menu/dessert/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Saddle+River%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07458",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.saddleriverinn.com/menus/"
+        },
+        {
+          "postcode": "07458",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.saddleriverinn.com/menu/dessert/"
+        },
+        {
+          "postcode": "07458",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Saddle+River%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Secaucus",
+      "lat": 40.7817786,
+      "lon": -74.067189,
+      "postcodes": [
+        "07094",
+        "07096"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://hautedulce.com/our-menu/",
+        "https://www.njsea.com/parks-and-trails/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Secaucus%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07094",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://hautedulce.com/our-menu/"
+        },
+        {
+          "postcode": "07094",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.njsea.com/parks-and-trails/"
+        },
+        {
+          "postcode": "07094",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Secaucus%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07096",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Secaucus%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Summit",
+      "lat": 40.7156222,
+      "lon": -74.3646841,
+      "postcodes": [
+        "07901",
+        "07902"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.artcenternj.org/about/plan-your-visit/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Summit%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07901",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.artcenternj.org/about/plan-your-visit/"
+        },
+        {
+          "postcode": "07901",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Summit%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07902",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Summit%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Teterboro",
+      "lat": 40.8545726,
+      "lon": -74.0596194,
+      "postcodes": [
+        "07608"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://njahof.org/plan-your-visit/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Teterboro%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07608",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://njahof.org/plan-your-visit/"
+        },
+        {
+          "postcode": "07608",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Teterboro%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Totowa",
+      "lat": 40.9034151,
+      "lon": -74.2197791,
+      "postcodes": [
+        "07511",
+        "07512"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://thekafeneo.com/menu/",
+        "https://www.nicolasristorantenj.com/dinner/",
+        "https://totowapizza.com/",
+        "https://www.fusion27.com/",
+        "https://lucianostotowa.com/wp-content/uploads/2026/11/LUCIANO-INHOUSE-MENU-copy.pdf",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Totowa%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07512",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://thekafeneo.com/menu/"
+        },
+        {
+          "postcode": "07512",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.nicolasristorantenj.com/dinner/"
+        },
+        {
+          "postcode": "07512",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://totowapizza.com/"
+        },
+        {
+          "postcode": "07512",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.fusion27.com/"
+        },
+        {
+          "postcode": "07512",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://lucianostotowa.com/wp-content/uploads/2026/11/LUCIANO-INHOUSE-MENU-copy.pdf"
+        },
+        {
+          "postcode": "07511",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Totowa%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07512",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Totowa%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Wayne",
+      "lat": 40.9458547,
+      "lon": -74.2450769,
+      "postcodes": [
+        "07470",
+        "07474"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://www.viaggioristorante.com/menus/",
+        "https://www.waynenorisushi.com/menu",
+        "https://laurelwoodarboretum.org/visit/directions/",
+        "https://www.icevault.com/public-skating.php",
+        "https://seepassaiccounty.org/dey-mansion-plan-your-visit/",
+        "https://www.wpunj.edu/coac/gallery/contact-us.html",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Wayne%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07470",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.viaggioristorante.com/menus/"
+        },
+        {
+          "postcode": "07470",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.waynenorisushi.com/menu"
+        },
+        {
+          "postcode": "07470",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://laurelwoodarboretum.org/visit/directions/"
+        },
+        {
+          "postcode": "07470",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.icevault.com/public-skating.php"
+        },
+        {
+          "postcode": "07470",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://seepassaiccounty.org/dey-mansion-plan-your-visit/"
+        },
+        {
+          "postcode": "07470",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.wpunj.edu/coac/gallery/contact-us.html"
+        },
+        {
+          "postcode": "07470",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Wayne%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07474",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Wayne%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "West Orange",
+      "lat": 40.7857553,
+      "lon": -74.265058,
+      "postcodes": [
+        "07052"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://essexcountyparks.org/parks/south-mountain-reservation",
+        "https://www.nps.gov/edis/planyourvisit/fees.htm",
+        "https://www.turtlebackzoo.com/ticket-rates/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=West+Orange%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07052",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://essexcountyparks.org/parks/south-mountain-reservation"
+        },
+        {
+          "postcode": "07052",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.nps.gov/edis/planyourvisit/fees.htm"
+        },
+        {
+          "postcode": "07052",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://www.turtlebackzoo.com/ticket-rates/"
+        },
+        {
+          "postcode": "07052",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=West+Orange%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Westfield",
+      "lat": 40.6516437,
+      "lon": -74.3434472,
+      "postcodes": [
+        "07090",
+        "07091"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://yestercades.com/pricing/",
+        "https://yestercades.com/shop/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Westfield%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07090",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://yestercades.com/pricing/"
+        },
+        {
+          "postcode": "07090",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://yestercades.com/shop/"
+        },
+        {
+          "postcode": "07090",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Westfield%2C+NJ&count=20&countryCode=US&format=json"
+        },
+        {
+          "postcode": "07091",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Westfield%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    },
+    {
+      "name": "Woodland Park",
+      "lat": 40.8898549,
+      "lon": -74.1943564,
+      "postcodes": [
+        "07424"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://imperial46restaurant.com/woodland-park-imperial-46-restaurant-takeout",
+        "https://seepassaiccounty.org/explore/parks/garret-mountain-reservation/",
+        "https://seepassaiccounty.org/explore/parks/rifle-camp-park/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Woodland+Park%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07424",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://imperial46restaurant.com/woodland-park-imperial-46-restaurant-takeout"
+        },
+        {
+          "postcode": "07424",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://seepassaiccounty.org/explore/parks/garret-mountain-reservation/"
+        },
+        {
+          "postcode": "07424",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://seepassaiccounty.org/explore/parks/rifle-camp-park/"
+        }
+      ]
+    },
+    {
+      "name": "Wyckoff",
+      "lat": 40.9990933,
+      "lon": -74.1688486,
+      "postcodes": [
+        "07481"
+      ],
+      "sourceUrls": [
+        "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+        "https://bergencountynj.gov/bergen-county-department-of-parks/j-a-mcfaul-environmental-center/j-a-mcfaul-environmental-center-faqs/",
+        "https://geocoding-api.open-meteo.com/v1/search?name=Wyckoff%2C+NJ&count=20&countryCode=US&format=json"
+      ],
+      "checkedOn": "2026-11-20",
+      "postalEvidence": [
+        {
+          "postcode": "07481",
+          "basis": "Recorded public venue address in this municipality",
+          "sourceUrl": "https://bergencountynj.gov/bergen-county-department-of-parks/j-a-mcfaul-environmental-center/j-a-mcfaul-environmental-center-faqs/"
+        },
+        {
+          "postcode": "07481",
+          "basis": "GeoNames populated-place postal association via Open-Meteo",
+          "sourceUrl": "https://geocoding-api.open-meteo.com/v1/search?name=Wyckoff%2C+NJ&count=20&countryCode=US&format=json"
+        }
+      ]
+    }
+  ]
+}
