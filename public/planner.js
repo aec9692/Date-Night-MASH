@@ -5,7 +5,7 @@
   const moods = ['surprise', 'cozy', 'adventurous', 'romantic', 'competitive'];
   const spendingModes = ['treat', 'flexible'];
   const areas = ['all', 'general', 'paterson'];
-  const fields = ['budget', 'setting', 'mood', 'spending', 'area', 'date', 'excluded', 'customOptions', 'locked', 'previous', 'journey'];
+  const fields = ['budget', 'setting', 'mood', 'spending', 'area', 'date', 'excluded', 'customOptions', 'locked', 'previous', 'journey', 'mash'];
   const object = value => value && typeof value === 'object' && !Array.isArray(value);
   const fail = (error, status = 400, extra = {}) => ({ error, status, ...extra });
 
@@ -28,11 +28,15 @@
 
   function prepare(input, catalog, includePlans = true, drawTicket = null) {
     if (!object(input) || Object.keys(input).some(key => !fields.includes(key))) return fail('Send a budget and documented date preferences only.');
+    if(input.journey!==undefined&&input.mash!==undefined)return fail('Choose MASH or the custom planner for this request.');
     if (input.journey !== undefined) {
       const journey = typeof module === 'object' && module.exports ? require('./journey') : root.MashJourney;
       return journey.prepare(input,catalog,includePlans,drawTicket,api);
     }
     const { budget, setting = 'any', mood = 'surprise', spending = 'treat', area = 'all', date = '', excluded = [], customOptions = [], locked = {}, previous = [] } = input;
+    const journeyRules=typeof module==='object'&&module.exports?require('./journey'):root.MashJourney;
+    const mash=input.mash===undefined?null:journeyRules.normalizeMash(input.mash);
+    if(input.mash!==undefined&&!mash)return fail('Choose a supported MASH town, radius and audience.');
     if (typeof budget !== 'number' || !Number.isFinite(budget) || budget < 0 || budget > 10000 || budget !== Number(budget.toFixed(2))) {
       return fail('Enter a budget from $0 to $10,000 with at most two decimal places.');
     }
@@ -56,7 +60,7 @@
       return fail('The previous plan must contain one valid idea per category.');
     }
     const groups = categories.map(category => options.filter(option => option.category === category &&
-      eligible(option, area, date) &&
+      eligible(option, area, date) && (!mash||journeyRules.matchesMash(option,mash)) &&
       !excluded.includes(option.id) && (setting === 'any' || option.settings.includes(setting)) &&
       (!locked[category] || option.id === locked[category])));
     const empty = groups.findIndex(group => !group.length);
@@ -130,6 +134,7 @@
       }
     }
     return { plans, selectedPicks, combinationCount, maximumCents, targetCents,
+      ...(mash?{mash}:{}),
       unchanged: previous.length === 4 && !alternativeCount, budgetCents, setting, mood, spending, area, date, customOptions };
   }
 

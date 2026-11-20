@@ -1,6 +1,6 @@
 # Paterson-area price sources
 
-Checked November 19, 2026. These are posted public prices, not live booking quotes. The default local deck has 200 ideas: 50 per category, across 99 venue/route identifiers in 43 towns, all in New Jersey. Source-linked nearby towns were selected as a practical shortlist around Paterson, not a geocoded or traffic-verified 60-minute radius. Every result includes a map link; traffic and a multi-stop route can take longer.
+Checked November 19, 2026. These are posted public prices, not live booking quotes. The default local deck has 209 ideas: 50 dinner, 54 activity, 50 treat and 55 entertainment examples, across 107 venue/route identifiers in 43 towns, all in New Jersey. Source-linked nearby towns were selected as a practical shortlist around Paterson, not a geocoded or traffic-verified 60-minute radius. Every result includes a map link; traffic and a multi-stop route can take longer.
 
 ## Cost basis
 
@@ -303,3 +303,23 @@ Six historical venue images have source-specific author/license/date records in 
 | garden | [Zeete](https://commons.wikimedia.org/wiki/File:Skylands%2C_Ringwood%2C_NJ_-_fall_garden_view.jpg) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
 
 Calendar export follows the [iCalendar specification](https://www.rfc-editor.org/rfc/rfc5545) for escaping/folding and uses UTC timestamps derived from New Jersey time. Offline behavior follows the browser [Service Worker model](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers); cache simulation is not a real-phone installation test.
+
+## Additional paid outings and venue-range display
+
+Checked November 19, 2026. These nine additions retain explicit orders/admissions for two and separate tax reserves. Venue ranges aggregate these examples; they do not describe every possible menu order or booking.
+
+| ID | Place | Posted basis | Base | Planning total | Evidence |
+| --- | --- | --- | ---: | ---: | --- |
+| nj-p001 | Humdingers, Paramus | One shared bowling lane for one hour at $80; shoes and Spark games included for two bowlers. | $80.00 | $85.30 | [Official source](https://www.humdingersnj.com/bowl) |
+| nj-p002 | Bury The Hatchet Bloomfield, Bloomfield | Two standard one-hour participant tickets at $35 each, including the $3-per-person booking fee. | $70.00 | $74.64 | [Official source](https://burythehatchet.com/axe-throwing-nj-bloomfield-montclair/) |
+| nj-p003 | Glassworks Studio, Morristown | Two $33 coaster projects plus two $5 admissions; two hours of crafting with materials and tools. Return later for kiln-fired pieces. | $76.00 | $81.04 | [Official source](https://www.umakeglass.com/30-35) |
+| nj-p004 | EscapeRoomNJ Englewood, Englewood | One Euphoria Heist private-room package explicitly priced for two people at $125; a 60-minute escape game. | $125.00 | $133.28 | [Official source](https://escaperoomnj.com/englewood-nj-escape-rooms-the-euphoria-hest/) |
+| nj-p005 | The Pixel Lab, Jersey City | Two first-hour arcade passes at $16 each. All games are free play; overtime adds $4 per person per 15 minutes. | $32.00 | $34.12 | [Official source](https://www.pixellab.gg/) |
+| nj-p006 | Turtle Back Zoo, West Orange | Two regular adult admissions (ages 13+) at $19 each on the current official ticket page. Extra paid attractions are separate. | $38.00 | $38.00 | [Official source](https://www.turtlebackzoo.com/ticket-rates/) |
+| nj-p007 | Power Up Arena, Paramus | Two Ultimate Play passes at the posted $44.99 each. Confirm the current included attractions and time limits when booking. | $89.98 | $95.94 | [Official source](https://www.poweruparena.com/) |
+| nj-p008 | Power Up Arena, Paramus | Two Single Game Passes at the posted $19.99 each. Select an eligible game and confirm session details when booking. | $39.98 | $42.63 | [Official source](https://www.poweruparena.com/) |
+| nj-p009 | The Other Tales Escape Rooms, Hawthorne | Two regular $39.95 tickets plus tax for one private 60-minute escape room; minimum two players. No expired promotion assumed. | $79.90 | $85.19 | [Official source](https://www.theothertales.com/rooms/rooms.php) |
+
+Bury’s $35 ticket already includes its $3 booking fee; do not add it again. Under-18s require an adult in the group. Pixel Lab requires an adult for under-16s and changes to adults-only on Friday after 8pm; its conservative planning window ends at 8pm. The Other Tales requires a participant over sixteen for teen groups and guardian waivers for under-eighteens; the broad 13–17 profile is conservatively excluded. Glassworks is a two-hour craft plus later kiln-fired pickup, not a same-day finished souvenir; its venue has stairs and no elevator. Turtle Back’s current adult ticket page lists $19, not the older cached $22; winter hours/holiday closures are recorded, and seasonally closed treetop/mini-golf attractions were omitted. Power Up passes use posted prices; confirm exact inclusions, session limits and attraction rules.
+
+[Google Maps directions URLs](https://developers.google.com/maps/documentation/urls/get-started#directions) allow an omitted origin and use a relevant/device location when available, or let the user supply one. No Maps API key or GPS collection is required for this link behavior.

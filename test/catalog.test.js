@@ -5,7 +5,7 @@ const local=require('../data/local-options.json');
 const general=require('../data/options.json');
 
 test('NJ deck has fifty choices per category, requested towns and substantial inexpensive coverage',()=>{
- assert.deepEqual(planner.categories.map(c=>local.filter(o=>o.category===c).length),[50,50,50,50]);
+ assert.deepEqual(planner.categories.map(c=>local.filter(o=>o.category===c).length),[50,54,50,55]);
  assert.deepEqual(planner.categories.map(c=>general.filter(o=>o.category===c).length),[24,24,24,24]);
  const towns=new Set(local.map(o=>o.venue.city));
  for(const town of ['Paramus','Parsippany','Lincoln Park','Caldwell','Fair Lawn','Woodland Park','Fairfield','Lyndhurst','East Rutherford','Secaucus','Jersey City','Hoboken','Bergenfield','Garfield','Passaic'])assert.ok(towns.has(town),town);
@@ -14,8 +14,8 @@ test('NJ deck has fifty choices per category, requested towns and substantial in
   assert.ok(options.filter(o=>o.costCents<3000).length>=[15,25,40,30][i],category+' affordable coverage');
   assert.ok(new Set(options.map(o=>o.costCents)).size>=10,category+' price variety');
  }
- assert.equal(new Set(local.map(o=>o.id)).size,200);
- assert.equal(new Set(local.map(o=>o.venue.id)).size,99);
+ assert.equal(new Set(local.map(o=>o.id)).size,209);
+ assert.equal(new Set(local.map(o=>o.venue.id)).size,107);
 });
 
 test('known holiday closures, winter intervals and corrected weekday offers affect actual eligibility',()=>{

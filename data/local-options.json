@@ -9862,5 +9862,537 @@
       "exclusions": "Travel, parking, extra purchases and unconfirmed checkout fees are separate.",
       "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
     }
+  },
+  {
+    "id": "nj-p001",
+    "category": "activity",
+    "name": "Humdingers: Spark bowling for two",
+    "description": "One shared bowling lane for one hour at $80; shoes and Spark games included for two bowlers.",
+    "costCents": 8530,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official source, current session availability and full checkout price before leaving.",
+    "venue": {
+      "id": "humdingers",
+      "name": "Humdingers",
+      "city": "Paramus",
+      "address": "64 E Midland Ave, Paramus, NJ 07652",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Mon-Thu noon-10pm, Fri 11am-11pm, Sat 10am-midnight, Sun 10am-10pm. Bowling can have a queue; confirm availability.",
+      "state": "NJ",
+      "area": "paterson",
+      "routeNote": "NJ shortlist around Paterson; town-center distances are approximate, not live drive times. Check the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.humdingersnj.com/bowl",
+      "additionalSourceUrls": [],
+      "order": "One shared bowling lane for one hour at $80; shoes and Spark games included for two bowlers.",
+      "baseCents": 8000,
+      "taxCents": 530,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve included; confirm actual tax treatment and checkout fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Travel, parking, food, extra play/time, optional purchases and unconfirmed checkout fees are separate. No membership, group or child discount assumed.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    },
+    "experience": {
+      "durationMinutes": 60,
+      "planningWindow": [
+        720,
+        1320
+      ],
+      "physicalEffort": "moderate"
+    }
+  },
+  {
+    "id": "nj-p002",
+    "category": "activity",
+    "name": "Bury The Hatchet: one-hour axe session",
+    "description": "Two standard one-hour participant tickets at $35 each, including the $3-per-person booking fee.",
+    "costCents": 7464,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official source, current session availability and full checkout price before leaving.",
+    "venue": {
+      "id": "bury-bloomfield",
+      "name": "Bury The Hatchet Bloomfield",
+      "city": "Bloomfield",
+      "address": "672 Bloomfield Ave, Bloomfield, NJ 07003",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Reserve an available one-hour session and arrive 15 minutes early. Ages 10+; anyone under 18 must have an adult 18+ in the group. Closed-toe shoes required.",
+      "state": "NJ",
+      "area": "paterson",
+      "routeNote": "NJ shortlist around Paterson; town-center distances are approximate, not live drive times. Check the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://burythehatchet.com/axe-throwing-nj-bloomfield-montclair/",
+      "additionalSourceUrls": [
+        "https://burythehatchet.com/axe-throwing-faqs/"
+      ],
+      "order": "Two standard one-hour participant tickets at $35 each, including the $3-per-person booking fee.",
+      "baseCents": 7000,
+      "taxCents": 464,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve included; confirm actual tax treatment and checkout fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Travel, parking, food, extra play/time, optional purchases and unconfirmed checkout fees are separate. No membership, group or child discount assumed.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    },
+    "experience": {
+      "durationMinutes": 60,
+      "minimumAge": 10,
+      "adultRequiredUnder": 18,
+      "physicalEffort": "active"
+    }
+  },
+  {
+    "id": "nj-p003",
+    "category": "activity",
+    "name": "Glassworks: make a fused-glass keepsake",
+    "description": "Two $33 coaster projects plus two $5 admissions; two hours of crafting with materials and tools. Return later for kiln-fired pieces.",
+    "costCents": 8104,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official source, current session availability and full checkout price before leaving.",
+    "venue": {
+      "id": "glassworks",
+      "name": "Glassworks Studio",
+      "city": "Morristown",
+      "address": "151 South St Suite B, Morristown, NJ 07960",
+      "openDays": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "hoursNote": "This daytime craft choice is Sun/Mon/Fri/Sat 11am-5pm, last seating two hours before closing. The venue also offers Thu 3-9pm BYOB hours, excluded from this daytime shortlist. Tue/Wed closed except private events. Reserve first; completed work needs later pickup, usually about ten days. Stairs; no elevator.",
+      "state": "NJ",
+      "area": "paterson",
+      "routeNote": "NJ shortlist around Paterson; town-center distances are approximate, not live drive times. Check the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.umakeglass.com/30-35",
+      "additionalSourceUrls": [
+        "https://www.umakeglass.com/"
+      ],
+      "order": "Two $33 coaster projects plus two $5 admissions; two hours of crafting with materials and tools. Return later for kiln-fired pieces.",
+      "baseCents": 7600,
+      "taxCents": 504,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve included; confirm actual tax treatment and checkout fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Travel, parking, food, extra play/time, optional purchases and unconfirmed checkout fees are separate. No membership, group or child discount assumed.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    },
+    "experience": {
+      "durationMinutes": 120,
+      "planningWindow": [
+        660,
+        1020
+      ],
+      "physicalEffort": "low"
+    }
+  },
+  {
+    "id": "nj-p004",
+    "category": "activity",
+    "name": "EscapeRoomNJ: private Euphoria Heist",
+    "description": "One Euphoria Heist private-room package explicitly priced for two people at $125; a 60-minute escape game.",
+    "costCents": 13328,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎯",
+    "moods": [
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official source, current session availability and full checkout price before leaving.",
+    "venue": {
+      "id": "escape-englewood",
+      "name": "EscapeRoomNJ Englewood",
+      "city": "Englewood",
+      "address": "36 N Dean St, Englewood, NJ 07631",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Appointment/session availability must be confirmed. The Euphoria Heist is a private room for two; allow arrival time before the booked session. Confirm guardian participation and waiver arrangements for under-18 guests.",
+      "state": "NJ",
+      "area": "paterson",
+      "routeNote": "NJ shortlist around Paterson; town-center distances are approximate, not live drive times. Check the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://escaperoomnj.com/englewood-nj-escape-rooms-the-euphoria-hest/",
+      "additionalSourceUrls": [
+        "https://escaperoomnj.com/faq/",
+        "https://escaperoomnj.com/waiver/"
+      ],
+      "order": "One Euphoria Heist private-room package explicitly priced for two people at $125; a 60-minute escape game.",
+      "baseCents": 12500,
+      "taxCents": 828,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve included; confirm actual tax treatment and checkout fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Travel, parking, food, extra play/time, optional purchases and unconfirmed checkout fees are separate. No membership, group or child discount assumed.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    },
+    "experience": {
+      "durationMinutes": 60,
+      "physicalEffort": "low"
+    }
+  },
+  {
+    "id": "nj-p005",
+    "category": "entertainment",
+    "name": "The Pixel Lab: arcade hour together",
+    "description": "Two first-hour arcade passes at $16 each. All games are free play; overtime adds $4 per person per 15 minutes.",
+    "costCents": 3412,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official source, current session availability and full checkout price before leaving.",
+    "venue": {
+      "id": "pixel-lab",
+      "name": "The Pixel Lab",
+      "city": "Jersey City",
+      "address": "381 1st St, Jersey City, NJ 07302",
+      "openDays": [
+        0,
+        1,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Mon/Thu 3-8pm, Fri 3pm-midnight, Sat noon-midnight, Sun noon-10pm; Tue/Wed closed. Under 16 must be accompanied by an adult/parent/guardian. Fridays after 8pm are adults only; private events can change hours.",
+      "state": "NJ",
+      "area": "paterson",
+      "routeNote": "NJ shortlist around Paterson; town-center distances are approximate, not live drive times. Check the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.pixellab.gg/",
+      "additionalSourceUrls": [],
+      "order": "Two first-hour arcade passes at $16 each. All games are free play; overtime adds $4 per person per 15 minutes.",
+      "baseCents": 3200,
+      "taxCents": 212,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve included; confirm actual tax treatment and checkout fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Travel, parking, food, extra play/time, optional purchases and unconfirmed checkout fees are separate. No membership, group or child discount assumed.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    },
+    "experience": {
+      "durationMinutes": 60,
+      "adultRequiredUnder": 16,
+      "planningWindow": [
+        900,
+        1200
+      ],
+      "physicalEffort": "low"
+    }
+  },
+  {
+    "id": "nj-p006",
+    "category": "entertainment",
+    "name": "Turtle Back Zoo: animal-discovery date",
+    "description": "Two regular adult admissions (ages 13+) at $19 each on the current official ticket page. Extra paid attractions are separate.",
+    "costCents": 3800,
+    "settings": [
+      "outdoor"
+    ],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official source, current session availability and full checkout price before leaving.",
+    "venue": {
+      "id": "turtle-zoo",
+      "name": "Turtle Back Zoo",
+      "city": "West Orange",
+      "address": "560 Northfield Ave, West Orange, NJ 07052",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "closedDates": [
+        "2026-11-26",
+        "2026-12-25",
+        "2027-01-01"
+      ],
+      "hoursNote": "Winter hours from Nov 2, 2026: 10am-3pm. Closed Thanksgiving, Christmas and New Year's Day. Confirm current hours and habitat access. Treetop, Safari Mini Golf and some seasonal habitats are closed for winter.",
+      "state": "NJ",
+      "area": "paterson",
+      "routeNote": "NJ shortlist around Paterson; town-center distances are approximate, not live drive times. Check the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.turtlebackzoo.com/ticket-rates/",
+      "additionalSourceUrls": [
+        "https://www.turtlebackzoo.com/plan-your-trip/",
+        "https://www.turtlebackzoo.com/faq/"
+      ],
+      "order": "Two regular adult admissions (ages 13+) at $19 each on the current official ticket page. Extra paid attractions are separate.",
+      "baseCents": 3800,
+      "taxCents": 0,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "Published admission subtotal; actual checkout taxes/fees, if any, require confirmation.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Travel, parking, food, extra play/time, optional purchases and unconfirmed checkout fees are separate. No membership, group or child discount assumed.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    },
+    "experience": {
+      "durationMinutes": 120,
+      "durationIsEstimate": true,
+      "planningWindow": [
+        600,
+        900
+      ],
+      "physicalEffort": "moderate"
+    }
+  },
+  {
+    "id": "nj-p007",
+    "category": "entertainment",
+    "name": "Power Up Arena: Ultimate Play together",
+    "description": "Two Ultimate Play passes at the posted $44.99 each. Confirm the current included attractions and time limits when booking.",
+    "costCents": 9594,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official source, current session availability and full checkout price before leaving.",
+    "venue": {
+      "id": "powerup",
+      "name": "Power Up Arena",
+      "city": "Paramus",
+      "address": "1 Garden State Plaza Blvd Store 2145, Paramus, NJ 07652",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Mon-Thu 11am-8pm, Fri 11am-9pm, Sat 10am-9pm, Sun 10am-7pm. Level 2 near Neiman Marcus. Reserve busy sessions; confirm pass inclusions, time limits and attraction age/height rules.",
+      "state": "NJ",
+      "area": "paterson",
+      "routeNote": "NJ shortlist around Paterson; town-center distances are approximate, not live drive times. Check the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.poweruparena.com/",
+      "additionalSourceUrls": [],
+      "order": "Two Ultimate Play passes at the posted $44.99 each. Confirm the current included attractions and time limits when booking.",
+      "baseCents": 8998,
+      "taxCents": 596,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve included; confirm actual tax treatment and checkout fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Travel, parking, food, extra play/time, optional purchases and unconfirmed checkout fees are separate. No membership, group or child discount assumed.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    },
+    "experience": {
+      "planningWindow": [
+        660,
+        1140
+      ],
+      "physicalEffort": "active"
+    }
+  },
+  {
+    "id": "nj-p008",
+    "category": "entertainment",
+    "name": "Power Up Arena: single-game showdown",
+    "description": "Two Single Game Passes at the posted $19.99 each. Select an eligible game and confirm session details when booking.",
+    "costCents": 4263,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official source, current session availability and full checkout price before leaving.",
+    "venue": {
+      "id": "powerup",
+      "name": "Power Up Arena",
+      "city": "Paramus",
+      "address": "1 Garden State Plaza Blvd Store 2145, Paramus, NJ 07652",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Mon-Thu 11am-8pm, Fri 11am-9pm, Sat 10am-9pm, Sun 10am-7pm. Level 2 near Neiman Marcus. Reserve busy sessions; confirm pass inclusions, time limits and attraction age/height rules.",
+      "state": "NJ",
+      "area": "paterson",
+      "routeNote": "NJ shortlist around Paterson; town-center distances are approximate, not live drive times. Check the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.poweruparena.com/",
+      "additionalSourceUrls": [],
+      "order": "Two Single Game Passes at the posted $19.99 each. Select an eligible game and confirm session details when booking.",
+      "baseCents": 3998,
+      "taxCents": 265,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve included; confirm actual tax treatment and checkout fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Travel, parking, food, extra play/time, optional purchases and unconfirmed checkout fees are separate. No membership, group or child discount assumed.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    },
+    "experience": {
+      "planningWindow": [
+        660,
+        1140
+      ],
+      "physicalEffort": "active"
+    }
+  },
+  {
+    "id": "nj-p009",
+    "category": "entertainment",
+    "name": "The Other Tales: private escape story",
+    "description": "Two regular $39.95 tickets plus tax for one private 60-minute escape room; minimum two players. No expired promotion assumed.",
+    "costCents": 8519,
+    "settings": [
+      "indoor"
+    ],
+    "emoji": "🎟️",
+    "moods": [
+      "cozy",
+      "adventurous",
+      "competitive"
+    ],
+    "tip": "Check the official source, current session availability and full checkout price before leaving.",
+    "venue": {
+      "id": "other-tales",
+      "name": "The Other Tales Escape Rooms",
+      "city": "Hawthorne",
+      "address": "245 Diamond Bridge Ave, Hawthorne, NJ 07506",
+      "openDays": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hoursNote": "Tue-Sat 11am-11pm, Sun 11am-9pm, by appointment. Minimum two players; one participant must be over 16 when teens play. Under-18 waivers need a parent/guardian signature. Stairs to the second floor; no elevator. Arrive ten minutes early.",
+      "state": "NJ",
+      "area": "paterson",
+      "routeNote": "NJ shortlist around Paterson; town-center distances are approximate, not live drive times. Check the whole route."
+    },
+    "pricing": {
+      "checkedOn": "2026-11-19",
+      "sourceUrl": "https://www.theothertales.com/rooms/rooms.php",
+      "additionalSourceUrls": [
+        "https://www.theothertales.com/information/faq.php"
+      ],
+      "order": "Two regular $39.95 tickets plus tax for one private 60-minute escape room; minimum two players. No expired promotion assumed.",
+      "baseCents": 7990,
+      "taxCents": 529,
+      "tipCents": 0,
+      "donationCents": 0,
+      "taxNote": "6.625% planning tax reserve included; confirm actual tax treatment and checkout fees.",
+      "tipNote": "No tip allowance included.",
+      "exclusions": "Travel, parking, food, extra play/time, optional purchases and unconfirmed checkout fees are separate. No membership, group or child discount assumed.",
+      "taxSourceUrl": "https://nj.gov/treasury/taxation/salestax.shtml"
+    },
+    "experience": {
+      "durationMinutes": 60,
+      "minimumAge": 0,
+      "participantAgeAtLeast": 17,
+      "guardianWaiverUnder": 18,
+      "planningWindow": [
+        660,
+        1260
+      ],
+      "physicalEffort": "low",
+      "recommendedMinimumAge": 13,
+      "adultRequiredUnder": 13
+    }
   }
 ]

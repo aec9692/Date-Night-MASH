@@ -2,13 +2,14 @@
 window.DateCard = (() => {
   const money = cents => new Intl.NumberFormat('en-US', { style:'currency', currency:'USD' }).format(cents / 100);
   const clean = value => String(value || '').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[–—]/g,'-').replace(/…/g,'...').replace(/[^\x20-\x7e\n]/g,'');
+  const placeTitle=pick=>pick.venue&&['dinner','treat'].includes(pick.category)?pick.venue.name:pick.name;
   function text(plan) {
     const picks=window.MashJourney?MashJourney.ordered(plan):plan.picks;
     return [plan.title || 'DATE NIGHT MASH', `Date: ${plan.date || 'Not selected'} | Area: ${plan.area || 'general'}`,
       ...(plan.schedule?[`Suggested time: ${plan.schedule.start}–${plan.schedule.end} | Starting town: ${plan.journey.origin}`,plan.schedule.notice]:[]),
       `Setting: ${plan.setting} | Mood: ${plan.mood || 'surprise'} | Spending: ${plan.spending || 'flexible'}`,
       `Budget for two: ${money(plan.budgetCents)}`, '', ...picks.flatMap(pick => [
-        `${pick.category.toUpperCase()}: ${pick.name} - ${money(pick.costCents)}`, pick.description,
+        `${pick.category.toUpperCase()}: ${placeTitle(pick)} - ${money(pick.costCents)}`, pick.venue&&['dinner','treat'].includes(pick.category)?'Choose from their menu. The budget uses a checked sample order, not a guaranteed final bill.':pick.description,
         ...(plan.schedule?[`Suggested visit: ${plan.schedule.stops.find(s=>s.id===pick.id).start}–${plan.schedule.stops.find(s=>s.id===pick.id).end}`]:[]),
         ...(pick.venue ? [pick.venue.address, pick.venue.hoursNote, pick.pricing.order,
           `Posted ${money(pick.pricing.baseCents)}; estimated tax ${money(pick.pricing.taxCents)}; optional tip ${money(pick.pricing.tipCents)}; optional donation ${money(pick.pricing.donationCents)}`,
@@ -48,7 +49,7 @@ window.DateCard = (() => {
       pdf.setFillColor(...colors[['dinner','activity','treat','entertainment'].indexOf(pick.category)]); pdf.roundedRect(24,y,384,82,10,10,'F');
       label(`${index+1}  ${pick.category.toUpperCase()}`,38,y+20,9,true);
       pdf.setFont('helvetica','bold');pdf.setFontSize(13);pdf.setTextColor(41,35,51);
-      const title=pdf.splitTextToSize(clean(pick.name),268);
+      const title=pdf.splitTextToSize(clean(placeTitle(pick)),268);
       pdf.text(title.slice(0,2),38,y+42,{lineHeightFactor:1.2});
       label(money(pick.costCents),324,y+42,13,true);
       const stop=plan.schedule?.stops.find(s=>s.id===pick.id);
@@ -61,13 +62,13 @@ window.DateCard = (() => {
       pdf.setFillColor(...colors[['dinner','activity','treat','entertainment'].indexOf(pick.category)]);pdf.roundedRect(24,54,384,30,9,9,'F');
       const stop=plan.schedule?.stops.find(s=>s.id===pick.id);
       label(`${index+1} / ${pick.category.toUpperCase()}${stop?' | '+stop.start+'-'+stop.end+' suggested':''}`,38,74,11,true);
-      let next=paragraph(pick.name,28,118,376,23,[41,35,51]);
+      let next=paragraph(placeTitle(pick),28,118,376,23,[41,35,51]);
       next=paragraph(pick.venue ? pick.venue.address : pick.description,28,next+8,376,12);
       label(`${money(pick.costCents)} estimated for two`,28,next+26,18,true);
       next+=53;
       if(pick.venue) {
         const p=pick.pricing;
-        label('WHAT THIS COVERS',28,next,10,true,[112,66,210]);
+        label('BUDGET EXAMPLE',28,next,10,true,[112,66,210]);
         next=paragraph(p.order,28,next+20,376,12)+13;
         const rows=[['Posted subtotal',p.baseCents],['Estimated tax / reserve',p.taxCents],['Optional tip allowance',p.tipCents],['Optional donation',p.donationCents]];
         rows.forEach(([name,value])=>{label(name,28,next,11);label(money(value),340,next,11,true);next+=20;});
@@ -78,9 +79,8 @@ window.DateCard = (() => {
         next+=25;
         pdf.setFontSize(12);pdf.setTextColor(75,36,153);
         pdf.textWithLink('Official price / menu',28,next,{url:p.sourceUrl});
-        const route=new URL('https://www.google.com/maps/dir/');
-        route.search=new URLSearchParams({api:'1',origin:`${plan.journey?.origin||'Paterson'}, NJ`,destination:pick.venue.address,travelmode:'driving'});
-        pdf.textWithLink('Check route from starting town',190,next,{url:route.href});
+        const route=window.DateDirections?DateDirections.to(pick.venue.address,{town:plan.mash?.origin||plan.journey?.origin||'Paterson'}):'https://www.google.com/maps/dir/?'+new URLSearchParams({api:'1',destination:pick.venue.address,travelmode:'driving'});
+        pdf.textWithLink('Check route in Maps',190,next,{url:route});
         paragraph(p.sourceUrl,28,next+22,376,9);
       } else {
         next=paragraph(pick.tip || 'Make this idea your own.',28,next,376,13)+20;

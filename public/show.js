@@ -6,6 +6,7 @@ window.MashShow = (() => {
   const voices = new Set();
   const categories = ['dinner', 'activity', 'treat', 'entertainment'];
   const labels = ['Dinner', 'Activity', 'Treat', 'Entertainment'];
+  const displayName=option=>option.venue&&['dinner','treat'].includes(option.category)?option.venue.name:option.name;
   function node(tag, text, className) {
     const item = document.createElement(tag);
     if (text) item.textContent = text;
@@ -66,10 +67,11 @@ window.MashShow = (() => {
       const column = node('article', '', `reveal-column ${pick.category}`);
       column.append(node('h3', labels[categories.indexOf(pick.category)]));
       const list = node('ul');
-      const others = pool.filter(option => option.category === pick.category && option.id !== pick.id).slice(0, 3);
-      const rows = others.map(option => node('li', option.name));
+      const others = pool.filter(option => option.category === pick.category && displayName(option)!==displayName(pick))
+        .filter((option,index,all)=>all.findIndex(other=>displayName(other)===displayName(option))===index).slice(0,3);
+      const rows = others.map(option => node('li', displayName(option)));
       rows.forEach(row => list.append(row));
-      const winner = node('li', `${pick.emoji || '✳'} ${pick.name}`);
+      const winner = node('li', `${pick.emoji || '✳'} ${displayName(pick)}`);
       list.append(winner);
       column.append(list);
       board.append(column);
