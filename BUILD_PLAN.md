@@ -137,3 +137,9 @@ Check current Hobby collaboration rules when connecting the three-person reposit
 Implemented: 200 NJ choices, exactly 50 in each category, across 99 venue/route identifiers and 43 towns; original 96 ideas preserved. Free/Under $15/Under $30 browsing makes inexpensive choices visible. All fifteen newly requested towns appear. Sources, quantities, allowances and restrictions are in DATA_SOURCES.md.
 
 The picker now counts sorted category pairs with binary searches, and draws from weighted affordable bands without materializing full dates. Known dated closures/ranges are checked on client and server. No dependencies, accounts or paid services added. Public Vercel and real-phone checks remain pending; local checks below do not substitute for deployed acceptance.
+
+## Six-part practical-date upgrade
+
+Implemented for high-school students, college students and couples: nearby complete dates; time/length formats; food/comfort/age/tried preferences; shared-phone picks; attributed venue photos and grouped variants; itinerary ordering, reasoned replacements, calendar/invitation exports and offline saved-date access. The default is a $50 quick date, with alcohol-free/teen preferences. All 296 choices remain.
+
+Acceptance evidence is in TESTING.md and DEVELOPMENT_NOTES.md. Keep manual real-phone, native calendar/share, installed offline and deployed cases pending until actually observed. Repository merge is not evidence of Vercel deployment or App Store approval.

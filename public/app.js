@@ -30,7 +30,7 @@ function message(text, error = false) {
   $('#message').classList.toggle('error', error);
 }
 function allOptions() { return [...catalog, ...(MashPlanner.customCatalog(customOptions) || [])]; }
-function planKey(plan) { return plan.picks.map(pick => pick.id).join('|'); }
+function planKey(plan) { return `${plan.date||''}|${plan.journey?`${plan.journey.format}|${plan.journey.start}|${plan.journey.origin}|${plan.journey.order.join(',')}`:''}|${plan.picks.map(pick => pick.id).join('|')}`; }
 function mood() { return $('input[name=mood]:checked').value; }
 async function request(url, options = {}) {
   const controller = new AbortController();
@@ -40,12 +40,17 @@ async function request(url, options = {}) {
 }
 function preferences(locked = locks) {
   return { budget: $('#budget').value === '' ? null : Number($('#budget').value), setting: $('#setting').value,
-    mood: mood(), spending: $('#spending').value, area: $('#area').value, date: $('#visit-date').value, excluded: [...excluded], customOptions, locked };
+    mood: mood(), spending: $('#spending').value, area: $('#area').value, date: $('#visit-date').value, excluded: [...excluded], customOptions, locked,
+    ...(SmartDate.preferences() ? {journey:SmartDate.preferences()} : {}) };
 }
 
 // Saved plans can contain custom ideas. Validate their snapshot as strictly as a request.
 function validPlan(plan) {
-  if (!plan || !Array.isArray(plan.picks) || plan.picks.length !== 4 || !Object.prototype.hasOwnProperty.call(settingLabels, plan.setting)) return false;
+  if (!plan || !Array.isArray(plan.picks) || !Object.prototype.hasOwnProperty.call(settingLabels, plan.setting)) return false;
+  const journey=plan.journey===undefined?null:MashJourney.normalize(plan.journey);
+  if (plan.journey!==undefined&&!journey) return false;
+  const categories=journey?MashJourney.formats[journey.format].categories:MashPlanner.categories;
+  if(plan.picks.length!==categories.length) return false;
   if (plan.mood !== undefined && !MashPlanner.moods.includes(plan.mood)) return false;
   if (plan.spending !== undefined && !MashPlanner.spendingModes.includes(plan.spending)) return false;
   if (plan.area !== undefined && !MashPlanner.areas.includes(plan.area)) return false;
@@ -56,12 +61,13 @@ function validPlan(plan) {
   if (!custom) return false;
   const knownOptions = [...catalog, ...custom];
   const matching = plan.picks.every((pick, index) => {
-    if (!pick || pick.category !== MashPlanner.categories[index]) return false;
+    if (!pick || pick.category !== categories[index]) return false;
     const known = knownOptions.find(option => option.id === pick.id);
     return known && known.category === pick.category && known.name === pick.name && known.description === pick.description &&
       known.costCents === pick.costCents && (plan.setting === 'any' || known.settings.includes(plan.setting)) &&
       MashPlanner.eligible(known, plan.area || 'all', plan.date || '');
   });
+  if(journey&&(!matching||!plan.picks.every(pick=>MashJourney.matches(knownOptions.find(o=>o.id===pick.id),journey))||!MashJourney.schedule(plan.picks.map(pick=>knownOptions.find(o=>o.id===pick.id)),journey)))return false;
   return matching && plan.totalCents === plan.picks.reduce((sum, pick) => sum + pick.costCents, 0) &&
     plan.budgetCents - plan.totalCents === plan.remainingCents && typeof plan.notice === 'string' && plan.notice.length <= 300;
 }
@@ -69,7 +75,8 @@ function hydrate(plan) {
   const known = [...catalog, ...MashPlanner.customCatalog(plan.customOptions || [])];
   const picks = plan.picks.map(pick => known.find(option => option.id === pick.id));
   const chosenMood = plan.mood || 'surprise';
-  return { ...plan, picks, mood: chosenMood, spending: plan.spending || 'flexible', area: plan.area || 'general', date: plan.date || '', title: MashPlanner.title(chosenMood, picks), customOptions: plan.customOptions || [] };
+  const journey=plan.journey&&MashJourney.normalize(plan.journey);
+  return { ...plan, picks, ...(journey?{journey,schedule:MashJourney.schedule(picks,journey)}:{}), mood: chosenMood, spending: plan.spending || 'flexible', area: plan.area || 'general', date: plan.date || '', title: MashPlanner.title(chosenMood, picks), customOptions: plan.customOptions || [] };
 }
 
 async function loadCatalog() {
@@ -82,6 +89,7 @@ async function loadCatalog() {
     const data = await response.json();
     if (!Array.isArray(data.options) || !data.options.length) throw new Error('No ideas were returned.');
     catalog = data.options;
+    SmartDate.setup(data);
     populateTowns();
     renderCatalog();
     loadFavorites();
@@ -96,7 +104,7 @@ async function loadCatalog() {
 }
 
 function updatePossibilities() {
-  const analysis = MashPlanner.prepare(preferences(), catalog, false);
+  SmartDate.count(preferences(),analysis=>{
   const count = analysis.combinationCount || 0;
   $('#possibility-count').textContent = `${count.toLocaleString()} affordable ${count === 1 ? 'date' : 'dates'}`;
   const lockedCount = Object.keys(locks).length;
@@ -110,6 +118,7 @@ function updatePossibilities() {
     const selected = $('#budget').value !== '' && Number(node.dataset.budget) === budget;
     node.classList.toggle('is-selected', selected);
     node.setAttribute('aria-pressed', String(selected));
+  });
   });
 }
 
@@ -133,6 +142,7 @@ function renderCatalog() {
       (tier === 'all' || tier === 'free' && option.costCents === 0 || tier === 'under15' && option.costCents < 1500 || tier === 'under30' && option.costCents < 3000 || tier === 'low' && option.costCents < 5000 || tier === 'mid' && option.costCents >= 5000 && option.costCents <= 20000 || tier === 'high' && option.costCents > 20000)).sort((a, b) => a.costCents - b.costCents);
     head.append(element('h3', label), element('p', `${active} in the mix · ${visible.length} shown`));
     const list = element('ul', undefined, 'option-list');
+    const venueGroups=new Map();
     list.tabIndex = 0;
     list.setAttribute('aria-label', `${label} ideas. Scroll to explore.`);
     if (!visible.length) list.append(element('li', 'No matches to browse. Try another search or price range.', 'empty-category'));
@@ -171,7 +181,16 @@ function renderCatalog() {
         updatePossibilities();
         if (currentPlan) renderResult();
       }));
-      list.append(item);
+      if(option.venue){
+        const id=option.venue.id;
+        if(!venueGroups.has(id)){
+          const entry=element('li',undefined,'venue-group-item'),details=element('details',undefined,'venue-group'),inner=element('ul');
+          const count=visible.filter(o=>o.venue?.id===id).length;
+          details.append(element('summary',`${option.venue.name} · ${count} ${count===1?'choice':'choices'} from ${money(option.costCents)}`),inner);
+          entry.append(details);list.append(entry);venueGroups.set(id,inner);
+        }
+        venueGroups.get(id).append(item);
+      }else list.append(item);
     }
     section.append(head, list);
     $('#catalog').append(section);
@@ -181,7 +200,7 @@ function renderCatalog() {
 function setBusy(value) {
   busy = value;
   document.body.classList.toggle('is-busy', value);
-  document.querySelectorAll('#plan-form input, #plan-form select, #plan-form button, #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, #idea-town, #town-chips button, [data-deck], .idea-details, .option-choice, .remove-custom, .pick-controls button, #again, #reset-ideas, #date-start').forEach(node => { node.disabled = value; });
+  document.querySelectorAll('#plan-form input, #plan-form select, #plan-form button, #custom-form input, #custom-form select, #custom-form button, #idea-search, #idea-tier, #idea-town, #town-chips button, [data-deck], .idea-details, .option-choice, .remove-custom, .pick-controls button, .replace-choice, .order-controls button, #again, #reset-ideas, #date-start, #add-calendar, #share-invite, #mark-tried, #clear-tried').forEach(node => { node.disabled = value; });
   if (!value && currentPlan) renderResult();
 }
 
@@ -196,7 +215,8 @@ async function generate(event, rerollCategory = null) {
   }
   const requestLocks = rerollCategory ? Object.fromEntries(currentPlan.picks.filter(pick => pick.category !== rerollCategory).map(pick => [pick.category, pick.id])) : locks;
   const payload = preferences(requestLocks);
-  if (currentPlan && currentPlan.picks.every(pick => known.some(option => option.id === pick.id))) payload.previous = currentPlan.picks.map(pick => pick.id);
+  if (currentPlan && currentPlan.picks.every(pick => known.some(option => option.id === pick.id)) &&
+    (payload.journey?currentPlan.journey?.format===payload.journey.format:currentPlan.picks.length===4)) payload.previous = currentPlan.picks.map(pick => pick.id);
   setBusy(true);
   message(rerollCategory ? `Giving ${labels[rerollCategory].toLowerCase()} a little plot twist…` : 'Finding the magic in your mix…');
   try {
@@ -217,7 +237,7 @@ async function generate(event, rerollCategory = null) {
     }
     currentPlan = hydrate(data);
     renderResult();
-    message(data.unchanged ? 'This is the only combination that fits these choices. Unlock a pick, include more ideas, or raise your budget to change it.' : rerollCategory ? `${labels[rerollCategory]} remixed. The other three picks stayed put, and the total still fits.` : 'It’s a date! Keep the picks you love, remix the rest.');
+    message(data.unchanged ? 'This is the only combination that fits these choices. Unlock a pick, include more ideas, or adjust your plan.' : rerollCategory ? `${labels[rerollCategory]} remixed. Your other picks stayed put, and the total still fits.` : 'It’s a date! Keep the picks you love, remix the rest.');
     $('#result-title').focus({ preventScroll: true });
     $('#result').scrollIntoView({ block: 'nearest' });
     if (!data.unchanged && !rerollCategory) MashShow.celebrate();
@@ -228,7 +248,7 @@ async function generate(event, rerollCategory = null) {
 
 function renderResult() {
   $('#result-picks').replaceChildren();
-  currentPlan.picks.forEach((pick, index) => {
+  MashJourney.ordered(currentPlan).forEach((pick, index) => {
     const locked = locks[pick.category] === pick.id;
     const card = element('article', undefined, `pick ${pick.category}${locked ? ' is-locked' : ''}`);
     card.dataset.pickId = pick.id;
@@ -238,7 +258,8 @@ function renderResult() {
     art.append(element('span', `0${index + 1} / ${labels[pick.category].toUpperCase()}`, 'step-label'), emoji);
     const copy = element('div', undefined, 'pick-body');
     copy.append(element('h3', pick.name), element('p', pick.description, 'pick-description'), element('p', pick.tip || 'Make this one your own.', 'pick-tip'), element('span', money(pick.costCents), 'pick-price'));
-    if (pick.venue) copy.append(venueDetails(pick));
+    if (pick.venue) copy.append(venueDetails(pick,currentPlan.journey?.origin||'Paterson'));
+    SmartDate.decorate(pick,art,copy,currentPlan);
     const controls = element('div', undefined, 'pick-controls');
     const lock = button(locked ? '🔒 Locked in' : '♡ Keep this', 'lock-button', () => {
       if (busy) return;
@@ -262,6 +283,16 @@ function renderResult() {
     lock.disabled = busy;
     reroll.disabled = busy || locked;
     controls.append(lock, reroll);
+    controls.append(SmartDate.replaceControl(pick,reason=>{
+      if(busy)return;
+      SmartDate.rememberReason(pick,reason);
+      if(locks[pick.category]===pick.id)delete locks[pick.category];
+      excluded.add(pick.id);
+      if(reason==='distance'&&SmartDate.preferences())for(const [category,id]of Object.entries(locks)){
+        const option=allOptions().find(o=>o.id===id);if(!option||!MashJourney.matches(option,SmartDate.preferences()))delete locks[category];
+      }
+      updatePossibilities();renderCatalog();generate(null,reason==='distance'?null:pick.category);
+    }));
     card.append(art, copy, controls);
     $('#result-picks').append(card);
   });
@@ -280,6 +311,7 @@ function renderResult() {
   $('#phone-date').removeAttribute('aria-disabled');
   $('#date-start').disabled = busy;
   DateCompanion.render(currentPlan);
+  SmartDate.render(currentPlan,next=>{currentPlan=next;renderResult();},()=>generate());
 }
 
 function loadFavorites() {
@@ -338,6 +370,7 @@ function renderFavorites() {
       $('#spending').value = plan.spending;
       $('#area').value = plan.area;
       $('#visit-date').value = plan.date;
+      SmartDate.restore(plan);
       $(`input[name=mood][value="${plan.mood}"]`).checked = true;
       currentPlan = plan;
       renderResult();
@@ -390,7 +423,7 @@ $('#idea-tier').addEventListener('change', renderCatalog);
 $('#again').addEventListener('click', generate);
 $('#plan-form').addEventListener('input', event => {
   if (event.target.id === 'budget-slider') $('#budget').value = event.target.value;
-  if (['setting', 'area', 'visit-date'].includes(event.target.id)) {
+  if (['setting', 'area', 'visit-date','date-format','start-town','trip-radius','leg-limit','audience','cuisine','vegetarian','low-effort','alcohol-free','fresh-ideas','smart-enabled'].includes(event.target.id)) {
     locks = {};
     renderCatalog();
   }
@@ -434,12 +467,12 @@ function externalLink(label, href) {
   link.rel = 'noopener noreferrer';
   return link;
 }
-function venueDetails(pick) {
+function venueDetails(pick, origin = SmartDate.preferences()?.origin||'Paterson') {
   const wrap = element('div', undefined, 'venue-details');
   wrap.append(element('p', pick.venue.address, 'venue-address'));
   const links = element('div', undefined, 'venue-links');
   const route = new URL('https://www.google.com/maps/dir/');
-  route.search = new URLSearchParams({ api:'1', origin:'Paterson, NJ', destination:pick.venue.address, travelmode:'driving' });
+  route.search = new URLSearchParams({ api:'1', origin:`${origin}, NJ`, destination:pick.venue.address, travelmode:'driving' });
   links.append(externalLink('Official price', pick.pricing.sourceUrl), externalLink('Check drive', route.href));
   wrap.append(links);
   const details = element('details', undefined, 'price-proof');
@@ -475,8 +508,10 @@ function previewIdea(option, trigger) {
   const content=$('#preview-content'); content.replaceChildren();
   const title=element('h2',option.name); title.id='preview-title';
   content.append(element('p',`${labels[option.category]} · ${option.venue.city}, NJ`,'eyebrow'),title,element('strong',`${money(option.costCents)} estimated for two`),element('p',option.description),venueDetails(option));
+  SmartDate.decorate(option,null,content,null);
   const choose=button('Build around this ♡','',()=>{
     if(busy)return;
+    SmartDate.includeCategory(option);
     locks[option.category]=option.id;excluded.delete(option.id);
     if($('#area').value==='general')$('#area').value='paterson';
     if($('#setting').value!=='any'&&!option.settings.includes($('#setting').value))$('#setting').value='any';

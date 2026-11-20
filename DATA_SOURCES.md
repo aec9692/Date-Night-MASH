@@ -284,3 +284,22 @@ Additional evidence decisions:
 - Garret Mountain’s Lambert Castle–Tower trail and Rifle Camp’s observatory/nature center are closed; only open outdoor paths are suggested. DeKorte/Mill Creek do not allow picnicking. Public walking maps do not authorize entry to private buildings.
 - Known dated closures are stored as closedDates/closedDateRanges and checked by both browser and server. [Edison’s current NPS information](https://www.nps.gov/edis/planyourvisit/basicinfo.htm) lists Tue/Wed closures and winter closures; this deck conservatively suppresses Jan 1–Mar 9, 2027 pending a reopening check. The Aviation Museum’s Dec 23–Jan 5 closure is also excluded. This is not a live calendar service.
 - Closed or unpriceable candidates were omitted: McDowell Observatory, Caldwell Cinema, the Warner Theatre, retired GoodFellas ordering prices, date-specific SoJo quotes, and American Dream group/child-only offers that do not apply to two adults. No child, member, first-time-only or large-group discount is silently assumed.
+
+## Planning coordinates, timing and photos
+
+All 43 catalog municipalities have internal representative-point coordinates from the [US Census ACS25 NJ subdivision table](https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html), recorded in data/towns.json. Fairfield is Essex County; Parsippany is Parsippany-Troy Hills. Points are not venue entrances or road distances. The app’s travel allowances and durations are its own explicit planning model, not sourced live ETAs.
+
+Conservative source-hour windows reuse the venue evidence above: Montclair Art Museum, Yogi Berra Museum, Paterson Museum, ARCA, City Bistro, Imperial lunch, Hoboken Historical Museum, the newer art/history museums and Taiji. Windows shared across weekdays may be narrower than a particular day’s actual opening. Unknown venues use a planning window marked for confirmation; outdoor walks use 09:00–16:00 rather than inventing a sunset forecast. Student/age/effort restrictions are conservative app filters, not venue eligibility guarantees.
+
+Six historical venue images have source-specific author/license/date records in data/place-media.json. The Wikimedia API and HTTP HEAD verified the small image URLs as 200 image/jpeg. No image is represented as a current-condition photograph; attribution, license and crop notes appear beside it.
+
+| Venue | Image source | License |
+| --- | --- | --- |
+| falls | [Librajon81](https://commons.wikimedia.org/wiki/File:Paterson_Great_Falls.jpg) | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) |
+| liberty | [Paul Lowry](https://commons.wikimedia.org/wiki/File:View_from_Liberty_State_Park.jpg) | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
+| pier-a | [Ali Mansuri (Ali Imran)](https://commons.wikimedia.org/wiki/File:Pier_A_Park_lawn_%26_gazebo_Hoboken_NJ.jpg) | [CC BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/) |
+| mam | [Blondhairblueeyed; later version by DavidRavenMoon, English Wikipedia](https://commons.wikimedia.org/wiki/File:Montclair_Art_Museum_(Montclair%2C_New_Jersey).jpg) | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) |
+| pier-c | [DavFace](https://commons.wikimedia.org/wiki/File:Manhattan_from_Hoboken_panorama_September_2017.jpg) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
+| garden | [Zeete](https://commons.wikimedia.org/wiki/File:Skylands%2C_Ringwood%2C_NJ_-_fall_garden_view.jpg) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
+
+Calendar export follows the [iCalendar specification](https://www.rfc-editor.org/rfc/rfc5545) for escaping/folding and uses UTC timestamps derived from New Jersey time. Offline behavior follows the browser [Service Worker model](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers); cache simulation is not a real-phone installation test.

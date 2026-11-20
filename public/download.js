@@ -3,10 +3,13 @@ window.DateCard = (() => {
   const money = cents => new Intl.NumberFormat('en-US', { style:'currency', currency:'USD' }).format(cents / 100);
   const clean = value => String(value || '').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[–—]/g,'-').replace(/…/g,'...').replace(/[^\x20-\x7e\n]/g,'');
   function text(plan) {
+    const picks=window.MashJourney?MashJourney.ordered(plan):plan.picks;
     return [plan.title || 'DATE NIGHT MASH', `Date: ${plan.date || 'Not selected'} | Area: ${plan.area || 'general'}`,
+      ...(plan.schedule?[`Suggested time: ${plan.schedule.start}–${plan.schedule.end} | Starting town: ${plan.journey.origin}`,plan.schedule.notice]:[]),
       `Setting: ${plan.setting} | Mood: ${plan.mood || 'surprise'} | Spending: ${plan.spending || 'flexible'}`,
-      `Budget for two: ${money(plan.budgetCents)}`, '', ...plan.picks.flatMap(pick => [
+      `Budget for two: ${money(plan.budgetCents)}`, '', ...picks.flatMap(pick => [
         `${pick.category.toUpperCase()}: ${pick.name} - ${money(pick.costCents)}`, pick.description,
+        ...(plan.schedule?[`Suggested visit: ${plan.schedule.stops.find(s=>s.id===pick.id).start}–${plan.schedule.stops.find(s=>s.id===pick.id).end}`]:[]),
         ...(pick.venue ? [pick.venue.address, pick.venue.hoursNote, pick.pricing.order,
           `Posted ${money(pick.pricing.baseCents)}; estimated tax ${money(pick.pricing.taxCents)}; optional tip ${money(pick.pricing.tipCents)}; optional donation ${money(pick.pricing.donationCents)}`,
           pick.pricing.taxNote, pick.pricing.tipNote, pick.pricing.exclusions,
@@ -14,6 +17,7 @@ window.DateCard = (() => {
       `Estimated total: ${money(plan.totalCents)}`, `Remaining budget: ${money(plan.remainingCents)}`, '', plan.notice].join('\n');
   }
   function create(plan) {
+    const picks=window.MashJourney?MashJourney.ordered(plan):plan.picks;
     if (!window.jspdf?.jsPDF) throw new Error('PDF library unavailable');
     const pdf = new window.jspdf.jsPDF({ unit:'pt', format:[432,720], compress:true, putOnlyUsedFonts:true });
     pdf.setProperties({ title:clean(plan.title || 'Date Night MASH'), subject:'Date itinerary for two', creator:'Date Night MASH' });
@@ -30,31 +34,33 @@ window.DateCard = (() => {
     function page(number) {
       pdf.setFillColor(247,243,255); pdf.rect(0,0,432,720,'F');
       label('DATE NIGHT MASH',28,34,11,true,[112,66,210]);
-      label(`${number} / 5`,368,34,10,false,[103,95,114]);
+      label(`${number} / ${picks.length+1}`,368,34,10,false,[103,95,114]);
       label('A plan for two. Confirm prices, hours and availability.',28,696,9,false,[103,95,114]);
     }
     page(1);
     let y=paragraph(plan.title || 'Your next little adventure',28,82,376,27,[41,35,51]);
-    y=paragraph(`${plan.date || 'Pick a date'} | ${plan.area === 'paterson' ? 'Near Paterson, NJ' : 'Your selected ideas'}`,28,y+8,376,12);
+    y=paragraph(`${plan.date || 'Pick a date'}${plan.schedule?' | '+plan.schedule.start+'-'+plan.schedule.end:''} | ${plan.journey?.origin||'Your selected ideas'}`,28,y+8,376,12);
     y+=16;
     label(`Budget ${money(plan.budgetCents)}    Plan ${money(plan.totalCents)}`,28,y,15,true);
     label(`${money(plan.remainingCents)} remaining | ${plan.spending === 'treat' ? 'Treat us' : 'Flexible'}`,28,y+23,11);
     y+=44;
-    plan.picks.forEach((pick,index)=>{
-      pdf.setFillColor(...colors[index]); pdf.roundedRect(24,y,384,82,10,10,'F');
+    picks.forEach((pick,index)=>{
+      pdf.setFillColor(...colors[['dinner','activity','treat','entertainment'].indexOf(pick.category)]); pdf.roundedRect(24,y,384,82,10,10,'F');
       label(`${index+1}  ${pick.category.toUpperCase()}`,38,y+20,9,true);
       pdf.setFont('helvetica','bold');pdf.setFontSize(13);pdf.setTextColor(41,35,51);
       const title=pdf.splitTextToSize(clean(pick.name),268);
       pdf.text(title.slice(0,2),38,y+42,{lineHeightFactor:1.2});
       label(money(pick.costCents),324,y+42,13,true);
-      if(pick.venue) label(`${pick.venue.city}, NJ`,38,y+70,10);
+      const stop=plan.schedule?.stops.find(s=>s.id===pick.id);
+      label(`${pick.venue?pick.venue.city+', NJ':'Location to arrange'}${stop?' | '+stop.start+'-'+stop.end:''}`,38,y+70,10);
       y+=92;
     });
     paragraph('Suggested stops, not a timed booking. Tap the source and map links on the following pages. Traffic can push a drive beyond an hour. Travel, parking and unconfirmed fees are extra unless listed.',28,y+2,376,10);
-    plan.picks.forEach((pick,index)=>{
+    picks.forEach((pick,index)=>{
       pdf.addPage([432,720]);page(index+2);
-      pdf.setFillColor(...colors[index]);pdf.roundedRect(24,54,384,30,9,9,'F');
-      label(`${index+1} / ${pick.category.toUpperCase()}`,38,74,11,true);
+      pdf.setFillColor(...colors[['dinner','activity','treat','entertainment'].indexOf(pick.category)]);pdf.roundedRect(24,54,384,30,9,9,'F');
+      const stop=plan.schedule?.stops.find(s=>s.id===pick.id);
+      label(`${index+1} / ${pick.category.toUpperCase()}${stop?' | '+stop.start+'-'+stop.end+' suggested':''}`,38,74,11,true);
       let next=paragraph(pick.name,28,118,376,23,[41,35,51]);
       next=paragraph(pick.venue ? pick.venue.address : pick.description,28,next+8,376,12);
       label(`${money(pick.costCents)} estimated for two`,28,next+26,18,true);
@@ -73,8 +79,8 @@ window.DateCard = (() => {
         pdf.setFontSize(12);pdf.setTextColor(75,36,153);
         pdf.textWithLink('Official price / menu',28,next,{url:p.sourceUrl});
         const route=new URL('https://www.google.com/maps/dir/');
-        route.search=new URLSearchParams({api:'1',origin:'Paterson, NJ',destination:pick.venue.address,travelmode:'driving'});
-        pdf.textWithLink('Check route from Paterson',190,next,{url:route.href});
+        route.search=new URLSearchParams({api:'1',origin:`${plan.journey?.origin||'Paterson'}, NJ`,destination:pick.venue.address,travelmode:'driving'});
+        pdf.textWithLink('Check route from starting town',190,next,{url:route.href});
         paragraph(p.sourceUrl,28,next+22,376,9);
       } else {
         next=paragraph(pick.tip || 'Make this idea your own.',28,next,376,13)+20;

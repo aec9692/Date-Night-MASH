@@ -1,0 +1,179 @@
+{
+  "sourceUrl": "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_cousub_2025_acs25_nj.html",
+  "checkedOn": "2026-11-19",
+  "method": "U.S. Census ACS25 New Jersey county-subdivision internal representative points (INTPTLAT/INTPTLON), data as of January 1, 2025. Parsippany is Parsippany-Troy Hills township. Fairfield is Essex County. Coordinates represent municipalities, not venue entrances, roads or drive times.",
+  "towns": {
+    "Bergenfield": [
+      40.9223342,
+      -73.9980008
+    ],
+    "Bloomfield": [
+      40.8091411,
+      -74.1871418
+    ],
+    "Caldwell": [
+      40.8392346,
+      -74.2770264
+    ],
+    "Cedar Grove": [
+      40.8580173,
+      -74.2297838
+    ],
+    "Clifton": [
+      40.8621369,
+      -74.1603932
+    ],
+    "Closter": [
+      40.9728898,
+      -73.9603147
+    ],
+    "East Rutherford": [
+      40.8170966,
+      -74.0850235
+    ],
+    "Elmwood Park": [
+      40.9045259,
+      -74.1195136
+    ],
+    "Englewood": [
+      40.8911966,
+      -73.972515
+    ],
+    "Essex Fells": [
+      40.8281024,
+      -74.2762262
+    ],
+    "Fair Lawn": [
+      40.9358298,
+      -74.1175045
+    ],
+    "Fairfield": [
+      40.8825075,
+      -74.3045935
+    ],
+    "Fort Lee": [
+      40.8506403,
+      -73.9710074
+    ],
+    "Garfield": [
+      40.8797971,
+      -74.1082503
+    ],
+    "Hawthorne": [
+      40.9569572,
+      -74.1585611
+    ],
+    "Hoboken": [
+      40.7452508,
+      -74.0279257
+    ],
+    "Jersey City": [
+      40.7114174,
+      -74.0647599
+    ],
+    "Lincoln Park": [
+      40.9237508,
+      -74.304235
+    ],
+    "Little Falls": [
+      40.8761798,
+      -74.21691
+    ],
+    "Lyndhurst": [
+      40.7971128,
+      -74.11298
+    ],
+    "Montclair": [
+      40.8249977,
+      -74.2108562
+    ],
+    "Morristown": [
+      40.7965621,
+      -74.4773184
+    ],
+    "Newark": [
+      40.7242204,
+      -74.1725735
+    ],
+    "Oradell": [
+      40.9566531,
+      -74.0328615
+    ],
+    "Paramus": [
+      40.9472994,
+      -74.0701694
+    ],
+    "Park Ridge": [
+      41.0361833,
+      -74.0442926
+    ],
+    "Parsippany": [
+      40.8596359,
+      -74.4233483
+    ],
+    "Passaic": [
+      40.8575524,
+      -74.1290888
+    ],
+    "Paterson": [
+      40.9147662,
+      -74.1628291
+    ],
+    "Ridgewood": [
+      40.9818601,
+      -74.1134564
+    ],
+    "Ringwood": [
+      41.1039627,
+      -74.2711379
+    ],
+    "Rutherford": [
+      40.8203143,
+      -74.1060409
+    ],
+    "Saddle Brook": [
+      40.9030993,
+      -74.0935906
+    ],
+    "Saddle River": [
+      41.023696,
+      -74.0925529
+    ],
+    "Secaucus": [
+      40.7817786,
+      -74.067189
+    ],
+    "Summit": [
+      40.7156222,
+      -74.3646841
+    ],
+    "Teterboro": [
+      40.8545726,
+      -74.0596194
+    ],
+    "Totowa": [
+      40.9034151,
+      -74.2197791
+    ],
+    "Wayne": [
+      40.9458547,
+      -74.2450769
+    ],
+    "West Orange": [
+      40.7857553,
+      -74.265058
+    ],
+    "Westfield": [
+      40.6516437,
+      -74.3434472
+    ],
+    "Woodland Park": [
+      40.8898549,
+      -74.1943564
+    ],
+    "Wyckoff": [
+      40.9990933,
+      -74.1688486
+    ]
+  }
+}

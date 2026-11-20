@@ -14,9 +14,11 @@
   <link rel="stylesheet" href="/styles.css">
   <script src="/vendor/jspdf.umd.min.js" defer></script>
   <script src="/planner.js" defer></script>
+  <script src="/journey.js" defer></script>
   <script src="/show.js" defer></script>
   <script src="/download.js" defer></script>
   <script src="/companion.js" defer></script>
+  <script src="/smart-ui.js" defer></script>
   <script src="/app.js" defer></script>
   <script src="/nearby.js" defer></script>
 </head>
@@ -27,6 +29,7 @@
     <nav aria-label="Main"><button id="sound" type="button" class="quiet-button" aria-pressed="false">Sound off</button><a class="saved-link" href="#saved">Saved dates <span id="saved-count">0</span></a></nav>
   </header>
   <main>
+    <p id="connection-note" class="connection-note" role="status" hidden></p>
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow"><span class="small-star" aria-hidden="true">✦</span> GOOD DATES SHOULDN'T BE HOMEWORK.</p>
@@ -36,7 +39,7 @@
           <a href="#planner" class="button hero-button">Play MASH <span aria-hidden="true">✳</span></a>
           <a href="#nearby" class="button secondary">Find Nearby</a>
         </div>
-        <p class="hero-footnote">Two people. Four picks. Endless “remember when”s.</p>
+        <p class="hero-footnote">Two people. Your kind of date. Endless “remember when”s.</p>
         <div id="local-stats" class="local-stats" aria-label="Local idea collection">Your neighborhood. A whole new night.</div>
       </div>
       <div class="hero-collage" aria-label="Dinner, activity, treat, and entertainment make a date">
@@ -53,7 +56,28 @@
     <section id="planner" class="planner" aria-labelledby="planner-title">
       <div class="section-heading"><div><p class="eyebrow">YOUR NIGHT. YOUR RULES.</p><h2 id="planner-title">Set the scene.</h2></div><span class="pill">A plan for two · USD estimates</span></div>
       <form id="plan-form">
-        <div class="form-grid location-grid"><div><label for="area">Which possibilities?</label><select id="area"><option value="paterson">Real NJ places near Paterson</option><option value="all">Mix local places & original ideas</option><option value="general">Original anywhere / at-home ideas</option></select><p class="helper">NJ-only shortlist around Paterson. Traffic may push a trip over an hour; check the route before leaving.</p></div><div><label for="visit-date">When are you going? (optional)</label><input id="visit-date" type="date"><p class="helper">Filters known opening weekdays. Confirm holidays, times, reservations, and the full route separately.</p></div></div>
+        <div class="journey-setup">
+          <div class="journey-heading"><div><p class="eyebrow">MADE FOR YOUR ACTUAL DAY</p><h3>A little plan. A good fit.</h3></div><button type="button" id="couple-open" class="secondary">♡ Both pick a vibe</button></div>
+          <div class="form-grid journey-primary">
+            <div><label for="date-format">How much time have you got?</label><select id="date-format"><option value="quick" selected>Quick date · meal + treat · up to 2½ hours</option><option value="evening">Evening out · 3 stops · up to 5 hours</option><option value="full">Full-day adventure · 4 stops · up to 9 hours</option></select></div>
+            <div><label for="start-time">Let’s start at</label><input type="time" id="start-time" value="17:00" required></div>
+            <div><label for="start-town">Starting town</label><select id="start-town"><option value="Paterson">Paterson</option></select></div>
+          </div>
+          <details class="journey-more"><summary>Make it yours <span>Distance, food & comfort</span></summary>
+            <div class="form-grid">
+              <div><label for="trip-radius">Keep places within</label><select id="trip-radius"><option value="5">5 miles of our town</option><option value="10" selected>10 miles of our town</option><option value="25">25 miles of our town</option><option value="50">50 miles of our town</option></select></div>
+              <div><label for="leg-limit">Between stops</label><select id="leg-limit"><option value="0">Stay in one town</option><option value="5">Up to 5 miles</option><option value="10" selected>Up to 10 miles</option><option value="15">Up to 15 miles</option><option value="25">Up to 25 miles</option><option value="50">Up to 50 miles</option></select></div>
+              <div><label for="audience">Who’s heading out?</label><select id="audience"><option value="teen">Include someone under 18</option><option value="adult">Both 18 or older</option><option value="21plus">Both 21 or older</option></select></div>
+              <div><label for="cuisine">Food we’re feeling</label><select id="cuisine"><option value="any">Anything sounds good</option><option value="italian">Italian & pizza</option><option value="mexican">Mexican</option><option value="asian">Asian & sushi</option><option value="peruvian">Peruvian</option><option value="cafe">Café & brunch</option></select></div>
+            </div>
+            <div class="preference-checks"><label><input type="checkbox" id="vegetarian">Vegetarian-oriented meals</label><label><input type="checkbox" id="low-effort">Keep physical effort low</label><label><input type="checkbox" id="alcohol-free" checked>Alcohol-free ideas</label><label><input type="checkbox" id="fresh-ideas">Something we haven’t tried</label></div>
+            <p class="helper">Food tags are a starting point; confirm ingredients with the venue. Under-18 planning excludes adult-only ideas and finishes by 9pm. Guardian waivers or supervision may still apply.</p>
+            <label class="instant-label"><input id="smart-enabled" type="checkbox" checked>Use time & nearby planning</label>
+          </details>
+          <p class="helper">Suggested visit lengths and travel allowances, using approximate town-center distances. Confirm the driving route, opening hours and booked sessions. Original ideas have no verified location.</p>
+          <p id="couple-summary" class="couple-summary" hidden></p>
+        </div>
+        <div class="form-grid location-grid"><div><label for="area">Which possibilities?</label><select id="area"><option value="paterson">Real NJ places near Paterson</option><option value="all">Mix local places & original ideas</option><option value="general">Original anywhere / at-home ideas</option></select><p class="helper">NJ-only shortlist around Paterson. Traffic may push a trip over an hour; check the route before leaving.</p></div><div><label for="visit-date">When are you going? (optional)</label><input id="visit-date" type="date"><p class="helper">Checks recorded opening weekdays and closures. Confirm times, reservations and the full route separately.</p></div></div>
         <fieldset class="mood-fieldset"><legend>What's the vibe?</legend><div class="mood-chips">
           <label><input type="radio" name="mood" value="surprise" checked><span>✳ Surprise us</span></label>
           <label><input type="radio" name="mood" value="cozy"><span>☕ Cozy</span></label>
@@ -90,13 +114,15 @@
 
     <section id="result" class="result" aria-labelledby="result-title" hidden>
       <div class="result-topline"><span class="eyebrow">IT'S A DATE!</span><span id="result-setting" class="pill"></span></div>
-      <div class="itinerary-heading"><div><h2 id="result-title" tabindex="-1">Your next little adventure.</h2><p id="result-subtitle">Four ideas to make your own. Check hours and arrange your stops before heading out.</p></div><span class="date-stamp" aria-hidden="true">LET'S CALL<br>IT A DATE<br>♡</span></div>
+      <div class="itinerary-heading"><div><h2 id="result-title" tabindex="-1">Your next little adventure.</h2><p id="result-subtitle">A few good stops to make your own. Check hours and arrange your stops before heading out.</p></div><span class="date-stamp" aria-hidden="true">LET'S CALL<br>IT A DATE<br>♡</span></div>
+      <div id="journey-result" class="journey-result" hidden></div>
       <div id="result-picks" class="picks-grid"></div>
       <div class="total-row"><div><span class="helper">Estimated total for two</span><p id="result-total" class="total"></p></div><div class="budget-meter"><p id="remaining"></p><div class="meter-track"><span id="budget-used"></span></div></div></div>
       <p id="spend-explanation" class="spend-explanation"></p>
       <p class="remix-help">Love a pick? Lock it. Reroll a category to change just that part of your night.</p>
       <div class="actions"><button id="date-start" type="button" disabled>Take this date out ↗</button><button id="save" type="button">♡ Save this date</button><button id="download" type="button" class="secondary">Download PDF</button><button id="share-pdf" type="button" class="secondary" hidden>Share PDF</button><button id="download-text" type="button" class="text-button">Text version</button><button id="again" type="button" class="text-button">✳ Surprise us again</button></div><p class="helper">PDF works in phone viewers and Files apps. On supported browsers, Share PDF opens your phone's share sheet.</p>
-      <p id="result-notice" class="helper"></p>
+      <div class="actions travel-tools"><button type="button" id="add-calendar" class="secondary">Add to calendar</button><button type="button" id="share-invite" class="secondary">Share date invitation</button><button type="button" id="mark-tried" class="text-button">We tried these places</button><button type="button" id="clear-tried" class="text-button">Clear tried history</button></div>
+      <p id="travel-message" role="status"></p><p id="result-notice" class="helper"></p>
     </section>
 
     <section id="date-mode" class="date-mode" aria-labelledby="date-mode-title" hidden>
@@ -104,8 +130,8 @@
       <p id="date-summary" role="status" aria-live="polite"></p><progress id="date-progress" max="4" value="0" aria-label="Date stops enjoyed"></progress>
       <div id="stop-tabs" class="stop-tabs" role="group" aria-label="Choose a date stop"></div>
       <article id="current-stop" tabindex="-1"></article>
-      <p id="date-complete" class="date-complete" role="status" hidden>Four little adventures. One very good memory. ♡</p>
-      <div id="full-route"></div><p class="helper">Suggested order only. Arrange stops around opening hours and bookings. Routes start from Paterson; check travel costs and traffic. Progress lasts for this visit.</p>
+      <p id="date-complete" class="date-complete" role="status" hidden>A few little adventures. One very good memory. ♡</p>
+      <div id="full-route"></div><p class="helper">Suggested visits only. Arrange bookings and check the actual route from your selected town. Progress lasts for this visit.</p>
       <div class="spark-card"><span class="eyebrow">A LITTLE CONVERSATION SPARK</span><p id="spark-question" aria-live="polite"></p><button id="next-spark" type="button" class="secondary">Give us another spark ✳</button></div>
     </section>
 
@@ -116,18 +142,19 @@
       <div class="town-browser"><div><label for="idea-town">Explore a town</label><select id="idea-town"><option value="all">Every town</option></select></div><div id="town-chips" class="town-chips" role="group" aria-label="Quick town browsing"></div></div>
       <p class="helper">Search, town, price, and category tabs only change browsing. Include/exclude changes the mix; “Build around this” keeps a specific pick.</p>
       <div class="deck-tabs" role="group" aria-label="Browse a category"><button type="button" data-deck="all" aria-pressed="true">All four</button><button type="button" data-deck="dinner" aria-pressed="false">🍽 Dinner</button><button type="button" data-deck="activity" aria-pressed="false">🎯 Activity</button><button type="button" data-deck="treat" aria-pressed="false">🍰 Treat</button><button type="button" data-deck="entertainment" aria-pressed="false">🎟 Entertainment</button></div>
-      <div id="catalog" class="catalog-grid"></div>
+      <div class="spotlight-heading"><p class="eyebrow">A FEW LOCAL FAVORITES</p><p>Real places. A little inspiration.</p></div><div id="local-spotlight" class="local-spotlight"></div><div id="catalog" class="catalog-grid"></div>
       <details class="custom-details"><summary>＋ Add your own little adventure <span>Up to four custom ideas</span></summary><form id="custom-form"><div class="custom-form-grid"><div><label for="custom-name">Your idea</label><input id="custom-name" maxlength="48" required placeholder="Our favorite noodle spot"></div><div><label for="custom-category">Category</label><select id="custom-category"><option value="dinner">Dinner</option><option value="activity">Activity</option><option value="treat">Treat</option><option value="entertainment">Entertainment</option></select></div><div><label for="custom-cost">Estimate for two ($)</label><input id="custom-cost" type="number" min="0" max="10000" step="0.01" required placeholder="20"></div><div><label for="custom-setting">Setting</label><select id="custom-setting"><option value="any">Any setting</option><option value="indoor">Indoors</option><option value="outdoor">Outdoors</option><option value="home">At home</option></select></div></div><button type="submit" class="secondary">Add to the mix</button><p class="helper">Custom ideas stay for this visit. Saved dates keep a copy. All prices are your estimates.</p><p id="custom-message" role="status"></p></form></details>
       <p class="helper estimates-note">Illustrative estimates for two, not live quotes or booking offers. Confirm complete prices, taxes, fees, availability, hours, and weather before making plans. Free ideas use items or access you already have.</p>
     </section>
 
     <section id="saved" class="saved-section" aria-labelledby="saved-title"><div class="section-heading"><div><p class="eyebrow">SAVE THE SPARK</p><h2 id="saved-title" tabindex="-1">For another night.</h2></div><span class="pill">On this device, just for you</span></div><p id="storage-message" role="status"></p><div id="saved-plans" class="saved-grid"></div></section>
-    <details class="install-details"><summary>Keep MASH on your phone ♡</summary><p>On iPhone, open this site in Safari, tap Share, then Add to Home Screen and turn on Open as Web App if offered. On other phones, use your browser’s install or home-screen option when available.</p><p class="helper">This is the web app, with favorites on this device. Generating dates needs an internet connection. An App Store release is a separate step.</p></details>
+    <details class="install-details"><summary>Keep MASH on your phone ♡</summary><p>On iPhone, open this site in Safari, tap Share, then Add to Home Screen and turn on Open as Web App if offered. On other phones, use your browser’s install or home-screen option when available.</p><p class="helper">This is the web app, with favorites on this device. Saved dates can open offline after this app is cached. Generating new dates needs an internet connection. An App Store release is a separate step.</p></details>
     <section class="closing-note"><span aria-hidden="true">✳</span><p>The best part of the plan?<br><strong>Who you're sharing it with.</strong></p></section>
   </main>
   <footer><a class="brand" href="#">date night <strong>MASH</strong></a><p>Dreamed up by Adrainn Coloma, Andrew Russo & Alex Marshall.<br>Big memories. Small budgets. All prices are estimates for two.</p></footer>
   <div id="confetti" aria-hidden="true"></div>
   <nav class="phone-nav" aria-label="Phone shortcuts"><a href="#planner"><span aria-hidden="true">✳</span>Plan</a><a href="#explore"><span aria-hidden="true">⌕</span>Explore</a><a id="phone-date" href="#result" aria-disabled="true"><span aria-hidden="true">♡</span>Our date</a><a href="#saved"><span aria-hidden="true">▱</span>Saved</a></nav>
   <dialog id="idea-preview" aria-labelledby="preview-title"><button id="preview-close" type="button" class="secondary">Close details</button><div id="preview-content"></div></dialog>
+  <dialog id="couple-dialog" aria-labelledby="couple-title"><button type="button" id="couple-close" class="text-button">Close</button><p class="eyebrow" id="couple-step">PASS THE PHONE</p><h2 id="couple-title">Person one, pick your vibe.</h2><p id="couple-help">Your choices will be hidden before person two takes a turn. Shared device only; no account or names.</p><form id="couple-form"><label for="couple-mood">Your vibe</label><select id="couple-mood"><option value="surprise">Surprise me</option><option value="cozy">Cozy</option><option value="romantic">Romantic</option><option value="adventurous">Adventurous</option><option value="competitive">Competitive</option></select><label for="couple-cuisine">Your food pick</label><select id="couple-cuisine"><option value="any">Anything</option><option value="italian">Italian & pizza</option><option value="mexican">Mexican</option><option value="asian">Asian & sushi</option><option value="peruvian">Peruvian</option><option value="cafe">Café & brunch</option></select><button id="couple-next" type="submit">Hide picks & pass the phone</button></form><button type="button" id="couple-reset" class="text-button">Clear shared preferences</button></dialog>
 </body>
 </html>
