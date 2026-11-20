@@ -5,7 +5,7 @@
   const moods = ['surprise', 'cozy', 'adventurous', 'romantic', 'competitive'];
   const spendingModes = ['treat', 'flexible'];
   const areas = ['all', 'general', 'paterson'];
-  const fields = ['budget', 'setting', 'mood', 'spending', 'area', 'date', 'excluded', 'customOptions', 'locked', 'previous'];
+  const fields = ['budget', 'setting', 'mood', 'spending', 'area', 'date', 'excluded', 'customOptions', 'locked', 'previous', 'journey'];
   const object = value => value && typeof value === 'object' && !Array.isArray(value);
   const fail = (error, status = 400, extra = {}) => ({ error, status, ...extra });
 
@@ -28,6 +28,10 @@
 
   function prepare(input, catalog, includePlans = true, drawTicket = null) {
     if (!object(input) || Object.keys(input).some(key => !fields.includes(key))) return fail('Send a budget and documented date preferences only.');
+    if (input.journey !== undefined) {
+      const journey = typeof module === 'object' && module.exports ? require('./journey') : root.MashJourney;
+      return journey.prepare(input,catalog,includePlans,drawTicket,api);
+    }
     const { budget, setting = 'any', mood = 'surprise', spending = 'treat', area = 'all', date = '', excluded = [], customOptions = [], locked = {}, previous = [] } = input;
     if (typeof budget !== 'number' || !Number.isFinite(budget) || budget < 0 || budget > 10000 || budget !== Number(budget.toFixed(2))) {
       return fail('Enter a budget from $0 to $10,000 with at most two decimal places.');

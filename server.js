@@ -3,6 +3,10 @@ const path = require('node:path');
 const { randomInt } = require('node:crypto');
 const options = [...require('./data/options.json'), ...require('./data/local-options.json')];
 const planner = require('./public/planner');
+const journey = require('./public/journey');
+const townData = require('./data/towns.json');
+const media = require('./data/place-media.json');
+journey.setTowns(townData);
 const { categories, settings, moods, spendingModes, areas } = planner;
 
 const app = express();
@@ -23,7 +27,7 @@ app.get('/api/options', (req, res) => {
   if (Object.keys(req.query).length) {
     return res.status(400).json({ error: 'This route does not accept query parameters.' });
   }
-  res.json({ categories, settings, moods, spendingModes, areas, options, currency: 'USD', priceBasis: 'Local entries cite posted prices and planning allowances; original ideas are illustrative estimates.' });
+  res.json({ categories, settings, moods, spendingModes, areas, options, towns:townData, media, currency: 'USD', priceBasis: 'Local entries cite posted prices and planning allowances; original ideas are illustrative estimates.' });
 });
 
 app.use('/api', express.json({ limit: '8kb' }));
@@ -46,7 +50,8 @@ app.post('/api/generate', (req, res) => {
     combinationCount: prepared.combinationCount, unchanged: prepared.unchanged, customOptions: prepared.customOptions,
     spending: prepared.spending, maximumCents: prepared.maximumCents, targetCents: prepared.targetCents,
     area: prepared.area, date: prepared.date,
-    notice: 'Estimates for two, not booking quotes. Local sources list what is covered, estimated tax and tip allowances. Travel, parking, and unconfirmed fees are extra. Date filtering checks weekdays only, not live availability or holiday closures.' });
+    ...(prepared.journey ? {journey:prepared.journey,schedule:prepared.selectedSchedule} : {}),
+    notice: 'Estimates for two, not booking quotes. Check full costs, hours, reservations and age/guardian rules. Travel and parking are extra. Suggested timing and town-center distances do not verify traffic, showtimes or availability.' });
 });
 
 // Local development serves the same public files Vercel serves through its CDN.

@@ -145,3 +145,40 @@ Generated and parsed all 200 local PDF detail pages: all text stayed within the 
 | X05 | Full PDF deck | Generate one PDF detail page for every NJ entry; parse bounds; render representative pages. | Readable text within page bounds and correct source links. | All 200 passed; five rendered and inspected. |
 
 Public-site checks, actual iPhone/Android rendering, audible playback and native sharing remain pending. The browser-control runtime is unavailable; no Vercel deployment is claimed.
+
+## Practical date planning upgrade — November 19, 2026
+
+Executed locally in the isolated smart-date-planning checkout: **83 Node tests passed**. This includes the previous 69 tests, ten new itinerary/data/input cases, three service-worker simulations and a background-count equivalence case. The numeric itinerary search matched independent complete enumeration across 48 small cases with different formats, start times, orders, distances, budgets and previous picks. The maximum documented Unicode/custom/exclusion/journey request fit the unchanged 8 KB parser. No local catalog prices or original ideas were changed.
+
+Four jsdom suites passed: the new student/couple flow, original game, legacy local-place/PDF/native-share fallback, and existing phone-companion interactions. The new flow exercised default teen/alcohol-free quick planning; 43 town choices; grouped variants and attributed photo cards; two/three/four-stop generation; PDF, invitation and calendar downloads; New Jersey daylight-saving conversion; private shared-phone turns and cuisine compromise; reasoned rerolls; tried history; dynamic companion completion; stop-order validation; saved short-date restoration and canonical source/address replacement. An initial legacy-suite assertion used the new two-stop default while expecting an old four-stop $1,000 plan; that regression fixture was explicitly set to legacy mode and passed. These checks do not establish real browser rendering.
+
+PDF checks: all 200 existing local detail pages passed text bounds. Timed quick/evening/full exports produced three/four/five pages; all twelve pages passed bounds, and six overview/detail pages were rendered and visually inspected. Category colors were corrected to follow the category rather than position, then re-rendered. No clipping/overlap was observed in the inspected pages.
+
+Offline simulations verified shell/catalog cache hits after installation, network refresh, deletion limited to owned old caches, uncached-catalog JSON 503, and exclusion of generated POSTs/external URLs. Real Safari/Android installation, airplane-mode reload and native file handling remain pending.
+
+All six small photo renditions returned HTTP 200 image/jpeg in source research. Attribution/license URLs and all town coordinates passed structural checks. The preview at http://localhost:3002 returned 200 for /, /api/health, /api/options, the new journey/UI/count-worker/service-worker scripts and local PDF library. A live local $50 quick request returned two NJ picks, teen preferences and a suggested 17:00–19:23 itinerary at $48.33; this is one observed randomized result, not a fixed expected price.
+
+The widest $10,000 mixed full-day search counted 17,966,394 valid combinations. The first implementation took about 17.47 seconds locally; numeric precomputation reduced it to about 0.94 seconds with the same count and zero retained complete candidate plans. This is a development-computer measurement, not a production/phone guarantee.
+
+| ID | Item | Steps | Expected | Actual |
+| --- | --- | --- | --- | --- |
+| S01 | Quick date | Generate default $50 quick plan. | Dinner/treat, total within budget, suggested visits. | Passed local HTTP and DOM. |
+| S02 | Evening/full | Select each format and suitable start. | Three/four categories and matching companion/PDF length. | Passed local HTTP and DOM. |
+| S03 | Nearby coherence | Set origin/radius/leg limits; inspect selected stops. | All local stops within representative-point radius; later legs respect limit. | Passed automated local checks. |
+| S04 | Time constraints | Try late start and daytime-menu locks. | Incompatible plans rejected without inventing availability. | Passed local 422/eligibility cases. |
+| S05 | Preferences | Select cuisine, vegetarian-oriented meals and low effort. | Matching tagged candidates only; ingredient/policy caveats remain. | Passed local tests. |
+| S06 | Audience | Compare teen, 18+ and 21+ preferences. | Adult-only ideas excluded for teens; 18+ does not qualify for 21+; teen finish by 21:00. | Passed local tests. |
+| S07 | Both pick | Complete both shared-phone turns. | First form hidden/reset; both mood weights/either cuisine considered. | Passed DOM and weighted-fixture checks. |
+| S08 | Place discovery | Browse venue groups and spotlight cards. | Variants grouped, individual controls retained, source/license visible. | Passed DOM/structural checks; real rendering pending. |
+| S09 | Ordering | Move a stop earlier/later. | Valid order accepted; incompatible order leaves prior plan intact. | Passed DOM and independent enumeration. |
+| S10 | Replacement reason | Select Not our thing; inspect returned picks. | Target changes, other picks remain when valid. | Passed DOM. Other reasons use documented local filters. |
+| S11 | Tried places | Mark plan tried; enable novelty preference. | Venue variants excluded; local history can be cleared. | Passed DOM and engine tests. |
+| S12 | Calendar | Download quick/full .ics; compare winter/summer. | One event per stop, UTC timestamps reflect NJ DST. | Passed DOM/file-content checks; phone import pending. |
+| S13 | Invitation | Share without native share/clipboard support. | Readable text file fallback. | Passed DOM. Native share remains a device case. |
+| S14 | Saved short plan | Save, revisit after format change, tamper stored source/address. | Correct format restored; canonical catalog metadata used. | Passed DOM. |
+| S15 | Offline shell | Simulate install, offline fetch and update. | Cached public shell/catalog; no POST caching; owned-cache cleanup. | Passed service-worker model; installed-phone case pending. |
+| S16 | Background count | Compare worker and server preview. | Same counts/errors, request IDs retained for stale-reply rejection. | Passed VM worker test. |
+| S17 | Existing behavior | Run existing routes/input/game/price/sound/favorite checks. | Existing catalog and legacy four-category API preserved. | Passed Node and legacy DOM suites. |
+| S18 | PDF readability | Export every local detail plus timed 3/4/5-page samples. | Text within bounds; readable inspected pages. | 200 detail pages and 12 timed pages passed; six timed pages inspected. |
+
+Public Vercel deployment, real iPhone/Android rendering, native calendar/share behavior, audible playback and installed offline behavior remain pending. Browser preview control failed with Module not found: @oai/cua/tinyskyAlt. No public deployment or App Store approval is claimed.

@@ -49,7 +49,7 @@ Main risk: a budget or filter leaves no affordable combination. Keep the preset 
 - All costs are USD estimates for two people. Store and compare money as integer cents.
 - Accept a finite numeric budget from $0 to $10,000 with at most two decimal places. Reject missing, negative, oversized, malformed, and unexpected input.
 - Limit JSON bodies to 8 KB; return readable JSON errors for malformed JSON and oversized bodies. This accommodates exclusions from the expanded catalog plus custom ideas and locks.
-- Accept only documented setting values: any, indoor, outdoor, home. A plan's four options must each support the selected setting.
+- Accept only documented setting values: any, indoor, outdoor, home. Every selected option must support the selected setting. Timed formats may select two, three or four categories; legacy requests still select all four.
 - Select one option per category, then choose randomly among complete combinations at or below budget. Never rely on an unbounded random retry loop.
 - Distinguish invalid requests (400), oversized bodies (413), no affordable combination (422), and unexpected server failures (500).
 - Preserve form values on errors. Show loading, success, empty, and failure states; prevent duplicate submissions.
@@ -62,7 +62,7 @@ The owner requested an interactive game upgrade and authorized Codex to handle m
 
 Upgrade behavior:
 - Shared validation and combination enumeration live in public/planner.js. The server remains authoritative; browser counts are a preview.
-- Generation may also receive mood, spending, area, date, excluded, customOptions, locked, and previous. Validate every field and reject undocumented fields. Keep JSON requests bounded to 8 KB.
+- Generation may also receive mood, spending, area, date, excluded, customOptions, locked, previous, and a strictly validated journey object. Validate every field and reject undocumented fields. Keep JSON requests bounded to 8 KB.
 - Spending defaults to treat: select estimated totals at 90–100% of budget when available, otherwise at least 95% of the highest attainable total. Flexible allows any affordable total. Apply mood weighting after spending selection. Explain unattainable budgets honestly and never inflate catalog prices.
 - Preserve the 96 original ideas and the separately maintained source-linked NJ catalog in data/local-options.json. The UI defaults to the Paterson-area deck; all/general/paterson are valid area values. A valid optional calendar date filters known regular weekdays and recorded closedDates/closedDateRanges, not live availability or unrecorded holidays. Do not promise a timed itinerary or a measured one-hour driving radius.
 - Each local price needs an official source URL, checked date, explicit order/admission basis for two, and separate base/tax/tip/donation components. See DATA_SOURCES.md. Never invent a local price or copy a third-party estimate as a verified menu quote. Unknown fees and travel/parking exclusions must remain visible. Review sources periodically; checked dates are not automatic live updates.
@@ -83,3 +83,16 @@ Upgrade behavior:
 - Record three useful Codex prompts and one Codex error with its detection and fix for individual reports.
 - Each student writes their own report. Reports begin with repository, deployment, and shared demo-video links. Do not write shared report prose for submission by multiple students.
 - The group demo must show the deployed app, main flow, request/response in developer tools, rejected input, all advanced features, a code explanation, and every member speaking.
+
+## Student and couple planning upgrade
+
+- Preserve the legacy four-category API when journey is absent. With journey, quick uses dinner/treat (150 minutes), evening dinner/activity/treat (300), full all four (540). Validate nested fields and keep requests bounded to 8 KB.
+- public/journey.js owns shared numeric time/distance/preference rules; public/count-worker.js keeps counts off the main thread. Preserve equality with independent itinerary enumeration and never retain all complete dates in production.
+- Default to a $50 quick date, teen audience and alcohol-free ideas. Age groups are preferences, not identity verification; never collect DOB. Teen plans finish by 21:00, exclude adult-only activities, and still require venue/guardian checks. Both-18+ does not qualify for 21+ experiences.
+- Census representative points are approximate municipality locations, not venue geocodes or live travel estimates. All local stops must fit the radius; later legs must fit the leg limit. Unknown locations must remain explicit. Return travel is excluded.
+- Timing windows, visit lengths, food tags and effort classifications are planning guidance. Do not claim live reservations, showtimes, ingredient guarantees, walking accessibility or a traffic-verified itinerary. Keep known dated closures and conservative published-hour restrictions.
+- Exclude repeated venue IDs within timed dates. Apply both people’s moods without bypassing hard constraints; either cuisine may win. Shared-phone inputs are hidden/reset between turns and need no account.
+- Keep edited stop order in the screen, companion, favorites, PDF/text and calendar exports. Revalidate ordering; reset positional progress when order changes. Save canonical catalog metadata, not untrusted stored source links.
+- Photo records require verified source, author, license and historical/crop notes. Prefer verified small renditions; lazy-load and remove failed images. Group venue variants without pretending they are different businesses.
+- Service workers may cache this app’s public shell and read-only catalog only. Never cache generated POST requests or remove unrelated caches. Update the owned cache version when offline assets change in a future release. Offline/native-phone behavior needs real-device verification.
+- Calendar exports escape and fold RFC 5545 content lines and convert America/New_York civil times to UTC; exports are suggestions, not bookings. No uploads, accounts, paid services or new runtime dependencies.

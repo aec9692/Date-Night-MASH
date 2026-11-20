@@ -24,39 +24,42 @@ window.DateCompanion = (() => {
   }
   function mapLink(label, destination, waypoints = []) {
     const url = new URL('https://www.google.com/maps/dir/');
-    url.search = new URLSearchParams({ api:'1', origin:'Paterson, NJ', destination, travelmode:'driving', ...(waypoints.length ? {waypoints:waypoints.join('|')} : {}) });
+    url.search = new URLSearchParams({ api:'1', origin:`${plan?.journey?.origin||'Paterson'}, NJ`, destination, travelmode:'driving', ...(waypoints.length ? {waypoints:waypoints.join('|')} : {}) });
     const link = node('a', label, 'button secondary');
     link.href = url.href; link.target = '_blank'; link.rel = 'noopener noreferrer';
     return link;
   }
   function render(value) {
     plan = value;
-    const nextKey = `${value.date}|${value.picks.map(pick=>pick.id).join('|')}`;
+    const nextKey = `${value.date}|${(window.MashJourney?MashJourney.ordered(value):value.picks).map(pick=>pick.id).join('|')}`;
     if (key !== nextKey) { key = nextKey; done = new Set(); selected = 0; spark = 0; }
-    $('#date-summary').textContent = `${done.size}/4 stops enjoyed · ${plan.date || 'Your next adventure'}`;
+    const picks=window.MashJourney?MashJourney.ordered(plan):plan.picks;
+    $('#date-summary').textContent = `${done.size}/${picks.length} stops enjoyed · ${plan.date || 'Your next adventure'}`;
+    $('#date-progress').max=picks.length;
     $('#date-progress').value = done.size;
     $('#stop-tabs').replaceChildren();
-    plan.picks.forEach((pick,index) => {
+    picks.forEach((pick,index) => {
       const tab = node('button', `${done.has(index) ? '✓' : index+1} ${pick.category}`, 'stop-tab');
       tab.type = 'button'; tab.setAttribute('aria-pressed',String(index===selected));
       tab.addEventListener('click',()=>{selected=index;render(plan);});
       $('#stop-tabs').append(tab);
     });
-    const pick = plan.picks[selected];
+    const pick = picks[selected];
     const card = $('#current-stop'); card.className = `current-stop ${pick.category}`; card.replaceChildren();
-    card.append(node('span',`STOP ${selected+1} / 4`, 'eyebrow'),node('h3',pick.name),node('p',pick.description));
+    card.append(node('span',`STOP ${selected+1} / ${picks.length}`, 'eyebrow'),node('h3',pick.name),node('p',pick.description));
+    const stop=plan.schedule?.stops.find(s=>s.id===pick.id);if(stop)card.append(node('p',`${stop.start}–${stop.end} suggested visit`,'time-badge'));
     if (pick.venue) card.append(node('p',pick.venue.address,'venue-address'),node('p',pick.venue.hoursNote,'helper'),mapLink('Directions to this stop ↗',pick.venue.address));
     else card.append(node('p',pick.tip,'helper'));
     const mark = node('button',done.has(selected)?'✓ Enjoyed · undo':'We did this! ✓','stop-done'); mark.type='button';
     mark.addEventListener('click',()=>{
       if(done.has(selected)) done.delete(selected);
-      else { done.add(selected); const next=plan.picks.findIndex((_,i)=>!done.has(i)); if(next!==-1)selected=next; }
+      else { done.add(selected); const next=picks.findIndex((_,i)=>!done.has(i)); if(next!==-1)selected=next; }
       render(plan); $('#current-stop').focus({preventScroll:true});
     });
     card.append(mark);
-    $('#date-complete').hidden = done.size !== 4;
+    $('#date-complete').hidden = done.size !== picks.length;
     $('#full-route').replaceChildren();
-    const addresses = plan.picks.filter(pick=>pick.venue).map(pick=>pick.venue.address);
+    const addresses = picks.filter(pick=>pick.venue).map(pick=>pick.venue.address);
     if(addresses.length) $('#full-route').append(mapLink('Check the whole route ↗',addresses[addresses.length-1],addresses.slice(0,-1)));
     $('#spark-question').textContent = sparks[spark];
   }

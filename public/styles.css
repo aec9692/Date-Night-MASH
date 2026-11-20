@@ -286,6 +286,71 @@ footer p { font-size: .75rem; color: var(--muted); text-align: right; }
 .install-details { padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); margin-bottom: 30px; }
 .install-details summary { cursor: pointer; font-weight: 700; min-height: 32px; }
 .phone-nav { display: none; }
+.journey-setup { border: 1px solid #baa4d9; background: linear-gradient(130deg,#f0e8ff,#fff4ec); padding: 24px; border-radius: 20px; margin-bottom: 26px; }
+.journey-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.journey-heading h3 { font: 600 1.8rem/1.2 Georgia,serif; margin: 6px 0; }
+.journey-primary { grid-template-columns: 1.5fr 1fr 1fr; }
+.journey-more { margin-top: 18px; border-top: 1px solid #c9b9da; padding-top: 16px; }
+.journey-more summary { cursor: pointer; font-weight: 700; min-height: 44px; }
+.journey-more summary span { display: block; font-size: .9rem; font-weight: 400; margin-top: 4px; color: #594b69; }
+.journey-more .form-grid { margin-top: 16px; }
+.preference-checks { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin: 18px 0; }
+.preference-checks label { display: flex; align-items: center; gap: 10px; background: #ffffffb5; border: 1px solid #d5c8e6; border-radius: 12px; padding: 12px; margin: 0; font-size: .95rem; min-height: 48px; }
+.preference-checks input,.journey-more .instant-label input { width: 20px; height: 20px; flex: 0 0 20px; }
+.couple-summary { background: #e1edc5; padding: 14px; border-radius: 12px; font-size: .95rem; }
+.journey-result { margin: 22px 0; padding: 24px; border: 1px solid #b49bce; background: #f0e8ff; border-radius: 18px; }
+.trip-heading { font: 600 1.5rem/1.3 Georgia,serif; margin: 0 0 12px; }
+.timeline { list-style: none; padding: 0; margin: 22px 0 0; }
+.timeline li { display: grid; grid-template-columns: 64px minmax(0,1fr) auto; gap: 6px 14px; padding: 16px 0; border-top: 1px solid #cbb9de; }
+.timeline-time { grid-row: span 2; font-weight: 800; color: #66349c; }
+.timeline .helper { grid-column: 2; margin: 0; }
+.order-controls { display: flex; gap: 12px; grid-column: 3; grid-row: 1 / span 2; align-items: center; }
+.order-controls button { min-height: 44px; }
+.experience-badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+.experience-badges span { display: inline-block; background: #f2ecf8; border: 1px solid #d2c2e2; border-radius: 8px; padding: 5px 8px; color: #4a365e; font-size: .875rem; }
+.experience-badges .time-badge { background: #e2edc9; color: #30451e; border-color: #bacd9e; font-weight: 700; }
+.why-fit { background: #f6f0ff; padding: 12px; border-radius: 10px; font-size: .95rem; }
+.replace-label { font-size: .875rem; margin: 0; flex: 1 1 100%; }
+.replace-label select { margin-top: 6px; width: 100%; min-height: 46px; font-size: 1rem; background-color: white; }
+.pick-controls { flex-wrap: wrap; }
+.picks-grid { grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr)); }
+.venue-group-item { list-style: none; }
+.venue-group { border: 1px solid #d6c8e6; border-radius: 12px; background: #ffffffb5; }
+.venue-group > summary { cursor: pointer; padding: 14px 12px; font-weight: 700; line-height: 1.5; min-height: 48px; font-size: .95rem; }
+.venue-group > ul { padding: 0 8px 10px; list-style: none; }
+.venue-group > ul > li { margin-top: 10px; }
+.place-photo { margin: 12px 0 0; width: 100%; }
+.place-photo img { display: block; width: 100%; height: auto; max-height: 230px; object-fit: cover; border-radius: 10px; background: #e5daee; }
+.place-photo figcaption { background: #fffaf5; color: #594b69; padding: 8px; font-size: .875rem; line-height: 1.45; text-transform: none; }
+.place-photo a { color: #5b2d8d; }
+.local-spotlight { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; margin: 18px 0 30px; }
+.spotlight-heading { margin-top: 24px; }.spotlight-heading p { margin: 6px 0; }
+.spotlight-card { border: 1px solid #c9b9da; border-radius: 16px; padding: 14px; background: #fffaf5; min-width: 0; }
+.spotlight-card h3 { font: 600 1.3rem/1.25 Georgia,serif; margin: 16px 0 6px; }.spotlight-card p { margin: 0 0 14px; }
+.spotlight-card .place-photo { margin: 0; }.spotlight-card .place-photo img { height: 170px; }
+.spotlight-card button { width: 100%; min-height: 46px; }
+.pick-art:has(.place-photo) .emoji { display: none; }
+.connection-note { position: sticky; top: 8px; z-index: 40; background: #f6e2a7; color: #4b3516; border: 1px solid #b48a37; padding: 14px; border-radius: 12px; }
+#couple-dialog { width: min(520px,calc(100% - 24px)); max-height: 88dvh; overflow-y: auto; padding: 26px; border: 2px solid #72518c; border-radius: 20px; background: #fbf7ff; color: #292333; }
+#couple-dialog::backdrop { background: #292333a0; backdrop-filter: blur(5px); }
+#couple-close { display: block; margin-left: auto; }
+#couple-dialog h2 { font: 600 2rem/1.15 Georgia,serif; }
+#couple-form label { margin-top: 18px; }
+#couple-form select { width: 100%; min-height: 48px; }
+#couple-next,#couple-ready { margin-top: 24px; width: 100%; min-height: 50px; }
+@media(max-width:700px){
+ .journey-setup,.journey-result { padding: 18px; }
+ .journey-heading { align-items: stretch; flex-direction: column; }
+ .journey-primary,.preference-checks { grid-template-columns: minmax(0,1fr); }
+ .timeline li { grid-template-columns: 54px minmax(0,1fr); }
+ .order-controls { grid-column: 2; grid-row: auto; }
+ .pick-controls .replace-label { flex-basis: 100%; }
+ .travel-tools > button { width: 100%; min-height: 48px; }
+ .place-photo img { max-height: 220px; }
+ .local-spotlight { display: flex; overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 12px; }
+ .spotlight-card { flex: 0 0 min(84vw,320px); scroll-snap-align: start; }
+ #couple-dialog { padding: 20px; }
+}
 #idea-preview { width: min(590px,calc(100% - 24px)); max-height: 88vh; max-height: 88dvh; overflow-y: auto; padding: 24px; border: 2px solid var(--ink); border-radius: 20px; background: var(--paper); color: var(--ink); box-shadow: 0 15px 60px #29233340; }
 #idea-preview::backdrop { background: #29233385; backdrop-filter: blur(4px); }
 #preview-close { display: block; margin: 0 0 24px auto; }

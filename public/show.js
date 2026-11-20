@@ -63,8 +63,8 @@ window.MashShow = (() => {
     const skip = document.querySelector('#skip-reveal');
     board.replaceChildren();
     const columns = plan.picks.map((pick, index) => {
-      const column = node('article', '', `reveal-column ${categories[index]}`);
-      column.append(node('h3', labels[index]));
+      const column = node('article', '', `reveal-column ${pick.category}`);
+      column.append(node('h3', labels[categories.indexOf(pick.category)]));
       const list = node('ul');
       const others = pool.filter(option => option.category === pick.category && option.id !== pick.id).slice(0, 3);
       const rows = others.map(option => node('li', option.name));
