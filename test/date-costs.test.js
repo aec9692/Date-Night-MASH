@@ -70,6 +70,8 @@ test('mixed plans contain indoor and outdoor outings; recent repeats are skipped
  }
 });
 test('pantry, recent and location inputs remain strict; seasonal ideas respect a selected date',()=>{
+ assert.equal(costs.settingMatches({custom:true,settings:['indoor','home']},'indoor'),false);
+ assert.equal(costs.settingMatches({custom:true,settings:['indoor','outdoor','home']},'indoor'),true);
  for(const extra of [{pantry:['unknown']},{pantry:['art','art']},{recent:[['missing']]},{location:{lat:NaN,lon:0,label:'Nowhere'}},{location:{lat:40,lon:-74,label:'City',extra:true}}])assert.equal(planner.prepare({budget:50,...extra},catalog,false).status,400);
  const seasonal=catalog.find(o=>o.seasons?.length&&o.seasons.length<12);assert.ok(seasonal);
  const off=Array.from({length:12},(_,i)=>i+1).find(month=>!seasonal.seasons.includes(month));assert.equal(planner.eligible(seasonal,'general',`2026-${String(off).padStart(2,'0')}-01`),false);
