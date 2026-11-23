@@ -13,7 +13,7 @@ window.DateExtras=(()=>{
  function restore(plan,{ownership=true}={}){if(ownership){for(const input of field.querySelectorAll('input'))input.checked=(plan.pantry||[]).includes(input.value);save('mash-owned-v1',pantry());}origin=plan.location||null;showOrigin();}
  function remember(plan){if(plan.picks.length!==4)return;const ids=plan.picks.map(pick=>pick.id),key=ids.join('|');recent=[ids,...recent.filter(row=>row.join('|')!==key)].slice(0,8);}
  function recentDates(options){const known=new Set(options.map(option=>option.id));return recent.filter(ids=>ids.every(id=>known.has(id)));}
- function showOrigin(){$('#location-selected').textContent=origin?`MASH starts near ${origin.label}. Radius uses approximate straight-line distance.`:'MASH uses the starting town below. Home dates ignore travel distance.';$('#location-clear').hidden=!origin;}
+ function showOrigin(){$('#location-selected').textContent=origin?`Selected area: ${origin.label}. Approximate straight-line radius.`:'Choose a starting town, or search a city / ZIP. Home dates ignore travel distance.';$('#location-clear').hidden=!origin;}
  function link(text,url){const a=node('a',text);const parsed=new URL(url);if(parsed.protocol!=='https:')return node('span',text);a.href=parsed.href;a.target='_blank';a.rel='noopener noreferrer';return a;}
  async function api(url,controller=new AbortController()){const timer=setTimeout(()=>controller.abort(),20000);try{const response=await fetch(url,{signal:controller.signal}),data=await response.json();if(!response.ok)throw new Error(data.error||'Search unavailable.');return data;}finally{clearTimeout(timer);}}
  function cancelPlaces(){placeVersion++;placeController?.abort();searching=false;$('#live-search').disabled=false;$('#curated-search').disabled=false;}
@@ -85,9 +85,10 @@ window.DateExtras=(()=>{
   const details=node('details',undefined,'home-details');details.append(node('summary',pick.home?'Ingredients, supplies & how to':'What to bring & try'));
   if(pick.guide)details.append(node('p',`${pick.guide.prepMinutes} min prep · ${pick.guide.activeMinutes} min active · about ${pick.guide.totalMinutes} min elapsed · ${pick.guide.difficulty}`,'guide-times'),node('p',pick.guide.quantityNote,'helper'));
   for(const [key,title]of [['ingredients','Ingredients for two'],['supplies','What you need'],['instructions','Try it together']])if(data[key]?.length){details.append(node('h4',title));const list=node(key==='instructions'?'ol':'ul');data[key].forEach(text=>list.append(node('li',text)));details.append(list);}
-  details.append(node('p',pick.costBasis||'Illustrative additional-spend estimate for two. Compare your actual grocery basket before shopping.','helper'));
+  details.append(node('h4','Cost assumptions'),node('p',pick.costBasis||'Illustrative additional-spend estimate for two. Compare your actual grocery basket before shopping.','helper'));
   if(Number.isSafeInteger(pick.minCostCents)&&Number.isSafeInteger(pick.maxCostCents)&&pick.minCostCents!==pick.maxCostCents)details.append(node('p',`Illustrative range before owned-supply adjustments: $${(pick.minCostCents/100).toFixed(2)}–$${(pick.maxCostCents/100).toFixed(2)} for two. The plan uses the displayed point estimate.`,'helper'));
   if(pick.purchases?.length){details.append(node('h4','Additional shopping allowance'));const list=node('ul');pick.purchases.forEach(line=>list.append(node('li',`${line.name}: $${(line.cents/100).toFixed(2)}`)));details.append(list);}
+  window.DateLayout?.group(details,'Preparation & quantities');
   return details;
  }
  function shopping(plan){
@@ -99,6 +100,7 @@ window.DateExtras=(()=>{
   const nextKey=plan.picks.map(p=>p.id).join('|')+'|'+(plan.pantry||[]).join('|');if(nextKey!==shoppingKey){shoppingChecks=new Set();shoppingKey=nextKey;}
   const ingredients=new Map();for(const pick of plan.picks)for(const item of pick.guide?.ingredients||[]){const key=item.name.toLowerCase().trim();if(!ingredients.has(key))ingredients.set(key,{name:item.name,quantities:[],owned:[]});const entry=ingredients.get(key);entry.quantities.push(`${item.quantity} (${pick.category})`);entry.owned.push(Boolean(item.pantryKey&&(plan.pantry||[]).includes(item.pantryKey)));}
   if(ingredients.size){container.append(node('h4','Ingredient checklist'),node('p','Quantities describe each recipe or package yield. Check sufficient amounts; list ticks track shopping only. Change pantry selections to change the budget.','helper'));const list=node('ul');for(const [key,item]of ingredients){const li=node('li'),label=node('label'),input=node('input');input.type='checkbox';input.checked=shoppingChecks.has(key);input.addEventListener('change',()=>{if(input.checked)shoppingChecks.add(key);else shoppingChecks.delete(key);});label.append(input,document.createTextNode(`${item.name}: ${item.quantities.join(' + ')}${item.owned.every(Boolean)?' · assumed already owned in this plan':''}`));li.append(label);list.append(li);}container.append(list);}
+  window.DateLayout?.group(container,'Shopping overview');
  }
  function setup(data){
   catalogOptions=data.options;towns=data.towns.towns;locations=data.locations||[];

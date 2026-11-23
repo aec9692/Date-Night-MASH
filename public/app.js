@@ -30,6 +30,7 @@ function button(text, className, action) {
 function message(text, error = false) {
   $('#message').textContent = text;
   $('#message').classList.toggle('error', error);
+  if(error)$('#message').scrollIntoView({block:'nearest'});
 }
 function allOptions() { return [...catalog, ...(MashPlanner.customCatalog(customOptions) || [])]; }
 function planKey(plan) { return `${plan.date||''}|${plan.budgetCents}|${plan.reserveCents||0}|${plan.mash?`mash|${plan.mash.origin}|${plan.mash.radius}|${plan.mash.age}`:''}|${plan.journey?`${plan.journey.format}|${plan.journey.start}|${plan.journey.origin}|${plan.journey.order.join(',')}`:''}|${plan.picks.map(pick => pick.id).join('|')}`; }
@@ -167,6 +168,7 @@ function updateBudget(event, mode) {
 }
 function updatePossibilities() {
   DateFitUI.scene(planningMode);
+  DateLayout.summary();
   clearTimeout(budgetCountTimer);
   syncBudgetControls();
   if(planningMode==='mash'){
@@ -220,7 +222,7 @@ function setBusy(value) {
 async function generate(event, rerollCategory = null, requestedMode = null) {
   event?.preventDefault();
   const mode=requestedMode||(rerollCategory&&currentPlan?(currentPlan.mash?'mash':'scene'):planningMode);
-  if (busy || !catalog.length || !$(mode==='mash'?'#mash-form':'#plan-form').reportValidity()) return;
+  if (busy || !catalog.length || !DateLayout.validate($(mode==='mash'?'#mash-form':'#plan-form'))) return;
   MashShow.primeSound();
   const known = allOptions();
   if (rerollCategory && currentPlan.picks.some(pick => !known.some(option => option.id === pick.id))) {
@@ -259,11 +261,13 @@ async function generate(event, rerollCategory = null, requestedMode = null) {
     $('#result').scrollIntoView({ block: 'nearest' });
     if (!data.unchanged && !rerollCategory) MashShow.celebrate();
   } catch (error) {
+    DateLayout.showBudgetError(mode);
     message(['TimeoutError', 'AbortError', 'TypeError'].includes(error.name) ? 'Could not reach the server. Check your connection and try again.' : error.message, true);
   } finally { setBusy(false); }
 }
 
 function renderResult() {
+  const disclosures=DateLayout.capture();
   $('#result-picks').replaceChildren();
   MashJourney.ordered(currentPlan).forEach((pick, index) => {
     const locked = locks[pick.category] === pick.id;
@@ -275,20 +279,26 @@ function renderResult() {
     art.append(element('span', `0${index + 1} / ${labels[pick.category].toUpperCase()}`, 'step-label'), emoji);
     const copy = element('div', undefined, 'pick-body');
     const food=pick.venue&&['dinner','treat'].includes(pick.category);
-    const group=food?DatePlaces.group(catalog.filter(o=>o.venue?.id===pick.venue.id&&o.category===pick.category))[0]:null;
     copy.append(element('h3',DatePlaces.title(pick)),element('p',food?`${labels[pick.category]} in ${pick.venue.city}. Explore the menu and choose what sounds good.`:pick.description,'pick-description'),
-      element('span',group?`${DatePlaces.range(group)} · sample range for two`:money(pick.costCents),'pick-price'));
-    if(food)copy.append(element('p',`Budgeted example: ${money(pick.costCents)}. Actual dishes and final bill are your choice.`,'helper'));
-    else copy.append(element('p',pick.tip||'Make this one your own.','pick-tip'));
-    if (pick.venue) copy.append(venueDetails(pick,currentPlan.mash?.origin||currentPlan.journey?.origin||'Paterson',currentPlan.location));
-    if(pick.place){
-      copy.append(element('p',pick.place.address||'Street address not recorded; use the map pin.','helper'),element('p','Your personal price estimate. Community map details need confirmation.','helper'));
-      const link=element('a','Get directions');link.href=DateDirections.to(`${pick.place.lat},${pick.place.lon}`,{town:currentPlan.mash?.origin,location:currentPlan.location});link.target='_blank';link.rel='noopener noreferrer';copy.append(link);
+      element('span',`${money(pick.costCents)} estimated for two`,'pick-price'));
+    const confidence=DateConfidence.info(pick);
+    copy.append(element('span',confidence.label,'confidence-badge '+confidence.kind));
+    copy.append(element('p',pick.venue?'Sample order/admission; confirm the full bill.':pick.home?'Shopping allowance; confirm your actual basket.':pick.place?'Your estimate; confirm price and place details.':'Allowance only; choose a place and confirm its price.','pick-caution'));
+    const details=element('details',undefined,'pick-details');details.dataset.disclosure='evidence';
+    details.append(element('summary',pick.home?'Ingredients, instructions & cost details':'Price, source & practical details'),element('p',confidence.detail,'helper'));
+    if(pick.tip)details.append(element('p',pick.tip,'pick-tip'));
+    if (pick.venue) {
+      const venue=venueDetails(pick,currentPlan.mash?.origin||currentPlan.journey?.origin||'Paterson',currentPlan.location),proof=venue.querySelector('.price-proof');
+      proof.remove();proof.querySelector('summary').remove();const proofBody=proof.querySelector(':scope > .detail-grid')||proof;details.append(DateLayout.block('Location & official links',venue),...proofBody.childNodes);
     }
-    if(pick.home||pick.instructions?.length)copy.append(DateExtras.homeDetails(pick));
-    const confidence=DateConfidence.info(pick);copy.append(element('span',confidence.label,'confidence-badge '+confidence.kind),element('p',confidence.detail,'helper'));
-    copy.append(DateFitUI.checklist(pick,currentPlan));
-    SmartDate.decorate(pick,art,copy,currentPlan);
+    if(pick.place){
+      details.append(element('p',pick.place.address||'Street address not recorded; use the map pin.','helper'));
+      const link=element('a','Get directions');link.href=DateDirections.to(`${pick.place.lat},${pick.place.lon}`,{town:currentPlan.mash?.origin,location:currentPlan.location});link.target='_blank';link.rel='noopener noreferrer';details.append(link);
+    }
+    if(pick.home||pick.instructions?.length){const home=DateExtras.homeDetails(pick);home.querySelector('summary').remove();const homeBody=home.querySelector(':scope > .detail-grid')||home;details.append(...homeBody.childNodes);}
+    SmartDate.decorate(pick,art,details,currentPlan);
+    DateLayout.group(details);
+    copy.append(details);
     const controls = element('div', undefined, 'pick-controls');
     const lock = button(locked ? '🔒 Locked in' : '♡ Keep this', 'lock-button', () => {
       if (busy) return;
@@ -312,8 +322,9 @@ function renderResult() {
     lock.disabled = busy;
     reroll.disabled = busy || locked;
     controls.append(lock, reroll);
-    const hide=button('Never suggest again','text-button',()=>{if(busy)return;DateFitUI.hide(pick);if(locks[pick.category]===pick.id)delete locks[pick.category];updatePossibilities();renderCatalog();message('Hidden from future suggestions on this device. Restore it in Never suggest again.');});hide.disabled=busy;controls.append(hide);
-    controls.append(SmartDate.replaceControl(pick,reason=>{
+    const more=element('details',undefined,'pick-more');more.dataset.disclosure='changes';more.append(element('summary','More changes'));
+    const hide=button('Never suggest again','text-button',()=>{if(busy)return;DateFitUI.hide(pick);if(locks[pick.category]===pick.id)delete locks[pick.category];updatePossibilities();renderCatalog();message('Hidden from future suggestions on this device. Restore it in Never suggest again.');});hide.disabled=busy;more.append(hide);
+    more.append(SmartDate.replaceControl(pick,reason=>{
       if(busy)return;
       SmartDate.rememberReason(pick,reason);
       if(locks[pick.category]===pick.id)delete locks[pick.category];
@@ -323,6 +334,7 @@ function renderResult() {
       }
       updatePossibilities();renderCatalog();generate(null,reason==='distance'?null:pick.category);
     }));
+    controls.append(more);
     card.append(art, copy, controls);
     $('#result-picks').append(card);
   });
@@ -331,7 +343,7 @@ function renderResult() {
   $('#result-setting').textContent = `${DateCosts.settingLabel(currentPlan.picks,currentPlan.setting)} · ${moodLabels[currentPlan.mood]}${currentPlan.location?' · '+currentPlan.location.label:currentPlan.setting==='home'?' · Your place':' · '+areaLabels[currentPlan.area]}${currentPlan.date ? ` · ${currentPlan.date}` : ''}`;
   $('#result-total').textContent = money(currentPlan.plannedTotalCents);
   $('#result-total-label').textContent=currentPlan.reserveCents?'Planned total for two, including reserve':'Estimated total for two';
-  $('#remaining').textContent = `${money(currentPlan.remainingCents)} ${currentPlan.reserveCents?'unallocated after reserve':'left for little extras'}`;
+  $('#remaining').textContent = currentPlan.reserveCents?`${money(currentPlan.reserveCents)} reserved · ${money(currentPlan.remainingCents)} unallocated`:`${money(currentPlan.remainingCents)} left for little extras`;
   $('#reserve-breakdown').hidden=!currentPlan.reserveCents;
   $('#reserve-breakdown').textContent=`Selected picks ${money(currentPlan.totalCents)} + parking ${money(Math.round(currentPlan.reserve.parking*100))} + transportation ${money(Math.round(currentPlan.reserve.transport*100))} + extras ${money(Math.round(currentPlan.reserve.extras*100))}. Reserve amounts are your allowances, not verified costs.`;
   const max = currentPlan.maximumCents;
@@ -350,6 +362,8 @@ function renderResult() {
   DateActions.render(currentPlan);
   DateFeedback.render(currentPlan);
   ReadyNight.render(currentPlan);
+  DateLayout.restore(disclosures);
+  DateLayout.result(currentPlan);
 }
 
 function restoreDatePlan(plan,restoreOwnership=true) {
@@ -538,9 +552,14 @@ function venueDetails(pick, origin = activePreferences().mash?.origin||activePre
   wrap.append(links);
   const details = element('details', undefined, 'price-proof');
   const p = pick.pricing;
-  details.append(element('summary', 'How the budget example was calculated'), element('p', p.order),
-    element('p', `Posted subtotal ${money(p.baseCents)} · tax reserve ${money(p.taxCents)} · optional tip ${money(p.tipCents)}${p.donationCents ? ` · optional donation ${money(p.donationCents)}` : ''}`),
-    element('p', p.taxNote), element('p', p.tipNote), element('p', pick.venue.hoursNote), element('p', p.exclusions), element('p', `Source checked ${p.checkedOn}. Prices can change.`));
+  details.append(element('summary', 'How the budget example was calculated'),
+    DateLayout.block('Order / admission example',element('p',p.order)),
+    DateLayout.block('Price breakdown',DateLayout.facts([['Posted subtotal',money(p.baseCents)],['Tax reserve',money(p.taxCents)],['Optional tip',money(p.tipCents)],...(p.donationCents?[['Optional donation',money(p.donationCents)]]:[])])),
+    DateLayout.block('Tax & tip assumptions',element('p',p.taxNote),element('p',p.tipNote)),
+    DateLayout.block('Opening & booking notes',element('p',pick.venue.hoursNote)),
+    DateLayout.block('Costs not included',element('p',p.exclusions)),
+    DateLayout.block('Source check',element('p',`Source checked ${p.checkedOn}. Prices can change.`)));
+  DateLayout.group(details);
   wrap.append(details);
   return wrap;
 }

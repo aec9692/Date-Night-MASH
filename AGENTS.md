@@ -1,5 +1,9 @@
 # Date Night MASH
 
+Detail blocks: preserve complete source notes, price assumptions, ingredients/instructions, route disclaimers, links and control behavior when regrouping expandable content. Use DateLayout.block/facts/group and safe DOM movement, with real headings and definition lists. Do not truncate, line-clamp, hide important confirmations or put rich HTML inside native select options. Form field cards and summary chips are presentational. Offline cache v13 includes the block styling and date-layout.js.
+
+First-plan layout: keep budget, starting area and date visible above Play MASH. Use progressive disclosure for optional controls and supporting results. Preserve every existing input/action ID, shared Scene/MASH preferences, canonical costs and features. Show exact selected point estimates and source/allowance labels; never imply current prices, live drive times or a booking. Show total/picks before route/evidence/checklists. date-layout.js opens invalid hidden controls during native invalid capture and explicit validation; retain lightweight slider handling. Offline cache v13 includes date-layout.js.
+
 Submission audit: RUBRIC_CHECKLIST.md maps the supplied requirements. Use DEPLOYED_ACCEPTANCE.md for current manual coverage and SUBMISSION_GUIDE.md for group demo/individual-report preparation. Keep exactly three designated advanced features for this three-member group; extra features are supplementary. Suggested ownership does not prove contribution or instructor credit. Never mark deployed tests, screenshots, video, approval, collaborator acceptance or Canvas submission complete without evidence. Preserve independently written report prose.
 
 ## Approved project proposal

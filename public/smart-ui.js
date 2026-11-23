@@ -59,7 +59,7 @@ window.SmartDate=(()=>{
   if(time)badges.append(node('span',`${time.start}–${time.end} suggested`,'time-badge'));
   (pick.home?['At home · plan together']:m.flags).forEach(flag=>badges.append(node('span',flag)));
   if(plan?.journey?.vegetarian&&pick.category==='dinner')badges.append(node('span','Confirm vegetarian ingredients'));
-  copy.prepend(badges);
+  if(copy.tagName==='DETAILS')copy.querySelector('summary').after(badges);else copy.prepend(badges);
   const likes=[plan?.mood,plan?.journey?.partner?.mood].filter(v=>v&&v!=='surprise'&&m.moods.includes(v));
   const why=[...new Set(likes)].map(v=>v+' vibe');
   if(plan?.journey&&pick.venue)why.push(`${pick.venue.city} · within your town radius`);
