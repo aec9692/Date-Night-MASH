@@ -9,6 +9,12 @@ Submission readiness: [RUBRIC_CHECKLIST.md](RUBRIC_CHECKLIST.md). Three designat
 
 ## Current version
 
+The first MASH plan starts with budget, starting area and date, followed immediately by Play MASH. More options contains setting, audience, radius, spending and reserves, with active settings summarized while collapsed. Food, owned supplies and saved preferences remain available separately; city/ZIP lookup is beside the visible town selector.
+
+Results lead with the planned total, any reserve, a concise estimate/travel/booking notice, and the four selected cards. Each card shows its exact budgeted point estimate for two and whether it is a source-priced example, home/general allowance or personal estimate. Price/source evidence and instructions expand on demand. Route/departure checks, shopping, timing, downloads/calendar and partner choices are grouped below. Closing a section does not remove filters or alter server selection. Hidden invalid fields open before native validation; over-budget reserves reveal their controls. Phone visual/deployed verification remains pending.
+
+Expanded sections keep their full content in labeled blocks: price breakdown, order/admission example, tax/tip assumptions, opening/booking notes, exclusions and source check. Recipes retain all ingredients, quantities and instructions in separate sections; route and shopping details use the same treatment. Price amounts use definition-list rows and optional preferences use small field cards. Blocks stack at phone widths without clipping text or introducing nested scrolling. Existing links, checkboxes, inputs and export data remain intact.
+
 Play MASH is its own four-pick game: enter a total budget for two and draw one dinner, activity, treat and entertainment choice. The default is a flexible $50 draw from local and general ideas for high-school ages 13–17, with a Paterson-area 10-mile town-center radius. Set the scene is a separate custom planner for quick, evening or full-day itineraries, start time and preferences.
 
 The local collection has 209 examples: 50 dinner, 54 activity, 50 treat and 55 entertainment, across 107 venue/route identifiers in 43 towns. All 96 original ideas remain. Another 246 home ideas and 138 general outings bring the total to 689 ideas. Discovery presents places with sample price ranges, addresses and details; checked dishes and ticket bundles remain the evidence for budget arithmetic. Favorites, PDF/text exports, shared-phone preferences and offline saved-date support remain available.

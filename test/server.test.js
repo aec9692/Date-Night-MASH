@@ -19,7 +19,9 @@ after(() => new Promise(resolve => server.close(resolve)));
 
 async function generate(body, raw = false) {
   if (!raw && body && typeof body === 'object' && !Array.isArray(body)) body = { area:'general', ...body };
-  return fetch(`${base}/api/generate`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: raw ? body : JSON.stringify(body) });
+  // Independent CPU-heavy expected counts can outlast the local server's idle timeout.
+  // Fresh fixture connections avoid reusing an expired socket; assertions stay unchanged.
+  return fetch(`${base}/api/generate`, { method: 'POST', headers: { 'Content-Type': 'application/json', Connection:'close' }, body: raw ? body : JSON.stringify(body) });
 }
 
 test('health and static assets are available', async () => {

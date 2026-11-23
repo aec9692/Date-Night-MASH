@@ -1,5 +1,7 @@
 # Current deployed acceptance plan
 
+First-plan layout update: optional controls are now inside More options and Food, supplies & saved preferences. Expand them when executing the same ID-based cases below. Result evidence, timing, shopping, partner choices and calendar/download actions are grouped in disclosures. Test native invalid-input capture and ensure validation opens closed ancestors. All 77 static controls retain their original identifiers; no input/route coverage is waived. See PHONE_QA.md P29–P32.
+
 Public URL, tester/date, commit/deployment and device/browser: **pending**. Every Actual result below is Pending. None of these cases has been executed on a public deployment.
 
 Execute on the public HTTPS URL and append actual outcomes to TESTING.md. Twelve executed cases is only a minimum: cover every input, route, page section and advanced feature. Historical tables contain superseded prices/body limits; use this current plan.

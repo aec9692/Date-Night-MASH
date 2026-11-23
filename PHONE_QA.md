@@ -46,3 +46,12 @@ Calendar actions prepare drafts/files. MASH does not have calendar-account write
 | P26 | Compare three dates, vote and share to a second phone | Three affordable distinct options; native share or copyable link | Pending |
 | P27 | Partner votes and sends reply; creator opens it on the creating browser | One vote each, match or tie; changed reply replaces guest vote | Pending |
 | P28 | Reload/reopen comparison, clear saved votes, export route PDF | Reopen works locally; clear removes comparisons; readable route page and source links | Pending |
+## Simpler first-plan flow: pending on physical devices
+
+| ID | Action | Expected | Status |
+| --- | --- | --- | --- |
+| P29 | Open MASH on phone/laptop, change budget, town and date, generate | Three core fields and Play readily visible; optional controls collapsed; no overflow or slow slider | Pending |
+| P30 | Open optional preferences, set invalid reserve, close and submit | Invalid field becomes visible before native validation; sum-over-budget server error also opens reserve controls and preserves inputs | Pending |
+| P31 | Inspect results and expand each support section | Total and four picks first; exact estimate and price-basis label; no booking/live traffic claims; route, evidence, checklist, shopping and export tools reachable | Pending |
+| P32 | Open card details, lock a pick and revisit; use Scene/favorites/share | Disclosure states retained for same picks; existing features and preferences remain usable | Pending |
+| P33 | Expand price, recipe, route, shopping and preference sections on phone/laptop | Full content appears in labeled blocks, price figures align, cards stack without clipping or inner scrollbars; links and checkboxes remain operable | Pending |

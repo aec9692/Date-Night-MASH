@@ -15,34 +15,38 @@ window.ReadyNight=(()=>{
   plan=value;const key=JSON.stringify([value.date,value.picks.map(p=>p.id),value.journey?.order,value.budgetCents,value.reserve]);if(key!==checkKey){checks.clear();checkKey=key;}
   const route=DateRoute.analyze(plan),taste=DateFeedback.preferences(allOptions());
   const liked=plan.picks.filter(p=>taste.liked.includes(p.id)).length;
-  $('#ready-explanation').textContent=`${money(plan.plannedTotalCents)} planned for two, including ${money(plan.reserveCents)} reserved; ${money(plan.remainingCents)} unallocated.${liked?` ${liked} pick${liked===1?' matches':'s match'} your past positive ratings.`:''}${route.home?' Your at-home preferences apply.':' Nearby places get a gentle preference without changing your filters or budget.'}`;
+  $('#ready-explanation').textContent=`${liked?`${liked} pick${liked===1?' matches':'s match'} your past positive ratings. `:''}${route.home?'Check your supplies before starting.':'Review the suggested route, official links and booking checks before leaving.'}`;
   const wrap=$('#ready-route');wrap.replaceChildren();
   if(route.home)wrap.append(node('p',route.notice));else{
    const ordered=MashJourney.ordered(plan);
-   wrap.append(node('p',`Starting area for estimates: ${plan.location?.label||plan.mash?.origin||plan.journey?.origin||'unverified'}. Maps may use your device location instead, depending on your Directions setting.`,'helper'));
+   wrap.append(node('h4','Starting area'),node('p',`Starting area for estimates: ${plan.location?.label||plan.mash?.origin||plan.journey?.origin||'unverified'}. Maps may use your device location instead, depending on your Directions setting.`,'helper'));
    wrap.append(node('h4',plan.journey?'Your timed stop order':'Suggested stop order — dinner first'),node('p',ordered.map(p=>DatePlaces.title(p)+(p.venue?' ('+p.venue.city+')':'')).join(' → ')));
+   wrap.append(node('h4','Travel estimate & detours'));
    if(route.unknown)wrap.append(node('p',`${route.unknown} route leg${route.unknown===1?' has':'s have'} an unverified endpoint. A complete route distance cannot be estimated.`,'route-warning'));
    else wrap.append(node('p',`${route.totalMiles.toFixed(1)} approximate straight-line miles across the listed legs.${route.savedMiles>0?` This order saves about ${route.savedMiles.toFixed(1)} straight-line miles compared with category order.`:''}`));
    if(route.backtracking)wrap.append(node('p',plan.journey?'Possible backtracking: the timed order may involve a detour. Try Earlier/Later only where the schedule still fits.':'Category order involved a sizable detour or reversal. Review this suggested order in Maps.','route-warning'));
-   const legs=node('ul');for(const leg of route.legs){const pick=plan.picks.find(p=>p.id===leg.id);legs.append(node('li',`${DatePlaces.title(pick)}: ${leg.miles===null?'endpoint unverified':leg.miles.toFixed(1)+' straight-line mi from the previous point'}`));}wrap.append(legs,node('p',route.notice,'helper'));
+   const legs=node('ul');for(const leg of route.legs){const pick=plan.picks.find(p=>p.id===leg.id);legs.append(node('li',`${DatePlaces.title(pick)}: ${leg.miles===null?'endpoint unverified':leg.miles.toFixed(1)+' straight-line mi from the previous point'}`));}wrap.append(node('h4','Leg-by-leg distances'),legs,node('p',route.notice,'helper'));
    const places=ordered.filter(p=>p.venue||p.place).map(p=>p.venue?.address||`${p.place.lat},${p.place.lon}`);
    if(places.length)wrap.append(source('Review whole route in Maps',DateDirections.to(places.at(-1),{town:plan.mash?.origin||plan.journey?.origin,location:plan.location,waypoints:places.slice(0,-1)})));
   }
+  DateLayout.group(wrap,'At home');
   const stops=$('#ready-stops');stops.replaceChildren();
   for(const pick of MashJourney.ordered(plan)){
-   const card=node('article',undefined,'ready-stop');card.append(node('h4',DatePlaces.title(pick)),node('p',DateRoute.explain(pick,plan,taste).join(' · '),'helper'));
+   const card=node('article',undefined,'ready-stop');card.append(node('h4',DatePlaces.title(pick)),DateLayout.block('Why this fits',node('p',DateRoute.explain(pick,plan,taste).join(' · '),'helper')));
+   const confirmations=DateLayout.block('Before leaving');
    if(pick.venue||pick.place){
     const destination=pick.venue?.address||`${pick.place.lat},${pick.place.lon}`;
-    card.append(node('p',pick.venue?.address||pick.place.address||'Recorded map pin; address unconfirmed'));
-    if(pick.pricing?.sourceUrl)card.append(source(['dinner','treat'].includes(pick.category)?'Official menu & prices':'Official tickets / venue',pick.pricing.sourceUrl));
-    else if(pick.place)card.append(source('Community listing — verify details',pick.place.sourceUrl));
-    card.append(source('Directions',DateDirections.to(destination,{town:plan.mash?.origin||plan.journey?.origin,location:plan.location})));
+    const place=DateLayout.block('Location & links',node('p',pick.venue?.address||pick.place.address||'Recorded map pin; address unconfirmed'));
+    if(pick.pricing?.sourceUrl)place.append(source(['dinner','treat'].includes(pick.category)?'Official menu & prices':'Official tickets / venue',pick.pricing.sourceUrl));
+    else if(pick.place)place.append(source('Community listing — verify details',pick.place.sourceUrl));
+    place.append(source('Directions',DateDirections.to(destination,{town:plan.mash?.origin||plan.journey?.origin,location:plan.location})));card.append(place);
     const note=pick.venue?.hoursNote||'Hours, tickets and reservations are not recorded.';
-    card.append(node('p',note));
     const booking=/reserv|book|appointment|session|ticket/i.test(note)?'Recorded note mentions tickets, sessions or booking. Confirm the requirement directly; nothing is reserved.':'Reservation requirement is unconfirmed. Check the official venue before leaving.';
-    card.append(node('p',booking,'helper'),check('Confirmed hours, booking/tickets and age/guardian rules.',pick.id+':hours'),check('Checked actual price, fees, parking and route.',pick.id+':cost'));
-   }else card.append(check(pick.home?'Checked ingredients, equipment and preparation time.':'Chose the actual location/service and confirmed the price.',pick.id+':supplies'));
+    card.append(DateLayout.block('Hours & booking',node('p',note),node('p',booking,'helper')));confirmations.append(check('Confirmed hours, booking/tickets and age/guardian rules.',pick.id+':hours'),check('Checked actual price, fees, parking and route.',pick.id+':cost'));
+   }else confirmations.append(check(pick.home?'Checked ingredients, equipment and preparation time.':'Chose the actual location/service and confirmed the price.',pick.id+':supplies'));
+   card.append(confirmations);
    if(pick.settings.includes('outdoor')&&!pick.home){const b=button('Find an indoor backup',()=>backup(pick.category));b.dataset.backup=pick.category;b.disabled=busy;card.append(b);}
+   if(plan.fit?.accessChecklist)confirmations.append(check('Confirm step-free entry, accessible seating/toilets and any assistance needed. Access is unverified.',pick.id+':access'));
    stops.append(card);
   }
   $('#compare-dates').disabled=busy||pollBusy;

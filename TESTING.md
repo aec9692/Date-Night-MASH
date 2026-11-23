@@ -1,5 +1,17 @@
 # Verification record
 
+## Full-content detail blocks — November 23, 2026
+
+Extended local DOM/API checks passed after grouping text into labeled blocks. Verified every selected venue retains its complete order/admission basis, tax note, tip note, exclusions, opening note and official source link; displayed subtotal facts match canonical cents. Every selected home guide retains its full instruction steps. All original input identifiers, native invalid-field reveal, reserve recovery, disclosure/checklist state, favorites, exports, sharing, voting and indoor backup flows remain covered by the layout and ready-night helpers. No server, selection, catalog or price changes were made for grouping. The first full runtime run passed 151 of 153 tests; the two failures were ECONNRESET in the local HTTP fixture. Both passed a targeted rerun after adding Connection: close to that test helper, avoiding expired-socket reuse during CPU-heavy expected-count calculations without changing any assertions or production HTTP behavior. Final full rerun: **153 passed, zero failed** (182 seconds).
+
+The local preview health endpoint returns Date Night MASH and serves the new block CSS. Visual browser access still fails with the missing @oai/cua/tinyskyAlt module; no desktop/phone rendering or deployed pass is inferred from DOM checks. PHONE_QA.md P33 remains pending.
+
+## Simpler first-plan interaction — November 20, 2026
+
+All 153 existing automated tests passed. Local DOM/API checks passed for planning/reserves/favorites/sharing/calendar/rating flows. New layout-focused simulation verified all 77 static controls remain with their original identifiers, budget/town/date/Play are outside closed disclosures, optional controls start collapsed, the total and four picks precede route details, exact canonical point prices and official sources remain, and same-pick disclosures/checklist state survive rerender. Home/food/reserve preferences and exports were exercised. Hidden invalid fields and server-rejected reserve sums reveal their controls; native invalid capture is checked separately from direct validation.
+
+The ready-night regression helper initially expected duplicate reserve text in the route introduction. That text now lives in the budget breakdown; moved the assertion to the ledger and retained all vote/backup/storage checks. Browser preview failed with Module not found: @oai/cua/tinyskyAlt; native fallback reported an unavailable Computer Use pipe. A layout harness run also hit ECONNRESET after canceled lookup fixtures reused local Node HTTP connections; fresh connections in that harness resolved it, and the full layout flow passed including native invalid capture. No production retry or price/selection change was made. No real browser screenshot, responsive measurement, physical-phone or deployed pass is claimed. P29–P32 remain pending.
+
 Deployed URL: pending. No deployed-site tests have been executed yet.
 
 ## Current submission acceptance plan
